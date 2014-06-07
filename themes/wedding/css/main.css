@@ -1,15 +1,23 @@
 /* Remove this when pasting into your Stylesheet! */
 
 html, body { border: 0; margin: 0; padding: 0; }
-body { font: 0.875em Tahoma,Geneva,Helvetica,Arial,Verdana,"Bitstream Vera Sans",sans-serif,宋体,SimSun; min-width: 100%; min-height: 101%; color: #333; background-image: url('/themes/wedding/images/bg7.jpg');background-size: 100% auto;}
+body { 
+   font: 0.875em Tahoma,Geneva,Helvetica,Arial,Verdana,"Bitstream Vera Sans",sans-serif,宋体,SimSun; 
+   min-width: 100%; 
+   min-height: 101%; 
+   color: #333; 
+   background-image: url('/themes/wedding/images/bg.jpg');
+   background-color: #FFE4E1;
+   background-size: cover;
+   background-repeat: no-repeat;
+}
 
 div#wrapper{
    margin: auto;
    padding: 0;
-   width: 1123px;
+   width: 1122px;
    height: 748px;
    background-image: url('/themes/wedding/images/bg0.jpg');
-   background-size: 100% 100%;
    position: relative;
 }
 
@@ -21,14 +29,18 @@ div#wrapper{
 
 #content {
    display: block;
-   width: 450px;
+   width: 300px;
    margin: auto;
-   padding: 35px;
+   padding: 10px;
    position: relative;
-   top: 350px;
+   top: 310px;
    border: 1px solid #cbcbcb;
-   background-color: #FFF;
-   opacity: 0.6;
+   background-color: #FFE4E1;
+   color: #000;
+
+   opacity: 0.8;
+   filter:Alpha(opacity=80);
+
    -webkit-border-radius:5px;
    -moz-border-radius:5px;
    border-radius:5px;
@@ -56,20 +68,15 @@ mark.error {
 
 #content label {
    display: inline-block;
-   float: left;
    height: 1em;
    line-height: 1em;
    text-align: right;
    padding: 6px 10px 0;
-   width: 155px;
+   width: 30px;
    margin: 5px 0;
-   clear: both;
 }
 
-#content label small {
-   font-size: 0.75em;
-   color: #ccc;
-}
+
 
 #content label.verify {
    padding: 0;
@@ -112,9 +119,7 @@ mark.error {
 #content input#verify {
    width: 55px;
 }
-#content textarea {
-   width: 414px;
-}
+
 #content input:focus, #content textarea:focus, #content select:focus {
    border: 1px solid #ddd;
    background-color: #fff;
@@ -150,7 +155,7 @@ mark.error {
    margin: 5px 175px;
    padding: 6px 16px;
    text-decoration: none;
-   font-size: 1.2em;
+   font-size: 1.1em;
 
    background:#555;
 
@@ -207,9 +212,9 @@ acronym { border-bottom:1px dotted #ccc; }
 #content table th {background-color: #A7C942; color: #FFF; font-size: 1.2em;}
 
 ul.nav {
-   float: left;
-   margin: 0;
-   padding: 80px 0;
+   margin: auto;
+   padding: 0;
+   width: 860px;
    list-style: none;
 }
 
@@ -217,9 +222,21 @@ ul.nav li {
    margin: 0;
    padding: 0;
    cursor: pointer;
+   display: inline
 }
 
 ul.nav li img {
    margin: 0;
    padding: 0;
+   display: inline;
 }
+
+div.center, div.down
+{
+   text-align: center;
+   font-size: 1em;
+   font-weight: bold;
+   color: #1E90FF	;
+
+}
+
