@@ -1,40 +1,70 @@
 $(document).ready(function() {
-   var images = $('ul.nav li img').get();
+   var images = new Array();
    var current = 0;
-   var bgswitch = null;
+   var bgSlider = null;
+   var canvas = $("#bg");
+   var bgStopped = false;
+   var fadeTime = 1000;
+   var switchTime = 5000;
 
-   for (i = 0; i < images.length; i++) {
-      images[i].onclick = function() {
-         document.getElementById("wrapper").style.backgroundImage = "url('" + this.src + "')";
-         current = i;
-      };
-   }
-   ;
+   var switchImage = function(id) {
+      canvas.fadeOut(fadeTime, function() {
+         canvas.css('background-image', "url('" + images[id] + "')");
+         canvas.fadeIn(fadeTime);
+      });
+   };
 
-   var bgon = function() {
+   var bgSwitch = function() {
       current++;
       if (current >= images.length)
       {
          current = 0;
       }
-
-      document.getElementById("wrapper").style.backgroundImage = "url('" + images[current].src + "')";
+      switchImage(current);
    };
 
-   bgswitch = setInterval(bgon, 3000);
+   $('ul.nav li img').each(function(id) {
+      images.push(this.src);
+      this.onclick = function() {
+         switchImage(id);
+         current = id;
+         if (!bgStopped && bgSlider !== null)
+         {
+            clearInterval(bgSlider);
+            bgSlider = setInterval(bgSwitch, switchTime);
+         }
+      };
+   });
+
+   bgSlider = setInterval(bgSwitch, switchTime);
 
    $('button#bgswitch').click(function() {
-      if (bgswitch === null)
+      if (bgSlider === null)
       {
-         bgswitch = setInterval(bgon, 3000);
+         bgSlider = setInterval(bgSwitch, switchTime);
          $(this).text("停止图片轮播");
+         bgStopped = false;
       }
       else
       {
-         clearInterval(bgswitch);
-         bgswitch = null;
+         clearInterval(bgSlider);
+         bgSlider = null;
          $(this).text("开始图片轮播");
+         bgStopped = true;
       }
    });
+
+   $('div#content').hover(function() {
+      if (!bgStopped)
+      {
+         clearInterval(bgSlider);
+         bgSlider = null;
+      }
+   }, function() {
+      if (!bgStopped)
+      {
+         bgSlider = setInterval(bgSwitch, switchTime);
+      }
+   })
 });
 
