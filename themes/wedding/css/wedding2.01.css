@@ -1,0 +1,149 @@
+/* Remove this when pasting into your Stylesheet! */
+
+html, body { border: 0; margin: 0; padding: 0; }
+body { 
+   font: 0.875em Tahoma,Geneva,Helvetica,Arial,Verdana,"Bitstream Vera Sans",sans-serif,宋体,SimSun; 
+   width: 100%;
+   height: 101%;
+   color: #000;
+   background-color: #FFF;
+   background-image: url('/themes/wedding/images/bg_checkin.jpg');
+   background-size: cover;
+   background-position: center top;
+   background-repeat: no-repeat;
+}
+
+div.guest, div.confirmed {
+   display: inline-block;
+   width: 21%;
+   font-size: 2em;
+   margin: 5px;
+   padding: 1%;
+   text-align: center;
+   vertical-align: middle;
+
+   border: 1px solid #C8C8A8;
+   color: #000;
+
+   background: -webkit-linear-gradient(#FFFFE0, #FAFAD2); /* For Safari 5.1 to 6.0 */
+   background: -o-linear-gradient(#FFFFE0, #FAFAD2); /* For Opera 11.1 to 12.0 */
+   background: -moz-linear-gradient(#FFFFE0, #FAFAD2); /* For Firefox 3.6 to 15 */
+   background: linear-gradient(#FFFFE0, #FAFAD2); /* Standard syntax */
+
+   opacity: 0.7;
+   filter:Alpha(opacity=70);
+
+   -webkit-border-radius:5px;
+   -moz-border-radius:5px;
+   border-radius:5px;
+
+   box-shadow: 2px 2px 3px #C8C8A8;
+   -webkit-box-shadow: 2px 2px 3px #C8C8A8;
+   -moz-box-shadow: 2px 2px 3px #C8C8A8;
+}
+
+div.guest:hover, div.confirmed
+{
+   background: -webkit-linear-gradient(#F0E68C, #FFFF00); /* For Safari 5.1 to 6.0 */
+   background: -o-linear-gradient(#F0E68C, #FFFF00); /* For Opera 11.1 to 12.0 */
+   background: -moz-linear-gradient(#F0E68C, #FFFF00); /* For Firefox 3.6 to 15 */
+   background: linear-gradient(#F0E68C, #FFFF00); /* Standard syntax */
+
+   box-shadow: 2px 2px 3px #FFD700;
+   -webkit-box-shadow: 2px 2px 3px #FFD700;
+   -moz-box-shadow: 2px 2px 3px #FFD700;
+
+   opacity: 0.8;
+   filter:Alpha(opacity=80);
+}
+
+@media all and (max-width: 960px) and (min-width: 720px) {
+   div.guest, div.confirmed {
+      width: 29%;
+      padding: 1%;
+   }
+}
+
+@media all and (max-width: 720px) and (min-width: 480px) {
+   div.guest, div.confirmed {
+      width: 45%;
+      padding: 1%;
+   }
+}
+
+@media all and (max-width: 480px) {
+   div.guest, div.confirmed {
+      display: block;
+      width: auto;
+      padding: 5px;
+   }
+}
+
+nav {
+   background: -webkit-linear-gradient(#FFFFE0, #FAFAD2); /* For Safari 5.1 to 6.0 */
+   background: -o-linear-gradient(#FFFFE0, #FAFAD2); /* For Opera 11.1 to 12.0 */
+   background: -moz-linear-gradient(#FFFFE0, #FAFAD2); /* For Firefox 3.6 to 15 */
+   background: linear-gradient(#FFFFE0, #FAFAD2); /* Standard syntax */
+
+   opacity: 0.7;
+   filter:Alpha(opacity=70);
+}
+
+nav a {
+   display: inline-block;
+   width: 20%;
+   text-align: center;
+   text-decoration: none;
+}
+
+table 
+{
+   border-collapse: collapse;
+   width: 100%;
+   background-color: #FFE4E1;
+   opacity: 0.8;
+   filter:Alpha(opacity=80);
+}
+table td, table th 
+{
+   border: 1px solid #98BF21;
+   padding: 3px 7px 2px;
+}
+table th 
+{
+   background-color: #A7C942;
+   color: #FFF;
+   font-size: 1.2em;
+}
+
+form {
+   background: -webkit-linear-gradient(#FFFFE0, #FAFAD2); /* For Safari 5.1 to 6.0 */
+   background: -o-linear-gradient(#FFFFE0, #FAFAD2); /* For Opera 11.1 to 12.0 */
+   background: -moz-linear-gradient(#FFFFE0, #FAFAD2); /* For Firefox 3.6 to 15 */
+   background: linear-gradient(#FFFFE0, #FAFAD2); /* Standard syntax */
+
+   opacity: 0.7;
+   filter:Alpha(opacity=70);
+
+   -webkit-border-radius:5px;
+   -moz-border-radius:5px;
+   border-radius:5px;
+
+   box-shadow: 2px 2px 3px #C8C8A8;
+   -webkit-box-shadow: 2px 2px 3px #C8C8A8;
+   -moz-box-shadow: 2px 2px 3px #C8C8A8;
+}
+
+label {
+   display: inline-block;
+   height: 1em;
+   line-height: 1em;
+   text-align: right;
+   padding: 6px 10px 0;
+   width: 30px;
+   margin: 5px 0;
+}
+
+input.submit {
+   margin: 5px 55px;
+}

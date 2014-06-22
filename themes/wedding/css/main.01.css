@@ -231,10 +231,6 @@ button {
 
 acronym { border-bottom:1px dotted #ccc; }
 
-#content table {border-collapse: collapse; width: 100%; background-color: #FFE4E1;}
-#content table td, #content table th {border: 1px solid #98BF21; padding: 3px 7px 2px;}
-#content table th {background-color: #A7C942; color: #FFF; font-size: 1.2em;}
-
 ul.nav {
    margin: auto;
    padding: 0;
