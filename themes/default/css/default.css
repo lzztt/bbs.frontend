@@ -116,20 +116,30 @@ ul.pager li.pageActive a {
 div.form_element
 {
    clear: both;
-   position: relative;
    padding: 5px 0;
 }
 
-div.element_label
+form section:nth-child(odd)
 {
-   float: left;
+   background-color: #00FF00;
+}
+
+form section:nth-child(even)
+{
+   background-color: #0000FF;
+}
+
+div.form_element label
+{
+   display: inline-block;
+   margin: 0 10px;
    width: 150px;
    text-align: right;
 }
 
-div.element_input
+div.form_element div.error, div.form_element, button
 {
-   margin-left: 160px;
+   margin-left: 170px;
 }
 
 input,
@@ -137,7 +147,7 @@ textarea
 {
    border: 1px solid #006;
    background: #ffc;
-   margin: 0 7px 0 2px;
+   margin: 0;
    padding: 1px;
 }
 input:hover,
