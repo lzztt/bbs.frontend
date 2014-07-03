@@ -137,7 +137,7 @@ div.form_element label
    text-align: right;
 }
 
-div.form_element div.error, div.form_element, button
+div.form_element div.error, div.form_element button
 {
    margin-left: 170px;
 }
