@@ -137,6 +137,15 @@ div.form_element label
    text-align: right;
 }
 
+div.form_element .inline
+{
+   margin: auto;
+   padding: auto;
+   width: auto;
+   height: auto;
+   display: inline;
+}
+
 div.form_element div.error, div.form_element button
 {
    margin-left: 170px;
@@ -328,19 +337,11 @@ dd
 }
 
 /*user*/
-div.avatar_div
-{
-   float:left;
-   text-align: center;
-}
 dl
 {
-   float:left;
+   overflow: hidden;
 }
-div.user_recent_topics
-{
-   clear: both;
-}
+
 
 div.user_recent_topics table
 {
@@ -348,14 +349,6 @@ div.user_recent_topics table
    margin: 10px;
    float: left;
 }
-
-
-
-
-
-
-
-
 
 .block ul, /* Drupal overrides */
 .item-list ul
