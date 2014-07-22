@@ -1,0 +1,310 @@
+html, body { border: 0; margin: 0; padding: 0; }
+body
+{
+   /* Use a 14px base font size with a 18px line height */
+   font-size: 0.875em; /* 16px x .875 = 14px */
+   line-height: 1.286em; /* 14px x 1.286 = 18px */
+   font-family: Tahoma, Geneva, Helvetica, Arial, Verdana, "Bitstream Vera Sans", sans-serif, 宋体, SimSun;
+   /* font: 0.875em Tahoma,Geneva,Helvetica,Arial,Verdana,"Bitstream Vera Sans",sans-serif,宋体,SimSun; */
+}
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default */
+div#page
+{
+}
+
+div#logo
+{
+   display: inline-block;
+   height: 30px;
+   width: 30px;
+   overflow: hidden;
+   vertical-align: baseline;
+}
+
+div#logo img
+{
+   margin: 0;
+   padding: 0;
+   height: 30px;
+   width: 30px;
+}
+
+div#slogan
+{
+   display: inline-block;
+   height: 30px;
+   overflow: hidden;
+   vertical-align: baseline;
+
+   color: hotpink; 
+   font-family: 'Waiting for the Sunrise';
+   font-size: 24px;
+   line-height: 30px;
+   font-weight: bolder;
+}
+
+div#navbar
+{
+   float: right;
+   padding: 2px;
+}
+
+div#navbar a
+{
+   color: #CC5490;
+   text-decoration: none;
+}
+
+div#content
+{
+   background-color: #7164f0;
+   background-image: url('/themes/single/images/qixi_768.jpg');
+   background-repeat: no-repeat;
+   background-position: center top;
+}
+
+div#activities
+{
+   background-color: #7164f0;
+}
+
+div#activities h3
+{
+   margin: 0;
+   padding: 10px;
+   color: #FFF;
+}
+
+div#activities a
+{
+   color: gold;
+   text-decoration: none;
+}
+
+div#activities div.charts div
+{
+   display: inline-block;
+}
+
+div#activity
+{
+   padding: 10px;
+   color: #FFF;
+}
+
+div#activity a
+{
+   color: gold;
+   text-decoration: none;
+}
+
+div#activity input, div#activity textarea
+{
+   color: #000;
+}
+
+div#statistics
+{
+   color: #FFF;
+}
+
+div#comments
+{
+   background: #F1EDBB;
+   padding: 5px 0;
+}
+
+div#comments h3
+{
+   margin: 3px;
+}
+
+div.comment
+{
+   padding: 5px 10px;
+}
+
+div.comment-author
+{
+   color: blue;
+}
+
+div.comment-author div.time
+{
+   color: #454545;
+}
+
+div.comment:nth-child(even)
+{
+   background-color: #FFC3E1;
+}
+
+div.comment:nth-child(odd)
+{
+   background-color: #F1EDBB;
+}
+
+form button {
+   -moz-box-shadow:inset 0px 1px 0px 0px #e184f3;
+   -webkit-box-shadow:inset 0px 1px 0px 0px #e184f3;
+   box-shadow:inset 0px 1px 0px 0px #e184f3;
+   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #c123de), color-stop(1, #a20dbd) );
+   background:-moz-linear-gradient( center top, #c123de 5%, #a20dbd 100% );
+   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c123de', endColorstr='#a20dbd');
+   background-color:#c123de;
+   -webkit-border-top-left-radius:5px;
+   -moz-border-radius-topleft:5px;
+   border-top-left-radius:5px;
+   -webkit-border-top-right-radius:5px;
+   -moz-border-radius-topright:5px;
+   border-top-right-radius:5px;
+   -webkit-border-bottom-right-radius:5px;
+   -moz-border-radius-bottomright:5px;
+   border-bottom-right-radius:5px;
+   -webkit-border-bottom-left-radius:5px;
+   -moz-border-radius-bottomleft:5px;
+   border-bottom-left-radius:5px;
+   text-indent:0px;
+   border:1px solid #a511c0;
+   display:inline-block;
+   color:#ffffff;
+   /*font-family:Arial;*/
+   font-size:14px;
+   font-weight:normal;
+   font-style:normal;
+   height:24px;
+   line-height:20px;
+   width:66px;
+   text-decoration:none;
+   text-align:center;
+}
+form button:hover {
+   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #a20dbd), color-stop(1, #c123de) );
+   background:-moz-linear-gradient( center top, #a20dbd 5%, #c123de 100% );
+   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#a20dbd', endColorstr='#c123de');
+   background-color:#a20dbd;
+}form button:active {
+   position:relative;
+   top:1px;
+}
+
+/* Small devices (tablets, 768px) and up */
+@media (min-width: 768px)
+{
+   div#logo
+   {
+      height: 60px;
+      width: 60px;
+   }
+
+   div#logo img
+   {
+      height: 60px;
+      width: 60px;
+   }
+
+   div#slogan
+   {
+      height: 60px;
+      font-size: 48px;
+      line-height: 60px;
+      text-indent: 36px;
+      word-spacing: 36px; 
+   }
+
+   /* center backgroud image */
+   div#content
+   {
+      background-image: url('/themes/single/images/qixi_992.jpg');
+      background-position: -158px 0px;
+   }
+
+   div#activity
+   {
+      width: 360px;
+      width: -webkit-calc(100% - 430px);
+      width: -moz-calc(100% - 430px);
+      width: calc(100% - 430px);
+   }
+
+   div#activity, div#statistics
+   {
+      display: inline-block;
+      vertical-align: top;
+   }
+
+   form div.form-row
+   {
+      padding: 5px 0;
+   }
+
+   form label, form div.input
+   {
+      display: inline-block;
+      vertical-align: top;
+   }
+
+   form label
+   {
+      width: 100px;
+      text-align: right;
+   }
+
+   form textarea
+   {
+      width: 240px;
+   }
+
+   div.comment-author div.time
+   {
+      display: inline-block;
+   }
+
+   div.comment-author div.time:before
+   {
+      content: '\00a0@';
+   }
+}
+
+/* Medium devices (desktops, 992px) and up) */
+@media (min-width: 992px)
+{
+   div#page
+   {
+      width: 992px;
+      margin: auto;
+   }
+
+   /* center backgroud image */
+   div#content
+   {
+      background-position: -84px 0px;
+   }
+
+   div#activity
+   {
+      width: 560px;
+   }
+}
+
+/* Large devices (large desktops, 1200px) and up) */
+@media (min-width: 1200px)
+{
+   div#page {
+      width: 1200px;
+      margin: auto;
+   }
+
+   /* center backgroud image */
+   div#content
+   {
+      background-position: 0px 0px;
+   }
+
+   div#activity
+   {
+      width: 770px;
+   }
+}
