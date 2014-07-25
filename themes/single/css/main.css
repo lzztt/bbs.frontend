@@ -190,6 +190,57 @@ form button:hover {
    top:1px;
 }
 
+div.attendee span
+{
+   display: block;
+   float: left;
+   color: blue;
+}
+
+div.attendee {
+   display: block;
+   font-size: 1.2em;
+   line-height: 1.5em;
+   margin: 5px;
+   padding: 1%;
+   text-align: center;
+   vertical-align: middle;
+
+   border: 1px solid #C8C8A8;
+   color: #000;
+
+   background: -webkit-linear-gradient(#FFFFE0, #FAFAD2); /* For Safari 5.1 to 6.0 */
+   background: -o-linear-gradient(#FFFFE0, #FAFAD2); /* For Opera 11.1 to 12.0 */
+   background: -moz-linear-gradient(#FFFFE0, #FAFAD2); /* For Firefox 3.6 to 15 */
+   background: linear-gradient(#FFFFE0, #FAFAD2); /* Standard syntax */
+
+   opacity: 0.7;
+   filter:Alpha(opacity=70);
+
+   -webkit-border-radius:5px;
+   -moz-border-radius:5px;
+   border-radius:5px;
+
+   box-shadow: 2px 2px 3px #C8C8A8;
+   -webkit-box-shadow: 2px 2px 3px #C8C8A8;
+   -moz-box-shadow: 2px 2px 3px #C8C8A8;
+}
+
+div.attendee:hover, div.confirmed
+{
+   background: -webkit-linear-gradient(#F0E68C, #FFFF00); /* For Safari 5.1 to 6.0 */
+   background: -o-linear-gradient(#F0E68C, #FFFF00); /* For Opera 11.1 to 12.0 */
+   background: -moz-linear-gradient(#F0E68C, #FFFF00); /* For Firefox 3.6 to 15 */
+   background: linear-gradient(#F0E68C, #FFFF00); /* Standard syntax */
+
+   box-shadow: 2px 2px 3px #FFD700;
+   -webkit-box-shadow: 2px 2px 3px #FFD700;
+   -moz-box-shadow: 2px 2px 3px #FFD700;
+
+   opacity: 0.8;
+   filter:Alpha(opacity=80);
+}
+
 /* Small devices (tablets, 768px) and up */
 @media (min-width: 768px)
 {
@@ -266,6 +317,11 @@ form button:hover {
    {
       content: '\00a0@';
    }
+
+   div.attendee {
+      display: inline-block;
+      width: 29%;
+   }
 }
 
 /* Medium devices (desktops, 992px) and up) */
@@ -306,5 +362,10 @@ form button:hover {
    div#activity
    {
       width: 770px;
+   }
+
+   div.attendee {
+      display: inline-block;
+      width: 21%;
    }
 }
