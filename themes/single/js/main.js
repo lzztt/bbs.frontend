@@ -44,12 +44,12 @@ $(document).ready(function() {
 
    $('div.unconfirmed').click(function() {
       var el = $(this);
-      $.get('/single/ajax/checkin?id=' + this.id.split('_').pop());
-      var parent_id = el.parent().attr('id').replace('unconfirmed', 'confirmed');
-      var parent = $('#' + parent_id);
-      el.detach().appendTo(parent);
-      el.removeAttr('id').removeClass('unconfirmed').addClass('confirmed').off('click').prepend('<span>' + (parent.children().length - 1) + '</span>');
-      
+      $.get('/single/ajax/checkin?id=' + this.id.split('_').pop(), function(data) {
+         var parent_id = el.parent().attr('id').replace('unconfirmed', 'confirmed');
+         var parent = $('#' + parent_id);
+         el.detach().appendTo(parent);
+         el.removeAttr('id').removeClass('unconfirmed').addClass('confirmed').off('click').prepend('<span>' + (parent.children().length - 1) + '</span>');
+      });
    });
 });
 
