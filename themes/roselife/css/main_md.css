@@ -1,0 +1,10 @@
+/* Medium devices (desktops, 992px) and up) */
+@media (min-width: 992px)
+{
+   div#page
+   {
+      width: 992px;
+      margin: auto;
+   }
+
+}
