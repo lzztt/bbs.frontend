@@ -1,0 +1,25 @@
+/* Small devices (tablets, 768px) and up */
+@media (min-width: 768px)
+{
+   div#logo
+   {
+      height: 60px;
+      width: 60px;
+   }
+
+   div#logo img
+   {
+      height: 60px;
+      width: 60px;
+   }
+
+   div#slogan
+   {
+      height: 60px;
+      font-size: 48px;
+      line-height: 60px;
+      text-indent: 36px;
+      word-spacing: 36px; 
+   }
+
+}
