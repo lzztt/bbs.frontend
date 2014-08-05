@@ -8,10 +8,69 @@ body
    /* font: 0.875em Tahoma,Geneva,Helvetica,Arial,Verdana,"Bitstream Vera Sans",sans-serif,宋体,SimSun; */
 }
 
+header, nav, section, article, aside, footer 
+{
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   box-sizing: border-box;
+}
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default */
 div#page
 {
+}
+
+nav#page_navbar
+{
+   display: none;
+}
+
+a#logo
+{
+   display: inline-block;
+}
+
+a#logo img
+{
+   width: 30px;
+   height: 30px;
+}
+
+header#page_header span#messagebox 
+{
+   display: inline-block;
+   padding: 0.5em 1em;
+}
+
+header#page_header ul
+{
+   list-style: none;
+   display: inline-block;
+   margin: 0;
+   padding: 0;
+   float: right;
+}
+
+header#page_header ul li
+{
+   display: inline-block;
+   padding: 0.5em 1em;
+}
+
+div#image_slider
+{
+   background-size: cover;
+   background-position-y: center;
+}
+
+div#image_slider a#image
+{
+   display: block;
+   width: 100%;
+   height: 0;
+   padding-bottom: 30%;
+   background-size: cover;
+   background-position-y: center;
 }
 
 div#ad
