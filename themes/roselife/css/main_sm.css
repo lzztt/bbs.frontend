@@ -13,13 +13,10 @@
       width: 60px;
    }
 
-   div#slogan
+   section.items
    {
-      height: 60px;
-      font-size: 48px;
-      line-height: 60px;
-      text-indent: 36px;
-      word-spacing: 36px; 
+      vertical-align: top;
+      display: inline-block;
+      width: 50%;
    }
-
 }

@@ -7,4 +7,21 @@
       margin: auto;
    }
 
+   div.image_slider
+   {
+      vertical-align: top;
+      display: inline-block;
+      width: 66.66%;
+   }
+   div.image_slider a
+   {
+      padding-bottom: 300px;
+   }
+   section.items
+   {
+      vertical-align: top;
+      display: inline-block;
+      width: 33.33%;
+   }
+
 }
