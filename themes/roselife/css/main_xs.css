@@ -106,7 +106,7 @@ section.items ul li
    border-bottom: 1px dashed #CCC;
 }
 
-section.items ul li:nth-child(even)
+.even_odd_parent > *:nth-child(even)
 {
    background-color: #eee;
 }
@@ -152,4 +152,52 @@ div#slogan
    font-size: 24px;
    line-height: 30px;
    font-weight: bolder;
+}
+
+
+@media (max-width: 767px) {
+
+   /* Force table to not be like tables anymore */
+   table, thead, tbody, th, td, tr { 
+      display: block;
+      box-sizing: border-box;
+   }
+
+   thead, thead tr, th {
+      display: none;
+   }
+   
+   tr {
+      border-top: 1px solid #ccc;
+   }
+   
+   td { 
+      /* Behave  like a "row" */
+      border: none;
+      border-bottom: 1px dashed #ccc;
+      position: relative;
+      padding: 0.3em;
+      padding-left: 25%; 
+   }
+   
+   td:last-child {
+      border-bottom: 0;
+   }
+   
+   td:before { 
+      /* Now like a table header */
+      position: absolute;
+      /* Top/left values mimic padding */
+      top: 0;
+      left: 0;
+      width: 25%; 
+      padding: 0.3em;
+      white-space: nowrap;
+      color:#AE841A;
+   }
+   
+   /*
+   Label the data
+   */
+   td:before { content: attr(data-header); }
 }
