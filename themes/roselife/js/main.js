@@ -80,10 +80,33 @@ $(document).ready(function() {
          {
             logo.off('click');
             hasToggler = false;
+
+         }
+         if (!navbar.hasClass('hidden'))
+         {
+            navbar.addClass('hidden');
          }
       }
    }
 
    navbarToggler();
    $(window).resize(navbarToggler);
+
+
+   // responsive table header
+   $('table').each(function() {
+      var headers = new Array();
+      $('th', this).each(function() {
+         headers.push(this.innerHTML);
+      });
+      $('td:empty', this).html("&nbsp;");
+      if (headers.length > 0) {
+         $('tbody tr', this).each(function() {
+            var tds = $('td', this);
+            for (i = 0; i < tds.length; i++) {
+               $(tds.get(i)).attr('data-header', headers[i]);
+            }
+         });
+      }
+   });
 });
