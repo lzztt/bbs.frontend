@@ -1,9 +1,12 @@
-/* Medium devices (desktops, 992px) and up) */
-@media (min-width: 992px)
+/* 
+ * Medium devices (desktops, 1024px) and up
+ * width: (1024 - 28) px scrollbar, 3-column layout
+ */
+@media (min-width: 996px)
 {
    div#page
    {
-      width: 992px;
+      width: 996px;
       margin: auto;
    }
 
@@ -11,7 +14,8 @@
    {
       vertical-align: top;
       display: inline-block;
-      width: 66.66%;
+      width: 66.67%;
+      width: calc(200%/3);
    }
    div.image_slider a
    {
@@ -22,6 +26,7 @@
       vertical-align: top;
       display: inline-block;
       width: 33.33%;
+      width: calc(100%/3);
    }
 
 }

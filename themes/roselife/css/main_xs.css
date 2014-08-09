@@ -1,8 +1,9 @@
+/* BEGIN ALL PAGES */
 html, body { border: 0; margin: 0; padding: 0; }
 body
 {
-   /* Use a 14px base font size with a 18px line height */
-   font-size: 0.875em; /* 16px x .875 = 14px */
+   /* Use a 16px base font size with a 18px line height */
+   font-size: 1em; /* 16px x .875 = 14px */
    line-height: 1.286em; /* 14px x 1.286 = 18px */
    font-family: Tahoma, Geneva, Helvetica, Arial, Verdana, "Bitstream Vera Sans", sans-serif, 宋体, SimSun;
    /* font: 0.875em Tahoma,Geneva,Helvetica,Arial,Verdana,"Bitstream Vera Sans",sans-serif,宋体,SimSun; */
@@ -68,54 +69,11 @@ section#page_body
    clear: both;
 }
 
-div.image_slider
-{
-   background-size: cover;
-   background-position-y: center;
-}
-
-div.image_slider a
-{
-   display: block;
-   width: 100%;
-   height: 0;
-   padding-bottom: 30%;
-   background-size: cover;
-   background-position-y: center;
-}
-section.items header
-{
-   margin: 0;
-   padding: 2px 4px;
-   background-color: #7fbdef;
-   font-weight: normal;
-}
-
-section.items ul
-{
-   list-style: none;
-   margin: 0;
-   padding: 0;
-}
-
-section.items ul li
-{
-   overflow: hidden;
-   white-space: nowrap;
-   padding: 2px 8px;
-   border-bottom: 1px dashed #CCC;
-}
-
 .even_odd_parent > *:nth-child(even)
 {
    background-color: #eee;
 }
 
-section.items ul li span.li_right
-{
-   display: inline-block;
-   float: right;
-}
 
 
 div#ad
@@ -154,7 +112,16 @@ div#slogan
    font-weight: bolder;
 }
 
+tr
+{
+   border-top: 1px solid #ccc;
+}
+th, td
+{
+   padding: 0.3em;
+}
 
+/* BEGIN RESPONSIVE TABLE */
 @media (max-width: 767px) {
 
    /* Force table to not be like tables anymore */
@@ -166,25 +133,26 @@ div#slogan
    thead, thead tr, th {
       display: none;
    }
-   
-   tr {
-      border-top: 1px solid #ccc;
-   }
-   
+
    td { 
       /* Behave  like a "row" */
       border: none;
       border-bottom: 1px dashed #ccc;
       position: relative;
-      padding: 0.3em;
       padding-left: 25%; 
    }
-   
+
+   td:first-child
+   {
+      background: #F0E68C;
+   }
+
    td:last-child {
       border-bottom: 0;
    }
-   
+
    td:before { 
+      content: attr(data-header);
       /* Now like a table header */
       position: absolute;
       /* Top/left values mimic padding */
@@ -193,11 +161,99 @@ div#slogan
       width: 25%; 
       padding: 0.3em;
       white-space: nowrap;
-      color:#AE841A;
+      color: #006666;
    }
-   
-   /*
-   Label the data
-   */
-   td:before { content: attr(data-header); }
+
+   td:empty {
+      display: none;
+   }
 }
+/* END RESPONSIVE TABLE */
+/* END ALL PAGES */
+
+/* BEGIN HOME PAGE */
+div.image_slider
+{
+   background-size: cover;
+   background-position-y: center;
+}
+
+div.image_slider a
+{
+   display: block;
+   width: 100%;
+   height: 0;
+   padding-bottom: 30%;
+   background-size: cover;
+   background-position-y: center;
+}
+section.items header
+{
+   margin: 0;
+   padding: 3px 4px;
+   background-color: #7fbdef;
+   font-weight: normal;
+}
+
+section.items ul
+{
+   list-style: none;
+   margin: 0;
+   padding: 0;
+}
+
+section.items ul li
+{
+   border-bottom: 1px dashed #CCC;
+   position: relative;
+}
+
+section.items ul li:after
+{
+   content: attr(data-after);
+   display: inline-block;
+   position: absolute;
+   right: 0;
+   padding: 2px 8px;
+   vertical-align: bottom;
+}
+
+section.items ul li a
+{
+   display: inline-block;
+   width: 80%;
+   overflow: hidden;
+   white-space: nowrap;
+   padding: 2px 5px;
+   vertical-align: bottom;
+}
+/* END HOME PAGE */
+
+
+/* BEGIN FORUM TOPIC LIST PAGE */
+/* hide topic view/reply counts */
+table.forum-topics td:not(:first-child) 
+{
+   display: none;
+}
+
+table.forum-topics td:first-child:before 
+{
+   content: '\2665 ';
+   display: inline-block;
+   padding: 0.5em ;
+   color: purple;
+}
+table.forum-topics tr.topic-sticky td:first-child:before
+{
+   color: black;
+}
+
+
+table.forum-topics td
+{
+   border: none;
+   background-color: transparent;
+   padding: 0.5em 1.5em;
+}
+/* END FORUM TOPIC LIST PAGE */

@@ -1,9 +1,29 @@
-/* Large devices (large desktops, 1200px) and up) */
-@media (min-width: 1200px)
+/* 
+ * Large devices (large desktops, 1280px) and up)
+ * width: (1280 - 32) px, count scrollbar, 4-column layout
+ */
+
+@media (min-width: 1248px)
 {
    div#page {
-      width: 1200px;
+      width: 1248px;
       margin: auto;
    }
 
+   div.image_slider
+   {
+      vertical-align: top;
+      display: inline-block;
+      width: 50%;
+   }
+   div.image_slider a
+   {
+      padding-bottom: 300px;
+   }
+   section.items
+   {
+      vertical-align: top;
+      display: inline-block;
+      width: 25%;
+   }
 }
