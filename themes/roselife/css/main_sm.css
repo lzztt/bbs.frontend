@@ -1,6 +1,14 @@
 /* Small devices (tablets, 768px) and up */
 @media (min-width: 768px)
 {
+   /* BEGIN ALL PAGES */
+   body
+   {
+      /* Use a 14px base font size with a 18px line height */
+      font-size: 0.875em; /* 16px x .875 = 14px */
+      line-height: 1.286em; /* 14px x 1.286 = 18px */
+   }
+
    div#logo
    {
       height: 60px;
@@ -19,4 +27,33 @@
       display: inline-block;
       width: 50%;
    }
+
+   table
+   {
+      width: 100%;
+   }
+
+   thead
+   {
+      background: #7fbdef;
+   }
+   /* END ALL PAGES */
+   
+   /* BEGIN FORUM TOPIC LIST PAGE */
+   /* hide topic view/reply counts */
+   table.forum-topics td:not(:first-child) 
+   {
+      display:table-cell;
+   }
+   table.forum-topics td:first-child:before 
+   {
+      display: none;
+   }
+   table.forum-topics tr.topic-sticky td:first-child:before
+   {
+      display: inline-block;
+      content: '置顶';
+      padding-left: 0;
+   }
+   /* END FORUM TOPIC LIST PAGE */
 }

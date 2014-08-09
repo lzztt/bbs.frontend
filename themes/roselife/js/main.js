@@ -42,6 +42,7 @@ $(document).ready(function() {
 
    $('.image_slider').imageSlider();
 
+   // ajax_load container
    $('.ajax_load').each(function() {
       var container = $(this);
       var uri = container.attr('data-ajax');
@@ -99,7 +100,6 @@ $(document).ready(function() {
       $('th', this).each(function() {
          headers.push(this.innerHTML);
       });
-      $('td:empty', this).html("&nbsp;");
       if (headers.length > 0) {
          $('tbody tr', this).each(function() {
             var tds = $('td', this);
