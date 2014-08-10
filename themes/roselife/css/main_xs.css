@@ -28,6 +28,11 @@ div#page
 {
 }
 
+header#page_header, nav#page_navbar, section#page_body, footer#page_footer
+{
+   clear: both;
+}
+
 a#logo
 {
    display: inline-block;
@@ -64,64 +69,43 @@ header#page_header ul li
    vertical-align: bottom;
 }
 
-section#page_body
-{
-   clear: both;
-}
-
 .even_odd_parent > *:nth-child(even)
 {
    background-color: #eee;
 }
-
-
 
 div#ad
 {
    display: none;
 }
 
-div#logo
+/* BEGIN BBCODE EDITOR */
+.bbcode_editor
 {
-   display: inline-block;
-   height: 30px;
-   width: 30px;
-   overflow: hidden;
-   vertical-align: baseline;
+   padding: 0.5em 0;
 }
-
-div#logo img
+.bbcode_editor fieldset
 {
-   margin: 0;
-   padding: 0;
-   height: 30px;
-   width: 30px;
+   margin-bottom: 0.5em;
 }
+/* END BBCODE EDITOR */
 
-div#slogan
-{
-   display: inline-block;
-   height: 30px;
-   overflow: hidden;
-   vertical-align: baseline;
-
-   color: hotpink; 
-   font-family: 'Waiting for the Sunrise';
-   font-size: 24px;
-   line-height: 30px;
-   font-weight: bolder;
-}
-
+/* BEGIN RESPONSIVE TABLE */
 tr
 {
    border-top: 1px solid #ccc;
 }
+
+tr:last-child
+{
+   border-bottom: 1px solid #ccc;
+}
+
 th, td
 {
    padding: 0.3em;
 }
 
-/* BEGIN RESPONSIVE TABLE */
 @media (max-width: 767px) {
 
    /* Force table to not be like tables anymore */
@@ -169,6 +153,77 @@ th, td
    }
 }
 /* END RESPONSIVE TABLE */
+
+/* BEGIN RESPONSIVE FORM */
+textarea, input[type="text"] {
+   width: 100%; 
+   max-width: 250px;
+   box-sizing: border-box; 
+} 
+textarea { 
+   box-sizing: border-box;
+   max-width: 600px;
+   height: 150px;
+}
+/* END RESPONSIVE FORM */
+
+div.breadcrumb a:after
+{
+   content: '\3E';
+   margin: 0 0.3em;
+}
+
+/* BEGIN BUTTON */
+button {
+   background-color:gold;
+   -webkit-border-radius:6px;
+   -moz-border-radius:6px;
+   border-radius:6px;
+   border:1px solid #f2ab1e;
+   display:inline-block;
+   color:#105389;
+   font-weight:normal;
+   font-style:normal;
+   line-height:1.5em;
+   box-sizing: content-box;
+   height:1.5em;
+   text-decoration:none;
+   text-align:center;
+}
+
+button:hover, button:active {
+   background-color: #f2ab1e;
+}
+/* This button was generated using CSSButtonGenerator.com */
+/* END BUTTON */
+
+/* BEGIN PAGER */
+header.content_header
+{
+   overflow: hidden;
+}
+
+ul.pager {
+   float: right;
+   text-align: center;
+   list-style-type: none;
+   margin: 0;
+   padding: 0;
+}
+
+ul.pager li
+{
+   display: inline-block;
+   vertical-align: bottom;
+   padding: 0.2em 0.5em;
+}
+
+ul.pager li.pageActive
+{
+   background-color: gold;
+}
+/* END PAGER */
+
 /* END ALL PAGES */
 
 /* BEGIN HOME PAGE */
@@ -231,29 +286,35 @@ section.items ul li a
 
 
 /* BEGIN FORUM TOPIC LIST PAGE */
-/* hide topic view/reply counts */
-table.forum-topics td:not(:first-child) 
+/* only show first column */
+table.forum-topics td
 {
    display: none;
 }
 
+table.forum-topics td:first-child
+{
+   display: inline-block;
+   width: 100%;
+   overflow: hidden;
+   white-space: nowrap;
+   vertical-align: bottom;
+   padding: 0.3em;
+   background: transparent;
+   border: 0;
+}
+
 table.forum-topics td:first-child:before 
 {
-   content: '\2665 ';
+   content: '\2665';
    display: inline-block;
-   padding: 0.5em ;
+   position: relative;
+   width: auto;
    color: purple;
+   padding: 0 0.3em;
 }
 table.forum-topics tr.topic-sticky td:first-child:before
 {
    color: black;
-}
-
-
-table.forum-topics td
-{
-   border: none;
-   background-color: transparent;
-   padding: 0.5em 1.5em;
 }
 /* END FORUM TOPIC LIST PAGE */

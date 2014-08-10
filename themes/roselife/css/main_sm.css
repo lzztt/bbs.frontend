@@ -21,13 +21,7 @@
       width: 60px;
    }
 
-   section.items
-   {
-      vertical-align: top;
-      display: inline-block;
-      width: 50%;
-   }
-
+   /* BEGIN RESPONSIVE TABLE */
    table
    {
       width: 100%;
@@ -37,23 +31,62 @@
    {
       background: #7fbdef;
    }
-   /* END ALL PAGES */
-   
-   /* BEGIN FORUM TOPIC LIST PAGE */
-   /* hide topic view/reply counts */
-   table.forum-topics td:not(:first-child) 
-   {
-      display:table-cell;
+   /* END RESPONSIVE TABLE */
+
+   /* BEGIN RESPONSIVE FORM */
+   textarea
+   { 
+      box-sizing: border-box;
+      width: 600px;
+      height: 450px;
    }
+   /* END RESPONSIVE FORM */
+
+   /* END ALL PAGES */
+
+   /* BEGIN HOME PAGE */
+   section.items
+   {
+      vertical-align: top;
+      display: inline-block;
+      width: 50%;
+   }
+   /* END HOME PAGE */
+
+   /* BEGIN FORUM TOPIC LIST PAGE */
+   /* only show first 2 columns */
+   table.forum-topics td 
+   {
+      display: table-cell;
+      border: none;
+   }
+
+   table.forum-topics td:first-child
+   {
+      display: table-cell;
+      width: 60%;
+      overflow: hidden;
+   }
+
    table.forum-topics td:first-child:before 
    {
       display: none;
    }
+
    table.forum-topics tr.topic-sticky td:first-child:before
    {
       display: inline-block;
       content: '置顶';
+      padding: 0.3em;
       padding-left: 0;
+   }
+
+   table.forum-topics th:nth-child(3),
+   table.forum-topics td:nth-child(3),
+   table.forum-topics th:last-child,
+   table.forum-topics td:last-child
+   {
+      display: none;
    }
    /* END FORUM TOPIC LIST PAGE */
 }

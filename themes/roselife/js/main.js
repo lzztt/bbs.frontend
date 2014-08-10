@@ -9,8 +9,15 @@ $.cookie.defaults = {
 };
 
 $(document).ready(function() {
+   // get uid and urole
    var urole = $.cookie('urole'),
            uid = $.cookie('uid');
+
+   uid = (!uid) ? 0 : parseInt(uid, 10);
+   if (uid < 0)
+   {
+      uid = 0;
+   }
    if (uid == 0 && urole !== UROLE_GUEST)
    {
       urole = UROLE_GUEST;
@@ -40,6 +47,7 @@ $(document).ready(function() {
       $('.urole_user').remove();
    }
 
+   // image slider
    $('.image_slider').imageSlider();
 
    // ajax_load container
@@ -59,7 +67,7 @@ $(document).ready(function() {
    // menu
    $('nav#page_navbar ul.sf-menu').superfish();
 
-   // navbar
+   // navbar toggler
    var hasToggler = false, logo = $('a#logo'), navbar = $('nav#page_navbar');
 
    navbarToggler = function()
@@ -93,7 +101,6 @@ $(document).ready(function() {
    navbarToggler();
    $(window).resize(navbarToggler);
 
-
    // responsive table header
    $('table').each(function() {
       var headers = new Array();
@@ -109,4 +116,24 @@ $(document).ready(function() {
          });
       }
    });
+
+   // for logged-in user
+   if (urole !== UROLE_GUEST)
+   {
+      var BBEditor = $('div.bbcode_editor textarea');
+      var titleEditor = $('#edit-title');
+      var editorDiv = $('#editor-div');
+      var editorForm = $('#editor-form');
+      var fileTable = $('#ajax-file-list');
+      var fileTableBody = $('tbody', fileTable);
+      var TextEditor = $('#TextEditor');
+
+      var pmCount = $.cookie('pmCount');
+      if (pmCount > 0)
+      {
+         $("a#pm").append('<span style="color:red;"> (' + pmCount + ') <span>');
+      }
+
+      BBEditor.markItUp(myBBCodeSettings);
+   }
 });
