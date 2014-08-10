@@ -5,25 +5,40 @@
 
 @media (min-width: 1248px)
 {
+   /* BEGIN ALL PAGES */
    div#page {
       width: 1248px;
       margin: auto;
    }
+   /* END ALL PAGES */
 
+   /* BEGIN HOME PAGE */
    div.image_slider
    {
       vertical-align: top;
       display: inline-block;
       width: 50%;
    }
+
    div.image_slider a
    {
       padding-bottom: 300px;
    }
+
    section.items
    {
       vertical-align: top;
       display: inline-block;
       width: 25%;
    }
+   /* END HOME PAGE */
+
+   /* BEGIN FORUM TOPIC LIST PAGE */
+   /* show all columns */
+   table.forum-topics th:last-child,
+   table.forum-topics td:last-child
+   {
+      display: table-cell;
+   }
+   /* END FORUM TOPIC LIST PAGE */
 }

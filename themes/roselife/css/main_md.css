@@ -4,12 +4,15 @@
  */
 @media (min-width: 996px)
 {
+   /* BEGIN ALL PAGES */
    div#page
    {
       width: 996px;
       margin: auto;
    }
+   /* END ALL PAGES */
 
+   /* BEGIN HOME PAGE */
    div.image_slider
    {
       vertical-align: top;
@@ -17,10 +20,12 @@
       width: 66.67%;
       width: calc(200%/3);
    }
+
    div.image_slider a
    {
       padding-bottom: 300px;
    }
+
    section.items
    {
       vertical-align: top;
@@ -28,5 +33,20 @@
       width: 33.33%;
       width: calc(100%/3);
    }
+   /* END HOME PAGE */
+
+   /* BEGIN FORUM TOPIC LIST PAGE */
+   /* only show first 3 columns */
+   table.forum-topics td:first-child
+   {
+      width: 40%;
+   }
+
+   table.forum-topics th:nth-child(3),
+   table.forum-topics td:nth-child(3)
+   {
+      display: table-cell;
+   }
+   /* END FORUM TOPIC LIST PAGE */
 
 }
