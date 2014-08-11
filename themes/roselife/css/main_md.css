@@ -21,7 +21,7 @@
       width: calc(200%/3);
    }
 
-   div.image_slider a
+   div.image_slider > a
    {
       padding-bottom: 300px;
    }
@@ -42,10 +42,11 @@
       width: 40%;
    }
 
-   table.forum-topics th:nth-child(3),
-   table.forum-topics td:nth-child(3)
+   table.forum-topics tr > *:nth-child(2),
+   table.forum-topics tr > *:nth-child(3)
    {
       display: table-cell;
+      width: 30%;
    }
    /* END FORUM TOPIC LIST PAGE */
 
