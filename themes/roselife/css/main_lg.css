@@ -20,7 +20,7 @@
       width: 50%;
    }
 
-   div.image_slider a
+   div.image_slider > a
    {
       padding-bottom: 300px;
    }
@@ -35,10 +35,23 @@
 
    /* BEGIN FORUM TOPIC LIST PAGE */
    /* show all columns */
-   table.forum-topics th:last-child,
-   table.forum-topics td:last-child
+   table.forum-topics tr > *:nth-child(2),
+   table.forum-topics tr > *:nth-child(3)
+   {
+      width: 25%;
+   }
+   
+   table.forum-topics tr > *:nth-child(4)
    {
       display: table-cell;
+      width: 10%;
    }
    /* END FORUM TOPIC LIST PAGE */
+
+   /* BEGIN YP BCARD */
+   .bcard
+   {
+      width: 33%;
+   }
+   /* END YP BCARD */
 }
