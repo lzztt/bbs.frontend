@@ -25,6 +25,7 @@
    table
    {
       width: 100%;
+      table-layout: fixed;
    }
 
    thead
@@ -61,32 +62,61 @@
       border: none;
    }
 
-   table.forum-topics td:first-child
+   table.forum-topics tr > *:first-child
    {
       display: table-cell;
       width: 60%;
       overflow: hidden;
    }
 
-   table.forum-topics td:first-child:before 
+   table.forum-topics tr > *:first-child:before 
    {
       display: none;
    }
 
-   table.forum-topics tr.topic-sticky td:first-child:before
+   table.forum-topics tr.topic-sticky > *:first-child:before
    {
       display: inline-block;
       content: '置顶';
       padding: 0.3em;
       padding-left: 0;
    }
-
-   table.forum-topics th:nth-child(3),
-   table.forum-topics td:nth-child(3),
-   table.forum-topics th:last-child,
-   table.forum-topics td:last-child
+   
+   table.forum-topics tr > *:nth-child(2)
    {
-      display: none;
+      display: table-cell;
+      width: 40%;
    }
    /* END FORUM TOPIC LIST PAGE */
+
+   /* BEGIN YP BCARD */
+   .bcard
+   {
+      display: inline-block;
+      width: 49%;
+      vertical-align: top;
+   }
+   /* END YP BCARD */
+
+   /* BEGIN USER INFO */
+   .user_topics
+   {
+      width:49%;
+      float: left;
+      margin-right: 1%;
+   }
+   /* END USER INFO */
+
+   /* BEGIN PM LIST */
+   table.pm_list tr > *:first-child
+   {
+      width: 70%;
+      padding: 0 0.5em;
+   }
+   table.pm_list tr > *:not(:first-child)
+   {
+      width: 15%;
+   }
+   /* END PM LIST */
+
 }
