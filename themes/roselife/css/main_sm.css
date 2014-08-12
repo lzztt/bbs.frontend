@@ -35,6 +35,25 @@
    /* END RESPONSIVE TABLE */
 
    /* BEGIN RESPONSIVE FORM */
+   form fieldset
+   {
+      box-sizing: border-box;
+      padding-left: 20%;
+      position: relative;
+   }
+
+   form fieldset .label
+   {
+      box-sizing: border-box;
+      width: 20%;
+      text-align: right;      
+      padding: 0.2em 0.5em 0.2em 0.2em;
+      position:absolute;
+      left:0;
+      top:0;
+      line-height: 23px;
+   }
+
    textarea
    { 
       box-sizing: border-box;
@@ -81,7 +100,7 @@
       padding: 0.3em;
       padding-left: 0;
    }
-   
+
    table.forum-topics tr > *:nth-child(2)
    {
       display: table-cell;
@@ -99,11 +118,22 @@
    /* END YP BCARD */
 
    /* BEGIN USER INFO */
-   .user_topics
+   table.user_topics
    {
       width:49%;
       float: left;
       margin-right: 1%;
+   }
+   
+   table.user_topics tr > *:nth-child(1)
+   {
+      width: 70%;
+      white-space: nowrap;
+      overflow: hidden;
+   }
+   table.user_topics tr > *:nth-child(2)
+   {
+      width: 30%;
    }
    /* END USER INFO */
 
@@ -118,5 +148,4 @@
       width: 15%;
    }
    /* END PM LIST */
-
 }
