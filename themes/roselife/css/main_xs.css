@@ -162,13 +162,27 @@ th, td
 /* END RESPONSIVE TABLE */
 
 /* BEGIN RESPONSIVE FORM */
-textarea, input[type="text"] {
-   width: 100%; 
-   max-width: 250px;
-   box-sizing: border-box; 
-} 
-textarea { 
+form fieldset
+{
+   display: block;
+   margin: 0;
+   padding: 0.2em;
+   border: 0;
+}
+
+form fieldset .label
+{
+   display: block;
+   color: #006666;
+}
+
+textarea, input[type="text"], input[type='url'], input[type='email'], input[type='password']{
    box-sizing: border-box;
+   width: 100%;
+   max-width: 250px;
+}
+
+textarea {
    max-width: 600px;
    height: 150px;
 }
@@ -572,3 +586,66 @@ table.pm_list tr > *:first-child
    white-space: nowrap;
 }
 /* END PM LIST */
+
+/* BEGIN USER FORMS */
+input.name 
+{
+   width: 30%;
+}
+
+.label.oldpassword
+{
+   color: black;
+}
+/* END USER FORMS */
+
+/* BEGIN FORUM TOPIC NODE */
+.author_panel
+{
+   display: none;
+}
+
+article > *
+{
+   padding: 0.2em 0.4em;
+}
+
+article header
+{
+   background-color: #FFEBCD;
+}
+
+article header .city
+{
+   color: purple;
+}
+
+article header .comment_num
+{
+   display: inline-block;
+   float: right;
+}
+
+article .article_content .attach_images img
+{
+   display: inline-block;
+   width: 100%;
+}
+
+article .article_content .attach_images figcaption
+{
+   display: block;
+   text-align: center;
+   background: gold;
+}
+
+article footer
+{
+   overflow: hidden;
+}
+article footer .actions
+{
+   display: inline-block;
+   float: right;
+}
+/* END FORUM TOPIC NODE */
