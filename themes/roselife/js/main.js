@@ -120,7 +120,7 @@ $(document).ready(function() {
    // for logged-in user
    if (urole !== UROLE_GUEST)
    {
-      var BBEditor = $('div.bbcode_editor textarea');
+      var BBEditor = $('.bbcode_editor textarea');
       var titleEditor = $('#edit-title');
       var editorDiv = $('#editor-div');
       var editorForm = $('#editor-form');
