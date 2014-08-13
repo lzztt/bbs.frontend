@@ -1,7 +1,3 @@
-var UROLE_GUEST = 'guest',
-        UROLE_USER = 'user', // user, user<uid>
-        UROLE_ADM = 'adm'; // adm, adm<aid>
-
 $.cookie.defaults = {
    expires: 365,
    path: '/',
@@ -10,41 +6,32 @@ $.cookie.defaults = {
 
 $(document).ready(function() {
    // get uid and urole
-   var urole = $.cookie('urole'),
-           uid = $.cookie('uid');
+   var uid = $.cookie('uid');
 
    uid = (!uid) ? 0 : parseInt(uid, 10);
    if (uid < 0)
    {
       uid = 0;
    }
-   if (uid == 0 && urole !== UROLE_GUEST)
-   {
-      urole = UROLE_GUEST;
-   }
 
    if (uid > 0) {
-      $('.urole_guest').remove();
-      $('.urole_user').show();
-      $('.urole_user' + uid).show();
+      $('.v_guest').remove();
+      $('.v_user').show();
+      $('.v_user' + uid).show();
 
-      if (urole.substr(0, 3) === UROLE_ADM)
+      var urole = $.cookie('urole');
+      if (urole)
       {
-         if (urole === UROLE_ADM)
+         var role = urole.split('|');
+         for (var i = 0; i < role.length; ++i)
          {
-            // show adm, adm<aid> elements
-            $('[class^=urole_adm]').show();
-         }
-         else
-         {
-            // only show adm<aid> elements
-            $('.urole_' + urole).show();
+            $('.v_user_' + role[i]).show();
          }
       }
    }
    else {
-      $('.urole_guest').show();
-      $('.urole_user').remove();
+      $('.v_guest').show();
+      $('[class*="v_user"]').remove();
    }
 
    // image slider
@@ -118,7 +105,7 @@ $(document).ready(function() {
    });
 
    // for logged-in user
-   if (urole !== UROLE_GUEST)
+   if (uid > 0)
    {
       var BBEditor = $('.bbcode_editor textarea');
       var titleEditor = $('#edit-title');
