@@ -31,6 +31,13 @@ ul.clean
 
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default */
+
+/* hide view controlled elements */
+[class*='v_user']
+{
+   display: none;
+}
+
 div#page
 {
 }
@@ -165,6 +172,7 @@ th, td
 form fieldset
 {
    display: block;
+   clear: both;
    margin: 0;
    padding: 0.2em;
    border: 0;
