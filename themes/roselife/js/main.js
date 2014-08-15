@@ -5,9 +5,8 @@ $.cookie.defaults = {
 };
 
 $(document).ready(function() {
-   // get uid and urole
+// get uid and urole
    var uid = $.cookie('uid');
-
    uid = (!uid) ? 0 : parseInt(uid, 10);
    if (uid < 0)
    {
@@ -76,7 +75,6 @@ $(document).ready(function() {
          {
             logo.off('click');
             hasToggler = false;
-
          }
          if (!navbar.hasClass('hidden'))
          {
@@ -89,19 +87,22 @@ $(document).ready(function() {
    $(window).resize(navbarToggler);
 
    // responsive table header
-   $('table').each(function() {
+   var addTableHeader = function(table) {
       var headers = new Array();
-      $('th', this).each(function() {
+      $('th', table).each(function() {
          headers.push(this.innerHTML);
       });
       if (headers.length > 0) {
-         $('tbody tr', this).each(function() {
-            var tds = $('td', this);
+         $('tbody tr', table).each(function() {
+            var tds = $('td', table);
             for (i = 0; i < tds.length; i++) {
                $(tds.get(i)).attr('data-header', headers[i]);
             }
          });
       }
+   };
+   $('table').each(function() {
+      addTableHeader(this);
    });
 
    // for logged-in user
@@ -113,8 +114,6 @@ $(document).ready(function() {
          $("a#pm").append('<span style="color:red;"> (' + pmCount + ') <span>');
       }
 
-      editorBody.markItUp(myBBCodeSettings);
-
       var editorForm = $('#bbcode_editor');
       if (editorForm.length)
       {
@@ -122,7 +121,7 @@ $(document).ready(function() {
              editorTitle = $('#bbcode_editor .node_title'),
              fileTable = $('#ajax_file_list'),
              fileTableBody = $('tbody', fileTable);
-
+         editorBody.markItUp(myBBCodeSettings);
          // button actions
          $('button.delete').click(function(e) {
             var answer = confirm("此操作不可恢复，您确认要删除该内容吗？");
@@ -149,8 +148,8 @@ $(document).ready(function() {
             fileTable.hide();
             fileTableBody.children().remove();
             var data = $($(this).attr('data-raw'));
-            var author = data.find('pre.username').html();
-            var quoteText = '[quote="' + author + '"]' + data.find('pre.body').html() + '[/quote]\n';
+            var author = data.find('pre.username').html(),
+                quoteText = '[quote="' + author + '"]' + data.find('pre.body').html() + '[/quote]\n';
             editorBody.val('').focus();
             $.markItUp({
                replaceWith: quoteText
@@ -172,7 +171,8 @@ $(document).ready(function() {
             }
 
             fileTableBody.children().remove();
-            var files = $.parseJSON(data.find('span.files').html()); // may return null
+            var data = $($(this).attr('data-raw'));
+            var files = $.parseJSON(data.find('pre.files').html()); // may return null
 
             if (files instanceof Array && files.length > 0)
             {
@@ -192,9 +192,10 @@ $(document).ready(function() {
 
                   var row = '<tr id="editfile-' + fid + '">' +
                       '<td><input type="text" size="30" maxlength="30" name="files[' + fid + '][name]" id="editfile-' + fid + '-name" value="' + files[i].name + '"><input type="text" style="display:none;" name="files[' + fid + '][path]" value="' + path + '"></td>' +
-                      '<td style="padding: 0 10px;">' + bbcode + '</td><td style="text-align: center;"><button class="ajax_file_delete">删除</button></td></tr>';
+                      '<td>' + bbcode + '</td><td><button class="ajax_file_delete">删除</button></td></tr>';
                   fileTableBody.append(row);
                }
+               addTableHeader(fileTable);
                fileTable.show();
             }
             else
