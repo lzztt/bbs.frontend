@@ -148,4 +148,22 @@
       width: 15%;
    }
    /* END PM LIST */
+   
+   /* BEGIN EDITOR FILELIST */
+   #ajax_file_list tr > *:nth-child(1)
+   {
+      width: 25%;
+      padding: 0 0.5em;
+   }
+   #ajax_file_list tr > *:nth-child(2)
+   {
+      width: 65%;
+      padding: 0 0.5em;
+   }
+   #ajax_file_list tr > *:nth-child(3)
+   {
+      width: 10%;
+      padding: 0 0.5em;
+   }
+   /* END EDITOR FILELIST */
 }
