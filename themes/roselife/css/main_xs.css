@@ -223,7 +223,7 @@ nav.navbar a.active
 /* END NAV */
 
 /* BEGIN BUTTON */
-button {
+button, a.button {
    background-color:gold;
    -webkit-border-radius:6px;
    -moz-border-radius:6px;
@@ -236,12 +236,19 @@ button {
    line-height:1.5em;
    box-sizing: content-box;
    height:1.5em;
+   padding: 1px 6px;
    text-decoration:none;
    text-align:center;
 }
 
-button:hover, button:active {
+button:hover, button:active,
+a.button:hover, a.button:active {
    background-color: #f2ab1e;
+}
+
+button:disabled
+{
+   background-color: lightgray;
 }
 /* This button was generated using CSSButtonGenerator.com */
 /* END BUTTON */
@@ -322,6 +329,30 @@ ul.tabs li.active a {
 }
 
 /* END TAB NAVIGATION */
+
+/* BEGIN SPINNER */
+@-moz-keyframes spin { to { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { to { -webkit-transform: rotate(360deg); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.spinner {
+   display: inline-block;
+   vertical-align: middle;
+   margin: 0 0.2em;
+   box-sizing: border-box;
+   width: 1em;
+   height: 1em;
+   border-radius: 50%;
+   border-bottom: 2px solid #a0522d;
+   border-top: 2px solid #b22222;
+   border-left: 2px solid #31cc31;
+   border-right: 2px solid #1e90ff;
+   
+   -moz-animation: spin 1s infinite linear;
+   -webkit-animation: spin 1s infinite linear;
+   animation: spin 1s infinite linear;
+}
+/* END SPINNER */
 
 /* END ALL PAGES */
 
@@ -634,17 +665,24 @@ article header .comment_num
    float: right;
 }
 
-article .article_content .attach_images img
+article .article_content .attach_images figure
+{
+   margin: 0;
+   padding: 0;
+}
+
+article .article_content .attach_images figure img
 {
    display: inline-block;
    width: 100%;
 }
 
-article .article_content .attach_images figcaption
+article .article_content .attach_images figure figcaption
 {
    display: block;
    text-align: center;
    background: gold;
+   padding: 0.2em;
 }
 
 article footer
