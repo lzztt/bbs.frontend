@@ -124,7 +124,7 @@
       float: left;
       margin-right: 1%;
    }
-   
+
    table.user_topics tr > *:nth-child(1)
    {
       width: 70%;
@@ -148,22 +148,41 @@
       width: 15%;
    }
    /* END PM LIST */
-   
+
    /* BEGIN EDITOR FILELIST */
-   #ajax_file_list tr > *:nth-child(1)
+   #file_list tr > *:nth-child(1)
    {
       width: 25%;
       padding: 0 0.5em;
    }
-   #ajax_file_list tr > *:nth-child(2)
+   #file_list tr > *:nth-child(2)
    {
       width: 65%;
       padding: 0 0.5em;
    }
-   #ajax_file_list tr > *:nth-child(3)
+   #file_list tr > *:nth-child(3)
    {
       width: 10%;
       padding: 0 0.5em;
    }
    /* END EDITOR FILELIST */
+
+   /* BEGIN FORUM TOPIC NODE */
+   .author_panel
+   {
+      display: none;
+   }
+
+   article .article_content .attach_images figure
+   {
+      display: inline-block;
+      vertical-align: top;
+   }
+
+   article .article_content .attach_images figure img
+   {
+      display: inline-block;
+      width: auto;
+   }
+   /* END FORUM TOPIC NODE */
 }

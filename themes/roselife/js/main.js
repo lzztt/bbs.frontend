@@ -119,7 +119,7 @@ $(document).ready(function() {
       {
          var editorBody = $('#bbcode_editor textarea'),
              editorTitle = $('#bbcode_editor .node_title'),
-             fileTable = $('#ajax_file_list'),
+             fileTable = $('#file_list'),
              fileTableBody = $('tbody', fileTable);
          editorBody.markItUp(myBBCodeSettings);
          // button actions
@@ -158,6 +158,27 @@ $(document).ready(function() {
             window.scrollTo(0, editorForm.offset().top);
          });
 
+         var updateFileTable = function(files) {
+            for (var i = 0; i < files.length; i++) {
+               var fid = files[i].fid ? files[i].fid : files[i].path,
+                   imageExt = new Array('jpeg', 'gif', 'png'),
+                   fileExt = files[i].path.split('.').pop(),
+                   bbcode;
+
+               if (imageExt.indexOf(fileExt) >= 0) {
+                  bbcode = '[img]' + files[i].path + '[/img]';
+               }
+               else {
+                  bbcode = '[file="' + files[i].path + '"]' + files[i].name + '[/file]';
+               }
+
+               var row = '<tr><td><input type="text" size="30" maxlength="30" name="files[' + fid + '][name]" value="' + files[i].name + '"><input type="hidden" name="files[' + fid + '][path]" value="' + files[i].path + '"></td>' +
+                   '<td>' + bbcode + '</td><td><button class="ajax_file_delete">删除</button></td></tr>';
+               fileTableBody.append(row);
+            }
+            addTableHeader(fileTable);
+         }
+
          $('button.edit').click(function(e) {
             var action = $(this).attr('data-action');
             editorForm.attr('action', action);
@@ -176,26 +197,7 @@ $(document).ready(function() {
 
             if (files instanceof Array && files.length > 0)
             {
-               for (var i = 0; i < files.length; i++) {
-                  var fid = files[i].fid;
-                  var path = files[i].path;
-                  var imageExt = new Array('jpeg', 'gif', 'png');
-                  var fileExt = path.split('.').pop();
-                  var bbcode;
-
-                  if (imageExt.indexOf(fileExt) >= 0) {
-                     bbcode = '[img]' + path + '[/img]';
-                  }
-                  else {
-                     bbcode = '[file="' + path + '"]' + files[i].name + '[/file]';
-                  }
-
-                  var row = '<tr id="editfile-' + fid + '">' +
-                      '<td><input type="text" size="30" maxlength="30" name="files[' + fid + '][name]" id="editfile-' + fid + '-name" value="' + files[i].name + '"><input type="text" style="display:none;" name="files[' + fid + '][path]" value="' + path + '"></td>' +
-                      '<td>' + bbcode + '</td><td><button class="ajax_file_delete">删除</button></td></tr>';
-                  fileTableBody.append(row);
-               }
-               addTableHeader(fileTable);
+               updateFileTable(files);
                fileTable.show();
             }
             else
@@ -206,6 +208,58 @@ $(document).ready(function() {
             editorBody.val($($(this).attr('data-raw')).find('pre.body').html()).focus();
 
             window.scrollTo(0, editorForm.offset().top);
+         });
+
+         $('button.create_node').click(function(e) {
+            editorForm.attr('action', $(this).attr('data-action'));
+            editorTitle.show();
+            fileTable.hide();
+            fileTableBody.children().remove();
+
+            editorBody.val('');
+            $('input', editorTitle).val('').focus();
+
+            window.scrollTo(0, editorForm.offset().top);
+         });
+
+         $('#file_upload').click(function(e) {
+            var file = $('#file_select');
+            if (file.val().length > 0)
+            {
+               var button = $(this);
+               button.prepend('<span class="spinner"></span>');
+               button.prop("disabled", true);
+
+               file.upload('/file/ajax/upload', function(res) {
+                  button.prop("disabled", false);
+                  button.find('span.spinner').remove();
+                  try {
+                     if (res.error && res.error.length > 0) {
+                        var msg = '';
+                        if (Object.prototype.toString.call(res.error) === '[object Array]') {
+                           for (var i = 0; i < res.error.length; i++) {
+                              msg = msg + res.error[i].name + ' : ' + res.error[i].error + "\n";
+                           }
+                        }
+                        else // string
+                        {
+                           msg = res.error;
+                        }
+                        alert(msg);
+                     }
+
+                     if (res.saved && res.saved.length > 0) {
+                        updateFileTable(res.saved);
+                        fileTable.show();
+                     }
+                  }
+                  catch (e)
+                  {
+                     alert('您的浏览器在上传文件过程中遇到错误，请换用其他浏览器上传文件。');
+                     $.post('/bug/ajax-file-upload', 'error=' + e.message + '&res=' + encodeURIComponent(res));
+                  }
+               }, 'json');
+            }
          });
       }
    }
