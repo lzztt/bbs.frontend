@@ -13,19 +13,6 @@
    /* END ALL PAGES */
 
    /* BEGIN HOME PAGE */
-   div.image_slider
-   {
-      vertical-align: top;
-      display: inline-block;
-      width: 66.67%;
-      width: calc(200%/3);
-   }
-
-   div.image_slider > a
-   {
-      padding-bottom: 300px;
-   }
-
    section.items
    {
       vertical-align: top;
