@@ -18,11 +18,20 @@
       vertical-align: top;
       display: inline-block;
       width: 50%;
+      height: 300px;
    }
 
    div.image_slider > a
    {
       padding-bottom: 300px;
+   }
+
+   div.google_ad
+   {
+      box-sizing: border-box;
+      width: 25%;
+      height: 300px;
+      padding: 25px 0 0 6px;
    }
 
    section.items
@@ -40,7 +49,7 @@
    {
       width: 25%;
    }
-   
+
    table.forum-topics tr > *:nth-child(4)
    {
       display: table-cell;
@@ -54,4 +63,23 @@
       width: 33%;
    }
    /* END YP BCARD */
+
+   /* BEGIN PAGE HEADER AD */
+   #page_header_ad span
+   {
+      display: inline-block;
+      vertical-align: bottom;
+      width: 40px;
+      height: 60px;
+      background-image: url('/data/ad/spring_time11.png');
+   }
+   #page_header_ad a
+   {
+      width: 468px;
+   }
+   #page_header_ad a:last-child
+   {
+      width: 272px;
+   }
+   /* END PAGE HEADER AD */
 }

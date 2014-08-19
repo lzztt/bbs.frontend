@@ -65,6 +65,31 @@
    /* END ALL PAGES */
 
    /* BEGIN HOME PAGE */
+   div.image_slider
+   {
+      vertical-align: top;
+      display: inline-block;
+      width: -moz-calc(100% - 300px);
+      width: -webkit-calc(100% - 300px);
+      width: -o-calc(100% - 300px);
+      width: calc(100% - 300px);
+      height: 250px;
+   }
+
+   div.image_slider > a
+   {
+      padding-bottom: 250px;
+   }
+
+   div.google_ad
+   {
+      display: inline-block;
+      width: 300px;
+      height: 250px;
+      overflow: hidden;
+      vertical-align: top;
+   }
+
    section.items
    {
       vertical-align: top;
@@ -185,4 +210,44 @@
       width: auto;
    }
    /* END FORUM TOPIC NODE */
+
+   /* BEGIN PAGE HEADER AD */
+   div#logo_div
+   {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      background: white;
+   }
+
+   #page_header
+   {
+      position: relative;
+      overflow: hidden;
+   }
+
+   #page_header_ad
+   {
+      display: block;
+      width: 100%;
+      white-space: nowrap;
+   }
+   #page_header_ad a
+   {
+      display: inline-block;
+      vertical-align: bottom;
+      width: 38.75%;
+   }
+   #page_header_ad a:last-child
+   {
+      width: 22.5%;
+   }
+   #page_header_ad a img
+   {
+      display: inline-block;
+      vertical-align: bottom;
+      width: 100%;
+   }
+   /* END PAGE HEADER AD */
 }
