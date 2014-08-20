@@ -94,7 +94,7 @@ $(document).ready(function() {
       });
       if (headers.length > 0) {
          $('tbody tr', table).each(function() {
-            var tds = $('td', table);
+            var tds = $('td', this);
             for (i = 0; i < tds.length; i++) {
                $(tds.get(i)).attr('data-header', headers[i]);
             }
@@ -172,8 +172,8 @@ $(document).ready(function() {
                   bbcode = '[file="' + files[i].path + '"]' + files[i].name + '[/file]';
                }
 
-               var row = '<tr><td><input type="text" size="30" maxlength="30" name="files[' + fid + '][name]" value="' + files[i].name + '"><input type="hidden" name="files[' + fid + '][path]" value="' + files[i].path + '"></td>' +
-                   '<td>' + bbcode + '</td><td><button class="ajax_file_delete">删除</button></td></tr>';
+               var row = '<tr><td><input type="text" name="files[' + fid + '][name]" value="' + files[i].name + '"><input type="hidden" name="files[' + fid + '][path]" value="' + files[i].path + '"></td>' +
+                   '<td>' + bbcode + '</td><td><button type="button" class="file_delete">删除</button></td></tr>';
                fileTableBody.append(row);
             }
             addTableHeader(fileTable);
@@ -259,6 +259,18 @@ $(document).ready(function() {
                      $.post('/bug/ajax-file-upload', 'error=' + e.message + '&res=' + encodeURIComponent(res));
                   }
                }, 'json');
+            }
+         });
+
+         fileTable.on("click", ".file_delete", function(e) {
+            //$(".file_delete", fileTable).live("click", function(e) {
+            var row = this.parentNode.parentNode;
+            var table = row.parentNode.parentNode;
+            //alert(row.sectionRowIndex);
+            table.deleteRow(row.rowIndex);
+            if (table.rows.length <= 1)
+            {
+               fileTable.hide();
             }
          });
       }
