@@ -96,6 +96,12 @@
       display: inline-block;
       width: 50%;
    }
+
+   #site_stat section
+   {
+      display: inline-block;
+      width: 50%;
+   }
    /* END HOME PAGE */
 
    /* BEGIN FORUM TOPIC LIST PAGE */
@@ -193,9 +199,41 @@
    /* END EDITOR FILELIST */
 
    /* BEGIN FORUM TOPIC NODE */
-   .author_panel
+   div.forum_post
    {
-      display: none;
+      display: block;
+      padding-left: 140px;
+      position: relative;
+      clear: both;
+      overflow: hidden;
+      border-top: 1px solid #ccc;
+   }
+
+   aside.author_panel
+   {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 140px;
+      height: 250px;
+      padding-top: 0.5em;
+      padding-left: 10px;
+   }
+
+   div.forum_post article
+   {
+      min-height: 250px;
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 2em;
+   }
+   
+   div.forum_post article footer
+   {
+      position: absolute;
+      bottom: 0;
+      right: 0;
    }
 
    article .article_content .attach_images figure
