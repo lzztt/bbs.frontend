@@ -231,6 +231,7 @@ $(document).ready(function() {
                button.prop("disabled", true);
 
                file.upload('/file/ajax/upload', function(res) {
+                  file.val('');
                   button.prop("disabled", false);
                   button.find('span.spinner').remove();
                   try {
@@ -261,6 +262,10 @@ $(document).ready(function() {
                }, 'json');
             }
          });
+         
+         $('#file_clear').click(function(){
+            $('#file_select').val('');
+         });
 
          fileTable.on("click", ".file_delete", function(e) {
             //$(".file_delete", fileTable).live("click", function(e) {
@@ -271,6 +276,14 @@ $(document).ready(function() {
             if (table.rows.length <= 1)
             {
                fileTable.hide();
+            }
+         });
+         
+         $('#bbcode_editor button:submit').click(function(e){
+            if ($('#file_select').val())
+            {
+               alert('请先上传或清空选中的文件');
+               e.preventDefault();
             }
          });
       }

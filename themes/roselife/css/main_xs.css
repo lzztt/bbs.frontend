@@ -7,6 +7,7 @@ body
    line-height: 1.286em; /* 14px x 1.286 = 18px */
    font-family: Tahoma, Geneva, Helvetica, Arial, Verdana, "Bitstream Vera Sans", sans-serif, 宋体, SimSun;
    /* font: 0.875em Tahoma,Geneva,Helvetica,Arial,Verdana,"Bitstream Vera Sans",sans-serif,宋体,SimSun; */
+   background-color: #e1f5a9;
 }
 
 header, nav, section, article, aside, footer, div
@@ -45,6 +46,11 @@ div#page
 header#page_header, nav#page_navbar, section#page_body, footer#page_footer
 {
    clear: both;
+}
+header#page_header, section#page_body
+{
+   overflow: hidden;
+   background-color: white;
 }
 
 a#logo
@@ -354,6 +360,12 @@ ul.tabs li.active a {
 }
 /* END SPINNER */
 
+#copyright
+{
+   text-align: center;
+   padding: 0.5em;
+   font-size: 0.928em;
+}
 /* END ALL PAGES */
 
 /* BEGIN HOME PAGE */
@@ -393,10 +405,10 @@ div.image_slider > a span
    white-space: nowrap;
 }
 
-   div.google_ad
-   {
-      display: none;
-   }
+div.google_ad
+{
+   display: none;
+}
 
 section.items header
 {
@@ -437,6 +449,26 @@ section.items ul li a
    white-space: nowrap;
    padding: 2px 5px;
    vertical-align: bottom;
+}
+
+#site_stat
+{
+   padding: 0.5em 0;
+}
+
+#site_stat > div
+{
+   padding: 0.2em;
+}
+
+#site_stat > div:nth-child(odd)
+{
+   background-color: #eeeeee;
+}
+
+#site_stat span:not(:last-child)
+{
+   color: #105289;
 }
 /* END HOME PAGE */
 
