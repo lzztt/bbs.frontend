@@ -226,6 +226,26 @@ $(document).ready(function() {
             var file = $('#file_select');
             if (file.val().length > 0)
             {
+               var totalSize = 0, files = file.get(0).files;
+               if (files)
+               {
+                  // check count
+                  if (files.length > 5)
+                  {
+                     alert('一次只能上传 5 张图片');
+                     return;
+                  }
+                  // check total file size
+                  for (i = 0; i < files.length; i++)
+                  {
+                     totalSize += files[i].size;
+                     if (totalSize > 5242880)
+                     {
+                        alert('一次只能上传图片的总大小为 5 MB，您只能选择前 ' + i + ' 张图片上传');
+                        return;
+                     }
+                  }
+               }
                var button = $(this);
                button.prepend('<span class="spinner"></span>');
                button.prop("disabled", true);
@@ -262,8 +282,8 @@ $(document).ready(function() {
                }, 'json');
             }
          });
-         
-         $('#file_clear').click(function(){
+
+         $('#file_clear').click(function() {
             $('#file_select').val('');
          });
 
@@ -278,8 +298,8 @@ $(document).ready(function() {
                fileTable.hide();
             }
          });
-         
-         $('#bbcode_editor button:submit').click(function(e){
+
+         $('#bbcode_editor button:submit').click(function(e) {
             if ($('#file_select').val())
             {
                alert('请先上传或清空选中的文件');
