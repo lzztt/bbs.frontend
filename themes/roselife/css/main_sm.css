@@ -65,14 +65,14 @@
    /* END ALL PAGES */
 
    /* BEGIN HOME PAGE */
+   div#home_images
+   {
+      position: relative;
+      padding-right: 300px;
+   }
+   
    div.image_slider
    {
-      vertical-align: top;
-      display: inline-block;
-      width: -moz-calc(100% - 300px);
-      width: -webkit-calc(100% - 300px);
-      width: -o-calc(100% - 300px);
-      width: calc(100% - 300px);
       height: 250px;
    }
 
@@ -83,11 +83,13 @@
 
    div.google_ad
    {
-      display: inline-block;
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
       width: 300px;
       height: 250px;
       overflow: hidden;
-      vertical-align: top;
    }
 
    section.items

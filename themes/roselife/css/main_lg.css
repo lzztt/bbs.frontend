@@ -13,11 +13,16 @@
    /* END ALL PAGES */
 
    /* BEGIN HOME PAGE */
-   div.image_slider
+   div#home_images
    {
       vertical-align: top;
       display: inline-block;
-      width: 50%;
+      width: 75%;
+   }
+   
+   div.image_slider
+   {
+      width: 624px;
       height: 300px;
    }
 
@@ -29,7 +34,7 @@
    div.google_ad
    {
       box-sizing: border-box;
-      width: 25%;
+      width: 312px;
       height: 300px;
       padding: 25px 0 0 6px;
    }

@@ -114,6 +114,7 @@ $(document).ready(function() {
          $("a#pm").append('<span style="color:red;"> (' + pmCount + ') <span>');
       }
 
+      // node page
       var editorForm = $('#bbcode_editor');
       if (editorForm.length)
       {
@@ -307,13 +308,46 @@ $(document).ready(function() {
             }
          });
 
-         $('button.bookmark').click(function(e) {
+         $('button.bookmark').click(function() {
             var button = $(this);
-            $.get(button.attr('data-action'), function(data) {
+            $.get(button.attr('data-action'), function() {
                alert('帖子成功加入到您的收藏夹中！');
             });
          });
-
       }
+
+      // user bookmark page
+      var nids = [];
+      $('button.edit_bookmark').click(function() {
+         var button = $(this);
+         if (button.text() == '编辑') {
+            button.text('保存');
+            $('button.delete_bookmark').show();
+         }
+         else
+         {
+            if (nids) {
+               button.prop("disabled", true);
+               $.get(button.attr('data-action') + '?nid=' + nids.join(), function() {
+                  button.text('编辑');
+                  $('button.delete_bookmark').hide();
+                  nids = [];
+                  button.prop("disabled", false);
+               });
+            }
+            else {
+               button.text('编辑');
+               $('button.delete_bookmark').hide();
+            }
+         }
+
+      });
+
+      $('button.delete_bookmark').click(function() {
+         button = $(this);
+         nids.push(button.attr('data-nid'));
+         button.parent().remove();
+      });
+
    }
 });
