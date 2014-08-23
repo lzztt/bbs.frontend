@@ -306,6 +306,14 @@ $(document).ready(function() {
                e.preventDefault();
             }
          });
+
+         $('button.bookmark').click(function(e) {
+            var button = $(this);
+            $.get(button.attr('data-action'), function(data) {
+               alert('帖子成功加入到您的收藏夹中！');
+            });
+         });
+
       }
    }
 });
