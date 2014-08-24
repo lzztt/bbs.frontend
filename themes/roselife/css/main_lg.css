@@ -51,12 +51,12 @@
       display: inline-block;
    }
 
-   .activity_now:after
+   section.home_activities li.activity_now:after
    {
       background-color: greenyellow;
    }
 
-   .activity_future:after
+   section.home_activities li.activity_future:after
    {
       background-color: gold;
    }
