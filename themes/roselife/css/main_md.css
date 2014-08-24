@@ -20,6 +20,11 @@
       width: 33.33%;
       width: calc(100%/3);
    }
+
+   section.home_activities
+   {
+      display: none;
+   }
    /* END HOME PAGE */
 
    /* BEGIN FORUM TOPIC LIST PAGE */

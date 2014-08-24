@@ -70,7 +70,7 @@
       position: relative;
       padding-right: 300px;
    }
-   
+
    div.image_slider
    {
       height: 250px;
@@ -97,6 +97,11 @@
       vertical-align: top;
       display: inline-block;
       width: 50%;
+   }
+
+   section.home_activities
+   {
+      display: none;
    }
 
    #site_stat section
@@ -230,7 +235,7 @@
       overflow: hidden;
       padding-bottom: 2em;
    }
-   
+
    div.forum_post article footer
    {
       position: absolute;
