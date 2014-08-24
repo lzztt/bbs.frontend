@@ -579,6 +579,30 @@ table.forum-topics tr > *:nth-child(4)
 }
 /* END FORUM TOPIC LIST PAGE */
 
+/* BEGIN ACTIVITY LIST PAGE */
+section.activities a.activity_before, section.activities a.activity_now, section.activities a.activity_future
+{
+   display: block;
+   padding: 0.2em 0.5em;
+}
+section.activities a.activity_before:before, section.activities a.activity_now:before, section.activities a.activity_future:before
+{
+   content: attr(data-before);
+   display: inline-block;
+   margin-right: 0.5em;
+}
+
+section.activities a.activity_now:before
+{
+   background-color: greenyellow;
+}
+
+section.activities a.activity_future:before
+{
+   background-color: gold;
+}
+/* END ACTIVITY LIST PAGE */
+
 /* BEGIN YP LIST */
 #yp_join
 {
