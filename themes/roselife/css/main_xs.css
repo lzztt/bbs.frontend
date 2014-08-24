@@ -366,6 +366,44 @@ ul.tabs li.active a {
    padding: 0.5em;
    font-size: 0.928em;
 }
+
+/* BEGIN QUOTE BLOCK */
+blockquote
+{
+   margin: 0.5em;
+   padding: 2em 1em 0.7em 1em;
+   position: relative;
+   color: #454545;
+
+   border-left: 1px solid #c76c0c;
+
+   -moz-box-shadow: 2px 2px 15px #ccc;
+   -webkit-box-shadow: 2px 2px 15px #ccc;
+   box-shadow: 2px 2px 15px #ccc;
+   
+   -moz-border-radius: 0.7em;
+   -webkit-border-radius: 0.7em;
+   border-radius: 0.7em;
+}
+
+blockquote blockquote
+{
+   margin: 0.5em 1em;
+}
+
+blockquote:before
+{
+   content: attr(data-author);
+   display: block;
+   position: absolute;
+   top: 0;
+   left: 0.5em;
+   line-height: 2em;
+   color: #454545;
+   font-weight: bold;
+}
+/* END QUOTE BLOCK */
+
 /* END ALL PAGES */
 
 /* BEGIN HOME PAGE */
