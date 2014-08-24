@@ -19,7 +19,7 @@
       display: inline-block;
       width: 75%;
    }
-   
+
    div.image_slider
    {
       width: 624px;
@@ -44,6 +44,21 @@
       vertical-align: top;
       display: inline-block;
       width: 25%;
+   }
+
+   section.home_activities
+   {
+      display: inline-block;
+   }
+
+   .activity_now:after
+   {
+      background-color: greenyellow;
+   }
+
+   .activity_future:after
+   {
+      background-color: gold;
    }
    /* END HOME PAGE */
 

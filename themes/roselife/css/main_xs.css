@@ -371,7 +371,7 @@ ul.tabs li.active a {
 blockquote
 {
    margin: 0.5em;
-   padding: 2em 1em 0.7em 1em;
+   padding: 2em 1em 0.7em 1.3em;
    position: relative;
    color: #454545;
 
@@ -380,15 +380,11 @@ blockquote
    -moz-box-shadow: 2px 2px 15px #ccc;
    -webkit-box-shadow: 2px 2px 15px #ccc;
    box-shadow: 2px 2px 15px #ccc;
-   
-   -moz-border-radius: 0.7em;
-   -webkit-border-radius: 0.7em;
-   border-radius: 0.7em;
 }
 
 blockquote blockquote
 {
-   margin: 0.5em 1em;
+   margin: 0.5em 1em 0.7em 1.5em;
 }
 
 blockquote:before
@@ -489,6 +485,41 @@ section.items ul li a
    vertical-align: bottom;
 }
 
+section.home_activities
+{
+   display: none;
+}
+
+section.home_hot_nodes ul li:nth-child(1):after
+{
+   background-color: #FF0000;
+}
+
+section.home_hot_nodes ul li:nth-child(2):after
+{
+   background-color: #FF3300;
+}
+
+section.home_hot_nodes ul li:nth-child(3):after
+{
+   background-color: #FF6600;
+}
+
+section.home_hot_nodes ul li:nth-child(4):after
+{
+   background-color: #FF9900;
+}
+
+section.home_hot_nodes ul li:nth-child(5):after
+{
+   background-color: #FFCC00;
+}
+
+section.home_hot_nodes ul li:nth-child(6):after
+{
+   background-color: #FFFF00;
+}
+
 #site_stat
 {
    padding: 0.5em 0;
@@ -547,30 +578,6 @@ table.forum-topics tr > *:nth-child(4)
    display: none;
 }
 /* END FORUM TOPIC LIST PAGE */
-
-/* BEGIN ACTIVITY LIST */
-.activity_before, .activity_now, .activity_future
-{
-   display: block;
-   padding: 0.2em 0.5em;
-}
-.activity_before:before, .activity_now:before, .activity_future:before
-{
-   content: attr(data-before);
-   display: inline-block;
-   margin-right: 0.5em;
-}
-
-.activity_now:before
-{
-   background-color: gold;
-}
-
-.activity_future:before
-{
-   background-color: greenyellow;
-}
-/* END ACTIVITY LIST */
 
 /* BEGIN YP LIST */
 #yp_join
