@@ -249,9 +249,9 @@
       vertical-align: top;
    }
 
-   article .article_content .attach_images figure img
+   article .article_content .attach_images figure img,
+   article .article_content img.bb_image
    {
-      display: inline-block;
       width: auto;
    }
    /* END FORUM TOPIC NODE */
