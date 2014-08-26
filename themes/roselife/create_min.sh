@@ -34,6 +34,9 @@ EOD`
 cat `echo $list | tr '\n' ' '` > css/all_$time.css
 min css $time;
 
+cp css/main.dallas.css css/all_$time.dallas.css
+min css $time.dallas;
+
 sleep 1;
 # gzip css and js min file
 echo 'commands to create gzip files:'
