@@ -15,40 +15,7 @@
    /* BEGIN HOME PAGE */
    div#home_images
    {
-      vertical-align: top;
-      display: inline-block;
-      width: 75%;
-   }
-
-   div.image_slider
-   {
-      width: 624px;
-      height: 300px;
-   }
-
-   div.image_slider > a
-   {
-      padding-bottom: 300px;
-   }
-
-   div.google_ad
-   {
-      box-sizing: border-box;
-      width: 312px;
-      height: 300px;
-      padding: 25px 0 0 6px;
-   }
-
-   section.items
-   {
-      vertical-align: top;
-      display: inline-block;
-      width: 25%;
-   }
-
-   section.home_activities
-   {
-      display: inline-block;
+      width: 948px;
    }
 
    section.home_activities li.activity_now:after
