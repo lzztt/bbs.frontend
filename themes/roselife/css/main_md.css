@@ -15,15 +15,27 @@
    /* BEGIN HOME PAGE */
    section.items
    {
-      vertical-align: top;
-      display: inline-block;
       width: 33.33%;
       width: calc(100%/3);
    }
 
+   div#home_images
+   {
+      display: inline-block;
+      vertical-align: top;      
+      width: 696px;
+   }
+
    section.home_activities
    {
-      display: none;
+      display: inline-block;
+      width: 300px;
+   }
+   
+   section.home_activities header
+   {
+      padding: 1px 4px;
+      text-align: center;
    }
    /* END HOME PAGE */
 
