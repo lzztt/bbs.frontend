@@ -17,7 +17,6 @@ $(document).ready(function() {
       $('.v_guest').remove();
       $('.v_user').show();
       $('[class*="v_user_"]').hide()
-      $('.v_user' + uid).show(); // for old cached pages
       $('.v_user_' + uid).show();
 
       var urole = $.cookie('urole');
