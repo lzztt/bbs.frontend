@@ -30,6 +30,10 @@ ul.clean
    padding: 0;
 }
 
+span.time
+{
+   color: #666666;
+}
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default */
 
@@ -535,7 +539,7 @@ section.home_hot_nodes ul li:nth-child(6):after
    background-color: #eeeeee;
 }
 
-#site_stat span:not(:last-child)
+#site_stat span:not(.ajax_alexa)
 {
    color: #105289;
 }
