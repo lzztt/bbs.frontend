@@ -269,22 +269,23 @@ header.content_header
    overflow: hidden;
 }
 
-ul.pager {
+nav.pager {
    float: right;
    text-align: center;
-   list-style-type: none;
    margin: 0;
    padding: 0;
 }
 
-ul.pager li
+nav.pager a
 {
    display: inline-block;
    vertical-align: bottom;
    padding: 0.2em 0.5em;
+   font-size: 1.2em;
 }
+  
 
-ul.pager li.pageActive
+nav.pager a.active
 {
    background-color: gold;
 }
