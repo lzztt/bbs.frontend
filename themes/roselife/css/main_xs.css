@@ -271,17 +271,14 @@ header.content_header
 
 nav.pager {
    float: right;
-   text-align: center;
-   margin: 0;
-   padding: 0;
 }
 
 nav.pager a
 {
    display: inline-block;
    vertical-align: bottom;
-   padding: 0.2em 0.5em;
-   font-size: 1.2em;
+   text-align: center;
+   padding: 0.3em 0.6em;
 }
   
 
