@@ -28,6 +28,11 @@ $(document).ready(function() {
             $('.v_user_' + role[i]).show();
          }
       }
+      var username = $.cookie('username');
+      if (username)
+      {
+         $('#username').text(username);
+      }
    }
    else {
       $('.v_guest').show();
@@ -120,9 +125,9 @@ $(document).ready(function() {
       if (editorForm.length)
       {
          var editorBody = $('#bbcode_editor textarea'),
-             editorTitle = $('#bbcode_editor .node_title'),
-             fileTable = $('#file_list'),
-             fileTableBody = $('tbody', fileTable);
+                 editorTitle = $('#bbcode_editor .node_title'),
+                 fileTable = $('#file_list'),
+                 fileTableBody = $('tbody', fileTable);
          editorBody.markItUp(myBBCodeSettings);
          // button actions
          $('button.delete').click(function(e) {
@@ -151,7 +156,7 @@ $(document).ready(function() {
             fileTableBody.children().remove();
             var data = $($(this).attr('data-raw'));
             var author = data.find('pre.username').html(),
-                quoteText = '[quote="' + author + '"]' + data.find('pre.body').html() + '[/quote]\n';
+                    quoteText = '[quote="' + author + '"]' + data.find('pre.body').html() + '[/quote]\n';
             editorBody.val('').focus();
             $.markItUp({
                replaceWith: quoteText
@@ -163,9 +168,9 @@ $(document).ready(function() {
          var updateFileTable = function(files) {
             for (var i = 0; i < files.length; i++) {
                var fid = files[i].fid ? files[i].fid : files[i].path,
-                   imageExt = new Array('jpeg', 'gif', 'png'),
-                   fileExt = files[i].path.split('.').pop(),
-                   bbcode;
+                       imageExt = new Array('jpeg', 'gif', 'png'),
+                       fileExt = files[i].path.split('.').pop(),
+                       bbcode;
 
                if (imageExt.indexOf(fileExt) >= 0) {
                   bbcode = '[img]' + files[i].path + '[/img]';
@@ -175,7 +180,7 @@ $(document).ready(function() {
                }
 
                var row = '<tr><td><input type="text" name="files[' + fid + '][name]" value="' + files[i].name + '"><input type="hidden" name="files[' + fid + '][path]" value="' + files[i].path + '"></td>' +
-                   '<td>' + bbcode + '</td><td><button type="button" class="file_delete">删除</button></td></tr>';
+                       '<td>' + bbcode + '</td><td><button type="button" class="file_delete">删除</button></td></tr>';
                fileTableBody.append(row);
             }
             addTableHeader(fileTable);
