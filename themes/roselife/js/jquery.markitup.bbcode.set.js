@@ -61,7 +61,7 @@ var myBBCodeSettings = {
 		{separator:' ' },
 		{name:'Picture', key:'P', replaceWith:'[img][![Image url]!][/img]'},
 		{name:'Link', key:'L', openWith:'[url=[![Link url]!]]', closeWith:'[/url]', placeHolder:'Your text to link here...'},
-      {name:'YouTube Video', className:'youtube', openWith:'[youtube]', closeWith:'[/youtube]'},
+		{name:'YouTube Video', openWith:'[youtube]', closeWith:'[/youtube]'},
 		{separator:' ' },
 		{name:'Bulleted list', openWith:'[list]\n', closeWith:'\n[/list]'},
 		{name:'Numeric list', openWith:'[list=[![Starting number]!]]\n', closeWith:'\n[/list]'}, 
@@ -70,7 +70,7 @@ var myBBCodeSettings = {
 		{name:'Quotes', openWith:'[quote]', closeWith:'[/quote]'},
 		{name:'Code', openWith:'[code]', closeWith:'[/code]'}, 
 		{separator:' ' },
-		{name:'Clean', className:"clean", replaceWith:function(markitup) { return markitup.selection.replace(/\[(.*?)\]/g, "") } },
+		{name:'Clean', replaceWith:function(markitup) { return markitup.selection.replace(/\[(.*?)\]/g, "") } },
 		// {name:'Preview', className:"preview", call:'preview' },
 		// {name:'Help', className:"help", call:'preview' }
 	]
