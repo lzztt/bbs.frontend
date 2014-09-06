@@ -23,6 +23,12 @@ a
    text-decoration: none;
 }
 
+iframe
+{
+   display: block;
+   border: 0;
+}
+
 ul.clean
 {
    list-style: none;
@@ -280,7 +286,7 @@ nav.pager a
    text-align: center;
    padding: 0.3em 0.6em;
 }
-  
+
 
 nav.pager a.active
 {
