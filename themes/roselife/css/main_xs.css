@@ -566,7 +566,7 @@ table.forum-topics tr > *:first-child
 
 table.forum-topics tr > *:first-child:before 
 {
-   content: '\2665';
+   content: '\2618';
    display: inline-block;
    position: relative;
    width: auto;
