@@ -1,0 +1,191 @@
+
+[WARNING] Try to use a single 'var' statement per scope.
+?converter(value):value;} ---> var  <--- config=$.cookie=function(key,
+
+[WARNING] Try to use a single 'var' statement per scope.
+].join(""));} ---> var  <--- result=key?undefined:{};var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+result=key?undefined:{}; ---> var  <--- cookies=document.cookie?document.cookie.
+
+[WARNING] Try to use a single 'var' statement per scope.
+("; "):[];for( ---> var  <--- i=0,l=cookies.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+;i<l;i++){ ---> var  <--- parts=cookies[i].split("="
+
+[WARNING] Try to use a single 'var' statement per scope.
+[i].split("="); ---> var  <--- name=decode(parts.shift())
+
+[WARNING] Try to use a single 'var' statement per scope.
+decode(parts.shift()); ---> var  <--- cookie=parts.join("=");if
+
+[WARNING] Try to use a single 'var' statement per scope.
+,switchTime:5000},options); ---> var  <--- images=new Array();$("ul li"
+
+[WARNING] Try to use a single 'var' statement per scope.
+if(images.length>0){ ---> var  <--- image_total=images.length;var current=0
+
+[WARNING] Try to use a single 'var' statement per scope.
+){var image_total=images.length; ---> var  <--- current=0;var canvas=$(this
+
+[WARNING] Try to use a single 'var' statement per scope.
+images.length;var current=0; ---> var  <--- canvas=$(this);var image=
+
+[WARNING] Try to use a single 'var' statement per scope.
+;var canvas=$(this); ---> var  <--- image=$("<a></a>").prependTo(canvas
+
+[WARNING] Try to use a single 'var' statement per scope.
+("<a></a>").prependTo(canvas); ---> var  <--- title=$("<span></span>").prependTo(image
+
+[WARNING] Try to use a single 'var' statement per scope.
+("<span></span>").prependTo(image); ---> var  <--- bgSwitch=function(){canvas.css(
+
+[WARNING] Try to use a single 'var' statement per scope.
+,selector:handlerOut});}} ---> var  <--- cX,cY,pX,pY;var track
+
+[WARNING] Try to use a single 'var' statement per scope.
+var cX,cY,pX,pY; ---> var  <--- track=function(ev){cX=ev
+
+[WARNING] Try to use a single 'var' statement per scope.
+;cY=ev.pageY;}; ---> var  <--- compare=function(ev,ob){ob
+
+[WARNING] Try to use a single 'var' statement per scope.
+,cfg.interval);}}; ---> var  <--- delay=function(ev,ob){ob
+
+[WARNING] Try to use a single 'var' statement per scope.
+ob,[ev]);}; ---> var  <--- handleHover=function(e){var ev=
+
+[WARNING] Try to use a single 'var' statement per scope.
+.extend({},e); ---> var  <--- ob=this;if(ob.hoverIntent_t)
+
+[WARNING] Invalid hint syntax: use strict
+jQuery);(function($){ ---> "use strict" <--- ;var methods=(function(){var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+("mouseleave.superfish",targets,out);} ---> var  <--- touchevent="MSPointerDown.superfish";if(!ios){
+
+[WARNING] Try to use a single 'var' statement per scope.
+(!o){returnthis;} ---> var  <--- not=(o.retainPath===true)?
+
+[WARNING] Try to use a single 'var' statement per scope.
+(!o){returnthis;} ---> var  <--- $this=this.addClass(o.hoverClass)
+
+[WARNING] Try to use a single 'var' statement per scope.
+("sf-options")){returnfalse;} ---> var  <--- o=$.extend({},$
+
+[WARNING] Try to use a single 'var' statement per scope.
+[1];}});} ---> var  <--- uaMatch=function(ua){ua=ua
+
+[WARNING] Try to use a single 'var' statement per scope.
+[2]||"0"};}; ---> var  <--- matched=uaMatch(navigator.userAgent);var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+matched=uaMatch(navigator.userAgent); ---> var  <--- browser={};if(matched.browser
+
+[WARNING] Using 'eval' is not recommended. Moreover, using 'eval' reduces the level of compression!
+){if(button.call){ ---> eval <--- (button.call)();}setTimeout
+
+[WARNING] Try to use a single 'var' statement per scope.
+openWith=prepare(clicked.openWith); ---> var  <--- placeHolder=prepare(clicked.placeHolder);var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+placeHolder=prepare(clicked.placeHolder); ---> var  <--- replaceWith=prepare(clicked.replaceWith);var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+replaceWith=prepare(clicked.replaceWith); ---> var  <--- closeWith=prepare(clicked.closeWith);var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+closeWith=prepare(clicked.closeWith); ---> var  <--- openBlockWith=prepare(clicked.openBlockWith);var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+openBlockWith=prepare(clicked.openBlockWith); ---> var  <--- closeBlockWith=prepare(clicked.closeBlockWith);var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+closeBlockWith=prepare(clicked.closeBlockWith); ---> var  <--- multiline=clicked.multiline;if(replaceWith!==
+
+[WARNING] Try to use a single 'var' statement per scope.
+}else{string=string||selection; ---> var  <--- lines=[string],blocks=[]
+
+[WARNING] Try to use a single 'var' statement per scope.
+.split(/\r?\n/);}for( ---> var  <--- l=0;l<lines.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+){line=lines[l]; ---> var  <--- trailingSpaces;if(trailingSpaces=line.match(
+
+[WARNING] Try to use a single 'var' statement per scope.
+&&typeofoptions.previewParser==="function"){ ---> var  <--- data=options.previewParser($$.val(
+
+[WARNING] Try to use a single 'var' statement per scope.
+(iframe,type){var data; ---> var  <--- contents=$(iframe).contents()
+
+[WARNING] Try to use a single 'var' statement per scope.
+".v_user_"+uid).show(); ---> var  <--- urole=$.cookie("urole");if
+
+[WARNING] Try to use a single 'var' statement per scope.
+("urole");if(urole){ ---> var  <--- role=urole.split("|");for
+
+[WARNING] Try to use a single 'var' statement per scope.
+urole.split("|");for( ---> var  <--- i=0;i<role.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+]).show();}} ---> var  <--- username=$.cookie("username");if
+
+[WARNING] Try to use a single 'var' statement per scope.
+{var container=$(this); ---> var  <--- uri=container.attr("data-ajax");if
+
+[WARNING] Try to use a single 'var' statement per scope.
+$("nav#page_navbar ul.sf-menu").superfish(); ---> var  <--- hasToggler=false,logo=$("a#logo")
+
+[WARNING] Try to use a single 'var' statement per scope.
+(window).resize(navbarToggler); ---> var  <--- addTableHeader=function(table){var headers=
+
+[WARNING] Try to use a single 'var' statement per scope.
+);if(uid>0){ ---> var  <--- pmCount=$.cookie("pmCount");if
+
+[WARNING] Try to use a single 'var' statement per scope.
+('<span style="color:red;"> ('+pmCount+") <span>");} ---> var  <--- editorForm=$("#bbcode_editor");if(editorForm
+
+[WARNING] Try to use a single 'var' statement per scope.
+);if(editorForm.length){ ---> var  <--- editorBody=$("#bbcode_editor textarea"),editorTitle=$
+
+[WARNING] Try to use a single 'var' statement per scope.
+this).attr("data-raw")); ---> var  <--- author=data.find("pre.username").html
+
+[WARNING] Try to use a single 'var' statement per scope.
+().top);}); ---> var  <--- updateFileTable=function(files){for(var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+<files.length;i++){ ---> var  <--- fid=files[i].fid?files
+
+[WARNING] Try to use a single 'var' statement per scope.
+[i].name+"[/file]";} ---> var  <--- row='<tr><td><input type="text" name="files['+fid+'][name]" value="'+files[
+
+[WARNING] Try to use a single 'var' statement per scope.
+.children().remove(); ---> var  <--- data=$($(this).attr
+
+[WARNING] Try to use a single 'var' statement per scope.
+this).attr("data-raw")); ---> var  <--- files=$.parseJSON(data.find(
+
+[WARNING] Try to use a single 'var' statement per scope.
+val().length>0){ ---> var  <--- totalSize=0,files=file.get(
+
+[WARNING] Try to use a single 'var' statement per scope.
++" 张图片上传");return;}}} ---> var  <--- button=$(this);button.prepend
+
+[WARNING] Try to use a single 'var' statement per scope.
+.error)==="[object Array]"){for( ---> var  <--- i=0;i<res.error.
+
+[WARNING] Try to use a single 'var' statement per scope.
+var row=this.parentNode.parentNode; ---> var  <--- table=row.parentNode.parentNode;table.
+
+[WARNING] Try to use a single 'var' statement per scope.
+);});});} ---> var  <--- nids=[];$("button.edit_bookmark").
+
+[WARNING] The symbol preview is declared but is apparently never used.
+This code can probably be written in a more compact way.
+selectionEnd);}returnselection;}function ---> preview <--- (){return;if(typeofoptions.
+
+[WARNING] The symbol phtml is declared but is apparently never used.
+This code can probably be written in a more compact way.
+);}functionrenderPreview(){var  ---> phtml <--- ;if(options.previewHandler&&typeofoptions.
