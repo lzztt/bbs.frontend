@@ -62,6 +62,20 @@
    }
    /* END RESPONSIVE FORM */
 
+   /* BEGIN IFRAME */
+   iframe.youtube
+   {
+      width: 560px;
+      height: 315px;
+   }
+
+   iframe.googlemap
+   {
+      width: 500px;
+      height: 400px;
+   }
+   /* END IFRAME */
+
    /* END ALL PAGES */
 
    /* BEGIN HOME PAGE */
