@@ -60,7 +60,7 @@ $(document).ready(function() {
    $('nav#page_navbar ul.sf-menu').superfish();
 
    // navbar toggler
-   var hasToggler = false, toggler = $('div.nav_mobile > a.icon-th-list'), navbar = $('nav#page_navbar');
+   var hasToggler = false, toggler = $('div.nav_mobile > a.icon-menu'), navbar = $('nav#page_navbar');
 
    navbarToggler = function()
    {
