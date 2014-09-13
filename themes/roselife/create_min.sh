@@ -30,6 +30,7 @@ css/main_xs.css
 css/main_sm.css
 css/main_md.css
 css/main_lg.css
+css/fontello.css
 EOD`
 cat `echo $list | tr '\n' ' '` > css/all_$time.css
 min css $time;
