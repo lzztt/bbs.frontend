@@ -576,12 +576,13 @@ table.forum-topics tr > *:first-child
 
 table.forum-topics tr > *:first-child:before 
 {
-   content: '\2618';
+   content: '\263A';
    display: inline-block;
    position: relative;
    width: auto;
    color: purple;
-   padding: 0 0.3em;
+   padding: 0 0.2em;
+   font-size: 1.2em;
 }
 
 table.forum-topics tr.topic-sticky > *:first-child:before
