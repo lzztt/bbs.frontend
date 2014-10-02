@@ -52,21 +52,25 @@
    /* END YP BCARD */
 
    /* BEGIN PAGE HEADER AD */
-   #page_header_ad span
+   #page_header_ad span:first-child
    {
-      display: inline-block;
-      vertical-align: bottom;
-      width: 40px;
-      height: 60px;
-      background-image: url('/data/ad/spring_time11.png');
+      width: 312px;
+      height: 90px;
    }
-   #page_header_ad a
+   #page_header_ad span:last-child
+   {
+      width: 936px;
+      height: 120px;
+   }
+   #page_header_ad span:last-child a
    {
       width: 468px;
+      height: 60px;
    }
-   #page_header_ad a:last-child
+   #page_header_ad span:first-child a img
    {
       width: 272px;
+      height: 90px;
    }
    /* END PAGE HEADER AD */
 }

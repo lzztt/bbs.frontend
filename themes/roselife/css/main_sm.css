@@ -289,19 +289,30 @@
    #page_header_ad
    {
       display: block;
+      background-image: url('/data/ad/autumn_leaves2.jpg');
+      background-size: 50% 100%;
       width: 100%;
-      white-space: nowrap;
    }
-   #page_header_ad a
+   #page_header_ad span
    {
       display: inline-block;
       vertical-align: bottom;
-      width: 38.75%;
    }
-   #page_header_ad a:last-child
+   #page_header_ad span:first-child
    {
       width: 22.5%;
    }
+   #page_header_ad span:last-child
+   {
+      width: 77.5%;
+   }
+   #page_header_ad span:last-child a
+   {
+      display: inline-block;
+      vertical-align: bottom;
+      width: 50%;
+   }
+   
    #page_header_ad a img
    {
       display: inline-block;
