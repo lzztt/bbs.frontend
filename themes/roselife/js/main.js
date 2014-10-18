@@ -41,7 +41,7 @@ $(document).ready(function () {
 
    // image slider
    $('.image_slider').imageSlider();
-   
+
    // ajax_load container
    $('.ajax_load').each(function () {
       var container = $(this);
@@ -55,10 +55,10 @@ $(document).ready(function () {
          });
       }
    });
-   
+
    // menu
    $('nav#page_navbar ul.sf-menu').superfish();
-   
+
    // navbar toggler
    var hasToggler = false, toggler = $('div.nav_mobile > a.icon-menu'), navbar = $('nav#page_navbar');
    var navbarToggler = function ()
@@ -90,22 +90,22 @@ $(document).ready(function () {
 
    navbarToggler();
    $(window).resize(navbarToggler);
-   
+
    $('div.nav_mobile a.icon-left-big').click(function (e) {
       e.preventDefault();
       window.history.back();
    });
-   
+
    $('div.nav_mobile a.icon-right-big').click(function (e) {
       e.preventDefault();
       window.history.forward();
    });
-   
+
    $('div.nav_mobile a.icon-cw').click(function (e) {
       e.preventDefault();
       location.reload();
    });
-   
+
    // responsive table header
    var addTableHeader = function (table) {
       var headers = new Array();
@@ -142,9 +142,9 @@ $(document).ready(function () {
              editorTitle = $('#bbcode_editor .node_title'),
              fileTable = $('#file_list'),
              fileTableBody = $('tbody', fileTable);
-         
+
          editorBody.markItUp(myBBCodeSettings);
-         
+
          // button actions
          $('button.delete').click(function (e) {
             var answer = confirm("此操作不可恢复，您确认要删除该内容吗？");
@@ -153,7 +153,7 @@ $(document).ready(function () {
                window.location = $(this).attr('data-action');
             }
          });
-         
+
          $('button.reply').click(function (e) {
             editorForm.attr('action', $(this).attr('data-action'));
             editorTitle.hide();
@@ -164,7 +164,7 @@ $(document).ready(function () {
 
             window.scrollTo(0, editorForm.offset().top);
          });
-         
+
          $('button.quote').click(function (e) {
             editorForm.attr('action', $(this).attr('data-action'));
             editorTitle.hide();
@@ -180,7 +180,7 @@ $(document).ready(function () {
 
             window.scrollTo(0, editorForm.offset().top);
          });
-         
+
          var updateFileTable = function (files) {
             for (var i = 0; i < files.length; i++) {
                var fid = files[i].fid ? files[i].fid : files[i].path,
@@ -232,7 +232,7 @@ $(document).ready(function () {
 
             window.scrollTo(0, editorForm.offset().top);
          });
-         
+
          $('button.create_node').click(function (e) {
             editorForm.attr('action', $(this).attr('data-action'));
             editorTitle.show();
@@ -244,7 +244,7 @@ $(document).ready(function () {
 
             window.scrollTo(0, editorForm.offset().top);
          });
-         
+
          $('#file_upload').click(function (e) {
             var file = $('#file_select');
             if (file.val().length > 0)
@@ -272,7 +272,7 @@ $(document).ready(function () {
                var button = $(this);
                button.prepend('<span class="spinner"></span>');
                button.prop("disabled", true);
-               
+
                file.upload('/file/ajax/upload', function (res) {
                   file.val('');
                   button.prop("disabled", false);
@@ -305,11 +305,11 @@ $(document).ready(function () {
                }, 'json');
             }
          });
-         
+
          $('#file_clear').click(function () {
             $('#file_select').val('');
          });
-         
+
          fileTable.on("click", ".file_delete", function (e) {
             //$(".file_delete", fileTable).live("click", function(e) {
             var row = this.parentNode.parentNode;
@@ -321,7 +321,7 @@ $(document).ready(function () {
                fileTable.hide();
             }
          });
-         
+
          $('#bbcode_editor button:submit').click(function (e) {
             if ($('#file_select').val())
             {
@@ -329,7 +329,7 @@ $(document).ready(function () {
                e.preventDefault();
             }
          });
-         
+
          $('button.bookmark').click(function () {
             var button = $(this);
             $.get(button.attr('data-action'), function () {
@@ -364,7 +364,7 @@ $(document).ready(function () {
          }
 
       });
-      
+
       $('button.delete_bookmark').click(function () {
          button = $(this);
          nids.push(button.attr('data-nid'));
@@ -413,40 +413,41 @@ $(document).ready(function () {
    var popupHTML = {
       '#/user/login':
           '<form accept-charset="UTF-8" autocomplete="on" method="post" action="/user/login">'
-          + '<fieldset><label class="label" data-help="输入您在 缤纷休斯顿 华人论坛 的用户名">用户名</label><input name="username" type="text" required="" autofocus=""></fieldset>'
-          + '<fieldset><label class="label" data-help="输入与您用户名相匹配的密码">密码</label><input name="password" type="password" required=""></fieldset>'
+          + '<fieldset><label class="label" data-help="输入您在 缤纷休斯顿 华人论坛 的用户名">用户名</label><input name="username" type="text" required autofocus></fieldset>'
+          + '<fieldset><label class="label" data-help="输入与您用户名相匹配的密码">密码</label><input name="password" type="password" required></fieldset>'
           + '<fieldset><button type="submit">登录</button></fieldset></form>',
       '#/password/forget':
           '<form accept-charset="UTF-8" autocomplete="on" method="post" action="/password/forget">'
-          + '<fieldset><label class="label" data-help="输入您的用户名">用户名</label><input name="username" type="text" required="" autofocus=""></fieldset>'
-          + '<fieldset><label class="label" data-help="输入您注册时使用的电子邮箱地址">注册邮箱</label><input name="email" type="email" required=""></fieldset>'
+          + '<fieldset><label class="label" data-help="输入您的用户名">用户名</label><input name="username" type="text" required autofocus></fieldset>'
+          + '<fieldset><label class="label" data-help="输入您注册时使用的电子邮箱地址">注册邮箱</label><input name="email" type="email" required></fieldset>'
           + '<fieldset><button type="submit">发送重设密码链接</button></fieldset></form>',
       '#/user/username':
           '<form accept-charset="UTF-8" method="post" action="/user/username">'
-          + '<fieldset><label class="label" data-help="输入您注册时使用的电子邮箱地址">注册邮箱</label><input size="22" name="email" type="email" required="" autofocus=""></fieldset>'
+          + '<fieldset><label class="label" data-help="输入您注册时使用的电子邮箱地址">注册邮箱</label><input size="22" name="email" type="email" required autofocus></fieldset>'
           + '<fieldset><button type="submit">发送您的用户名</button></fieldset></form>',
       '#/user/register':
           '<form accept-charset="UTF-8" method="post" action="/user/register">'
-          + '<fieldset><label class="label" data-help="允许空格，不允许&quot;.&quot;、“-”、“_”以外的其他符号">用户名</label><input name="username" type="text" required="" autofocus=""></fieldset>'
-          + '<fieldset><label class="label" data-help="一个有效的电子邮件地址。帐号激活后的初始密码和所有本站发出的信件都将寄至此地址。电子邮件地址将不会被公开，仅当您想要接收新密码或通知时才会使用">电子邮箱</label><input name="email" type="email" required=""></fieldset>'
-          + '<fieldset><label class="label" data-help="确认电子邮箱">确认邮箱</label><input name="email2" type="email" required=""></fieldset>'
-          + '<fieldset><label class="label">右边图片的内容是什么？</label><input name="captcha" type="text" required=""><img id="captchaImage" title="图形验证" alt="图形验证未能正确显示，请刷新" src="/captcha/1053381520"><a onclick="document.getElementById("captchaImage").setAttribute("src", "/captcha/1053381520" + Math.random().toString().slice(2)); event.preventDefault();" href="#">看不清，换一张</a></fieldset>'
-          + '<fieldset><a href="/node/23200">网站使用规范</a><br><a href="/term">免责声明</a></fieldset>'
+          + '<fieldset><label class="label" data-help="允许空格，不允许&quot;.&quot;、“-”、“_”以外的其他符号">用户名</label><input name="username" type="text" required autofocus></fieldset>'
+          + '<fieldset><label class="label" data-help="一个有效的电子邮件地址。帐号激活后的初始密码和所有本站发出的信件都将寄至此地址。电子邮件地址将不会被公开，仅当您想要接收新密码或通知时才会使用">电子邮箱</label><input name="email" type="email" required></fieldset>'
+          + '<fieldset><label class="label" data-help="确认电子邮箱">确认邮箱</label><input name="email2" type="email" required></fieldset>'
+          + '<fieldset><label class="label">右边图片的内容是什么？</label><input name="captcha" type="text" required><img id="captchaImage" title="图形验证" alt="图形验证未能正确显示，请刷新" src="/captcha/1053381520"><a onclick="document.getElementById("captchaImage").setAttribute("src", "/captcha/1053381520" + Math.random().toString().slice(2)); event.preventDefault();" href="#">看不清，换一张</a></fieldset>'
+          + '<fieldset>[<a href="/node/23200">网站使用规范</a>] [<a href="/term">免责声明</a>]</fieldset>'
           + '<fieldset><button type="submit">同意使用规范和免责声明，并创建新帐号</button></fieldset></form>',
       '#/password/change':
           '<form accept-charset="UTF-8" autocomplete="off" method="post" action="/password/change">'
-          + '<fieldset><label class="label oldpassword">旧密码</label><input name="password_old" type="password" required="" autofocus=""></fieldset>'
-          + '<fieldset><label class="label">新密码</label><input name="password_new" type="password" required=""></fieldset>'
-          + '<fieldset><label class="label">确认新密码</label><input name="password_new2" type="password" required=""></fieldset>'
+          + '<fieldset><label class="label oldpassword">旧密码</label><input name="password_old" type="password" required autofocus></fieldset>'
+          + '<fieldset><label class="label">新密码</label><input name="password_new" type="password" required></fieldset>'
+          + '<fieldset><label class="label">确认新密码</label><input name="password_new2" type="password" required></fieldset>'
           + '<fieldset><button type="submit">更改密码</button></fieldset></form>',
       '#/pm/send':
           '<form accept-charset="UTF-8" autocomplete="off" method="post" action="/pm/send/[uid]">'
           + '<fieldset><label class="label">收信人</label><a href="/user/[uid]">[username]</a></fieldset>'
-          + '<fieldset><label class="label">短信正文</label><textarea name="body" required="required"></textarea></fieldset>'
+          + '<fieldset><label class="label">短信正文</label><textarea name="body" required autofocus></textarea></fieldset>'
           + '<fieldset><button type="submit">发送短信</button></fieldset></form>'
    };
    var popupbox = $('div#popupbox'),
-       messagebox = $('div#messagebox');
+       messagebox = $('div#messagebox'),
+       popupVisible = false;
    $('a.popup').click(function (e) {
       e.preventDefault();
       var link = $(this);
@@ -458,6 +459,7 @@ $(document).ready(function () {
          $('<div id="overlay"></div>').insertBefore(popupbox).click(function () {
             $(this).remove();
             popupbox.hide()
+            popupVisible = false;
          });
          // apply varibles
          if (link.attr('data-vars')) {
@@ -489,8 +491,16 @@ $(document).ready(function () {
             }
          });
          popupbox.show();
-         popupbox.css('margin-left', popupbox.width() * -0.5);
-         popupbox.css('margin-top', popupbox.height() * -0.5);
+         popupVisible = true;
+         popupbox.css('margin-left', -0.5 * Math.min($(window).width(), popupbox.width()));
+         popupbox.css('margin-top', -0.5 * Math.min($(window).height(), popupbox.height()));
+
+         $(window).resize(function () {
+            if (popupVisible) {
+               popupbox.css('margin-left', -0.5 * Math.min($(window).width(), popupbox.width()));
+               popupbox.css('margin-top', -0.5 * Math.min($(window).height(), popupbox.height()));
+            }
+         });
       }
    });
 });
