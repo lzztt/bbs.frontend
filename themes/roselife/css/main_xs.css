@@ -70,7 +70,7 @@ a#logo img
    vertical-align: bottom;
 }
 
-header#page_header span#messagebox 
+header#page_header span 
 {
    display: inline-block;
    vertical-align: bottom;
@@ -100,6 +100,40 @@ header#page_header ul li
 div#ad
 {
    display: none;
+}
+
+div#messagebox, div#popupbox
+{
+   display: none;
+   border: 1px solid black;
+   padding: 10px 3px;
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   min-width: 400px;
+   min-height: 50px;
+   z-index: 9999;
+   background-color: white;
+}
+
+div#overlay
+{
+   position: fixed;
+   top: 0px;
+   right: 0px;
+   bottom: 0px;
+   left: 0px;
+   opacity: 0.5;
+   z-index: 9998;
+   cursor: pointer;
+   background-color: #F5DEB3;
+}
+
+a#goTop
+{
+   position: fixed;
+   bottom:-100px;
+   right:10px;
 }
 
 /* BEGIN BBCODE EDITOR */

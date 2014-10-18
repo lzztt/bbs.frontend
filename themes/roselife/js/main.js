@@ -4,8 +4,8 @@ $.cookie.defaults = {
    domain: document.domain.split('.').slice(-2).join('.')
 };
 
-$(document).ready(function() {
-// get uid and urole
+$(document).ready(function () {
+   // get uid and urole
    var uid = $.cookie('uid');
    uid = (!uid) ? 0 : parseInt(uid, 10);
    if (uid < 0)
@@ -41,13 +41,13 @@ $(document).ready(function() {
 
    // image slider
    $('.image_slider').imageSlider();
-
+   
    // ajax_load container
-   $('.ajax_load').each(function() {
+   $('.ajax_load').each(function () {
       var container = $(this);
       var uri = container.attr('data-ajax');
       if (uri) {
-         $.getJSON(uri, function(data) {
+         $.getJSON(uri, function (data) {
             for (var prop in data)
             {
                $('.ajax_' + prop, container).html(data[prop]);
@@ -55,20 +55,19 @@ $(document).ready(function() {
          });
       }
    });
-
+   
    // menu
    $('nav#page_navbar ul.sf-menu').superfish();
-
+   
    // navbar toggler
    var hasToggler = false, toggler = $('div.nav_mobile > a.icon-menu'), navbar = $('nav#page_navbar');
-
-   navbarToggler = function()
+   var navbarToggler = function ()
    {
       if (navbar.css('display') === 'none')
       {
          if (!hasToggler)
          {
-            toggler.on('click', function(e) {
+            toggler.on('click', function (e) {
                e.preventDefault();
                navbar.toggleClass('hidden');
             });
@@ -91,30 +90,30 @@ $(document).ready(function() {
 
    navbarToggler();
    $(window).resize(navbarToggler);
-
-   $('div.nav_mobile a.icon-left-big').click(function(e) {
+   
+   $('div.nav_mobile a.icon-left-big').click(function (e) {
       e.preventDefault();
       window.history.back();
    });
-
-   $('div.nav_mobile a.icon-right-big').click(function(e) {
+   
+   $('div.nav_mobile a.icon-right-big').click(function (e) {
       e.preventDefault();
       window.history.forward();
    });
-
-   $('div.nav_mobile a.icon-cw').click(function(e) {
+   
+   $('div.nav_mobile a.icon-cw').click(function (e) {
       e.preventDefault();
       location.reload();
    });
-
+   
    // responsive table header
-   var addTableHeader = function(table) {
+   var addTableHeader = function (table) {
       var headers = new Array();
-      $('th', table).each(function() {
+      $('th', table).each(function () {
          headers.push(this.innerHTML);
       });
       if (headers.length > 0) {
-         $('tbody tr', table).each(function() {
+         $('tbody tr', table).each(function () {
             var tds = $('td', this);
             for (i = 0; i < tds.length; i++) {
                $(tds.get(i)).attr('data-header', headers[i]);
@@ -122,7 +121,7 @@ $(document).ready(function() {
          });
       }
    };
-   $('table').each(function() {
+   $('table').each(function () {
       addTableHeader(this);
    });
 
@@ -140,20 +139,22 @@ $(document).ready(function() {
       if (editorForm.length)
       {
          var editorBody = $('#bbcode_editor textarea'),
-                 editorTitle = $('#bbcode_editor .node_title'),
-                 fileTable = $('#file_list'),
-                 fileTableBody = $('tbody', fileTable);
+             editorTitle = $('#bbcode_editor .node_title'),
+             fileTable = $('#file_list'),
+             fileTableBody = $('tbody', fileTable);
+         
          editorBody.markItUp(myBBCodeSettings);
+         
          // button actions
-         $('button.delete').click(function(e) {
+         $('button.delete').click(function (e) {
             var answer = confirm("此操作不可恢复，您确认要删除该内容吗？");
             if (answer)
             {
                window.location = $(this).attr('data-action');
             }
          });
-
-         $('button.reply').click(function(e) {
+         
+         $('button.reply').click(function (e) {
             editorForm.attr('action', $(this).attr('data-action'));
             editorTitle.hide();
             fileTable.hide();
@@ -163,15 +164,15 @@ $(document).ready(function() {
 
             window.scrollTo(0, editorForm.offset().top);
          });
-
-         $('button.quote').click(function(e) {
+         
+         $('button.quote').click(function (e) {
             editorForm.attr('action', $(this).attr('data-action'));
             editorTitle.hide();
             fileTable.hide();
             fileTableBody.children().remove();
             var data = $($(this).attr('data-raw'));
             var author = data.find('pre.username').html(),
-                    quoteText = '[quote="' + author + '"]' + data.find('pre.body').html() + '[/quote]\n';
+                quoteText = '[quote="' + author + '"]' + data.find('pre.body').html() + '[/quote]\n';
             editorBody.val('').focus();
             $.markItUp({
                replaceWith: quoteText
@@ -179,13 +180,13 @@ $(document).ready(function() {
 
             window.scrollTo(0, editorForm.offset().top);
          });
-
-         var updateFileTable = function(files) {
+         
+         var updateFileTable = function (files) {
             for (var i = 0; i < files.length; i++) {
                var fid = files[i].fid ? files[i].fid : files[i].path,
-                       imageExt = new Array('jpeg', 'gif', 'png'),
-                       fileExt = files[i].path.split('.').pop(),
-                       bbcode;
+                   imageExt = new Array('jpeg', 'gif', 'png'),
+                   fileExt = files[i].path.split('.').pop(),
+                   bbcode;
 
                if (imageExt.indexOf(fileExt) >= 0) {
                   bbcode = '[img]' + files[i].path + '[/img]';
@@ -195,13 +196,13 @@ $(document).ready(function() {
                }
 
                var row = '<tr><td><input type="text" name="files[' + fid + '][name]" value="' + files[i].name + '"><input type="hidden" name="files[' + fid + '][path]" value="' + files[i].path + '"></td>' +
-                       '<td>' + bbcode + '</td><td><button type="button" class="file_delete">删除</button></td></tr>';
+                   '<td>' + bbcode + '</td><td><button type="button" class="file_delete">删除</button></td></tr>';
                fileTableBody.append(row);
             }
             addTableHeader(fileTable);
          }
 
-         $('button.edit').click(function(e) {
+         $('button.edit').click(function (e) {
             var action = $(this).attr('data-action');
             editorForm.attr('action', action);
             if (action.split('/')[1] == 'node')
@@ -231,8 +232,8 @@ $(document).ready(function() {
 
             window.scrollTo(0, editorForm.offset().top);
          });
-
-         $('button.create_node').click(function(e) {
+         
+         $('button.create_node').click(function (e) {
             editorForm.attr('action', $(this).attr('data-action'));
             editorTitle.show();
             fileTable.hide();
@@ -243,8 +244,8 @@ $(document).ready(function() {
 
             window.scrollTo(0, editorForm.offset().top);
          });
-
-         $('#file_upload').click(function(e) {
+         
+         $('#file_upload').click(function (e) {
             var file = $('#file_select');
             if (file.val().length > 0)
             {
@@ -271,8 +272,8 @@ $(document).ready(function() {
                var button = $(this);
                button.prepend('<span class="spinner"></span>');
                button.prop("disabled", true);
-
-               file.upload('/file/ajax/upload', function(res) {
+               
+               file.upload('/file/ajax/upload', function (res) {
                   file.val('');
                   button.prop("disabled", false);
                   button.find('span.spinner').remove();
@@ -304,12 +305,12 @@ $(document).ready(function() {
                }, 'json');
             }
          });
-
-         $('#file_clear').click(function() {
+         
+         $('#file_clear').click(function () {
             $('#file_select').val('');
          });
-
-         fileTable.on("click", ".file_delete", function(e) {
+         
+         fileTable.on("click", ".file_delete", function (e) {
             //$(".file_delete", fileTable).live("click", function(e) {
             var row = this.parentNode.parentNode;
             var table = row.parentNode.parentNode;
@@ -320,18 +321,18 @@ $(document).ready(function() {
                fileTable.hide();
             }
          });
-
-         $('#bbcode_editor button:submit').click(function(e) {
+         
+         $('#bbcode_editor button:submit').click(function (e) {
             if ($('#file_select').val())
             {
                alert('请先上传或清空选中的文件');
                e.preventDefault();
             }
          });
-
-         $('button.bookmark').click(function() {
+         
+         $('button.bookmark').click(function () {
             var button = $(this);
-            $.get(button.attr('data-action'), function() {
+            $.get(button.attr('data-action'), function () {
                alert('帖子成功加入到您的收藏夹中！');
             });
          });
@@ -339,7 +340,7 @@ $(document).ready(function() {
 
       // user bookmark page
       var nids = [];
-      $('button.edit_bookmark').click(function() {
+      $('button.edit_bookmark').click(function () {
          var button = $(this);
          if (button.text() == '编辑') {
             button.text('保存');
@@ -349,7 +350,7 @@ $(document).ready(function() {
          {
             if (nids) {
                button.prop("disabled", true);
-               $.get(button.attr('data-action') + '?nid=' + nids.join(), function() {
+               $.get(button.attr('data-action') + '?nid=' + nids.join(), function () {
                   button.text('编辑');
                   $('button.delete_bookmark').hide();
                   nids = [];
@@ -363,12 +364,133 @@ $(document).ready(function() {
          }
 
       });
-
-      $('button.delete_bookmark').click(function() {
+      
+      $('button.delete_bookmark').click(function () {
          button = $(this);
          nids.push(button.attr('data-nid'));
          button.parent().remove();
       });
-
    }
+
+   // scroll to top
+   var mainWindow = $(window), goTopButton = $('#goTop'), goTopButtonIsVisible = false;
+   var showGoTop = function () {
+      goTopButtonIsVisible = true;
+      goTopButton.stop().animate({
+         bottom: '20px'
+      }, 300);
+   };
+   var hideGoTop = function () {
+      goTopButtonIsVisible = false;
+      goTopButton.stop().animate({
+         bottom: '-100px'
+      }, 300);
+   };
+
+   var toggleGoTop = function () {
+      if (mainWindow.scrollTop() > 300) {
+         if (!goTopButtonIsVisible) {
+            showGoTop();
+         }
+      }
+      else {
+         if (goTopButtonIsVisible) {
+            hideGoTop();
+         }
+      }
+   };
+
+   toggleGoTop();
+   mainWindow.scroll(toggleGoTop);
+   goTopButton.click(function (e) {
+      $('html, body').stop().animate({
+         scrollTop: 0
+      }, 300, hideGoTop);
+      e.preventDefault();
+   });
+
+   // popup windows
+   var popupHTML = {
+      '#/user/login':
+          '<form accept-charset="UTF-8" autocomplete="on" method="post" action="/user/login">'
+          + '<fieldset><label class="label" data-help="输入您在 缤纷休斯顿 华人论坛 的用户名">用户名</label><input name="username" type="text" required="" autofocus=""></fieldset>'
+          + '<fieldset><label class="label" data-help="输入与您用户名相匹配的密码">密码</label><input name="password" type="password" required=""></fieldset>'
+          + '<fieldset><button type="submit">登录</button></fieldset></form>',
+      '#/password/forget':
+          '<form accept-charset="UTF-8" autocomplete="on" method="post" action="/password/forget">'
+          + '<fieldset><label class="label" data-help="输入您的用户名">用户名</label><input name="username" type="text" required="" autofocus=""></fieldset>'
+          + '<fieldset><label class="label" data-help="输入您注册时使用的电子邮箱地址">注册邮箱</label><input name="email" type="email" required=""></fieldset>'
+          + '<fieldset><button type="submit">发送重设密码链接</button></fieldset></form>',
+      '#/user/username':
+          '<form accept-charset="UTF-8" method="post" action="/user/username">'
+          + '<fieldset><label class="label" data-help="输入您注册时使用的电子邮箱地址">注册邮箱</label><input size="22" name="email" type="email" required="" autofocus=""></fieldset>'
+          + '<fieldset><button type="submit">发送您的用户名</button></fieldset></form>',
+      '#/user/register':
+          '<form accept-charset="UTF-8" method="post" action="/user/register">'
+          + '<fieldset><label class="label" data-help="允许空格，不允许&quot;.&quot;、“-”、“_”以外的其他符号">用户名</label><input name="username" type="text" required="" autofocus=""></fieldset>'
+          + '<fieldset><label class="label" data-help="一个有效的电子邮件地址。帐号激活后的初始密码和所有本站发出的信件都将寄至此地址。电子邮件地址将不会被公开，仅当您想要接收新密码或通知时才会使用">电子邮箱</label><input name="email" type="email" required=""></fieldset>'
+          + '<fieldset><label class="label" data-help="确认电子邮箱">确认邮箱</label><input name="email2" type="email" required=""></fieldset>'
+          + '<fieldset><label class="label">右边图片的内容是什么？</label><input name="captcha" type="text" required=""><img id="captchaImage" title="图形验证" alt="图形验证未能正确显示，请刷新" src="/captcha/1053381520"><a onclick="document.getElementById("captchaImage").setAttribute("src", "/captcha/1053381520" + Math.random().toString().slice(2)); event.preventDefault();" href="#">看不清，换一张</a></fieldset>'
+          + '<fieldset><a href="/node/23200">网站使用规范</a><br><a href="/term">免责声明</a></fieldset>'
+          + '<fieldset><button type="submit">同意使用规范和免责声明，并创建新帐号</button></fieldset></form>',
+      '#/password/change':
+          '<form accept-charset="UTF-8" autocomplete="off" method="post" action="/password/change">'
+          + '<fieldset><label class="label oldpassword">旧密码</label><input name="password_old" type="password" required="" autofocus=""></fieldset>'
+          + '<fieldset><label class="label">新密码</label><input name="password_new" type="password" required=""></fieldset>'
+          + '<fieldset><label class="label">确认新密码</label><input name="password_new2" type="password" required=""></fieldset>'
+          + '<fieldset><button type="submit">更改密码</button></fieldset></form>',
+      '#/pm/send':
+          '<form accept-charset="UTF-8" autocomplete="off" method="post" action="/pm/send/[uid]">'
+          + '<fieldset><label class="label">收信人</label><a href="/user/[uid]">[username]</a></fieldset>'
+          + '<fieldset><label class="label">短信正文</label><textarea name="body" required="required"></textarea></fieldset>'
+          + '<fieldset><button type="submit">发送短信</button></fieldset></form>'
+   };
+   var popupbox = $('div#popupbox'),
+       messagebox = $('div#messagebox');
+   $('a.popup').click(function (e) {
+      e.preventDefault();
+      var link = $(this);
+      var key = link.attr('href'),
+          body = popupHTML[key];
+      if (body)
+      {
+         // add overlay
+         $('<div id="overlay"></div>').insertBefore(popupbox).click(function () {
+            $(this).remove();
+            popupbox.hide()
+         });
+         // apply varibles
+         if (link.attr('data-vars')) {
+            var vars = JSON.parse(link.attr('data-vars'));
+            for (var k in vars) {
+               body = body.replace(new RegExp('\\[' + k + '\\]', 'g'), String(vars[k]));
+            }
+         }
+
+         // show popup
+         popupbox.html(body);
+         var popupForm = $('form', popupbox);
+         popupForm.submit(function (e) {
+            e.preventDefault();
+            if (popupForm.attr('action')) {
+               $.ajax({
+                  type: "POST",
+                  url: popupForm.attr('action'),
+                  data: popupForm.serialize(),
+                  success: function (data)
+                  {
+                     popupbox.html(data);
+                  }
+               });
+            }
+            else
+            {
+               alert('错误：无法提交数据');
+            }
+         });
+         popupbox.show();
+         popupbox.css('margin-left', popupbox.width() * -0.5);
+         popupbox.css('margin-top', popupbox.height() * -0.5);
+      }
+   });
 });
