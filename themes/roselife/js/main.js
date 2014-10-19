@@ -373,7 +373,10 @@ $(document).ready(function () {
    }
 
    // scroll to top
-   var mainWindow = $(window), goTopButton = $('#goTop'), goTopButtonIsVisible = false;
+   var $window = $(window),
+       goTopButton = $('#goTop'),
+       goTopButtonIsVisible = false;
+
    var showGoTop = function () {
       goTopButtonIsVisible = true;
       goTopButton.stop().animate({
@@ -388,7 +391,7 @@ $(document).ready(function () {
    };
 
    var toggleGoTop = function () {
-      if (mainWindow.scrollTop() > 300) {
+      if ($window.scrollTop() > 300) {
          if (!goTopButtonIsVisible) {
             showGoTop();
          }
@@ -401,7 +404,7 @@ $(document).ready(function () {
    };
 
    toggleGoTop();
-   mainWindow.scroll(toggleGoTop);
+   $window.scroll(toggleGoTop);
    goTopButton.click(function (e) {
       $('html, body').stop().animate({
          scrollTop: 0
@@ -445,22 +448,36 @@ $(document).ready(function () {
           + '<fieldset><label class="label">短信正文</label><textarea name="body" required autofocus></textarea></fieldset>'
           + '<fieldset><button type="submit">发送短信</button></fieldset></form>'
    };
+
    var popupbox = $('div#popupbox'),
        messagebox = $('div#messagebox'),
+       overlay = $('<div id="overlay"></div>'),
        popupVisible = false;
+
+   overlay.click(function () {
+      overlay.detach();
+      popupbox.hide()
+      popupVisible = false;
+   });
+
+   var centerPopupBox = function () {
+      popupbox.css('left', $window.scrollLeft() + Math.max(($window.width() - popupbox.outerWidth()) / 2, 0));
+      popupbox.css('top', $window.scrollTop() + Math.max(($window.height() - popupbox.outerHeight()) / 2, 0));
+   };
+
    $('a.popup').click(function (e) {
       e.preventDefault();
       var link = $(this);
-      var key = link.attr('href'),
-          body = popupHTML[key];
+      var key = link.attr('href');
+      var body = popupHTML[key];
+
       if (body)
       {
          // add overlay
-         $('<div id="overlay"></div>').insertBefore(popupbox).click(function () {
-            $(this).remove();
-            popupbox.hide()
-            popupVisible = false;
-         });
+         if (!jQuery.contains(document, overlay[0])) {
+            overlay.insertBefore(popupbox);
+         }
+
          // apply varibles
          if (link.attr('data-vars')) {
             var vars = JSON.parse(link.attr('data-vars'));
@@ -470,7 +487,15 @@ $(document).ready(function () {
          }
 
          // show popup
-         popupbox.html(body);
+         popupbox.html(body).show(0, centerPopupBox);
+         popupVisible = true;
+
+         $(window).resize(function () {
+            if (popupVisible) {
+               centerPopupBox();
+            }
+         });
+
          var popupForm = $('form', popupbox);
          popupForm.submit(function (e) {
             e.preventDefault();
@@ -479,26 +504,17 @@ $(document).ready(function () {
                   type: "POST",
                   url: popupForm.attr('action'),
                   data: popupForm.serialize(),
-                  success: function (data)
-                  {
+                  success: function (data) {
                      popupbox.html(data);
+                  },
+                  error: function () {
+                     alert('错误：提交数据错误');
                   }
                });
             }
             else
             {
                alert('错误：无法提交数据');
-            }
-         });
-         popupbox.show();
-         popupVisible = true;
-         popupbox.css('margin-left', -0.5 * Math.min($(window).width(), popupbox.width()));
-         popupbox.css('margin-top', -0.5 * Math.min($(window).height(), popupbox.height()));
-
-         $(window).resize(function () {
-            if (popupVisible) {
-               popupbox.css('margin-left', -0.5 * Math.min($(window).width(), popupbox.width()));
-               popupbox.css('margin-top', -0.5 * Math.min($(window).height(), popupbox.height()));
             }
          });
       }
