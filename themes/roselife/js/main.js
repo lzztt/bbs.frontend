@@ -4,6 +4,11 @@ $.cookie.defaults = {
    domain: document.domain.split('.').slice(-2).join('.')
 };
 
+function submitBug(msg) {
+   console.log(msg);
+   $.post('/api/bug?action=post', msg);
+}
+
 $(document).ready(function () {
    // get uid and urole
    var uid = $.cookie('uid');
@@ -273,36 +278,38 @@ $(document).ready(function () {
                button.prepend('<span class="spinner"></span>');
                button.prop("disabled", true);
 
-               file.upload('/file/ajax/upload', function (res) {
+               file.upload('/api/file?action=post', function (res) {
                   file.val('');
                   button.prop("disabled", false);
                   button.find('span.spinner').remove();
-                  try {
-                     if (res.error && res.error.length > 0) {
-                        var msg = '';
-                        if (Object.prototype.toString.call(res.error) === '[object Array]') {
-                           for (var i = 0; i < res.error.length; i++) {
-                              msg = msg + res.error[i].name + ' : ' + res.error[i].error + "\n";
+                  if (res) {
+                     try {
+                        if (res.error && res.error.length > 0) {
+                           var msg = '';
+                           if (Object.prototype.toString.call(res.error) === '[object Array]') {
+                              for (var i = 0; i < res.error.length; i++) {
+                                 msg = msg + res.error[i].name + ' : ' + res.error[i].error + "\n";
+                              }
                            }
+                           else // string
+                           {
+                              msg = res.error;
+                           }
+                           alert(msg);
                         }
-                        else // string
-                        {
-                           msg = res.error;
-                        }
-                        alert(msg);
-                     }
 
-                     if (res.saved && res.saved.length > 0) {
-                        updateFileTable(res.saved);
-                        fileTable.show();
+                        if (res.saved && res.saved.length > 0) {
+                           updateFileTable(res.saved);
+                           fileTable.show();
+                        }
+                     }
+                     catch (e)
+                     {
+                        alert('上传文件失败，请换用其他浏览器上传文件。错误信息:' + e.message);
+                        submitBug({msg: e.message, data: res});
                      }
                   }
-                  catch (e)
-                  {
-                     alert('您的浏览器在上传文件过程中遇到错误，请换用其他浏览器上传文件。');
-                     $.post('/bug/ajax-file-upload', 'error=' + e.message + '&res=' + encodeURIComponent(res));
-                  }
-               }, 'json');
+               });
             }
          });
 
@@ -433,7 +440,7 @@ $(document).ready(function () {
           + '<fieldset><label class="label" data-help="允许空格，不允许&quot;.&quot;、“-”、“_”以外的其他符号">用户名</label><input name="username" type="text" required autofocus></fieldset>'
           + '<fieldset><label class="label" data-help="一个有效的电子邮件地址。帐号激活后的初始密码和所有本站发出的信件都将寄至此地址。电子邮件地址将不会被公开，仅当您想要接收新密码或通知时才会使用">电子邮箱</label><input name="email" type="email" required></fieldset>'
           + '<fieldset><label class="label" data-help="确认电子邮箱">确认邮箱</label><input name="email2" type="email" required></fieldset>'
-          + '<fieldset><label class="label">右边图片的内容是什么？</label><input name="captcha" type="text" required><img id="captchaImage" title="图形验证" alt="图形验证未能正确显示，请刷新" src="/captcha/1053381520"><a onclick=\'document.getElementById("captchaImage").setAttribute("src", "/captcha/1053381520" + Math.random().toString().slice(2)); event.preventDefault();\' href="#">看不清，换一张</a></fieldset>'
+          + '<fieldset><label class="label">右边图片的内容是什么？</label><input name="captcha" type="text" required><img id="captchaImage" alt="图形验证未能正确显示，请刷新" src="/api/captcha/' + Math.random().toString().slice(2) + '"><a onclick=\'document.getElementById("captchaImage").setAttribute("src", "/api/captcha/" + Math.random().toString().slice(2)); event.preventDefault();\' href="#">看不清，换一张</a></fieldset>'
           + '<fieldset>[<a href="/node/23200">网站使用规范</a>] [<a href="/term">免责声明</a>]</fieldset>'
           + '<fieldset><button type="submit">同意使用规范和免责声明，并创建新帐号</button></fieldset></form>',
       '#/password/change':
