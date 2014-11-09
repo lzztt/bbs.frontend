@@ -1,0 +1,16 @@
+<div ng-bind-html="navbar"></div>
+<nav class="pager" pager pcount="pageCount" pcurrent="pageCurrent" paction="goToPage(i)"></nav>
+<table class="pm_list">
+   <thead>
+      <tr><th>短信</th><th>联系人</th><th>时间</th></tr>
+   </thead>
+   <tbody class="even_odd_parent">
+      <tr ng-repeat="msg in mailbox.msgs">
+         <td data-header="短信"><a href="#/pm/{{msg.mid}}">{{msg.body}}</a></td>
+         <td data-header="联系人"><a href="/user/{{msg.uid}}">{{msg.user}}</a></td>
+         <td data-header="时间">{{msg.time * 1000| date: 'MM/dd/yyyy'}}</td>
+      </tr>
+   </tbody>
+</table>
+<nav class="pager" pager pcount="pageCount" pcurrent="pageCurrent" paction="goToPage(i)"></nav>
+
