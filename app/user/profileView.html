@@ -1,36 +1,36 @@
 <div ng-bind-html="navbar"></div>
 <figure>
-         <img class="avatar" ng-src="{{user.avatar}}" alt="{{user.name}}的头像">
-         <figcaption>{{user.name}}</figcaption>
-      </figure>
-      <dl>
-         <dt>微信</dt><dd>{{user.wechat}}</dd>
-         <dt>QQ</dt><dd>{{user.qq}}</dd>
-         <dt>个人网站<dd>{{user.website}}</dd>
-         <dt>性别</dt<dd>{{user.sex}}</dd>
-         <dt>生日</dt><dd>{{user.birthday}}</dd>
-         <dt>职业</dt><dd>{{user.occupation}}</dd>
-         <dt>兴趣爱好</dt><dd>{{user.interests}}</dd>
-         <dt>自我介绍</dt><dd>{{user.favoriteQuotation}}</dd>
-         <dt>注册时间</dt><dd>{{user.createTime * 1000| date: 'MM/dd/yyyy'}}</dd>
-         <dt>上次登陆时间</dt><dd>{{user.lastAccessTime * 1000| date: 'MM/dd/yyyy'}}</dd>
-         <dt>上次登陆地点</dt><dd>{{user.lastAccessCity}}</dd>
-      </dl>
-      <table class="user_topics">
-         <caption>最近发表的论坛话题</caption>
-         <thead><tr><th>论坛话题</th><th>发表时间</th></tr></thead>
-         <tbody class="even_odd_parent">
-            <tr ng-repeat="topic in user.topics">
-               <td data-header="论坛话题"><a href="/node/{{topic.nid}}">{{topic.title}}</a></td><td data-header="发表时间">{{topic.createTime * 1000| date: 'MM/dd/yyyy'}}</td>
-            </tr>
-         </tbody>
-      </table>
-      <table class="user_topics">
-         <caption>最近回复的论坛话题</caption>
-         <thead><tr><th>论坛话题</th><th>发表时间</th></tr></thead>
-         <tbody class="even_odd_parent">
-            <tr ng-repeat="comment in user.comments" >
-               <td data-header="论坛话题"><a href="/node/{{comment.nid}}">{{comment.title}}</a></td><td data-header="发表时间">{{comment.createTime * 1000| date: 'MM/dd/yyyy'}}</td>
-            </tr>
-         </tbody>
-      </table>
+   <img class="avatar" ng-src="{{user.avatar}}" alt="{{user.name}}的头像">
+   <figcaption>{{user.name}}</figcaption>
+</figure>
+<dl>
+   <dt>微信</dt><dd>{{user.wechat}}</dd>
+   <dt>QQ</dt><dd>{{user.qq}}</dd>
+   <dt>个人网站</dt><dd>{{user.website}}</dd>
+   <dt>性别</dt><dd>{{user.sex}}</dd>
+   <dt>生日</dt><dd>{{user.birthday}}</dd>
+   <dt>职业</dt><dd>{{user.occupation}}</dd>
+   <dt>兴趣爱好</dt><dd>{{user.interests}}</dd>
+   <dt>自我介绍</dt><dd>{{user.favoriteQuotation}}</dd>
+   <dt>注册时间</dt><dd>{{user.createTime * 1000| date: 'MM/dd/yyyy'}}</dd>
+   <dt>上次登陆时间</dt><dd>{{user.lastAccessTime * 1000| date: 'MM/dd/yyyy'}}</dd>
+   <dt>上次登陆地点</dt><dd>{{user.lastAccessCity}}</dd>
+</dl>
+<table class="user_topics">
+   <caption>最近发表的论坛话题</caption>
+   <thead><tr><th>论坛话题</th><th>发表时间</th></tr></thead>
+   <tbody class="even_odd_parent">
+      <tr ng-repeat="topic in user.topics">
+         <td data-header="论坛话题"><a href="/node/{{topic.nid}}">{{topic.title}}</a></td><td data-header="发表时间">{{topic.createTime * 1000| date: 'MM/dd/yyyy'}}</td>
+      </tr>
+   </tbody>
+</table>
+<table class="user_topics">
+   <caption>最近回复的论坛话题</caption>
+   <thead><tr><th>论坛话题</th><th>发表时间</th></tr></thead>
+   <tbody class="even_odd_parent">
+      <tr ng-repeat="comment in user.comments" >
+         <td data-header="论坛话题"><a href="/node/{{comment.nid}}">{{comment.title}}</a></td><td data-header="发表时间">{{comment.createTime * 1000| date: 'MM/dd/yyyy'}}</td>
+      </tr>
+   </tbody>
+</table>
