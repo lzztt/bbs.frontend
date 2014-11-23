@@ -1,13 +1,66 @@
 var userLinks = [
    {name: "用户首页", uri: "#/profile"},
    {name: "站内短信", uri: "#/mailbox/inbox"},
-   {name: "收藏夹", uri: "#/bookmark"}
+   {name: "收藏夹", uri: "#/bookmark"},
+   {name: "登出", uri: "#/logout"}
 ];
 
 var mailLinks = [
    {name: "收件箱", uri: "#/mailbox/inbox"},
    {name: "发件箱", uri: "#/mailbox/sent"}
 ];
+
+var session = {
+   set: function (key, value) {
+      if (value == null) {
+         sessionStorage.removeItem(key);
+      }
+      else {
+         sessionStorage.setItem(key, JSON.stringify(value));
+      }
+   },
+   get: function (key) {
+      var value = sessionStorage.getItem(key);
+      if (value == null) {
+         return null;
+      }
+      else {
+         return JSON.parse(value);
+      }
+   },
+   remove: function (key) {
+      sessionStorage.removeItem(key);
+   },
+   clear: function () {
+      sessionStorage.clear();
+   }
+};
+
+var cache = {
+   set: function (key, value) {
+      if (value == null) {
+         localStorage.removeItem(key);
+      }
+      else {
+         localStorage.setItem(key, JSON.stringify(value));
+      }
+   },
+   get: function (key) {
+      var value = localStorage.getItem(key);
+      if (value == null) {
+         return null;
+      }
+      else {
+         return JSON.parse(value);
+      }
+   },
+   remove: function (key) {
+      localStorage.removeItem(key);
+   },
+   clear: function () {
+      localStorage.clear();
+   }
+};
 
 var getNavbar = function (links, activeLink) {
    var html = '<nav class="navbar">';
@@ -22,32 +75,40 @@ var getNavbar = function (links, activeLink) {
    return html + '</nav>';
 };
 
-var inboxApp = angular.module('inboxApp', ['ngSanitize', 'ngRoute', 'ngCookies']);
+var userApp = angular.module('userApp', ['ngSanitize', 'ngRoute', 'ngCookies']);
 
-inboxApp.config(['$routeProvider', function ($routeProvider) {
-      $routeProvider.
-          when('/mailbox/:folder', {
+userApp.config(['$routeProvider', function ($routeProvider) {
+      $routeProvider
+          .when('/mailbox/:folder', {
              templateUrl: 'inboxView.html',
-             controller: 'InboxCtrl'
-          }).
-          when('/pm/:mid', {
+             controller: 'MailboxCtrl'
+          })
+          .when('/pm/:mid', {
              templateUrl: 'messageView.html',
              controller: 'MessageCtrl'
-          }).
-          when('/bookmark', {
+          })
+          .when('/bookmark', {
              templateUrl: 'bookmarkView.html',
              controller: 'BookmarkCtrl'
-          }).
-          when('/profile', {
+          })
+          .when('/profile', {
              templateUrl: 'profileView.html',
              controller: 'ProfileCtrl'
-          }).
-          otherwise({
+          })
+          .when('/login', {
+             controller: 'LoginCtrl',
+             templateUrl: 'loginView.html'
+          })
+          .when('/logout', {
+             controller: 'LogoutCtrl',
+             template: ''
+          })
+          .otherwise({
              redirectTo: '/profile'
           });
    }]);
 
-inboxApp.directive('pager', function () {
+userApp.directive('pager', function () {
    return {
       restrict: 'A',
       scope: {
@@ -57,15 +118,10 @@ inboxApp.directive('pager', function () {
       },
       template: '<a href="" ng-repeat="p in pages" ng-click="paction({i:p.id})" ng-class="{active: p.active}">{{p.name}}</a>',
       link: function (scope, element, attrs) {
-         //console.log(element);
-         //console.log(attrs);
-         //console.log(scope);
          scope.$watch('pcurrent', function () {
             var pFirst, pLast,
                 pCurrent = parseInt(scope.pcurrent),
                 pCount = parseInt(scope.pcount);
-            //console.log(pCurrent);
-            //console.log(pCount);
 
             // validate pCount and pCurrent
             if (isNaN(pCount) || pCount <= 1)
@@ -112,14 +168,19 @@ inboxApp.directive('pager', function () {
                   scope.pages.push({id: pCount, name: '>>'});
                }
             }
-            //console.log(scope.pages);
          });
       }
    }
 });
-inboxApp.controller('InboxCtrl', function ($scope, $routeParams, $cookies, $http, $location) {
+
+userApp.controller('MailboxCtrl', function ($scope, $routeParams, $cookies, $http, $location) {
+   if (!$cookies.LZXSID || $cookies.LZXSID != cache.get('sessionID') || !cache.get('uid')) {
+      $location.path('/login');
+      return;
+   }
+
    $scope.navbar = getNavbar(userLinks, '#/mailbox/inbox') + getNavbar(mailLinks, '#/mailbox/' + $routeParams.folder);
-   $cookies.mailbox = $routeParams.folder;
+   session.set('mailbox', $routeParams.folder);
    $scope.goToPage = function (i) {
       $http.get('/api/message/' + $routeParams.folder + '?p=' + i).success(function (data) {
          $scope.mailbox = data;
@@ -132,8 +193,14 @@ inboxApp.controller('InboxCtrl', function ($scope, $routeParams, $cookies, $http
    };
    $scope.goToPage(1);
 });
-inboxApp.controller('MessageCtrl', function ($scope, $routeParams, $cookies, $http, $location) {
-   $scope.navbar = getNavbar(userLinks, '#/mailbox/inbox') + getNavbar(mailLinks, '#/mailbox/' + $cookies.mailbox);
+
+userApp.controller('MessageCtrl', function ($scope, $routeParams, $cookies, $http, $location) {
+   if (!$cookies.LZXSID || $cookies.LZXSID != cache.get('sessionID') || !cache.get('uid')) {
+      $location.path('/login');
+      return;
+   }
+
+   $scope.navbar = getNavbar(userLinks, '#/mailbox/inbox') + getNavbar(mailLinks, '#/mailbox/' + session.get('mailbox'));
    $http.get('/api/message/' + $routeParams.mid).success(function (data) {
       $scope.messages = data.msgs;
       $scope.replyTo = data.replyTo;
@@ -150,7 +217,7 @@ inboxApp.controller('MessageCtrl', function ($scope, $routeParams, $cookies, $ht
          {
             if (index == 0)
             {
-               $location.path('/mailbox/' + $cookies.mailbox);
+               $location.path('/mailbox/' + session.get('mailbox'));
             }
             else
             {
@@ -183,7 +250,13 @@ inboxApp.controller('MessageCtrl', function ($scope, $routeParams, $cookies, $ht
       $scope.replyBody = null;
    }
 });
-inboxApp.controller('BookmarkCtrl', function ($scope, $routeParams, $cookies, $http, $location) {
+
+userApp.controller('BookmarkCtrl', function ($scope, $routeParams, $cookies, $http, $location) {
+   if (!$cookies.LZXSID || $cookies.LZXSID != cache.get('sessionID') || !cache.get('uid')) {
+      $location.path('/login');
+      return;
+   }
+
    $scope.navbar = getNavbar(userLinks, '#' + $location.path());
 
    $scope.goToPage = function (i) {
@@ -243,9 +316,70 @@ inboxApp.controller('BookmarkCtrl', function ($scope, $routeParams, $cookies, $h
       $scope.nodes = nodes;
    };
 });
-inboxApp.controller('ProfileCtrl', function ($scope, $cookies, $http, $location) {
+
+userApp.controller('ProfileCtrl', function ($scope, $cookies, $http, $location) {
+   if (!$cookies.LZXSID || $cookies.LZXSID != cache.get('sessionID') || !cache.get('uid')) {
+      $location.path('/login');
+      return;
+   }
+
    $scope.navbar = getNavbar(userLinks, '#' + $location.path());
-   $http.get('/api/user/' + $cookies.uid).success(function (data) {
+   $http.get('/api/user/' + cache.get('uid')).success(function (data) {
       $scope.user = data;
    });
+});
+
+userApp.controller('LoginCtrl', function ($scope, $http, $cookies, $location) {
+   if ($cookies.LZXSID == cache.get('sessionID') && cache.get('uid') > 0) {
+      $location.path('/profile');
+      return;
+   }
+
+   $scope.login = function (username, password) {
+      $http.post('/api/authentication?action=post', 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password), {
+         headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
+         if (!data) {
+            alert('服务器没有响应');
+         }
+         else {
+            if (data.sessionID) {
+               cache.set('sessionID', data.sessionID);
+               cache.set('uid', data.uid);
+               if (data.uid > 0) {
+                  cache.set('username', data.username);
+                  cache.set('role', data.role);
+               }
+            }
+            else {
+               if (data.error) {
+                  alert(data.error);
+               }
+               else {
+                  alert('对话加载失败');
+               }
+            }
+         }
+         $location.path('/profile');
+      });
+   };
+});
+
+userApp.controller('LogoutCtrl', function ($http, $cookies, $location) {
+   if (!$cookies.LZXSID || $cookies.LZXSID != cache.get('sessionID') || !cache.get('uid')) {
+      $location.path('/login');
+      return;
+   }
+
+   // need a setTimeout, otherwise there request will be sent twice, weird bug!
+   setTimeout(function () {
+      $http.get('/api/authentication/' + cache.get('sessionID') + '?action=delete').success(function (data) {
+         if (data && data.error) {
+            alert(data.error);
+         }
+         else {
+            cache.remove('sessionID');
+            $location.path('/login');
+         }
+      });
+   }, 1);
 });
