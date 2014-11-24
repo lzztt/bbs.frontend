@@ -1,3 +1,5 @@
+var tplVersion = '1.0.0';
+
 var userLinks = [
    {name: "用户首页", uri: "#/profile"},
    {name: "站内短信", uri: "#/mailbox/inbox"},
@@ -76,6 +78,36 @@ var getNavbar = function (links, activeLink) {
 };
 
 var userApp = angular.module('userApp', ['ngSanitize', 'ngRoute', 'ngCookies']);
+
+userApp.run(function ($templateCache, $route, $http) {
+   var tplCacheRefresh = (tplVersion != cache.get(userApp.name + '_tplVersion'));
+   if (tplCacheRefresh) {
+      cache.set(userApp.name + '_tplVersion', tplVersion);
+   }
+
+   for (var path in $route.routes)
+   {
+      var tpl = $route.routes[path].templateUrl;
+      if (tpl)
+      {
+         // is it already loaded?
+         var html = tplCacheRefresh ? null : localStorage.getItem(tpl);
+
+         // load the template and cache it 
+         if (!html) {
+            $http.get(tpl).success(function (data, status, headers, config) {
+               var tpl = config.url;
+               // template loaded from the server
+               localStorage.setItem(tpl, data);
+               $templateCache.put(tpl, data);
+            });
+         } else {
+            // inject the template
+            $templateCache.put(tpl, html);
+         }
+      }
+   }
+});
 
 userApp.config(['$routeProvider', function ($routeProvider) {
       $routeProvider
@@ -260,7 +292,7 @@ userApp.controller('BookmarkCtrl', function ($scope, $routeParams, $cookies, $ht
    $scope.navbar = getNavbar(userLinks, '#' + $location.path());
 
    $scope.goToPage = function (i) {
-      $http.get('/api/bookmark/' + $cookies.uid + '?p=' + i).success(function (data) {
+      $http.get('/api/bookmark/' + cache.get('uid') + '?p=' + i).success(function (data) {
          $scope.nodes = data.nodes;
          if (data.pager && data.pager.pageCount > 1)
          {
