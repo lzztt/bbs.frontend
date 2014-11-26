@@ -1,9 +1,0 @@
-<div ng-bind-html="navbar"></div>
-<nav class="pager" pager pcount="pageCount" pcurrent="pageCurrent" paction="goToPage(i)"></nav>
-<button type="button" ng-click="toggleAction()">{{action}}</button>
-<ul class="bookmarks even_odd_parent" style="clear:both;">
-   <li ng-repeat="node in nodes">
-      <button type="button" ng-show="editMode" ng-click="deleteBookmark($index)">删除</button><a href="/node/{{node.id}}">{{node.title}}</a></li>
-</ul>
-<nav class="pager" pager pcount="pageCount" pcurrent="pageCurrent" paction="goToPage(i)"></nav>
-
