@@ -1,0 +1,49 @@
+
+[WARNING] Try to use a single 'var' statement per scope.
+var tplVersion="1417003995"; ---> var  <--- userLinks=[{name:"用户首页",uri:
+
+[WARNING] Try to use a single 'var' statement per scope.
+:"网站首页",uri:"/"}]; ---> var  <--- mailLinks=[{name:"收件箱",uri:
+
+[WARNING] Try to use a single 'var' statement per scope.
+:"发件箱",uri:"#/mailbox/sent"}]; ---> var  <--- session={set:function(key,value
+
+[WARNING] Try to use a single 'var' statement per scope.
+sessionStorage.clear();}}; ---> var  <--- cache={set:function(key,value
+
+[WARNING] Try to use a single 'var' statement per scope.
+localStorage.clear();}}; ---> var  <--- getNavbar=function(links,activeLink){var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+){var html='<nav class="navbar">';for( ---> var  <--- i=0;i<links.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+}}returnhtml+"</nav>";}; ---> var  <--- userApp=angular.module("userApp",["ngSanitize"
+
+[WARNING] Try to use a single 'var' statement per scope.
++"_tplVersion",tplVersion);}for( ---> var  <--- path in $route.routes){var tplUrl=
+
+[WARNING] Try to use a single 'var' statement per scope.
+(var path in $route.routes){ ---> var  <--- tplUrl=$route.routes[path].templateUrl
+
+[WARNING] Try to use a single 'var' statement per scope.
+].templateUrl;if(tplUrl){ ---> var  <--- tplCache=tplUrl.replace("."+tplVersion,
+
+[WARNING] Try to use a single 'var' statement per scope.
+replace("."+tplVersion,""); ---> var  <--- html=tplCacheRefresh?null:localStorage.getItem(
+
+[WARNING] Try to use a single 'var' statement per scope.
+){var tplUrl=config.url; ---> var  <--- tplCache=tplUrl.replace("."+tplVersion,
+
+[WARNING] Try to use a single 'var' statement per scope.
+name:"<"});}for( ---> var  <--- i=pFirst;i<=pLast;i++
+
+[WARNING] Try to use a single 'var' statement per scope.
+var actions=["编辑","保存"]; ---> var  <--- deletedBookmarks=[];$scope.editMode=false
+
+[WARNING] Try to use a single 'var' statement per scope.
+var index,nid="";for( ---> var  <--- i=0;i<deletedBookmarks.length;
+
+[WARNING] The symbol index is declared but is apparently never used.
+This code can probably be written in a more compact way.
+{if(deletedBookmarks.length){var  ---> index <--- ,nid="";for(var i=

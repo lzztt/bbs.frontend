@@ -1,10 +1,10 @@
 time=`date +%s`;
-appdir="$1.__VERSION__"
+appdir="$1.__HEAD__"
 appnew="$1.$time"
 
 if [ -d "$appdir" ]; then
     cp -pr $appdir $appnew
-    sed -i "s/__VERSION__/$time/g" $appnew/index.html $appnew/app.js
+    sed -i "s/__HEAD__/$time/g" $appnew/index.html $appnew/app.js
     sed -i 's!/app.js"!/min.js"!g' $appnew/index.html
     java -jar /home/web/yuicompressor-2.4.7/build/yuicompressor-2.4.7.jar -v --type js --charset utf-8 -o $appnew/min.js $appnew/app.js > $appnew/min.log 2>&1
     gzip -c $appnew/min.js > $appnew/min.js.gz
