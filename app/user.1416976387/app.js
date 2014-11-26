@@ -1,4 +1,4 @@
-var tplVersion = '__VERSION__';
+var tplVersion = '1416976387';
 
 var userLinks = [
    {name: "用户首页", uri: "#/profile"},
@@ -115,24 +115,24 @@ userApp.run(['$templateCache', '$route', '$http', function ($templateCache, $rou
 userApp.config(['$routeProvider', function ($routeProvider) {
       $routeProvider
           .when('/mailbox/:folder', {
-             templateUrl: '/app/user.__VERSION__/mailbox.tpl.html',
+             templateUrl: '/app/user.1416976387/mailbox.tpl.html',
              controller: 'MailboxCtrl'
           })
           .when('/pm/:mid', {
-             templateUrl: '/app/user.__VERSION__/message.tpl.html',
+             templateUrl: '/app/user.1416976387/message.tpl.html',
              controller: 'MessageCtrl'
           })
           .when('/bookmark', {
-             templateUrl: '/app/user.__VERSION__/bookmark.tpl.html',
+             templateUrl: '/app/user.1416976387/bookmark.tpl.html',
              controller: 'BookmarkCtrl'
           })
           .when('/profile', {
-             templateUrl: '/app/user.__VERSION__/profile.tpl.html',
+             templateUrl: '/app/user.1416976387/profile.tpl.html',
              controller: 'ProfileCtrl'
           })
           .when('/login', {
              controller: 'LoginCtrl',
-             templateUrl: '/app/user.__VERSION__/login.tpl.html'
+             templateUrl: '/app/user.1416976387/login.tpl.html'
           })
           .when('/logout', {
              controller: 'LogoutCtrl',
