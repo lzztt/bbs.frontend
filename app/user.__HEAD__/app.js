@@ -431,7 +431,12 @@ userApp.controller('LoginCtrl', ['$scope', '$http', '$cookies', '$location', fun
             var redirect = session.get('redirect');
             if (redirect) {
                session.remove('redirect');
-               $location.path(redirect);
+               if (redirect.substring(0, 4) == 'http') {
+                  window.location.href = redirect;
+               }
+               else {
+                  $location.path(redirect);
+               }
             }
             else {
                $location.path('/profile');
