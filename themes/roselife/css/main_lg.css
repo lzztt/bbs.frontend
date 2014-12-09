@@ -52,25 +52,15 @@
    /* END YP BCARD */
 
    /* BEGIN PAGE HEADER AD */
-   #page_header_ad span:first-child
-   {
-      width: 312px;
-      height: 90px;
-   }
-   #page_header_ad span:last-child
+   #page_header_ad span
    {
       width: 936px;
-      height: 120px;
+      height: 60px;
    }
-   #page_header_ad span:last-child a
+   #page_header_ad span a
    {
       width: 468px;
       height: 60px;
-   }
-   #page_header_ad span:first-child a img
-   {
-      width: 272px;
-      height: 90px;
    }
    /* END PAGE HEADER AD */
 }

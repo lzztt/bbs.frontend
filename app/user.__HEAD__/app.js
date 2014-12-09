@@ -1,11 +1,19 @@
 var tplVersion = '__HEAD__';
 
 var userLinks = [
-   {name: "用户首页", uri: "#/profile"},
-   {name: "站内短信", uri: "#/mailbox/inbox"},
+   {name: "首页", uri: "/"},
+   {name: "我的账户", uri: "#/profile"},
+   {name: "短信", uri: "#/mailbox/inbox"},
    {name: "收藏夹", uri: "#/bookmark"},
-   {name: "登出", uri: "#/logout"},
-   {name: "网站首页", uri: "/"}
+   {name: "登出", uri: "#/logout"}
+];
+
+var guestLinks = [
+   {name: "首页", uri: "/"},
+   {name: "登录", uri: "#/login"},
+   {name: "忘记密码", uri: "#/forget_password"},
+   {name: "忘记用户名", uri: "#/forget_username"},
+   {name: "注册帐号", uri: "#/register"}
 ];
 
 var mailLinks = [
@@ -80,36 +88,36 @@ var getNavbar = function (links, activeLink) {
 
 var userApp = angular.module('userApp', ['ngSanitize', 'ngRoute', 'ngCookies']);
 
-userApp.run(['$templateCache', '$route', '$http', function ($templateCache, $route, $http) {
-      var tplCacheRefresh = (tplVersion != cache.get(userApp.name + '_tplVersion'));
-      if (tplCacheRefresh) {
-         cache.set(userApp.name + '_tplVersion', tplVersion);
-      }
-
-      for (var path in $route.routes)
-      {
-         var tplUrl = $route.routes[path].templateUrl;
-         if (tplUrl)
-         {
-            var tplCache = tplUrl.replace('.' + tplVersion, '');
-            // is it already loaded?
-            var html = tplCacheRefresh ? null : localStorage.getItem(tplCache);
-
-            // load the template and cache it 
-            if (!html) {
-               $http.get(tplUrl).success(function (data, status, headers, config) {
-                  var tplUrl = config.url;
-                  var tplCache = tplUrl.replace('.' + tplVersion, '');
-                  // template loaded from the server
-                  localStorage.setItem(tplCache, data);
-                  $templateCache.put(tplUrl, data);
-               });
-            } else {
-               // inject the template
-               $templateCache.put(tplUrl, html);
-            }
-         }
-      }
+userApp.run(['$templateCache', '$route', '$http', function ($templateCache, $route, $http) {/*
+ var tplCacheRefresh = (tplVersion != cache.get(userApp.name + '_tplVersion'));
+ if (tplCacheRefresh) {
+ cache.set(userApp.name + '_tplVersion', tplVersion);
+ }
+ 
+ for (var path in $route.routes)
+ {
+ var tplUrl = $route.routes[path].templateUrl;
+ if (tplUrl)
+ {
+ var tplCache = tplUrl.replace('.' + tplVersion, '');
+ // is it already loaded?
+ var html = tplCacheRefresh ? null : localStorage.getItem(tplCache);
+ 
+ // load the template and cache it 
+ if (!html) {
+ $http.get(tplUrl).success(function (data, status, headers, config) {
+ var tplUrl = config.url;
+ var tplCache = tplUrl.replace('.' + tplVersion, '');
+ // template loaded from the server
+ localStorage.setItem(tplCache, data);
+ $templateCache.put(tplUrl, data);
+ });
+ } else {
+ // inject the template
+ $templateCache.put(tplUrl, html);
+ }
+ }
+ }*/
    }]);
 
 userApp.config(['$routeProvider', function ($routeProvider) {
@@ -130,6 +138,10 @@ userApp.config(['$routeProvider', function ($routeProvider) {
              templateUrl: '/app/user.__HEAD__/profile.tpl.html',
              controller: 'ProfileCtrl'
           })
+          .when('/profile/:uid', {
+             templateUrl: '/app/user.__HEAD__/profile.tpl.html',
+             controller: 'ProfileCtrl'
+          })
           .when('/login', {
              controller: 'LoginCtrl',
              templateUrl: '/app/user.__HEAD__/login.tpl.html'
@@ -138,8 +150,24 @@ userApp.config(['$routeProvider', function ($routeProvider) {
              controller: 'LogoutCtrl',
              template: ''
           })
+          .when('/register', {
+             controller: 'RegisterCtrl',
+             templateUrl: '/app/user.__HEAD__/register.tpl.html'
+          })
+          .when('/forget_password', {
+             controller: 'ForgetPasswordCtrl',
+             templateUrl: '/app/user.__HEAD__/forget_password.tpl.html'
+          })
+          .when('/set_password', {
+             controller: 'SetPasswordCtrl',
+             templateUrl: '/app/user.__HEAD__/set_password.tpl.html'
+          })
+          .when('/forget_username', {
+             controller: 'ForgetUsernameCtrl',
+             templateUrl: '/app/user.__HEAD__/forget_username.tpl.html'
+          })
           .otherwise({
-             redirectTo: '/profile'
+             template: '404 page not found :(',
           });
    }]);
 
@@ -241,7 +269,6 @@ userApp.controller('MessageCtrl', ['$scope', '$routeParams', '$cookies', '$http'
       $http.get('/api/message/' + $routeParams.mid).success(function (data) {
          $scope.messages = data.msgs;
          $scope.replyTo = data.replyTo;
-         $scope.topicMID = $routeParams.mid;
       });
       $scope.deletePM = function (index) {
          var msgs = $scope.messages;
@@ -270,7 +297,7 @@ userApp.controller('MessageCtrl', ['$scope', '$routeParams', '$cookies', '$http'
             alert('短信内容最少为5个字符');
             return;
          }
-         $http.post('/api/message?action=post', 'toUID=' + $scope.replyTo.id + '&body=' + encodeURIComponent(msg) + '&topicMID=' + $scope.topicMID, {
+         $http.post('/api/message?action=post', 'toUID=' + $scope.replyTo.id + '&body=' + encodeURIComponent(msg) + '&topicMID=' + $routeParams.mid, {
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
             if (!data) {
                alert('服务器没有响应');
@@ -288,7 +315,7 @@ userApp.controller('MessageCtrl', ['$scope', '$routeParams', '$cookies', '$http'
       }
    }]);
 
-userApp.controller('BookmarkCtrl', ['$scope', '$routeParams', '$cookies', '$http', '$location', function ($scope, $routeParams, $cookies, $http, $location) {
+userApp.controller('BookmarkCtrl', ['$scope', '$cookies', '$http', '$location', function ($scope, $cookies, $http, $location) {
       if (!$cookies.LZXSID || $cookies.LZXSID != cache.get('sessionID') || !cache.get('uid')) {
          session.set('redirect', $location.path());
          $location.path('/login');
@@ -310,12 +337,15 @@ userApp.controller('BookmarkCtrl', ['$scope', '$routeParams', '$cookies', '$http
 
       $scope.goToPage(1);
 
-      var actions = ["编辑", "保存"];
       var deletedBookmarks = [];
       $scope.editMode = false;
-      $scope.action = actions[0];
 
-      $scope.toggleAction = function () {
+      $scope.edit = function () {
+         $scope.editMode = true;
+         deletedBookmarks = [];
+      };
+
+      $scope.save = function () {
          if ($scope.editMode) {
             if (deletedBookmarks.length) {
                var index, nid = '';
@@ -329,23 +359,20 @@ userApp.controller('BookmarkCtrl', ['$scope', '$routeParams', '$cookies', '$http
                   }
                   else {
                      $scope.editMode = false;
-                     $scope.action = actions[0];
                   }
                });
             }
             else {
                $scope.editMode = false;
-               $scope.action = actions[0];
             }
          }
-         else {
-            $scope.editMode = true;
-            $scope.action = actions[1];
-         }
-
          deletedBookmarks = [];
       };
 
+      $scope.cancel = function () {
+         $scope.editMode = false;
+         deletedBookmarks = [];
+      };
 
       $scope.deleteBookmark = function (index) {
          var nodes = $scope.nodes;
@@ -355,15 +382,16 @@ userApp.controller('BookmarkCtrl', ['$scope', '$routeParams', '$cookies', '$http
       };
    }]);
 
-userApp.controller('ProfileCtrl', ['$scope', '$cookies', '$http', '$location', function ($scope, $cookies, $http, $location) {
+userApp.controller('ProfileCtrl', ['$scope', '$routeParams', '$cookies', '$http', '$location', function ($scope, $routeParams, $cookies, $http, $location) {
       if (!$cookies.LZXSID || $cookies.LZXSID != cache.get('sessionID') || !cache.get('uid')) {
          session.set('redirect', $location.path());
          $location.path('/login');
          return;
       }
 
+      var uid = $routeParams.uid ? $routeParams.uid : cache.get('uid');
       $scope.navbar = getNavbar(userLinks, '#' + $location.path());
-      $http.get('/api/user/' + cache.get('uid')).success(function (data) {
+      $http.get('/api/user/' + uid).success(function (data) {
          $scope.user = data;
       });
    }]);
@@ -373,6 +401,8 @@ userApp.controller('LoginCtrl', ['$scope', '$http', '$cookies', '$location', fun
          $location.path('/profile');
          return;
       }
+
+      $scope.navbar = getNavbar(guestLinks, '#' + $location.path());
 
       $scope.login = function (username, password) {
          $http.post('/api/authentication?action=post', 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password), {
@@ -428,4 +458,108 @@ userApp.controller('LogoutCtrl', ['$http', '$cookies', '$location', function ($h
             }
          });
       }, 1);
+   }]);
+
+
+userApp.controller('RegisterCtrl', ['$scope', '$http', '$cookies', '$location', function ($scope, $http, $cookies, $location) {
+      $scope.navbar = getNavbar(guestLinks, '#' + $location.path());
+
+      $scope.updateCaptcha = function () {
+         $scope.captchaURI = '/api/captcha/' + Math.random().toString().slice(2);
+      }
+      $scope.updateCaptcha();
+
+      $scope.register = function () {
+         var email = $scope.email;
+         if (email != $scope.email2)
+         {
+            alert("两次输入的邮箱不一致，请检查");
+            return;
+         }
+
+         $http.post('/api/user?action=post', 'username=' + encodeURIComponent($scope.username) + '&email=' + encodeURIComponent(email) + '&captcha=' + encodeURIComponent($scope.captcha), {
+            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
+            if (!data) {
+               alert('服务器没有响应');
+            }
+            else {
+               if (data.error) {
+                  alert(data.error);
+               }
+               else {
+                  alert("感谢注册！账户激活\n安全验证码已经成功发送到您的注册邮箱 " + $scope.email + " ，请检查email。\n如果您的收件箱内没有此电子邮件，请检查电子邮件的垃圾箱，或者与网站管理员联系。");
+                  session.set('identCodePath', $location.path());
+                  $location.path('/set_password');
+               }
+            }
+         });
+      };
+   }]);
+
+userApp.controller('ForgetPasswordCtrl', ['$scope', '$http', '$cookies', '$location', function ($scope, $http, $cookies, $location) {
+      $scope.navbar = getNavbar(guestLinks, '#' + $location.path());
+
+      $scope.updateCaptcha = function () {
+         $scope.captchaURI = '/api/captcha/' + Math.random().toString().slice(2);
+      }
+      $scope.updateCaptcha();
+
+      $scope.forgetPassword = function () {
+         $http.post('/api/identificationcode?action=post', 'username=' + encodeURIComponent($scope.username) + '&email=' + encodeURIComponent($scope.email) + '&captcha=' + encodeURIComponent($scope.captcha), {
+            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
+            if (data.error) {
+               alert(data.error);
+            }
+            else {
+               alert("安全验证码已经成功发送到您的注册邮箱 " + $scope.email + " ，请检查email。\n如果您的收件箱内没有此电子邮件，请检查电子邮件的垃圾箱，或者与网站管理员联系。");
+               session.set('identCodePath', $location.path());
+               $location.path('/set_password');
+            }
+         });
+      };
+   }]);
+
+userApp.controller('SetPasswordCtrl', ['$scope', '$http', '$cookies', '$location', function ($scope, $http, $cookies, $location) {
+      if (!session.get('identCodePath')) {
+         $location.path('/register');
+      }
+
+      $scope.navbar = getNavbar(guestLinks, '#' + session.get('identCodePath'));
+
+      $scope.requestIdentCode = function () {
+         $location.path(session.get('identCodePath'));
+      };
+
+      $scope.setPassword = function () {
+         $http.post('/api/user/' + $scope.identCode + '?action=put', 'password=' + encodeURIComponent($scope.password), {
+            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
+            if (data.error) {
+               alert(data.error);
+            }
+            else {
+               alert("您的新密码已经设置成功");
+            }
+         });
+      };
+   }]);
+
+userApp.controller('ForgetUsernameCtrl', ['$scope', '$http', '$cookies', '$location', function ($scope, $http, $cookies, $location) {
+      $scope.navbar = getNavbar(guestLinks, '#' + $location.path());
+
+      $scope.updateCaptcha = function () {
+         $scope.captchaURI = '/api/captcha/' + Math.random().toString().slice(2);
+      }
+      $scope.updateCaptcha();
+
+      $scope.sendUsername = function () {
+         $http.post('/api/username?action=post', 'email=' + encodeURIComponent($scope.email) + '&captcha=' + encodeURIComponent($scope.captcha), {
+            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
+            if (data.error) {
+               alert(data.error);
+            }
+            else {
+               alert("用户名已经成功发送到您的注册邮箱 " + $scope.email + " ，请检查email。\n如果您的收件箱内没有此电子邮件，请检查电子邮件的垃圾箱，或者与网站管理员联系。");
+            }
+         });
+      };
    }]);
