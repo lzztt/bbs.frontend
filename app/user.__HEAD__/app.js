@@ -2,23 +2,23 @@ var tplVersion = '__HEAD__';
 
 var userLinks = [
    {name: "首页", uri: "/"},
-   {name: "我的账户", uri: "#/profile"},
-   {name: "短信", uri: "#/mailbox/inbox"},
-   {name: "收藏夹", uri: "#/bookmark"},
-   {name: "登出", uri: "#/logout"}
+   {name: "我的账户", uri: "profile"},
+   {name: "短信", uri: "mailbox/inbox"},
+   {name: "收藏夹", uri: "bookmark"},
+   {name: "登出", uri: "logout"}
 ];
 
 var guestLinks = [
    {name: "首页", uri: "/"},
-   {name: "登录", uri: "#/login"},
-   {name: "忘记密码", uri: "#/forget_password"},
-   {name: "忘记用户名", uri: "#/forget_username"},
-   {name: "注册帐号", uri: "#/register"}
+   {name: "登录", uri: "login"},
+   {name: "忘记密码", uri: "forget_password"},
+   {name: "忘记用户名", uri: "forget_username"},
+   {name: "注册帐号", uri: "register"}
 ];
 
 var mailLinks = [
-   {name: "收件箱", uri: "#/mailbox/inbox"},
-   {name: "发件箱", uri: "#/mailbox/sent"}
+   {name: "收件箱", uri: "mailbox/inbox"},
+   {name: "发件箱", uri: "mailbox/sent"}
 ];
 
 var session = {
@@ -120,8 +120,12 @@ userApp.run(['$templateCache', '$route', '$http', function ($templateCache, $rou
  }*/
    }]);
 
-userApp.config(['$routeProvider', function ($routeProvider) {
+userApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+      $locationProvider.html5Mode(true);
       $routeProvider
+          .when('/', {
+             redirectTo: '/profile'
+          })
           .when('/mailbox/:folder', {
              templateUrl: '/app/user.__HEAD__/mailbox.tpl.html',
              controller: 'MailboxCtrl'
@@ -243,7 +247,7 @@ userApp.controller('MailboxCtrl', ['$scope', '$routeParams', '$cookies', '$http'
          return;
       }
 
-      $scope.navbar = getNavbar(userLinks, '#/mailbox/inbox') + getNavbar(mailLinks, '#/mailbox/' + $routeParams.folder);
+      $scope.navbar = getNavbar(userLinks, 'mailbox/inbox') + getNavbar(mailLinks, 'mailbox/' + $routeParams.folder);
       session.set('mailbox', $routeParams.folder);
       $scope.goToPage = function (i) {
          $http.get('/api/message/' + $routeParams.folder + '?p=' + i).success(function (data) {
@@ -265,7 +269,7 @@ userApp.controller('MessageCtrl', ['$scope', '$routeParams', '$cookies', '$http'
          return;
       }
 
-      $scope.navbar = getNavbar(userLinks, '#/mailbox/inbox') + getNavbar(mailLinks, '#/mailbox/' + session.get('mailbox'));
+      $scope.navbar = getNavbar(userLinks, 'mailbox/inbox') + getNavbar(mailLinks, 'mailbox/' + session.get('mailbox'));
       $http.get('/api/message/' + $routeParams.mid).success(function (data) {
          $scope.messages = data.msgs;
          $scope.replyTo = data.replyTo;
@@ -322,7 +326,7 @@ userApp.controller('BookmarkCtrl', ['$scope', '$cookies', '$http', '$location', 
          return;
       }
 
-      $scope.navbar = getNavbar(userLinks, '#' + $location.path());
+      $scope.navbar = getNavbar(userLinks, $location.path().substring(1));
 
       $scope.goToPage = function (i) {
          $http.get('/api/bookmark/' + cache.get('uid') + '?p=' + i).success(function (data) {
@@ -390,7 +394,7 @@ userApp.controller('ProfileCtrl', ['$scope', '$routeParams', '$cookies', '$http'
       }
 
       var uid = $routeParams.uid ? $routeParams.uid : cache.get('uid');
-      $scope.navbar = getNavbar(userLinks, '#' + $location.path());
+      $scope.navbar = getNavbar(userLinks, $location.path().substring(1));
       $http.get('/api/user/' + uid).success(function (data) {
          $scope.user = data;
       });
@@ -402,7 +406,7 @@ userApp.controller('LoginCtrl', ['$scope', '$http', '$cookies', '$location', fun
          return;
       }
 
-      $scope.navbar = getNavbar(guestLinks, '#' + $location.path());
+      $scope.navbar = getNavbar(guestLinks, $location.path().substring(1));
 
       $scope.login = function (username, password) {
          $http.post('/api/authentication?action=post', 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password), {
@@ -467,7 +471,7 @@ userApp.controller('LogoutCtrl', ['$http', '$cookies', '$location', function ($h
 
 
 userApp.controller('RegisterCtrl', ['$scope', '$http', '$cookies', '$location', function ($scope, $http, $cookies, $location) {
-      $scope.navbar = getNavbar(guestLinks, '#' + $location.path());
+      $scope.navbar = getNavbar(guestLinks, $location.path().substring(1));
 
       $scope.updateCaptcha = function () {
          $scope.captchaURI = '/api/captcha/' + Math.random().toString().slice(2);
@@ -502,7 +506,7 @@ userApp.controller('RegisterCtrl', ['$scope', '$http', '$cookies', '$location', 
    }]);
 
 userApp.controller('ForgetPasswordCtrl', ['$scope', '$http', '$cookies', '$location', function ($scope, $http, $cookies, $location) {
-      $scope.navbar = getNavbar(guestLinks, '#' + $location.path());
+      $scope.navbar = getNavbar(guestLinks, $location.path().substring(1));
 
       $scope.updateCaptcha = function () {
          $scope.captchaURI = '/api/captcha/' + Math.random().toString().slice(2);
@@ -529,7 +533,7 @@ userApp.controller('SetPasswordCtrl', ['$scope', '$http', '$cookies', '$location
          $location.path('/register');
       }
 
-      $scope.navbar = getNavbar(guestLinks, '#' + session.get('identCodePath'));
+      $scope.navbar = getNavbar(guestLinks, session.get('identCodePath').substring(1));
 
       $scope.requestIdentCode = function () {
          $location.path(session.get('identCodePath'));
@@ -549,7 +553,7 @@ userApp.controller('SetPasswordCtrl', ['$scope', '$http', '$cookies', '$location
    }]);
 
 userApp.controller('ForgetUsernameCtrl', ['$scope', '$http', '$cookies', '$location', function ($scope, $http, $cookies, $location) {
-      $scope.navbar = getNavbar(guestLinks, '#' + $location.path());
+      $scope.navbar = getNavbar(guestLinks, $location.path().substring(1));
 
       $scope.updateCaptcha = function () {
          $scope.captchaURI = '/api/captcha/' + Math.random().toString().slice(2);

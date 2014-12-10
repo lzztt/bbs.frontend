@@ -2,10 +2,10 @@ var tplVersion = '__HEAD__';
 
 var adLinks = [
    {name: "首页", uri: "/"},
-   {name: "我的账户", uri: "/app/user#/profile"},
-   {name: "广告汇总", uri: "#/summary"},
-   {name: "添加广告", uri: "#/add"},
-   {name: "添加付款", uri: "#/payment"}
+   {name: "我的账户", uri: "/app/user/profile"},
+   {name: "广告汇总", uri: "summary"},
+   {name: "添加广告", uri: "add"},
+   {name: "添加付款", uri: "payment"}
 ];
 
 var session = {
@@ -108,8 +108,12 @@ adApp.run(['$templateCache', '$route', '$http', '$cookies', function ($templateC
        }*/
    }]);
 
-adApp.config(['$routeProvider', function ($routeProvider) {
+adApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+      $locationProvider.html5Mode(true);
       $routeProvider
+          .when('/', {
+             redirectTo: '/summary'
+          })
           .when('/summary', {
              templateUrl: '/app/ad.__HEAD__/summary.tpl.html',
              controller: 'SummaryCtrl'
@@ -195,7 +199,7 @@ adApp.directive('pager', function () {
 adApp.controller('SummaryCtrl', ['$scope', '$routeParams', '$cookies', '$http', '$location', function ($scope, $routeParams, $cookies, $http, $location) {
       if (!$cookies.LZXSID || $cookies.LZXSID != cache.get('sessionID') || !cache.get('uid')) {
          session.set('redirect', window.location.href);
-         window.location.href = '/app/user#/login';
+         window.location.href = '/app/user/login';
          return;
       }
 
@@ -203,7 +207,7 @@ adApp.controller('SummaryCtrl', ['$scope', '$routeParams', '$cookies', '$http', 
          $location.path('/forbidden');
       }
 
-      $scope.navbar = getNavbar(adLinks, '#' + $location.path());
+      $scope.navbar = getNavbar(adLinks, $location.path().substring(1));
       $http.get('/api/ad').success(function (data) {
          $scope.ads = data;
       });
@@ -216,7 +220,7 @@ adApp.controller('SummaryCtrl', ['$scope', '$routeParams', '$cookies', '$http', 
 adApp.controller('PaymentCtrl', ['$scope', '$routeParams', '$cookies', '$http', '$location', function ($scope, $routeParams, $cookies, $http, $location) {
       if (!$cookies.LZXSID || $cookies.LZXSID != cache.get('sessionID') || !cache.get('uid')) {
          session.set('redirect', window.location.href);
-         window.location.href = '/app/user#/login';
+         window.location.href = '/app/user/login';
          return;
       }
 
@@ -224,7 +228,7 @@ adApp.controller('PaymentCtrl', ['$scope', '$routeParams', '$cookies', '$http', 
          $location.path('/forbidden');
       }
 
-      $scope.navbar = getNavbar(adLinks, '#/payment');
+      $scope.navbar = getNavbar(adLinks, $location.path().substring(1));
       $http.get('/api/ad/name').success(function (data) {
          $scope.ads = data;
       });
@@ -256,7 +260,7 @@ adApp.controller('PaymentCtrl', ['$scope', '$routeParams', '$cookies', '$http', 
 adApp.controller('AddCtrl', ['$scope', '$routeParams', '$cookies', '$http', '$location', function ($scope, $routeParams, $cookies, $http, $location) {
       if (!$cookies.LZXSID || $cookies.LZXSID != cache.get('sessionID') || !cache.get('uid')) {
          session.set('redirect', window.location.href);
-         window.location.href = '/app/user#/login';
+         window.location.href = '/app/user/login';
          return;
       }
 
@@ -264,7 +268,7 @@ adApp.controller('AddCtrl', ['$scope', '$routeParams', '$cookies', '$http', '$lo
          $location.path('/forbidden');
       }
 
-      $scope.navbar = getNavbar(adLinks, '#/add');
+      $scope.navbar = getNavbar(adLinks, $location.path().substring(1));
       $scope.addAd = function () {
          $http.post('/api/ad?action=post', 'name=' + encodeURIComponent($scope.name) + '&email=' + encodeURIComponent($scope.email) + '&type_id=' + $scope.type_id, {
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
