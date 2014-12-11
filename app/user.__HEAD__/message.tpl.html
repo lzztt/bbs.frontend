@@ -1,6 +1,6 @@
 <div ng-bind-html="navbar"></div>
 <article ng-repeat="message in messages">      
-   <header><a href="/user/{{message.uid}}">{{message.username}}</a> {{message.time * 1000| date: 'MM/dd/yyyy'}}</header>
+   <header><a href="profile/{{message.uid}}">{{message.username}}</a> {{message.time * 1000| date: 'MM/dd/yyyy'}}</header>
    <div class="article_content" style="white-space: pre-wrap;">{{message.body}} <button ng-click="deletePM($index)">删除<span ng-if="$first">对话</span></button></div>
 </article>
 <form accept-charset="UTF-8" autocomplete="off" ng-submit="reply()">

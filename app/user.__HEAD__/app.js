@@ -86,6 +86,20 @@ var getNavbar = function (links, activeLink) {
    return html + '</nav>';
 };
 
+var validateResponse = function (data) {
+   if (!data) {
+      alert('服务器没有响应');
+      return false;
+   }
+   else {
+      if (data.error) {
+         alert(data.error);
+         return false;
+      }
+   }
+   return true;
+};
+
 var userApp = angular.module('userApp', ['ngSanitize', 'ngRoute', 'ngCookies']);
 
 userApp.run(['$templateCache', '$route', '$http', function ($templateCache, $route, $http) {/*
@@ -251,11 +265,12 @@ userApp.controller('MailboxCtrl', ['$scope', '$routeParams', '$cookies', '$http'
       session.set('mailbox', $routeParams.folder);
       $scope.goToPage = function (i) {
          $http.get('/api/message/' + $routeParams.folder + '?p=' + i).success(function (data) {
-            $scope.mailbox = data;
-            if (data.pager && data.pager.pageCount > 1)
-            {
-               $scope.pageCount = data.pager.pageCount;
-               $scope.pageCurrent = data.pager.pageNo;
+            if (validateResponse(data)) {
+               $scope.mailbox = data;
+               if (data.pager && data.pager.pageCount > 1) {
+                  $scope.pageCount = data.pager.pageCount;
+                  $scope.pageCurrent = data.pager.pageNo;
+               }
             }
          });
       };
@@ -277,18 +292,11 @@ userApp.controller('MessageCtrl', ['$scope', '$routeParams', '$cookies', '$http'
       $scope.deletePM = function (index) {
          var msgs = $scope.messages;
          $http.get('/api/message/' + msgs[index].id + '?action=delete').success(function (data) {
-            if (data && data.error)
-            {
-               alert(data.error);
-            }
-            else
-            {
-               if (index == 0)
-               {
+            if (validateResponse(data)) {
+               if (index == 0) {
                   $location.path('/mailbox/' + session.get('mailbox'));
                }
-               else
-               {
+               else {
                   msgs.splice(index, 1);
                   $scope.messages = msgs;
                }
@@ -303,16 +311,8 @@ userApp.controller('MessageCtrl', ['$scope', '$routeParams', '$cookies', '$http'
          }
          $http.post('/api/message?action=post', 'toUID=' + $scope.replyTo.id + '&body=' + encodeURIComponent(msg) + '&topicMID=' + $routeParams.mid, {
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
-            if (!data) {
-               alert('服务器没有响应');
-            }
-            else {
-               if (data.error) {
-                  alert(data.error);
-               }
-               else {
-                  $scope.messages.push(data);
-               }
+            if (validateResponse(data)) {
+               $scope.messages.push(data);
             }
          });
          $scope.replyBody = null;
@@ -358,10 +358,7 @@ userApp.controller('BookmarkCtrl', ['$scope', '$cookies', '$http', '$location', 
                }
 
                $http.get('/api/bookmark/' + nid.substring(0, nid.length - 1) + '?action=delete').success(function (data) {
-                  if (data && data.error) {
-                     alert(data.error);
-                  }
-                  else {
+                  if (validateResponse(data)) {
                      $scope.editMode = false;
                   }
                });
@@ -396,7 +393,9 @@ userApp.controller('ProfileCtrl', ['$scope', '$routeParams', '$cookies', '$http'
       var uid = $routeParams.uid ? $routeParams.uid : cache.get('uid');
       $scope.navbar = getNavbar(userLinks, $location.path().substring(1));
       $http.get('/api/user/' + uid).success(function (data) {
-         $scope.user = data;
+         if (validateResponse(data)) {
+            $scope.user = data;
+         }
       });
    }]);
 
@@ -411,10 +410,7 @@ userApp.controller('LoginCtrl', ['$scope', '$http', '$cookies', '$location', fun
       $scope.login = function (username, password) {
          $http.post('/api/authentication?action=post', 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password), {
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
-            if (!data) {
-               alert('服务器没有响应');
-            }
-            else {
+            if (validateResponse(data)) {
                if (data.sessionID) {
                   cache.set('sessionID', data.sessionID);
                   cache.set('uid', data.uid);
@@ -424,14 +420,10 @@ userApp.controller('LoginCtrl', ['$scope', '$http', '$cookies', '$location', fun
                   }
                }
                else {
-                  if (data.error) {
-                     alert(data.error);
-                  }
-                  else {
-                     alert('对话加载失败');
-                  }
+                  alert('对话加载失败');
                }
             }
+
             var redirect = session.get('redirect');
             if (redirect) {
                session.remove('redirect');
@@ -458,10 +450,7 @@ userApp.controller('LogoutCtrl', ['$http', '$cookies', '$location', function ($h
       // need a setTimeout, otherwise there request will be sent twice, weird bug!
       setTimeout(function () {
          $http.get('/api/authentication/' + cache.get('sessionID') + '?action=delete').success(function (data) {
-            if (data && data.error) {
-               alert(data.error);
-            }
-            else {
+            if (validateResponse(data)) {
                cache.remove('sessionID');
                $location.path('/login');
             }
@@ -488,18 +477,10 @@ userApp.controller('RegisterCtrl', ['$scope', '$http', '$cookies', '$location', 
 
          $http.post('/api/user?action=post', 'username=' + encodeURIComponent($scope.username) + '&email=' + encodeURIComponent(email) + '&captcha=' + encodeURIComponent($scope.captcha), {
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
-            if (!data) {
-               alert('服务器没有响应');
-            }
-            else {
-               if (data.error) {
-                  alert(data.error);
-               }
-               else {
-                  alert("感谢注册！账户激活\n安全验证码已经成功发送到您的注册邮箱 " + $scope.email + " ，请检查email。\n如果您的收件箱内没有此电子邮件，请检查电子邮件的垃圾箱，或者与网站管理员联系。");
-                  session.set('identCodePath', $location.path());
-                  $location.path('/set_password');
-               }
+            if (validateResponse(data)) {
+               alert("感谢注册！账户激活\n安全验证码已经成功发送到您的注册邮箱 " + $scope.email + " ，请检查email。\n如果您的收件箱内没有此电子邮件，请检查电子邮件的垃圾箱，或者与网站管理员联系。");
+               session.set('identCodePath', $location.path());
+               $location.path('/set_password');
             }
          });
       };
@@ -516,10 +497,7 @@ userApp.controller('ForgetPasswordCtrl', ['$scope', '$http', '$cookies', '$locat
       $scope.forgetPassword = function () {
          $http.post('/api/identificationcode?action=post', 'username=' + encodeURIComponent($scope.username) + '&email=' + encodeURIComponent($scope.email) + '&captcha=' + encodeURIComponent($scope.captcha), {
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
-            if (data.error) {
-               alert(data.error);
-            }
-            else {
+            if (validateResponse(data)) {
                alert("安全验证码已经成功发送到您的注册邮箱 " + $scope.email + " ，请检查email。\n如果您的收件箱内没有此电子邮件，请检查电子邮件的垃圾箱，或者与网站管理员联系。");
                session.set('identCodePath', $location.path());
                $location.path('/set_password');
@@ -542,10 +520,7 @@ userApp.controller('SetPasswordCtrl', ['$scope', '$http', '$cookies', '$location
       $scope.setPassword = function () {
          $http.post('/api/user/' + $scope.identCode + '?action=put', 'password=' + encodeURIComponent($scope.password), {
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
-            if (data.error) {
-               alert(data.error);
-            }
-            else {
+            if (validateResponse(data)) {
                alert("您的新密码已经设置成功");
             }
          });
@@ -563,10 +538,7 @@ userApp.controller('ForgetUsernameCtrl', ['$scope', '$http', '$cookies', '$locat
       $scope.sendUsername = function () {
          $http.post('/api/username?action=post', 'email=' + encodeURIComponent($scope.email) + '&captcha=' + encodeURIComponent($scope.captcha), {
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
-            if (data.error) {
-               alert(data.error);
-            }
-            else {
+            if (validateResponse(data)) {
                alert("用户名已经成功发送到您的注册邮箱 " + $scope.email + " ，请检查email。\n如果您的收件箱内没有此电子邮件，请检查电子邮件的垃圾箱，或者与网站管理员联系。");
             }
          });
