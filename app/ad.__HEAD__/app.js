@@ -73,6 +73,20 @@ var getNavbar = function (links, activeLink) {
    return html + '</nav>';
 };
 
+var validateResponse = function (data) {
+   if (!data) {
+      alert('服务器没有响应');
+      return false;
+   }
+   else {
+      if (data.error) {
+         alert(data.error);
+         return false;
+      }
+   }
+   return true;
+};
+
 var adApp = angular.module('adApp', ['ngSanitize', 'ngRoute', 'ngCookies']);
 
 adApp.run(['$templateCache', '$route', '$http', '$cookies', function ($templateCache, $route, $http, $cookies) {
@@ -209,10 +223,14 @@ adApp.controller('SummaryCtrl', ['$scope', '$routeParams', '$cookies', '$http', 
 
       $scope.navbar = getNavbar(adLinks, $location.path().substring(1));
       $http.get('/api/ad').success(function (data) {
-         $scope.ads = data;
+         if (validateResponse(data)) {
+            $scope.ads = data;
+         }
       });
       $http.get('/api/adpayment').success(function (data) {
-         $scope.payments = data;
+         if (validateResponse(data)) {
+            $scope.payments = data;
+         }
       });
 
    }]);
@@ -230,7 +248,9 @@ adApp.controller('PaymentCtrl', ['$scope', '$routeParams', '$cookies', '$http', 
 
       $scope.navbar = getNavbar(adLinks, $location.path().substring(1));
       $http.get('/api/ad/name').success(function (data) {
-         $scope.ads = data;
+         if (validateResponse(data)) {
+            $scope.ads = data;
+         }
       });
 
       $scope.time = new Date();
@@ -240,18 +260,10 @@ adApp.controller('PaymentCtrl', ['$scope', '$routeParams', '$cookies', '$http', 
          var date = $scope.time.getFullYear() + '-' + ($scope.time.getMonth() + 1) + '-' + $scope.time.getDate();
          $http.post('/api/adpayment?action=post', 'ad_id=' + $scope.ad.id + '&amount=' + $scope.amount + '&time=' + date + '&ad_time=' + $scope.ad_time + '&comment=' + encodeURIComponent($scope.comment), {
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
-            if (!data) {
-               alert('服务器没有响应');
-            }
-            else {
-               if (data.error) {
-                  alert(data.error);
-               }
-               else {
-                  var expDate = new Date(data.expTime * 1000);
-                  var expTime = expDate.getFullYear() + '-' + (expDate.getMonth() + 1) + '-' + expDate.getDate();
-                  alert('付款添加成功:' + data.adName + ' : $' + data.amount + '\n广告有效期更新至: ' + expTime);
-               }
+            if (validateResponse(data)) {
+               var expDate = new Date(data.expTime * 1000);
+               var expTime = expDate.getFullYear() + '-' + (expDate.getMonth() + 1) + '-' + expDate.getDate();
+               alert('付款添加成功:' + data.adName + ' : $' + data.amount + '\n广告有效期更新至: ' + expTime);
             }
          });
       }
@@ -272,16 +284,8 @@ adApp.controller('AddCtrl', ['$scope', '$routeParams', '$cookies', '$http', '$lo
       $scope.addAd = function () {
          $http.post('/api/ad?action=post', 'name=' + encodeURIComponent($scope.name) + '&email=' + encodeURIComponent($scope.email) + '&type_id=' + $scope.type_id, {
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
-            if (!data) {
-               alert('服务器没有响应');
-            }
-            else {
-               if (data.error) {
-                  alert(data.error);
-               }
-               else {
-                  alert('广告添加成功:' + data.name + ' : ' + data.email);
-               }
+            if (validateResponse(data)) {
+               alert('广告添加成功:' + data.name + ' : ' + data.email);
             }
          });
       }

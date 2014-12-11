@@ -6,8 +6,8 @@
    </thead>
    <tbody class="even_odd_parent">
       <tr ng-repeat="msg in mailbox.msgs">
-         <td data-header="短信"><span ng-show="msg.isNew > 0" style="color:red;">new </span><a href="#/pm/{{msg.mid}}">{{msg.body}}</a></td>
-         <td data-header="联系人"><a href="/user/{{msg.uid}}">{{msg.user}}</a></td>
+         <td data-header="短信"><span ng-show="msg.isNew > 0" style="color:red;">new </span><a href="pm/{{msg.mid}}">{{msg.body}}</a></td>
+         <td data-header="联系人"><a href="profile/{{msg.uid}}">{{msg.user}}</a></td>
          <td data-header="时间">{{msg.time * 1000| date: 'MM/dd/yyyy'}}</td>
       </tr>
    </tbody>
