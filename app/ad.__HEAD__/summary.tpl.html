@@ -1,6 +1,6 @@
 <div ng-bind-html="navbar"></div>
 <div class="front-items">
-   <table id="attendees">
+   <table>
       <thead>
          <tr>
             <th>商家</th>
@@ -11,15 +11,15 @@
       </thead>
       <tbody class="even_odd_parent">
          <tr ng-repeat="ad in ads">
-            <td>{{ad.name}}</td>
-            <td>{{ad.typeID == 1 ? '电子黄页' : '页顶广告'}}</td>
-            <td>{{ad.expTime * 1000| date: 'MM/dd/yyyy'}}</td>
-            <td>{{ad.email}}</td>
+            <td data-header="商家">{{ad.name}}</td>
+            <td data-header="广告类型">{{ad.typeID == 1 ? '电子黄页' : '页顶广告'}}</td>
+            <td data-header="过期日期">{{ad.expTime * 1000 | date: 'MM/dd/yyyy'}}</td>
+            <td data-header="联系邮箱">{{ad.email}}</td>
          </tr>
       </tbody>
    </table>
    <br />
-   <table id="attendees">
+   <table>
       <thead>
          <tr>
             <th>商家</th>
@@ -31,39 +31,12 @@
       </thead>
       <tbody class="even_odd_parent">
          <tr ng-repeat="p in payments" >
-            <td>{{p.name}}</td>
-            <td>${{p.amount}}</td>
-            <td>{{p.payTime * 1000| date: 'MM/dd/yyyy'}}</td>
-            <td>{{p.expTime * 1000| date: 'MM/dd/yyyy'}}</td>
-            <td>{{p.comment}}</td>
+            <td data-header="商家">{{p.name}}</td>
+            <td data-header="金额">${{p.amount}}</td>
+            <td data-header="付款日期">{{p.payTime * 1000 | date: 'MM/dd/yyyy'}}</td>
+            <td data-header="过期日期">{{p.expTime * 1000 | date: 'MM/dd/yyyy'}}</td>
+            <td data-header="备注">{{p.comment}}</td>
          </tr>
       </tbody>
    </table>
 </div>
-
-<style type="text/css">
-   #attendees {
-      border-collapse: collapse;
-      font-family: "Trebuchet MS",Arial,Helvetica,sans-serif;
-      width: 100%;
-   }
-
-   #attendees th {
-      background-color: #A7C942;
-      color: #FFFFFF;
-      font-size: 1.4em;
-      padding-bottom: 4px;
-      padding-top: 5px;
-      text-align: left;
-   }
-
-   #attendees td, #attendees th {
-      border: 1px solid #98BF21;
-      padding: 3px 7px 2px;
-   }
-
-   #attendees tr.alt td {
-      background-color: #EAF2D3;
-      color: #000000;
-   }
-</style>
