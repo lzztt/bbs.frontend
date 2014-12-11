@@ -119,7 +119,7 @@ adApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
              controller: 'SummaryCtrl'
           })
           .when('/payment', {
-             templateUrl: '/app/ad.__HEAD__/add_ad_payment.tpl.html',
+             templateUrl: '/app/ad.__HEAD__/add_payment.tpl.html',
              controller: 'PaymentCtrl'
           })
           .when('/add', {
@@ -237,7 +237,7 @@ adApp.controller('PaymentCtrl', ['$scope', '$routeParams', '$cookies', '$http', 
       $scope.ad_time = 3;
 
       $scope.addPayment = function () {
-         var date = $scope.time.getFullYear() + '-' + $scope.time.getMonth() + '-' + $scope.time.getDate();
+         var date = $scope.time.getFullYear() + '-' + ($scope.time.getMonth() + 1) + '-' + $scope.time.getDate();
          $http.post('/api/adpayment?action=post', 'ad_id=' + $scope.ad.id + '&amount=' + $scope.amount + '&time=' + date + '&ad_time=' + $scope.ad_time + '&comment=' + encodeURIComponent($scope.comment), {
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
             if (!data) {
@@ -249,7 +249,7 @@ adApp.controller('PaymentCtrl', ['$scope', '$routeParams', '$cookies', '$http', 
                }
                else {
                   var expDate = new Date(data.expTime * 1000);
-                  var expTime = expDate.getFullYear() + '-' + expDate.getMonth() + '-' + expDate.getDate();
+                  var expTime = expDate.getFullYear() + '-' + (expDate.getMonth() + 1) + '-' + expDate.getDate();
                   alert('付款添加成功:' + data.adName + ' : $' + data.amount + '\n广告有效期更新至: ' + expTime);
                }
             }
