@@ -193,8 +193,9 @@ cacheApp.controller('CacheCtrl', ['$scope', '$routeParams', '$cookies', '$http',
 
             $http.get('/api/cache' + newDir).success(function (data) {
                if (validateResponse(data)) {
-                  data.splice(0, 1);
-                  data[0] = '__PARENT__';
+                  data.splice(data.indexOf('.'), 1);
+                  data.splice(data.indexOf('..'), 1);
+                  data.unshift('__PARENT__');
                   $scope.files = data;
                   currentDir = newDir;
                   $scope.currentDir = currentDir;
@@ -206,8 +207,9 @@ cacheApp.controller('CacheCtrl', ['$scope', '$routeParams', '$cookies', '$http',
       // load cache root dir
       $http.get('/api/cache').success(function (data) {
          if (validateResponse(data)) {
-            data.splice(0, 1);
-            data[0] = '__PARENT__';
+            data.splice(data.indexOf('.'), 1);
+            data.splice(data.indexOf('..'), 1);
+            data.unshift('__PARENT__');
             $scope.files = data;
             $scope.currentDir = currentDir;
          }
