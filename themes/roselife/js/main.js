@@ -380,7 +380,6 @@ $(document).ready(function () {
                //$(".file_delete", fileTable).live("click", function(e) {
                var row = this.parentNode.parentNode;
                var table = row.parentNode.parentNode;
-               //alert(row.sectionRowIndex);
                table.deleteRow(row.rowIndex);
                if (table.rows.length <= 1)
                {

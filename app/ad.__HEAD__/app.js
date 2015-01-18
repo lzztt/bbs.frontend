@@ -89,37 +89,39 @@ var validateResponse = function (data) {
 
 var adApp = angular.module('adApp', ['ngSanitize', 'ngRoute', 'ngCookies']);
 
-adApp.run(['$templateCache', '$route', '$http', '$cookies', function ($templateCache, $route, $http, $cookies) {
-      /*
-       var tplCacheRefresh = (tplVersion != cache.get(adApp.name + '_tplVersion'));
-       if (tplCacheRefresh) {
-       cache.set(adApp.name + '_tplVersion', tplVersion);
-       }
-       
-       for (var path in $route.routes)
-       {
-       var tplUrl = $route.routes[path].templateUrl;
-       if (tplUrl)
-       {
-       var tplCache = tplUrl.replace('.' + tplVersion, '');
-       // is it already loaded?
-       var html = tplCacheRefresh ? null : localStorage.getItem(tplCache);
-       
-       // load the template and cache it 
-       if (!html) {
-       $http.get(tplUrl).success(function (data, status, headers, config) {
-       var tplUrl = config.url;
-       var tplCache = tplUrl.replace('.' + tplVersion, '');
-       // template loaded from the server
-       localStorage.setItem(tplCache, data);
-       $templateCache.put(tplUrl, data);
-       });
-       } else {
-       // inject the template
-       $templateCache.put(tplUrl, html);
-       }
-       }
-       }*/
+adApp.run(['$templateCache', '$route', '$http', function ($templateCache, $route, $http) {
+      if (!isNaN(tplVersion) && parseInt(tplVersion) > 0) {
+         // enable cache for a numbered version
+         var tplCacheRefresh = (tplVersion != cache.get(adApp.name + '_tplVersion'));
+         if (tplCacheRefresh) {
+            cache.set(adApp.name + '_tplVersion', tplVersion);
+         }
+
+         for (var path in $route.routes)
+         {
+            var tplUrl = $route.routes[path].templateUrl;
+            if (tplUrl)
+            {
+               var tplCache = tplUrl.replace('.' + tplVersion, '');
+               // is it already loaded?
+               var html = tplCacheRefresh ? null : localStorage.getItem(tplCache);
+
+               // load the template and cache it 
+               if (!html) {
+                  $http.get(tplUrl).success(function (data, status, headers, config) {
+                     var tplUrl = config.url;
+                     var tplCache = tplUrl.replace('.' + tplVersion, '');
+                     // template loaded from the server
+                     localStorage.setItem(tplCache, data);
+                     $templateCache.put(tplUrl, data);
+                  });
+               } else {
+                  // inject the template
+                  $templateCache.put(tplUrl, html);
+               }
+            }
+         }
+      }
    }]);
 
 adApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
