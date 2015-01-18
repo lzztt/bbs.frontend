@@ -102,36 +102,39 @@ var validateResponse = function (data) {
 
 var userApp = angular.module('userApp', ['ngSanitize', 'ngRoute', 'ngCookies']);
 
-userApp.run(['$templateCache', '$route', '$http', function ($templateCache, $route, $http) {/*
- var tplCacheRefresh = (tplVersion != cache.get(userApp.name + '_tplVersion'));
- if (tplCacheRefresh) {
- cache.set(userApp.name + '_tplVersion', tplVersion);
- }
- 
- for (var path in $route.routes)
- {
- var tplUrl = $route.routes[path].templateUrl;
- if (tplUrl)
- {
- var tplCache = tplUrl.replace('.' + tplVersion, '');
- // is it already loaded?
- var html = tplCacheRefresh ? null : localStorage.getItem(tplCache);
- 
- // load the template and cache it 
- if (!html) {
- $http.get(tplUrl).success(function (data, status, headers, config) {
- var tplUrl = config.url;
- var tplCache = tplUrl.replace('.' + tplVersion, '');
- // template loaded from the server
- localStorage.setItem(tplCache, data);
- $templateCache.put(tplUrl, data);
- });
- } else {
- // inject the template
- $templateCache.put(tplUrl, html);
- }
- }
- }*/
+userApp.run(['$templateCache', '$route', '$http', function ($templateCache, $route, $http) {
+      if (!isNaN(tplVersion) && parseInt(tplVersion) > 0) {
+         // enable cache for a numbered version
+         var tplCacheRefresh = (tplVersion != cache.get(userApp.name + '_tplVersion'));
+         if (tplCacheRefresh) {
+            cache.set(userApp.name + '_tplVersion', tplVersion);
+         }
+
+         for (var path in $route.routes)
+         {
+            var tplUrl = $route.routes[path].templateUrl;
+            if (tplUrl)
+            {
+               var tplCache = tplUrl.replace('.' + tplVersion, '');
+               // is it already loaded?
+               var html = tplCacheRefresh ? null : localStorage.getItem(tplCache);
+
+               // load the template and cache it 
+               if (!html) {
+                  $http.get(tplUrl).success(function (data, status, headers, config) {
+                     var tplUrl = config.url;
+                     var tplCache = tplUrl.replace('.' + tplVersion, '');
+                     // template loaded from the server
+                     localStorage.setItem(tplCache, data);
+                     $templateCache.put(tplUrl, data);
+                  });
+               } else {
+                  // inject the template
+                  $templateCache.put(tplUrl, html);
+               }
+            }
+         }
+      }
    }]);
 
 userApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
@@ -395,6 +398,9 @@ userApp.controller('ProfileCtrl', ['$scope', '$routeParams', '$cookies', '$http'
       $http.get('/api/user/' + uid).success(function (data) {
          if (validateResponse(data)) {
             $scope.user = data;
+
+            // jquery avatar uploader
+            $('.imgCropper').imageCropper({windowWidth: 120, windowHeight: 120, uploadURL: '/api/user/' + uid + '?action=put', uploadName: 'avatar', defaultImage: data.avatar});
          }
       });
    }]);
