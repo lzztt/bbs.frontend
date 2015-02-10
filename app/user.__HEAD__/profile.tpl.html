@@ -3,6 +3,7 @@
    <div class="avatar imgCropper"></div>
    <figcaption>{{user.username}} <span ng-show="isSelf" style="font-size: 90%; color: blue">(点击图片上传头像)</span></figcaption>
    <button ng-hide="isSelf" ng-click="showSendPM()">发送站内短信</button>
+   <button ng-show="isAdmin" ng-click="deleteUser()">删除用户</button>
 </figure>
 <dl>
    <dt>微信</dt><dd>{{user.wechat}}</dd>
