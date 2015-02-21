@@ -298,17 +298,20 @@ userApp.controller('MessageCtrl', ['$scope', '$routeParams', '$cookies', '$http'
       });
       $scope.deletePM = function (index) {
          var msgs = $scope.messages;
-         $http.get('/api/message/' + msgs[index].id + '?action=delete').success(function (data) {
-            if (validateResponse(data)) {
-               if (index == 0) {
-                  $location.path('/mailbox/' + session.get('mailbox'));
+         var answer = confirm(index == 0 ? '整个对话的所有消息将被删除？' : '此条消息将被删除？');
+         if (answer) {
+            $http.get('/api/message/' + msgs[index].id + '?action=delete').success(function (data) {
+               if (validateResponse(data)) {
+                  if (index == 0) {
+                     $location.path('/mailbox/' + session.get('mailbox'));
+                  }
+                  else {
+                     msgs.splice(index, 1);
+                     $scope.messages = msgs;
+                  }
                }
-               else {
-                  msgs.splice(index, 1);
-                  $scope.messages = msgs;
-               }
-            }
-         });
+            });
+         }
       };
       $scope.reply = function () {
          var msg = $scope.replyBody;
