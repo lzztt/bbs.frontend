@@ -5,17 +5,18 @@
    <button ng-hide="isSelf" ng-click="showSendPM()">发送站内短信</button>
    <button ng-show="isAdmin" ng-click="deleteUser()">删除用户</button>
 </figure>
+<button type="button" ng-hide="editMode" ng-click="edit()">编辑个人资料</button> <button type="button" ng-show="editMode" ng-click="cancel()">取消</button> <button type="button" ng-show="editMode" ng-click="save()">保存</button>
 <dl>
-   <dt>微信</dt><dd>{{user.wechat}}</dd>
-   <dt>QQ</dt><dd>{{user.qq}}</dd>
-   <dt>个人网站</dt><dd>{{user.website}}</dd>
-   <dt>性别</dt><dd>{{user.sex === 1 ? '男' : '女'}}</dd>
-   <dt>生日</dt><dd>{{user.birthday * 1000 | date: 'MM/dd/yyyy'}}</dd>
-   <dt>职业</dt><dd>{{user.occupation}}</dd>
-   <dt>兴趣爱好</dt><dd>{{user.interests}}</dd>
-   <dt>自我介绍</dt><dd>{{user.favoriteQuotation}}</dd>
-   <dt>注册时间</dt><dd>{{user.createTime * 1000 | date: 'MM/dd/yyyy'}}</dd>
-   <dt>上次登陆时间</dt><dd>{{user.lastAccessTime * 1000 | date: 'MM/dd/yyyy'}}</dd>
+   <dt>微信</dt><dd contenteditable="{{editMode ? 'true' : 'false'}}" ng-model="user.wechat"></dd>
+   <dt>QQ</dt><dd contenteditable="{{editMode ? 'true' : 'false'}}" ng-model="user.qq"></dd>
+   <dt>个人网站</dt><dd contenteditable="{{editMode ? 'true' : 'false'}}" ng-model="user.website"></dd>
+   <dt>性别</dt><dd ng-hide="editMode">{{user.sex === 1 ? '男' : '女'}}</dd><dd ng-show="editMode" ><select ng-model="user.sex" ng-options="gender.id as gender.text for gender in [{id:0, text:'女'}, {id:1, text:'男'}]"></select></dd>
+   <dt>生日</dt><dd ng-hide="editMode">{{user.birthday * 1000| date: 'MM/dd/yyyy'}}</dd><dd ng-show="editMode" ><input type="date" ng-model="birthday"></dd>
+   <dt>职业</dt><dd contenteditable="{{editMode ? 'true' : 'false'}}" ng-model="user.occupation"></dd>
+   <dt>兴趣爱好</dt><dd contenteditable="{{editMode ? 'true' : 'false'}}" ng-model="user.interests"></dd>
+   <dt>自我介绍</dt><dd contenteditable="{{editMode ? 'true' : 'false'}}" ng-model="user.favoriteQuotation"></dd>
+   <dt>注册时间</dt><dd>{{user.createTime * 1000| date: 'MM/dd/yyyy'}}</dd>
+   <dt>上次登陆时间</dt><dd>{{user.lastAccessTime * 1000| date: 'MM/dd/yyyy'}}</dd>
    <dt>上次登陆地点</dt><dd>{{user.lastAccessCity}}</dd>
 </dl>
 <table class="user_topics">
@@ -36,3 +37,14 @@
       </tr>
    </tbody>
 </table>
+<style>
+   dd[contenteditable="true"], dd > input {
+      padding: 0 1em;
+      border-radius: 3px;
+      outline: none;
+      border: 2px solid transparent;
+      background: #FFF;
+      border-color: #69c773;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.15) inset;
+   }
+</style>
