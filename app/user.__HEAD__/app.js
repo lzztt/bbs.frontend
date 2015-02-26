@@ -24,6 +24,7 @@ var mailLinks = [
 var userApp = angular.module('userApp', ['ngSanitize', 'ngRoute', 'ngCookies']);
 
 userApp.directive('pager', ngPagerDirective);
+userApp.directive('contenteditable', ngEditableDirective);
 
 userApp.run(['$templateCache', '$route', '$http', function ($templateCache, $route, $http) {
       ngCacheTemplates(userApp, '__HEAD__', $templateCache, $route, $http);
