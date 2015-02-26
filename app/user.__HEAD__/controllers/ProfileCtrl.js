@@ -12,6 +12,7 @@ userApp.controller('ProfileCtrl', ['$scope', '$routeParams', '$cookies', '$http'
       $http.get('/api/user/' + uid).success(function (data) {
          if (validateResponse(data)) {
             $scope.user = data;
+            $scope.birthday = new Date(data.birthday * 1000);
 
             if (cache.get('uid') === 1 && uid !== 1) {
                $scope.isAdmin = true;
@@ -43,5 +44,39 @@ userApp.controller('ProfileCtrl', ['$scope', '$routeParams', '$cookies', '$http'
             }
          }
       });
+
+      $scope.editMode = false;
+      var userBackup;
+
+      $scope.edit = function () {
+         $scope.editMode = true;
+         userBackup = JSON.parse(JSON.stringify($scope.user));
+      };
+
+      $scope.save = function () {
+         if ($scope.editMode) {
+            if ($scope.user.birthday * 1000 !== $scope.birthday.getTime()) {
+               $scope.user.birthday = new Date($scope.birthday).getTime() / 1000;
+            }
+            // check if we have update values
+            // submit the update values to server
+            /*
+             $http.get('/api/user/' + nid.substring(0, nid.length - 1) + '?action=put').success(function (data) {
+             if (validateResponse(data)) {
+             $scope.editMode = false;
+             }
+             });*/
+
+            $scope.editMode = false;
+         }
+         else {
+            $scope.editMode = false;
+         }
+      };
+
+      $scope.cancel = function () {
+         $scope.user = userBackup;
+         $scope.editMode = false;
+      };
    }]);
 
