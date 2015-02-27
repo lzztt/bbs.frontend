@@ -7,13 +7,12 @@ userApp.controller('ProfileCtrl', ['$scope', '$routeParams', '$cookies', '$http'
          return;
       }
 
-      var uid = $routeParams.uid ? $routeParams.uid : cache.get('uid');
+      var uid = $routeParams.uid ? parseInt($routeParams.uid) : cache.get('uid');
       $scope.navbar = getNavbar(userLinks, $location.path().substring(1));
       $http.get('/api/user/' + uid).success(function (data) {
          if (validateResponse(data)) {
             $scope.user = data;
-            $scope.birthday = new Date(data.birthday * 1000);
-
+            
             if (cache.get('uid') === 1 && uid !== 1) {
                $scope.isAdmin = true;
                $scope.deleteUser = function () {
@@ -51,6 +50,7 @@ userApp.controller('ProfileCtrl', ['$scope', '$routeParams', '$cookies', '$http'
       $scope.edit = function () {
          $scope.editMode = true;
          userBackup = JSON.parse(JSON.stringify($scope.user));
+         $scope.birthday = new Date($scope.user.birthday * 1000);
       };
 
       $scope.save = function () {
@@ -58,16 +58,35 @@ userApp.controller('ProfileCtrl', ['$scope', '$routeParams', '$cookies', '$http'
             if ($scope.user.birthday * 1000 !== $scope.birthday.getTime()) {
                $scope.user.birthday = new Date($scope.birthday).getTime() / 1000;
             }
-            // check if we have update values
-            // submit the update values to server
-            /*
-             $http.get('/api/user/' + nid.substring(0, nid.length - 1) + '?action=put').success(function (data) {
-             if (validateResponse(data)) {
-             $scope.editMode = false;
-             }
-             });*/
+            // check if we have update values      
+            var updates = "";
+            for (var i in $scope.user) {
+               if ($scope.user[i] !== userBackup[i]) {
+                  switch (typeof ($scope.user[i])) {
+                     case "string":
+                        updates = updates + encodeURIComponent(i) + "=" + encodeURIComponent($scope.user[i]) + "&";
+                        break;
+                     case "number":
+                        updates = updates + encodeURIComponent(i) + "=" + $scope.user[i] + "&";
+                        break;
+                     default:
+                  }
+               }
+            }
 
-            $scope.editMode = false;
+            if (updates.length > 0) {
+               // submit the update values to server
+               $http.post('/api/user/' + $scope.user.id + '?action=put', updates.substring(0, updates.length - 1), {
+                  headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
+                  if (validateResponse(data)) {
+                     $scope.editMode = false;
+                     alert("您的信息已更新");
+                  }
+               });
+            }
+            else {
+               $scope.editMode = false;
+            }
          }
          else {
             $scope.editMode = false;
