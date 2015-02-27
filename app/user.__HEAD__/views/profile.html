@@ -5,7 +5,7 @@
    <button ng-hide="isSelf" ng-click="showSendPM()">发送站内短信</button>
    <button ng-show="isAdmin" ng-click="deleteUser()">删除用户</button>
 </figure>
-<button type="button" ng-hide="editMode" ng-click="edit()">编辑个人资料</button> <button type="button" ng-show="editMode" ng-click="cancel()">取消</button> <button type="button" ng-show="editMode" ng-click="save()">保存</button>
+<button type="button" ng-hide="editMode || !isSelf" ng-click="edit()">编辑个人资料</button> <button type="button" ng-show="editMode && isSelf" ng-click="cancel()">取消</button> <button type="button" ng-show="editMode" ng-click="save()">保存</button>
 <dl>
    <dt>微信</dt><dd contenteditable="{{editMode ? 'true' : 'false'}}" ng-model="user.wechat"></dd>
    <dt>QQ</dt><dd contenteditable="{{editMode ? 'true' : 'false'}}" ng-model="user.qq"></dd>
