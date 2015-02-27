@@ -8,7 +8,7 @@ userApp.controller('SendPMCtrl', ['$scope', '$http', '$cookies', '$location', '$
       }
 
       var user = session.get('pmUser');
-      if (!user || user.id !== $routeParams.uid) {
+      if (!user || user.id !== parseInt($routeParams.uid)) {
          $location.path('/page_not_found');
          return;
       }
