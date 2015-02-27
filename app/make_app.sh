@@ -24,6 +24,12 @@ if [ -d "$appdir" ]; then
     sed -i '/^$/d' $appnew/index.html
 
     java -jar /home/web/yuicompressor-2.4.7/build/yuicompressor-2.4.7.jar -v --type js --charset utf-8 -o $appnew/app.min.js $appnew/$time.js > $appnew/min.log 2>&1
+    if [ $? -ne 0 ]; then
+        cat $appnew/min.log
+        echo "new app failed: $appnew"
+        exit 1;
+    fi
+
     rm -rf $appnew/$time.js
     gzip -c $appnew/app.min.js > $appnew/app.min.js.gz
     for i in $appnew/views/*.html; do gzip -c $i > $i.gz; done
