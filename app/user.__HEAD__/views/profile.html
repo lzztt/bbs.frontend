@@ -10,7 +10,7 @@
    <dt>微信</dt><dd contenteditable="{{editMode ? 'true' : 'false'}}" ng-model="user.wechat"></dd>
    <dt>QQ</dt><dd contenteditable="{{editMode ? 'true' : 'false'}}" ng-model="user.qq"></dd>
    <dt>个人网站</dt><dd contenteditable="{{editMode ? 'true' : 'false'}}" ng-model="user.website"></dd>
-   <dt>性别</dt><dd ng-hide="editMode">{{user.sex === 1 ? '男' : '女'}}</dd><dd ng-show="editMode" ><select ng-model="user.sex" ng-options="gender.id as gender.text for gender in [{id:0, text:'女'}, {id:1, text:'男'}]"></select></dd>
+   <dt>性别</dt><dd ng-hide="editMode">{{user.sex === 1 ? '男' : '女'}}</dd><dd ng-show="editMode" ><select ng-model="user.sex" ng-options="gender for gender in ['女', '男']"></select></dd>
    <dt>生日</dt><dd ng-hide="editMode">{{user.birthday * 1000| date: 'MM/dd/yyyy'}}</dd><dd ng-show="editMode" ><input type="date" ng-model="birthday"></dd>
    <dt>职业</dt><dd contenteditable="{{editMode ? 'true' : 'false'}}" ng-model="user.occupation"></dd>
    <dt>兴趣爱好</dt><dd contenteditable="{{editMode ? 'true' : 'false'}}" ng-model="user.interests"></dd>
