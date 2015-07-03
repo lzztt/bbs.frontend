@@ -15,7 +15,6 @@ min js $time;
 
 list=`cat <<EOD
 css/normalize.css
-css/font.css
 css/main.css
 EOD`
 cat `echo $list | tr '\n' ' '` > css/all_$time.css

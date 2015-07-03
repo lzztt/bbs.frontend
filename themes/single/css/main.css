@@ -39,10 +39,8 @@ div#slogan
    vertical-align: baseline;
 
    color: hotpink; 
-   font-family: 'Waiting for the Sunrise';
-   font-size: 24px;
+   font-size: 18px;
    line-height: 30px;
-   font-weight: bolder;
 }
 
 div#navbar
@@ -53,61 +51,60 @@ div#navbar
 
 div#navbar a
 {
-   color: #CC5490;
+   color: #105289;
    text-decoration: none;
 }
 
 div#content
 {
-   background-color: #7164f0;
-   background-image: url('/themes/single/images/qixi_768.jpg');
+   background-color: #F1EDBB;
+   background-image: url('/themes/single/images/qixi2_768.jpg');
+   background-size: auto 1128px;
    background-repeat: no-repeat;
    background-position: center top;
 }
 
 div#activities
 {
-   background-color: #7164f0;
+   background-color: #F1EDBB;
+}
+
+div#activities div.act_stat
+{
+   background-color: #F1EDBB;
+   background-image: url('/themes/single/images/qixi2_768.jpg');
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-position: center;
 }
 
 div#activities h3
 {
    margin: 0;
    padding: 10px;
-   color: #FFF;
 }
 
 div#activities a
 {
-   color: gold;
+   color: #105289;
    text-decoration: none;
 }
 
 div#activities div.charts div
 {
    display: inline-block;
+   vertical-align: top;
 }
 
 div#activity
 {
    padding: 10px;
-   color: #FFF;
 }
 
 div#activity a
 {
-   color: gold;
+   color: #105289;
    text-decoration: none;
-}
-
-div#activity input, div#activity textarea
-{
-   color: #000;
-}
-
-div#statistics
-{
-   color: #FFF;
 }
 
 div#comments
@@ -128,7 +125,7 @@ div.comment
 
 div.comment-author
 {
-   color: blue;
+   color: #904040;
 }
 
 div.comment-author div.time
@@ -138,7 +135,7 @@ div.comment-author div.time
 
 div.comment:nth-child(even)
 {
-   background-color: #FFC3E1;
+   background-color: #ADFCAD;
 }
 
 div.comment:nth-child(odd)
@@ -146,7 +143,13 @@ div.comment:nth-child(odd)
    background-color: #F1EDBB;
 }
 
-form button {
+form input[type="radio"]
+{
+   margin-left: 20px;
+}
+   
+form button
+{
    -moz-box-shadow:inset 0px 1px 0px 0px #e184f3;
    -webkit-box-shadow:inset 0px 1px 0px 0px #e184f3;
    box-shadow:inset 0px 1px 0px 0px #e184f3;
@@ -180,12 +183,17 @@ form button {
    text-decoration:none;
    text-align:center;
 }
-form button:hover {
+
+form button:hover
+{
    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #a20dbd), color-stop(1, #c123de) );
    background:-moz-linear-gradient( center top, #a20dbd 5%, #c123de 100% );
    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#a20dbd', endColorstr='#c123de');
    background-color:#a20dbd;
-}form button:active {
+}
+
+form button:active
+{
    position:relative;
    top:1px;
 }
@@ -259,17 +267,21 @@ div.attendee:hover, div.confirmed
    div#slogan
    {
       height: 60px;
-      font-size: 48px;
+      font-size: 36px;
       line-height: 60px;
       text-indent: 36px;
-      word-spacing: 36px; 
    }
 
    /* center backgroud image */
    div#content
    {
-      background-image: url('/themes/single/images/qixi_992.jpg');
-      background-position: -158px 0px;
+      background-image: url('/themes/single/images/qixi2_992.jpg');
+      background-size: 100% auto;
+   }
+   
+   div#activities div.act_stat
+   {
+      background-image: url('/themes/single/images/qixi2_992.jpg');
    }
 
    div#activity
@@ -307,7 +319,7 @@ div.attendee:hover, div.confirmed
    {
       width: 240px;
    }
-
+   
    div.comment-author div.time
    {
       display: inline-block;
@@ -334,11 +346,11 @@ div.attendee:hover, div.confirmed
    }
 
    /* center backgroud image */
-   div#content
+   div#content, div#activities div.act_stat
    {
-      background-position: -84px 0px;
+      background-image: url('/themes/single/images/qixi2_1000.jpg');
    }
-
+   
    div#activity
    {
       width: 560px;
@@ -351,12 +363,6 @@ div.attendee:hover, div.confirmed
    div#page {
       width: 1200px;
       margin: auto;
-   }
-
-   /* center backgroud image */
-   div#content
-   {
-      background-position: 0px 0px;
    }
 
    div#activity
