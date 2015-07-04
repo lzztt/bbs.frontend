@@ -12,6 +12,7 @@ body
 /* No media query since this is the default */
 div#page
 {
+   overflow: hidden;
 }
 
 div#logo
@@ -135,7 +136,7 @@ div.comment-author div.time
 
 div.comment:nth-child(even)
 {
-   background-color: #ADFCAD;
+   background-color: #B7FCB7; /*PaleGreen shade*/
 }
 
 div.comment:nth-child(odd)
@@ -353,7 +354,7 @@ div.attendee:hover, div.confirmed
    
    div#activity
    {
-      width: 560px;
+      width: 500px;
    }
 }
 
@@ -363,11 +364,6 @@ div.attendee:hover, div.confirmed
    div#page {
       width: 1200px;
       margin: auto;
-   }
-
-   div#activity
-   {
-      width: 770px;
    }
 
    div.attendee {

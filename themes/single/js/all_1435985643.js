@@ -1,4 +1,6 @@
 $(document).ready(function() {
+   var chartWidth = $(window).width() < 400 ? 320 : 400;
+   
    function drawChart(chartTitle, dataJSON, divID) {
       var data = new google.visualization.DataTable();
       data.addColumn('string', 'Topping');
@@ -9,18 +11,21 @@ $(document).ready(function() {
          backgroundColor: {fill: 'transparent'},
          titleTextStyle: {color: 'black', fontSize: 14},
          legend: {textStyle: {color: 'black'}},
-         'width': 400,
+         'width': chartWidth,
          'height': 300};
 
       var chart = new google.visualization.PieChart(document.getElementById(divID));
       chart.draw(data, options);
    }
 
-   $('div.google_chart').each(function(){
+   function drawAllChart() {
+      $('div.google_chart').each(function(){
       var $this = $(this);
       drawChart($this.attr('data-title'), $.parseJSON($this.attr('data-json')), $this.attr('id'));
-   });
+   })}
 
+   drawAllChart();
+   
    $('form#ajax-attend').submit(function(e) {
       e.preventDefault();
 
@@ -35,19 +40,14 @@ $(document).ready(function() {
          {
             $("div#activity").html(data.message);
             $("div#statistics").html(data.chart);
-            
-            $('div.google_chart').each(function(){
-               var $this = $(this);
-               drawChart($this.attr('data-title'), $.parseJSON($this.attr('data-json')), $this.attr('id'));
-            });
-            
+            drawAllChart();
             if (data.comments)
             {
                $("div#comments").html(data.comments);
             }
          }
       },
-      'json');
+              'json');
    });
 
    $('div.unconfirmed').click(function() {
