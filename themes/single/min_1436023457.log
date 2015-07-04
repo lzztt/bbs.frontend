@@ -1,0 +1,18 @@
+
+[WARNING] Try to use a single 'var' statement per scope.
+);data.addRows(dataJSON); ---> var  <--- options={title:chartTitle,backgroundColor:{
+
+[WARNING] Try to use a single 'var' statement per scope.
+width:400,height:300}; ---> var  <--- chart=new google.visualization.PieChart(document
+
+[WARNING] Try to use a single 'var' statement per scope.
+).replace("unconfirmed","confirmed"); ---> var  <--- parent=$("#"+parent_id);el
+
+[WARNING] Try to use a single 'var' statement per scope.
+$("#goTop"),goTopButtonIsVisible=false; ---> var  <--- showGoTop=function(){goTopButtonIsVisible=true;
+
+[WARNING] Try to use a single 'var' statement per scope.
+:"50px"},300);}; ---> var  <--- hideGoTop=function(){goTopButtonIsVisible=false;
+
+[WARNING] Try to use a single 'var' statement per scope.
+:"-100px"},300);}; ---> var  <--- toggleGoTop=function(){if($window.

@@ -68,7 +68,7 @@ $(document).ready(function() {
    var showGoTop = function () {
       goTopButtonIsVisible = true;
       goTopButton.stop().animate({
-         bottom: '50px'
+         bottom: '40px'
       }, 300);
    };
    var hideGoTop = function () {
