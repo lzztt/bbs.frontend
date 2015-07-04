@@ -1,0 +1,9 @@
+
+[WARNING] Try to use a single 'var' statement per scope.
+);data.addRows(dataJSON); ---> var  <--- options={title:chartTitle,backgroundColor:{
+
+[WARNING] Try to use a single 'var' statement per scope.
+width:chartWidth,height:300}; ---> var  <--- chart=new google.visualization.PieChart(document
+
+[WARNING] Try to use a single 'var' statement per scope.
+).replace("unconfirmed","confirmed"); ---> var  <--- parent=$("#"+parent_id);el
