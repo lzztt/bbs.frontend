@@ -484,23 +484,6 @@ $(document).ready(function () {
              + '<fieldset><label class="label" data-help="输入您在 缤纷休斯顿 华人论坛 的用户名">用户名</label><input name="username" type="text" required autofocus></fieldset>'
              + '<fieldset><label class="label" data-help="输入与您用户名相匹配的密码">密码</label><input name="password" type="password" required></fieldset>'
              + '<fieldset><button type="submit">登录</button></fieldset></form>',
-         '#/password/forget':
-             '<form accept-charset="UTF-8" autocomplete="on" method="post" action="/password/forget">'
-             + '<fieldset><label class="label" data-help="输入您的用户名">用户名</label><input name="username" type="text" required autofocus></fieldset>'
-             + '<fieldset><label class="label" data-help="输入您注册时使用的电子邮箱地址">注册邮箱</label><input name="email" type="email" required></fieldset>'
-             + '<fieldset><button type="submit">发送重设密码链接</button></fieldset></form>',
-         '#/user/username':
-             '<form accept-charset="UTF-8" method="post" action="/user/username">'
-             + '<fieldset><label class="label" data-help="输入您注册时使用的电子邮箱地址">注册邮箱</label><input size="22" name="email" type="email" required autofocus></fieldset>'
-             + '<fieldset><button type="submit">发送您的用户名</button></fieldset></form>',
-         '#/user/register':
-             '<form accept-charset="UTF-8" method="post" action="/user/register">'
-             + '<fieldset><label class="label" data-help="允许空格，不允许&quot;.&quot;、“-”、“_”以外的其他符号">用户名</label><input name="username" type="text" required autofocus></fieldset>'
-             + '<fieldset><label class="label" data-help="一个有效的电子邮件地址。帐号激活后的初始密码和所有本站发出的信件都将寄至此地址。电子邮件地址将不会被公开，仅当您想要接收新密码或通知时才会使用">电子邮箱</label><input name="email" type="email" required></fieldset>'
-             + '<fieldset><label class="label" data-help="确认电子邮箱">确认邮箱</label><input name="email2" type="email" required></fieldset>'
-             + '<fieldset><label class="label">右边图片的内容是什么？</label><input name="captcha" type="text" required><img id="captchaImage" alt="图形验证未能正确显示，请刷新" src="/api/captcha/' + Math.random().toString().slice(2) + '"><a onclick=\'document.getElementById("captchaImage").setAttribute("src", "/api/captcha/" + Math.random().toString().slice(2)); event.preventDefault();\' href="#">看不清，换一张</a></fieldset>'
-             + '<fieldset>[<a href="/node/23200">网站使用规范</a>] [<a href="/term">免责声明</a>]</fieldset>'
-             + '<fieldset><button type="submit">同意使用规范和免责声明，并创建新帐号</button></fieldset></form>',
          '#/password/change':
              '<form accept-charset="UTF-8" autocomplete="off" method="post" action="/password/change">'
              + '<fieldset><label class="label oldpassword">旧密码</label><input name="password_old" type="password" required autofocus></fieldset>'
@@ -509,7 +492,7 @@ $(document).ready(function () {
              + '<fieldset><button type="submit">更改密码</button></fieldset></form>',
          '#/pm/send':
              '<form accept-charset="UTF-8" autocomplete="off" method="post" action="/pm/send/[uid]">'
-             + '<fieldset><label class="label">收信人</label><a href="/user/[uid]">[username]</a></fieldset>'
+             + '<fieldset><label class="label">收信人</label><a href="/app/user/profile/[uid]">[username]</a></fieldset>'
              + '<fieldset><label class="label">短信正文</label><textarea name="body" required autofocus></textarea></fieldset>'
              + '<fieldset><button type="submit">发送短信</button></fieldset></form>'
       };
