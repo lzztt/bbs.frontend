@@ -54,6 +54,19 @@ var cache = {
    }
 };
 
+var validateResponse = function (data) {
+   if (!data) {
+      alert('服务器没有响应');
+      return false;
+   }
+   else {
+      if (data.error) {
+         alert(data.error);
+         return false;
+      }
+   }
+   return true;
+};
 
 $(document).ready(function () {
    var loadSession = function (data) {
@@ -191,12 +204,17 @@ $(document).ready(function () {
             $('#username').text(username);
          }
 
-         // check pm         
-         $.get('/api/message/new', function (data) {
-            if (data.count && data.count > 0) {
-               $("a#pm").append('<span style="color:red;"> (' + data.count + ')<span>');
-            }
-         });
+         // check pm every 5 minutes
+         var pmCheckTime = cache.get('pmCheckTime');
+         if( !pmCheckTime || Date.now() > pmCheckTime + 300000)
+         {
+            $.get('/api/message/new', function (data) {
+               if (data.count && data.count > 0) {
+                  $("a#pm").append('<span style="color:red;"> (' + data.count + ')<span>');
+               }
+            });
+            cache.set('pmCheckTime', Date.now());
+         }
 
          // node page
          var editorForm = $('#bbcode_editor');
@@ -478,23 +496,46 @@ $(document).ready(function () {
       });
 
       // popup windows
-      var popupHTML = {
-         '#/user/login':
-             '<form accept-charset="UTF-8" autocomplete="on" method="post" action="/user/login">'
-             + '<fieldset><label class="label" data-help="输入您在 缤纷休斯顿 华人论坛 的用户名">用户名</label><input name="username" type="text" required autofocus></fieldset>'
-             + '<fieldset><label class="label" data-help="输入与您用户名相匹配的密码">密码</label><input name="password" type="password" required></fieldset>'
-             + '<fieldset><button type="submit">登录</button></fieldset></form>',
-         '#/password/change':
-             '<form accept-charset="UTF-8" autocomplete="off" method="post" action="/password/change">'
-             + '<fieldset><label class="label oldpassword">旧密码</label><input name="password_old" type="password" required autofocus></fieldset>'
-             + '<fieldset><label class="label">新密码</label><input name="password_new" type="password" required></fieldset>'
-             + '<fieldset><label class="label">确认新密码</label><input name="password_new2" type="password" required></fieldset>'
-             + '<fieldset><button type="submit">更改密码</button></fieldset></form>',
-         '#/pm/send':
-             '<form accept-charset="UTF-8" autocomplete="off" method="post" action="/pm/send/[uid]">'
-             + '<fieldset><label class="label">收信人</label><a href="/app/user/profile/[uid]">[username]</a></fieldset>'
-             + '<fieldset><label class="label">短信正文</label><textarea name="body" required autofocus></textarea></fieldset>'
-             + '<fieldset><button type="submit">发送短信</button></fieldset></form>'
+      var popupForms = {
+         login: {
+            html: '<form accept-charset="UTF-8" autocomplete="on" method="post">'
+                + '<fieldset><label class="label">用户名</label><input name="username" type="text" required autofocus></fieldset>'
+                + '<fieldset><label class="label">密码</label><input name="password" type="password" required></fieldset>'
+                + '<fieldset><button type="submit">登录</button></fieldset></form>',
+            handler: '/api/authentication',
+            success: function (data) {
+               if (validateResponse(data)) {
+                  loadSession(data);
+                  return '<script>location.reload();</script>';
+               }
+            }
+         },
+         changePassword: {
+            html: '<form accept-charset="UTF-8" autocomplete="off" method="post">'
+                + '<fieldset><label class="label oldpassword">旧密码</label><input name="password_old" type="password" required autofocus></fieldset>'
+                + '<fieldset><label class="label">新密码</label><input name="password" type="password" required></fieldset>'
+                + '<fieldset><label class="label">确认新密码</label><input name="password2" type="password" required></fieldset>'
+                + '<fieldset><button type="submit">更改密码</button></fieldset></form>',
+            handler: '/api/user/[uid]?action=put',
+            vars: {uid: cache.get('uid')},
+            success: function (data) {
+               if (validateResponse(data)) {
+                  return '密码更改成功。';
+               }
+            }
+         },
+         sendPM: {
+            html: '<form accept-charset="UTF-8" autocomplete="off" method="post">'
+                + '<fieldset><label class="label">收信人</label><a href="/app/user/profile/[uid]">[username]</a><input name="toUID" type="hidden" value="[uid]"></fieldset>'
+                + '<fieldset><label class="label">短信正文</label><textarea name="body" required autofocus></textarea></fieldset>'
+                + '<fieldset><button type="submit">发送短信</button></fieldset></form>',
+            handler: '/api/message',
+            success: function (data) {
+               if (validateResponse(data)) {
+                  return '短信发送成功。';
+               }
+            }
+         }
       };
 
       var popupbox = $('div#popupbox'),
@@ -516,25 +557,34 @@ $(document).ready(function () {
       $('a.popup').click(function (e) {
          e.preventDefault();
          var link = $(this);
-         var key = link.attr('href');
-         var body = popupHTML[key];
+         var key = link.attr('href').substr(1);
 
-         if (body) {
+         if (key in popupForms) {
             // add overlay
             if (!jQuery.contains(document, overlay[0])) {
                overlay.insertBefore(popupbox);
             }
 
+            var html = popupForms[key].html;
+            var handler = popupForms[key].handler;
+
             // apply varibles
+            var vars = {};
+            if ('vars' in popupForms[key]) {
+               vars = $.extend(vars, popupForms[key].vars);
+            }
             if (link.attr('data-vars')) {
-               var vars = JSON.parse(link.attr('data-vars'));
+               vars = $.extend(vars, JSON.parse(link.attr('data-vars')));
+            }
+            if (!$.isEmptyObject(vars)) {
                for (var k in vars) {
-                  body = body.replace(new RegExp('\\[' + k + '\\]', 'g'), String(vars[k]));
+                  html = html.replace(new RegExp('\\[' + k + '\\]', 'g'), String(vars[k]));
+                  handler = handler.replace(new RegExp('\\[' + k + '\\]', 'g'), String(vars[k]));
                }
             }
 
             // show popup
-            popupbox.html(body).show(0, centerPopupBox);
+            popupbox.html(html).show(0, centerPopupBox);
             popupVisible = true;
 
             $(window).resize(function () {
@@ -543,16 +593,20 @@ $(document).ready(function () {
                }
             });
 
-            var popupForm = $('form', popupbox);
-            popupForm.submit(function (e) {
+            var form = $('form', popupbox);
+            form.submit(function (e) {
                e.preventDefault();
-               if (popupForm.attr('action')) {
+               if (handler) {
                   $.ajax({
-                     type: "POST",
-                     url: popupForm.attr('action'),
-                     data: popupForm.serialize(),
+                     method: "POST",
+                     url: handler,
+                     data: form.serialize(),
+                     dataType: 'json',
                      success: function (data) {
-                        popupbox.html(data);
+                        var response = popupForms[key].success(data);
+                        if (response) {
+                           popupbox.html(response);
+                        }
                      },
                      error: function () {
                         alert('错误：提交数据错误');
