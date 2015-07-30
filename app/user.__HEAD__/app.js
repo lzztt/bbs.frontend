@@ -12,7 +12,6 @@ var guestLinks = [
    {name: "首页", uri: "/"},
    {name: "登录", uri: "login"},
    {name: "忘记密码", uri: "forget_password"},
-   {name: "忘记用户名", uri: "forget_username"},
    {name: "注册帐号", uri: "register"}
 ];
 

@@ -499,7 +499,7 @@ $(document).ready(function () {
       var popupForms = {
          login: {
             html: '<form accept-charset="UTF-8" autocomplete="on" method="post">'
-                + '<fieldset><label class="label">用户名</label><input name="username" type="text" required autofocus></fieldset>'
+                + '<fieldset><label class="label">注册邮箱</label><input name="email" type="email" required autofocus></fieldset>'
                 + '<fieldset><label class="label">密码</label><input name="password" type="password" required></fieldset>'
                 + '<fieldset><button type="submit">登录</button></fieldset></form>',
             handler: '/api/authentication',
