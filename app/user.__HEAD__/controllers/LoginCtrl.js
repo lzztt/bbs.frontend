@@ -8,8 +8,8 @@ userApp.controller('LoginCtrl', ['$scope', '$http', '$cookies', '$location', fun
 
       $scope.navbar = getNavbar(guestLinks, $location.path().substring(1));
 
-      $scope.login = function (username, password) {
-         $http.post('/api/authentication?action=post', 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password), {
+      $scope.login = function (email, password) {
+         $http.post('/api/authentication?action=post', 'email=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(password), {
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
             if (validateResponse(data)) {
                if (data.sessionID) {
