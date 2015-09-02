@@ -7,7 +7,7 @@ body
    line-height: 1.286em; /* 14px x 1.286 = 18px */
    font-family: Tahoma, Geneva, Helvetica, Arial, Verdana, "Bitstream Vera Sans", sans-serif, 宋体, SimSun;
    /* font: 0.875em Tahoma,Geneva,Helvetica,Arial,Verdana,"Bitstream Vera Sans",sans-serif,宋体,SimSun; */
-   background-color: #e1f5a9;
+   background-color: #D3D3D3; /* lightgray */
    position: relative;
 }
 
