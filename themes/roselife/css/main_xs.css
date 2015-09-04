@@ -151,6 +151,7 @@ a#goTop
 /* END BBCODE EDITOR */
 
 /* BEGIN RESPONSIVE TABLE */
+/*
 tr
 {
    border-top: 1px solid #ccc;
@@ -160,6 +161,7 @@ tr:last-child
 {
    border-bottom: 1px solid #ccc;
 }
+*/
 
 th, td
 {
@@ -181,7 +183,7 @@ th, td
    td { 
       /* Behave  like a "row" */
       border: none;
-      border-bottom: 1px dashed #ccc;
+      /*border-bottom: 1px dashed #ccc;*/
       position: relative;
       padding-left: 25%; 
    }
@@ -516,7 +518,7 @@ section.items ul
 
 section.items ul li
 {
-   border-bottom: 1px dashed #CCC;
+   /*border-bottom: 1px dashed #CCC;*/
    position: relative;
 }
 
@@ -536,7 +538,7 @@ section.items ul li a
    width: 80%;
    overflow: hidden;
    white-space: nowrap;
-   padding: 2px 5px;
+   padding: 3px 5px 2px;
    vertical-align: bottom;
 }
 
