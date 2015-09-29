@@ -58,6 +58,18 @@ userApp.controller('ProfileCtrl', ['$scope', '$routeParams', '$cookies', '$http'
             if ($scope.user.birthday * 1000 !== $scope.birthday.getTime()) {
                $scope.user.birthday = new Date($scope.birthday).getTime() / 1000;
             }
+
+            switch ($scope.user.sex)
+            {
+              case "男":
+                $scope.user.sex = 1;
+                break;
+              case "女":
+                $scope.user.sex = 0;
+                break;
+              default:
+                break;
+            }
             // check if we have update values      
             var updates = "";
             for (var i in $scope.user) {
