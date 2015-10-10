@@ -1,0 +1,110 @@
+$font-color: #333;
+$bg-color: #E6E6E6;
+$bd-color: darken($bg-color, 20%);
+$bg-color-active: lighten($bg-color, 20%);
+$transform-time: 0.3s;
+
+body {
+   color: $font-color;
+   height: 100%;
+}
+
+a {
+   text-decoration: none;
+   color: blue;
+}
+
+div#page {
+   width: 100%;
+   max-width: 400px;
+   
+   div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 5px;
+   }
+
+   ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      max-width: 400px;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background: $bg-color;
+      -ms-transform: translate(-101%, 0); /* IE 9 */
+      -webkit-transform: translate(-101%, 0);
+      transform: translate(-101%, 0);
+      -webkit-transition: -webkit-transform $transform-time ease-in-out, opacity $transform-time ease-in-out;
+      transition: transform $transform-time ease-in-out, opacity $transform-time ease-in-out;
+
+      a, span {
+         display: block;
+         padding: 0.5em;
+         text-align: center;
+         background-color: $bg-color;
+         border-bottom: 1px solid $bd-color;
+      }
+      
+      a:hover, span:hover {
+         background-color: lighten($bg-color, 20%);
+      }
+
+      span::before {
+         display: inline-block;
+         float: left;
+         content: '<';
+         font-weight: bolder;
+      }
+
+      span.back::before {
+         display: inline-block;
+         float: right;
+         content: '>';
+         font-weight: bolder;
+      }
+
+      span.label {
+         display: none;
+      }
+   }
+
+   ul.overlay {      
+      overflow-y: hidden;
+      cursor: pointer;
+      background: $bd-color;
+      /* hide all text to background color */
+      > li > span, > li > a, > li > span::before, > li > span.back::before {
+         color: $bd-color;
+      }
+
+      > li > ul {
+         border-right: 39px solid $bd-color;
+         box-shadow: 1px 0px 0px 0px darken($bd-color, 20%);
+      }
+
+      > li {
+         > a, > span {
+            background: $bd-color;
+         }
+      }
+      
+      > li > span.label {
+         display: block;
+         position: absolute;
+         right: 1px;
+         top: 0;
+         box-sizing: border-box;
+         width: 39px;
+         color: $font-color;
+         background-color: transparent;
+      }
+   }
+}
