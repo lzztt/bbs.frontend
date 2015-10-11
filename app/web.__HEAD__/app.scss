@@ -3,26 +3,18 @@ $bg-color: #E6E6E6;
 $bd-color: darken($bg-color, 20%);
 $bg-color-active: lighten($bg-color, 20%);
 $transform-time: 0.3s;
+$line-height: 1.5;
 
-/* position origins */
-body, #page {
-   position: relative;
-}
 
 /* height */
-html, body, #page, #navbar {
+html, #navbar {
    height: 100%;
-}
-/* overflow */
-body, #page, #navbar {
-   overflow-x: hidden;
-   overflow-y: auto;
 }
 
 /* font */
 html {
    color: $font-color;
-   line-height: 1.5;
+   line-height: $line-height;
 }
 
 a {
@@ -31,24 +23,20 @@ a {
 }
 
 #navbar {
-   position: absolute;
+   position: fixed;
    top: 0;
    left: 0;
    width: 270px;
    max-width: 270px;
+   display: none;
    background: $bg-color;
-   -ms-transform: translate(-101%, 0); /* IE 9 */
-   -webkit-transform: translate(-101%, 0);
-   transform: translate(-101%, 0);
-   -webkit-transition: -webkit-transform $transform-time ease-in-out, opacity $transform-time ease-in-out;
-   transition: transform $transform-time ease-in-out, opacity $transform-time ease-in-out;
 
    ul {
       margin: 0;
       padding: 0;
       list-style: none;
 
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 270px;
@@ -57,11 +45,10 @@ a {
       overflow-x: hidden;
       overflow-y: auto;
       background: $bg-color;
-      -ms-transform: translate(-101%, 0); /* IE 9 */
-      -webkit-transform: translate(-101%, 0);
-      transform: translate(-101%, 0);
-      -webkit-transition: -webkit-transform $transform-time ease-in-out, opacity $transform-time ease-in-out;
-      transition: transform $transform-time ease-in-out, opacity $transform-time ease-in-out;
+
+      ul {
+         display: none;
+      }
 
       a, span {
          display: block;
@@ -69,6 +56,7 @@ a {
          text-align: center;
          background-color: $bg-color;
          border-bottom: 1px solid $bd-color;
+         cursor: pointer;
       }
 
       a:hover, span:hover {
@@ -92,37 +80,26 @@ a {
       }
    }
 
-   ul.overlay {      
-      overflow-y: hidden;
-      cursor: pointer;
+   ul.overlay {
       background: $bd-color;
-      /* hide all text to background color */
-      > li > span, > li > a, > li > span::before, > li > span.back::before {
-         color: $bd-color;
-      }
 
-      > li > ul {
-         border-right: 39px solid $bd-color;
-         > li > ul {
-            box-shadow: 1px 0px 0px 0px darken($bd-color, 20%);
-         }
-      }
-
-      > li {
-         > a, > span {
-            background: $bd-color;
-         }
-      }
-
+      /* label box width = li span height = ( line-height + 2 * padding ) */
+      $labelWidth: $line-height + 1em;
+      
       > li > span.label {
          display: block;
-         position: absolute;
-         right: 1px;
+         position: fixed;
          top: 0;
          box-sizing: border-box;
-         width: 39px;
+         width: $labelWidth;
+         height: 100%;
+         padding: ( $labelWidth - 1em ) / 2;
          color: $font-color;
-         background-color: transparent;
+         background-color: $bd-color;
+         border-right: 1px solid darken($bd-color, 20%);
+         &::before {
+            content: "";
+         }
       }
    }
 }

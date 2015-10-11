@@ -1,15 +1,6 @@
-/* position origins */
-body, #page {
-  position: relative; }
-
 /* height */
-html, body, #page, #navbar {
+html, #navbar {
   height: 100%; }
-
-/* overflow */
-body, #page, #navbar {
-  overflow-x: hidden;
-  overflow-y: auto; }
 
 /* font */
 html {
@@ -21,23 +12,18 @@ a {
   color: blue; }
 
 #navbar {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 270px;
   max-width: 270px;
-  background: #E6E6E6;
-  -ms-transform: translate(-101%, 0);
-  /* IE 9 */
-  -webkit-transform: translate(-101%, 0);
-  transform: translate(-101%, 0);
-  -webkit-transition: -webkit-transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; }
+  display: none;
+  background: #E6E6E6; }
   #navbar ul {
     margin: 0;
     padding: 0;
     list-style: none;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 270px;
@@ -45,19 +31,16 @@ a {
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    background: #E6E6E6;
-    -ms-transform: translate(-101%, 0);
-    /* IE 9 */
-    -webkit-transform: translate(-101%, 0);
-    transform: translate(-101%, 0);
-    -webkit-transition: -webkit-transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; }
+    background: #E6E6E6; }
+    #navbar ul ul {
+      display: none; }
     #navbar ul a, #navbar ul span {
       display: block;
       padding: 0.5em;
       text-align: center;
       background-color: #E6E6E6;
-      border-bottom: 1px solid #b3b3b3; }
+      border-bottom: 1px solid #b3b3b3;
+      cursor: pointer; }
     #navbar ul a:hover, #navbar ul span:hover {
       background-color: white; }
     #navbar ul span::before {
@@ -71,26 +54,20 @@ a {
     #navbar ul span.label {
       display: none; }
   #navbar ul.overlay {
-    overflow-y: hidden;
-    cursor: pointer;
     background: #b3b3b3;
-    /* hide all text to background color */ }
-    #navbar ul.overlay > li > span, #navbar ul.overlay > li > a, #navbar ul.overlay > li > span::before, #navbar ul.overlay > li > span.back::before {
-      color: #b3b3b3; }
-    #navbar ul.overlay > li > ul {
-      border-right: 39px solid #b3b3b3; }
-      #navbar ul.overlay > li > ul > li > ul {
-        box-shadow: 1px 0px 0px 0px gray; }
-    #navbar ul.overlay > li > a, #navbar ul.overlay > li > span {
-      background: #b3b3b3; }
+    /* label box width = li span height = ( line-height + 2 * padding ) */ }
     #navbar ul.overlay > li > span.label {
       display: block;
-      position: absolute;
-      right: 1px;
+      position: fixed;
       top: 0;
       box-sizing: border-box;
-      width: 39px;
+      width: 2.5em;
+      height: 100%;
+      padding: 0.75em;
       color: #333;
-      background-color: transparent; }
+      background-color: #b3b3b3;
+      border-right: 1px solid gray; }
+      #navbar ul.overlay > li > span.label::before {
+        content: ""; }
 
 /*# sourceMappingURL=app.css.map */
