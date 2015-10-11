@@ -80,7 +80,7 @@ var nav = [
           {id: 80, name: '中国超市'},
           {id: 81, name: 'Shopping'},
           {id: 82, name: '其它'}]},
-      {id: 35, name: '教育/电脑/设计', children: [
+      {id: 35, name: '教育 电脑 设计', children: [
           {id: 83, name: '大学'},
           {id: 84, name: '中文学校'},
           {id: 85, name: '幼儿照顾'},
@@ -151,22 +151,21 @@ var NavConfig = function(ulRoot) {
   var isMenuVisible = false;
 
   var toggleLevel = function(ul) {
-    $(ul).removeClass('overlay');
-    $('ul', ul).removeClass('overlay').css("transform", "translate(-101%,0)").css('opacity', '0');
-    $('li > span.label', ul).remove();
+    $(ul).removeClass('overlay').find('ul').hide().removeClass('overlay');
+    $('span.label', ul).remove();
   };
 
-  $('<div style="position:absolute"><button type="button">菜单</button></div>').prependTo($('#page'))
+  $('<div style="position:fixed"><button type="button">菜单</button></div>').prependTo($('#page'))
     .click(function(ev) {
       if (isMenuVisible) {
-        toggleLevel($(ulRoot).css("transform", "translate(-101%,0)").css('opacity', '0'));
-        $(ulRoot.parentNode).css("transform", "translate(-101%,0)").css('opacity', '0')
+        //toggleLevel($(ulRoot);
+        $(ulRoot.parentNode).hide();
         $(this).css("left", 0);
         isMenuVisible = false;
       }
       else {
-        $(ulRoot).css("transform", "translate(0,0)").css('opacity', '1').parent().css("transform", "translate(0,0)").css('opacity', '1');
-        $(this).css("left", $(ulRoot).width());
+        $(ulRoot.parentNode).show();
+        $(this).css("left", $(ulRoot.parentNode).outerWidth());
         isMenuVisible = true;
       }
     });
@@ -186,26 +185,20 @@ var NavConfig = function(ulRoot) {
 
       var $this = $(this), ulNext = this.nextSibling, ulCurrent = this.parentElement.parentElement;
 
-      $(ulNext).width($(ulCurrent).width() - 40)
-        .css("transform", "translate(0,0)").css('opacity', '1')
-        .parent().parent().addClass('overlay');
+      $(ulCurrent).addClass('overlay');
 
-      $('<span class="label">' + $this.text() + '</span>').appendTo(this.parentElement)
+      var $label = $('<span class="label">' + $this.text() + '</span>').appendTo(this.parentElement)
         .click(function(ev) {
           ev.stopPropagation();
           toggleLevel(ulCurrent);
         });
+
+      var ulNextWidth = $(ulCurrent).outerWidth() - $label.outerWidth();
+      $label.css('left', ulNextWidth);
+
+      $(ulNext).outerWidth(ulNextWidth).show();
+      ulNext.scrollTop = 0;
     });
-
-  $('li > ul', ulRoot).click(function(ev) {
-    ev.stopImmediatePropagation();
-    ev.stopPropagation();
-    toggleLevel(this.parentElement.parentElement);
-  });
-
-  $('a', ulRoot).click(function(ev) {
-    ev.stopPropagation();
-  });
 };
 
 m.mount(document.getElementById('navbar'), m.component(MenuGroup, {data: nav, config: NavConfig}));
