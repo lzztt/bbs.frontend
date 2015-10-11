@@ -147,7 +147,7 @@ var MenuGroup = {
   }
 };
 
-var NavConfig = function(el) {
+var NavConfig = function(ulRoot) {
   var isMenuVisible = false;
 
   var toggleLevel = function(ul) {
@@ -156,21 +156,22 @@ var NavConfig = function(el) {
     $('li > span.label', ul).remove();
   };
 
-  $('<div><button type="button">菜单</button></div>').appendTo(el.parentElement)
+  $('<div style="position:absolute"><button type="button">菜单</button></div>').prependTo($('#page'))
     .click(function(ev) {
       if (isMenuVisible) {
-        toggleLevel($("#page > ul").css("transform", "translate(-101%,0)").css('opacity', '0'));
+        toggleLevel($(ulRoot).css("transform", "translate(-101%,0)").css('opacity', '0'));
+        $(ulRoot.parentNode).css("transform", "translate(-101%,0)").css('opacity', '0')
         $(this).css("left", 0);
         isMenuVisible = false;
       }
       else {
-        $("#page > ul").css("transform", "translate(0,0)").css('opacity', '1');
-        $(this).css("left", $("#page > ul").width());
+        $(ulRoot).css("transform", "translate(0,0)").css('opacity', '1').parent().css("transform", "translate(0,0)").css('opacity', '1');
+        $(this).css("left", $(ulRoot).width());
         isMenuVisible = true;
       }
     });
 
-  $('span', el).each(function() {
+  $('span', ulRoot).each(function() {
     var $this = $(this), ulNext = this.nextSibling, ulCurrent = this.parentElement.parentElement;
     $('<li><span class="back">' + $this.text() + '</span></li>').prependTo(ulNext)
       .click(function(ev) {
@@ -196,15 +197,15 @@ var NavConfig = function(el) {
         });
     });
 
-  $('li > ul', el).click(function(ev) {
+  $('li > ul', ulRoot).click(function(ev) {
     ev.stopImmediatePropagation();
     ev.stopPropagation();
     toggleLevel(this.parentElement.parentElement);
   });
 
-  $('a', el).click(function(ev) {
+  $('a', ulRoot).click(function(ev) {
     ev.stopPropagation();
   });
 };
 
-m.mount(document.getElementById('page'), m.component(MenuGroup, {data: nav, config: NavConfig}));
+m.mount(document.getElementById('navbar'), m.component(MenuGroup, {data: nav, config: NavConfig}));

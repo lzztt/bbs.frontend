@@ -1,28 +1,47 @@
-body {
-  color: #333;
+/* position origins */
+body, #page {
+  position: relative; }
+
+/* height */
+html, body, #page, #navbar {
   height: 100%; }
+
+/* overflow */
+body, #page, #navbar {
+  overflow-x: hidden;
+  overflow-y: auto; }
+
+/* font */
+html {
+  color: #333;
+  line-height: 1.5; }
 
 a {
   text-decoration: none;
   color: blue; }
 
-div#page {
-  width: 100%;
-  max-width: 400px; }
-  div#page div {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 5px; }
-  div#page ul {
+#navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 270px;
+  max-width: 270px;
+  background: #E6E6E6;
+  -ms-transform: translate(-101%, 0);
+  /* IE 9 */
+  -webkit-transform: translate(-101%, 0);
+  transform: translate(-101%, 0);
+  -webkit-transition: -webkit-transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; }
+  #navbar ul {
     margin: 0;
     padding: 0;
     list-style: none;
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    max-width: 400px;
+    width: 270px;
+    max-width: 270px;
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
@@ -33,39 +52,38 @@ div#page {
     transform: translate(-101%, 0);
     -webkit-transition: -webkit-transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; }
-    div#page ul a, div#page ul span {
+    #navbar ul a, #navbar ul span {
       display: block;
       padding: 0.5em;
       text-align: center;
       background-color: #E6E6E6;
       border-bottom: 1px solid #b3b3b3; }
-    div#page ul a:hover, div#page ul span:hover {
+    #navbar ul a:hover, #navbar ul span:hover {
       background-color: white; }
-    div#page ul span::before {
+    #navbar ul span::before {
       display: inline-block;
       float: left;
-      content: '<';
-      font-weight: bolder; }
-    div#page ul span.back::before {
+      content: '<'; }
+    #navbar ul span.back::before {
       display: inline-block;
       float: right;
-      content: '>';
-      font-weight: bolder; }
-    div#page ul span.label {
+      content: '>'; }
+    #navbar ul span.label {
       display: none; }
-  div#page ul.overlay {
+  #navbar ul.overlay {
     overflow-y: hidden;
     cursor: pointer;
     background: #b3b3b3;
     /* hide all text to background color */ }
-    div#page ul.overlay > li > span, div#page ul.overlay > li > a, div#page ul.overlay > li > span::before, div#page ul.overlay > li > span.back::before {
+    #navbar ul.overlay > li > span, #navbar ul.overlay > li > a, #navbar ul.overlay > li > span::before, #navbar ul.overlay > li > span.back::before {
       color: #b3b3b3; }
-    div#page ul.overlay > li > ul {
-      border-right: 39px solid #b3b3b3;
-      box-shadow: 1px 0px 0px 0px gray; }
-    div#page ul.overlay > li > a, div#page ul.overlay > li > span {
+    #navbar ul.overlay > li > ul {
+      border-right: 39px solid #b3b3b3; }
+      #navbar ul.overlay > li > ul > li > ul {
+        box-shadow: 1px 0px 0px 0px gray; }
+    #navbar ul.overlay > li > a, #navbar ul.overlay > li > span {
       background: #b3b3b3; }
-    div#page ul.overlay > li > span.label {
+    #navbar ul.overlay > li > span.label {
       display: block;
       position: absolute;
       right: 1px;
