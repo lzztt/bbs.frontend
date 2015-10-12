@@ -141,13 +141,17 @@ var MenuGroup = {
       }
       else
       {
-        return m('li', {class: 'link'}, m('a', {href: '/tag/' + link.id}, link.name));
+        return m('li', {class: 'link'}, m('a', {href: '#/tag/' + link.id}, link.name));
       }
     }));
   }
 };
 
-var NavConfig = function(ulRoot) {
+var NavConfig = function(ulRoot, isInit) {
+  console.log("nav_config", isInit);
+  if (isInit)
+    return;
+
   var isMenuVisible = false;
 
   var toggleLevel = function(ul) {
@@ -155,7 +159,7 @@ var NavConfig = function(ulRoot) {
     $('span.label', ul).remove();
   };
 
-  $('<div style="position:fixed"><button type="button">菜单</button></div>').prependTo($('#page'))
+  var $trigger = $('<div style="position:fixed; left: 0; top: 0; padding: 1em 0.5em"><button type="button">菜单</button></div>').appendTo(document.body)
     .click(function(ev) {
       if (isMenuVisible) {
         //toggleLevel($(ulRoot);
@@ -199,6 +203,46 @@ var NavConfig = function(ulRoot) {
       $(ulNext).outerWidth(ulNextWidth).show();
       ulNext.scrollTop = 0;
     });
+
+  $('a', ulRoot).click(function(ev) {
+    $trigger.click();
+  });
 };
 
-m.mount(document.getElementById('navbar'), m.component(MenuGroup, {data: nav, config: NavConfig}));
+m.render(document.getElementById('navbar'), m.component(MenuGroup, {data: nav, config: NavConfig}));
+
+var Home = {
+  controller: function() {
+    return {
+      onunload: function() {
+        console.log("unloading home component");
+      }
+    };
+  },
+  view: function() {
+    return m("div", "Home")
+  }
+};
+
+var Tag = {
+  controller: function() {
+    console.log('test');
+    this.id = m.route.param("tid");
+    this.nodes = m.request({method: "GET", url: '/api/tag/' + this.id});
+    console.log(this.id, this.nodes);
+  },
+  view: function(ctrl) {
+    return m('ul', ctrl.nodes().map(function(node) {
+      return m('li', m('a', {href: '/node/' + node.id}, node.title));
+    }));
+  }
+};
+
+//setup routes to start w/ the `#` symbol
+m.route.mode = "hash";
+
+//define a route
+m.route(document.getElementById('page'), "/", {
+  "/": Home,
+  "/tag/:tid": Tag
+});

@@ -70,4 +70,7 @@ a {
       #navbar ul.overlay > li > span.label::before {
         content: ""; }
 
+#page {
+  padding: 3em; }
+
 /*# sourceMappingURL=app.css.map */
