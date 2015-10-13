@@ -52,7 +52,7 @@ a {
 
       a, span {
          display: block;
-         padding: 0.5em;
+         padding: 0.5rem;
          text-align: center;
          background-color: $bg-color;
          border-bottom: 1px solid $bd-color;
@@ -84,8 +84,8 @@ a {
       background: $bd-color;
 
       /* label box width = li span height = ( line-height + 2 * padding ) */
-      $labelWidth: $line-height + 1em;
-      
+      $labelWidth: $line-height + 1rem;
+
       > li > span.label {
          display: block;
          position: fixed;
@@ -93,7 +93,7 @@ a {
          box-sizing: border-box;
          width: $labelWidth;
          height: 100%;
-         padding: ( $labelWidth - 1em ) / 2;
+         padding: ( $labelWidth - 1rem ) / 2;
          color: $font-color;
          background-color: $bd-color;
          border-right: 1px solid darken($bd-color, 20%);
@@ -105,5 +105,24 @@ a {
 }
 
 #page {
-   padding: 3em;
+   padding: 3rem;
 }
+
+/* BEGIN PAGER */
+nav.pager {
+   float: right;
+
+   a   {
+      display: inline-block;
+      vertical-align: bottom;
+      text-align: center;
+      padding: 0.3em 0.6em;
+      cursor: pointer;
+   }
+
+   a.active   {
+      background-color: gold;
+      cursor: auto;
+   }
+}
+/* END PAGER */
