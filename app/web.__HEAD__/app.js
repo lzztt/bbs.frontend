@@ -360,17 +360,77 @@ var Input = {
   }
 };
 
+var NavTab = {
+  view: function(ctrl, data) {
+    return m('nav', {class: 'navtab'}, data.links.map(function(link) {
+      var attr = link.name == data.active ? {class: 'active'} : {href: link.uri, config: m.route};
+      return m('a', attr, link.name);
+    }));
+  }
+};
+
+var guestLinks = [
+  {uri: "/", name: '首页'},
+  {uri: "/user/login", name: '登录'},
+  {uri: "/user/password", name: '忘记密码'},
+  {uri: "/user/register", name: '注册帐号'},
+];
+
+var GuestNavTab = {
+  view: function(ctrl) {
+    return m.component(NavTab, {links: guestLinks, active: m.route()})
+  }
+};
+
 var Login = {
   controller: function() {
     this.email = m.prop('');
     this.password = m.prop('');
   },
   view: function(ctrl) {
-    return m('form', {onsubmit: function(ev){ev.preventDefault(); console.log(ctrl.email(), ctrl.password());}}, [
-      m.component(Input, {type: 'text', label: 'Email', name: 'email', value: ctrl.email}),
-      m.component(Input, {type: 'password', label: 'Password', name: 'password', value: ctrl.password}),
-      m('button', {type: 'submit'}, 'Login')
-    ]);
+    return [GuestNavTab, m('form', {onsubmit: function(ev) {
+        ev.preventDefault();
+        console.log(ctrl.email(), ctrl.password());
+      }}, [
+      m.component(Input, {type: 'email', label: '注册邮箱', name: 'email', value: ctrl.email}),
+      m.component(Input, {type: 'password', label: '密码', name: 'password', value: ctrl.password}),
+      m('button', {type: 'submit'}, '登录')
+    ])];
+  }
+};
+
+var Register = {
+  controller: function() {
+    this.email = m.prop('');
+    this.username = m.prop('');
+  },
+  view: function(ctrl) {
+    return [GuestNavTab, m('form', {onsubmit: function(ev) {
+        ev.preventDefault();
+        console.log(ctrl.email(), ctrl.password());
+      }}, [
+      m.component(Input, {type: 'email', label: '电子邮箱', name: 'email', value: ctrl.email}),
+      m.component(Input, {type: 'text', label: '用户名', name: 'username', value: ctrl.email}),
+      m.component(Input, {type: 'text', label: '下边图片的内容是什么？', name: 'captcha', value: ctrl.email}),
+      m('button', {type: 'submit'}, '创建新帐号')
+    ])];
+  }
+};
+
+var Password = {
+  controller: function() {
+    this.email = m.prop('');
+    this.username = m.prop('');
+  },
+  view: function(ctrl) {
+    return [GuestNavTab, m('form', {onsubmit: function(ev) {
+        ev.preventDefault();
+        console.log(ctrl.email(), ctrl.password());
+      }}, [
+      m.component(Input, {type: 'email', label: '注册邮箱', name: 'email', value: ctrl.email}),
+      m.component(Input, {type: 'text', label: '用户名', name: 'username', value: ctrl.username}),
+      m('button', {type: 'submit'}, '发送重设密码链接')
+    ])];
   }
 };
 
@@ -383,6 +443,9 @@ var User = {
 //define a route
 m.route(document.getElementById('page'), "/", {
   "/": Home,
+  '/user/login': Login,
+  '/user/register': Register,
+  '/user/password': Password,
   "/tag/:tid": Tag,
   "/node/:nid": Node,
   "/user/:uid": User,
