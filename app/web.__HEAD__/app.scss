@@ -5,7 +5,7 @@ $bg-color-active: lighten($bg-color, 20%);
 $transform-time: 0.3s;
 $line-height: 1.5;
 
-
+/* BASIC */
 /* height */
 html, #navbar {
    height: 100%;
@@ -21,7 +21,9 @@ a {
    text-decoration: none;
    color: blue;
 }
+/* END BASIC */
 
+/* NAVBAR */
 #navbar {
    position: fixed;
    top: 0;
@@ -103,16 +105,17 @@ a {
       }
    }
 }
+/* END NAVBAR */
 
 #page {
    padding: 3rem;
 }
 
-/* BEGIN PAGER */
+/* PAGER */
 nav.pager {
    float: right;
 
-   a   {
+   a {
       display: inline-block;
       vertical-align: bottom;
       text-align: center;
@@ -126,3 +129,29 @@ nav.pager {
    }
 }
 /* END PAGER */
+
+/* FORM */
+form fieldset
+{
+   display: block;
+   clear: both;
+   margin: 0;
+   padding: 0.2em;
+   border: 0;
+   label, .label
+   {
+      display: block;
+   }
+
+   textarea, input[type="text"], input[type='url'], input[type='email'], input[type='password']{
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 250px;
+   }
+
+   textarea {
+      max-width: 600px;
+      height: 150px;
+   }
+}
+/* END FORM */
