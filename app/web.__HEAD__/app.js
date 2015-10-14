@@ -242,39 +242,31 @@ var Tag = {
 
 var Node = {
   controller: function() {
-    console.log('node ctrler');
+    console.log('Node ctrl');
     this.id = m.route.param("nid");
     this.node = m.request({method: "GET", url: '/api/node/' + this.id});
 
-    var nid = this.id, ctrl = this;
-    this.pageHandler = function(i) {
-      return function() {
-        ctrl.node = m.request({method: "GET", url: '/api/node/' + nid + '?p=' + i});
-      }
-    }
+    this.loadPage = function(i) {
+      this.node = m.request({method: "GET", url: '/api/node/' + this.id + '?p=' + i});
+    }.bind(this);
   },
   view: function(ctrl) {
-    console.log('node view');
     var n = ctrl.node();
     if (n) {
-      var article = [
-        m('h1', n.title),
-        m('section', n.body)
-      ];
-      console.log(n.pageNo, n.pageCount);
-      var pager = m.component(Pager, {current: n.pageNo, count: n.pageCount, handler: ctrl.pageHandler});
+      console.log('Node view ', n.pageNo, n.pageCount);
+      var pager = m.component(Pager, {current: n.pageNo, count: n.pageCount, handler: ctrl.loadPage});
+      pager = pager.view(pager.controller()); // just render the component
+
       if (n.pageCount > 1) {
+        var article = [pager, m('h1', n.title), m('section', n.body)].concat(n.comments.map(function(c) {
+          return m('section', c.body);
+        }));
         article.push(pager);
-        //article.push(pager);
       }
-
-      article = article.concat(n.comments.map(function(c) {
-        return m('section', c.body);
-      }))
-
-      if (n.pageCount > 1) {
-        article.push(pager);
-        //article.push(pager);
+      else {
+        var article = [m('h1', n.title), m('section', n.body)].concat(n.comments.map(function(c) {
+          return m('section', c.body);
+        }));
       }
 
       return m('article', article);
@@ -287,72 +279,71 @@ var Node = {
 };
 
 var Pager = {
-  controller: function(data) {
-    var first, last,
-      current = parseInt(data.current),
-      count = parseInt(data.count);
-    console.log('current ', current, ' count ', count);
+  controller: function() {
+    this.buildLinks = function(current, count) {
+      var first, last, links = [];
 
-    // validate pCount and pCurrent
-    if (isNaN(count) || count <= 1)
-      return;
-    if (isNaN(current) || current < 1 || current > count)
-      current = 1;
-    // calculate first, last
-    if (count <= 7) {
-      first = 1;
-      last = count;
-    }
-    else {
-      first = current - 3;
-      last = current + 3;
-      if (first < 1) {
+      // validate pCount and pCurrent
+      if (isNaN(count) || count <= 1)
+        return;
+      if (isNaN(current) || current < 1 || current > count)
+        current = 1;
+      // calculate first, last
+      if (count <= 7) {
         first = 1;
-        last = 7;
-      }
-      else if (last > count) {
-        first = count - 6;
         last = count;
       }
-    }
-
-    // build page list
-    var links = [];
-    if (first < last) {
-      if (count > 7 && first > 1) {
-        links.push({id: 1, name: '<<'});
-        links.push({id: current - 1, name: '<'});
-      }
-      for (var i = first; i <= last; i++) {
-        if (i !== current)
-        {
-          links.push({id: i, name: i});
+      else {
+        first = current - 3;
+        last = current + 3;
+        if (first < 1) {
+          first = 1;
+          last = 7;
         }
-        else
-        {
-          links.push({id: i, name: i, active: true});
+        else if (last > count) {
+          first = count - 6;
+          last = count;
         }
       }
-      if (count > 7 && last < count) {
-        links.push({id: current + 1, name: '>'});
-        links.push({id: count, name: '>>'});
+
+      // build page list
+      var links = [];
+      if (first < last) {
+        if (count > 7 && first > 1) {
+          links.push({id: 1, name: '<<'});
+          links.push({id: current - 1, name: '<'});
+        }
+        for (var i = first; i <= last; i++) {
+          if (i !== current)
+          {
+            links.push({id: i, name: i});
+          }
+          else
+          {
+            links.push({id: i, name: i, active: true});
+          }
+        }
+        if (count > 7 && last < count) {
+          links.push({id: current + 1, name: '>'});
+          links.push({id: count, name: '>>'});
+        }
       }
+      return links;
     }
-
-    console.log(links);
-
-    return {handler: data.handler, links: links};
   },
-  view: function(ctrl) {
-    if (ctrl.links) {
-      return m('nav', {class: 'pager'}, ctrl.links.map(function(l) {
+  view: function(ctrl, data) {
+    console.log('Pager view');
+    var links = ctrl.buildLinks(data.current, data.count);
+    if (links.length > 0) {
+      return m('nav', {class: 'pager'}, links.map(function(l) {
         var attr = {key: l.id};
         if (l.active) {
           attr.class = 'active';
         }
-        else
-        {
-          attr.onclick = ctrl.handler(l.id);
+        else {
+          attr.onclick = function() {
+            data.handler(l.id)
+          };
         }
         return m('a', attr, l.name);
       }));
