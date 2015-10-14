@@ -351,9 +351,39 @@ var Pager = {
   }
 };
 
+var Input = {
+  view: function(ctrl, data) {
+    return m('fieldset', [
+      m('label', {for : data.name}, data.label),
+      m('input', {type: data.type, name: data.name, value: data.value(), onchange: m.withAttr("value", data.value)})
+    ]);
+  }
+};
+
+var Login = {
+  controller: function() {
+    this.email = m.prop('');
+    this.password = m.prop('');
+  },
+  view: function(ctrl) {
+    return m('form', {onsubmit: function(ev){ev.preventDefault(); console.log(ctrl.email(), ctrl.password());}}, [
+      m.component(Input, {type: 'text', label: 'Email', name: 'email', value: ctrl.email}),
+      m.component(Input, {type: 'password', label: 'Password', name: 'password', value: ctrl.password}),
+      m('button', {type: 'submit'}, 'Login')
+    ]);
+  }
+};
+
+var User = {
+  view: function(ctrl) {
+    return m.component(Login);
+  }
+};
+
 //define a route
 m.route(document.getElementById('page'), "/", {
   "/": Home,
   "/tag/:tid": Tag,
   "/node/:nid": Node,
+  "/user/:uid": User,
 });
