@@ -10,7 +10,7 @@ html {
 
 a {
   text-decoration: none;
-  color: blue; }
+  color: #2962FF; }
 
 /* END BASIC */
 /* NAVBAR */
@@ -42,7 +42,7 @@ a {
       padding: 0.5rem;
       text-align: center;
       background-color: #E6E6E6;
-      border-bottom: 1px solid #b3b3b3;
+      border-bottom: 1px solid #cdcdcd;
       cursor: pointer; }
     #navbar ul a:hover, #navbar ul span:hover {
       background-color: white; }
@@ -57,7 +57,7 @@ a {
     #navbar ul span.label {
       display: none; }
   #navbar ul.overlay {
-    background: #b3b3b3;
+    background: #cdcdcd;
     /* label box width = li span height = ( line-height + 2 * padding ) */ }
     #navbar ul.overlay > li > span.label {
       display: block;
@@ -68,8 +68,8 @@ a {
       height: 100%;
       padding: 0.75rem;
       color: #333;
-      background-color: #b3b3b3;
-      border-right: 1px solid gray; }
+      background-color: #cdcdcd;
+      border-right: 1px solid #9a9a9a; }
       #navbar ul.overlay > li > span.label::before {
         content: ""; }
 
@@ -91,12 +91,22 @@ nav.pager {
     cursor: auto; }
 
 /* END PAGER */
+/* NAVTAB */
+nav.navtab a {
+  display: inline-block;
+  padding: 0.2em 0.5em;
+  background-color: gold;
+  border-right: 1px solid #ccac00; }
+nav.navtab a.active {
+  background-color: #ccac00; }
+
+/* END NAVTAB */
 /* FORM */
 form fieldset {
   display: block;
   clear: both;
   margin: 0;
-  padding: 0.2em;
+  padding: 0.3rem 0;
   border: 0; }
   form fieldset label, form fieldset .label {
     display: block; }
