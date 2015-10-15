@@ -1,9 +1,12 @@
 $font-color: #333;
 $bg-color: #E6E6E6;
-$bd-color: darken($bg-color, 20%);
-$bg-color-active: lighten($bg-color, 20%);
+$bd-color: darken($bg-color, 10%);
+$bg-color-active: lighten($bg-color, 10%);
 $transform-time: 0.3s;
 $line-height: 1.5;
+
+$highlight: gold;
+$highlight-active: darken($highlight, 10%);
 
 /* BASIC */
 /* height */
@@ -19,7 +22,7 @@ html {
 
 a {
    text-decoration: none;
-   color: blue;
+   color: #2962FF;
 }
 /* END BASIC */
 
@@ -130,20 +133,34 @@ nav.pager {
 }
 /* END PAGER */
 
+/* NAVTAB */
+nav.navtab {
+   a {
+      display: inline-block;
+      padding: 0.2em 0.5em;
+      background-color: $highlight;
+      border-right: 1px solid $highlight-active;
+   }
+
+   a.active {
+      background-color: $highlight-active;
+   }
+}
+/* END NAVTAB */
+
 /* FORM */
 form fieldset
 {
    display: block;
    clear: both;
    margin: 0;
-   padding: 0.2em;
+   padding: 0.3rem 0;
    border: 0;
-   label, .label
-   {
+   label, .label {
       display: block;
    }
 
-   textarea, input[type="text"], input[type='url'], input[type='email'], input[type='password']{
+   textarea, input[type="text"], input[type='url'], input[type='email'], input[type='password'] {
       box-sizing: border-box;
       width: 100%;
       max-width: 250px;
