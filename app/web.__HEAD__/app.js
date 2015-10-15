@@ -379,10 +379,34 @@ var autoFocus = function(form) {
 
 var Input = {
   view: function(ctrl, data) {
-    return m('fieldset', [
+    return m('fieldset', {config: data.config}, [
       m('label', {for : data.name}, data.label),
-      m('input', {type: data.type, name: data.name, value: data.value(), onchange: m.withAttr("value", data.value)})
+      m('input', {type: data.type, name: data.name, value: data.value(), onchange: function() {
+          data.value(this.value);
+          m.redraw.strategy("none"); // do not redraw view
+        }})
     ]);
+  }
+};
+
+var Captcha = {
+  controller: function() {
+    this.visible = false;
+    var captcha = this;
+    this.show = function(el) {
+      $(el).hide().prev(':has(input)').find('input:first').blur(function() {
+        if (!captcha.visible) {
+          captcha.visible = true;
+          var getCaptcha = function() {
+            return '/api/captcha/' + Math.random().toString().slice(2);
+          };
+          $(el).show().append('<div class="captcha"><img alt="图形验证未能正确显示，请刷新" src="' + getCaptcha() + '"><br><a onclick="this.previousSibling.src=getCaptcha()">看不清，换一张</a></div>');
+        }
+      });
+    };
+  },
+  view: function(ctrl, data) {
+    return m.component(Input, {type: 'text', label: '下边图片的内容是什么？', name: 'captcha', value: data.value, config: ctrl.show});
   }
 };
 
@@ -438,76 +462,69 @@ var Password = {
     this.return = m.prop();
     this.error = m.prop();
 
-    this.config =
-      this.submit = function(ev) {
-        console.log(this.step);
-        ev.preventDefault();
-        if (this.step == 0) {
-          // validate email and username
-          var fields = ['email', 'username'];
-          for (var i in fields) {
-            if (!this[fields[i]]()) {
-              $('input[name="' + fields[i] + '"]', ev.target).focus();
-              m.redraw.strategy("none");
-              return false;
-            }
-          }
-        }
-        else if (this.step == 1) {
-          if (!this.captcha()) {
-            $('input[name="captcha"]', ev.target).focus();
+    this.submit = function(ev) {
+      console.log(this.step);
+      ev.preventDefault();
+      ev.stopPropagation();
+      ev.stopImmediatePropagation();
+
+      if (this.step == 0) {
+        // validate email and username
+        var fields = ['email', 'username', 'captcha'];
+        for (var i in fields) {
+          console.log(i + ' ' + fields[i] + ': ' + this[fields[i]]());
+          if (!this[fields[i]]()) {
+            console.log(fields[i] + ' empty');
+            $('input[name="' + fields[i] + '"]', ev.target).focus();
             m.redraw.strategy("none");
             return false;
           }
-
-          m.request({method: "POST", url: "/api/identificationcode", data: {email: this.email(), username: this.username(), captcha: this.captcha()}});
         }
-        else
-        {
-          var fields = ['security', 'password'];
-          for (var i in fields) {
-            if (!this[fields[i]]()) {
-              $('input[name="' + fields[i] + '"]', ev.target).focus();
-              m.redraw.strategy("none");
-              return false;
-            }
-          }
 
-          if (this.password() != this.password2()) {
-            $('input[name="password2"]', ev.target).focus();
+        m.request({method: "POST", url: "/api/identificationcode", data: {email: this.email(), username: this.username(), captcha: this.captcha()}});
+        $('div.captcha', ev.target).remove();
+      }
+      else
+      {
+        var fields = ['security', 'password'];
+        for (var i in fields) {
+          if (!this[fields[i]]()) {
+            $('input[name="' + fields[i] + '"]', ev.target).focus();
             m.redraw.strategy("none");
             return false;
           }
-
-          m.request({method: "POST", url: "/api/user/" + this.security(), data: {password: this.password()}});
         }
 
-        // move to next step
-        this.step++;
-      }.bind(this);
+        if (this.password() != this.password2()) {
+          $('input[name="password2"]', ev.target).focus();
+          m.redraw.strategy("none");
+          return false;
+        }
+
+        m.request({method: "POST", url: "/api/user/" + this.security(), data: {password: this.password()}});
+      }
+
+      // move to next step
+      this.step++;
+    }.bind(this);
   },
   view: function(ctrl) {
-    switch (ctrl.step) {
-      case 0:
-        var fields = [
-          m.component(Input, {type: 'email', label: '注册邮箱', name: 'email', value: ctrl.email}),
-          m.component(Input, {type: 'text', label: '用户名', name: 'username', value: ctrl.username}),
-          m('button', {type: 'submit'}, '请求重设密码')
-        ];
-        break;
-      case 1:
-        var fields = [
-          m.component(Input, {type: 'text', label: '下边图片的内容是什么？', name: 'captcha', value: ctrl.captcha}),
-          m('button', {type: 'submit'}, '发送重设密码的安全验证码')
-        ];
-        break;
-      default:
-        var fields = [
-          m.component(Input, {type: 'text', label: '安全验证码', name: 'security', value: ctrl.security}),
-          m.component(Input, {type: 'password', label: '新密码', name: 'password', value: ctrl.password}),
-          m.component(Input, {type: 'password', label: '确认新密码', name: 'password2', value: ctrl.password2}),
-          m('button', {type: 'submit'}, '保存密码')
-        ];
+    console.log('### Password view');
+    if (ctrl.step == 0) {
+      var fields = [
+        m.component(Input, {type: 'email', label: '注册邮箱', name: 'email', value: ctrl.email}),
+        m.component(Input, {type: 'text', label: '用户名', name: 'username', value: ctrl.username}),
+        m.component(Captcha, {value: ctrl.captcha}),
+        m('button', {type: 'submit'}, '请求重设密码')
+      ];
+    }
+    else {
+      var fields = [
+        m.component(Input, {type: 'text', label: '安全验证码', name: 'security', value: ctrl.security}),
+        m.component(Input, {type: 'password', label: '新密码', name: 'password', value: ctrl.password}),
+        m.component(Input, {type: 'password', label: '确认新密码', name: 'password2', value: ctrl.password2}),
+        m('button', {type: 'submit'}, '保存密码')
+      ];
     }
 
     return [GuestNavTab, m('form', {onsubmit: ctrl.submit, config: autoFocus}, fields)];
