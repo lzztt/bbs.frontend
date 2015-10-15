@@ -351,19 +351,10 @@ var Pager = {
   }
 };
 
-var Input = {
-  view: function(ctrl, data) {
-    return m('fieldset', [
-      m('label', {for : data.name}, data.label),
-      m('input', {type: data.type, name: data.name, value: data.value(), onchange: m.withAttr("value", data.value)})
-    ]);
-  }
-};
-
 var NavTab = {
   view: function(ctrl, data) {
     return m('nav', {class: 'navtab'}, data.links.map(function(link) {
-      var attr = link.name == data.active ? {class: 'active'} : {href: link.uri, config: m.route};
+      var attr = link.uri == data.active ? {class: 'active'} : {href: link.uri, config: m.route};
       return m('a', attr, link.name);
     }));
   }
@@ -378,7 +369,20 @@ var guestLinks = [
 
 var GuestNavTab = {
   view: function(ctrl) {
-    return m.component(NavTab, {links: guestLinks, active: m.route()})
+    return m.component(NavTab, {links: guestLinks, active: m.route()});
+  }
+};
+
+var autoFocus = function(form) {
+  $('input:first', form).focus(); // first element autofocus
+};
+
+var Input = {
+  view: function(ctrl, data) {
+    return m('fieldset', [
+      m('label', {for : data.name}, data.label),
+      m('input', {type: data.type, name: data.name, value: data.value(), onchange: m.withAttr("value", data.value)})
+    ]);
   }
 };
 
@@ -389,13 +393,13 @@ var Login = {
   },
   view: function(ctrl) {
     return [GuestNavTab, m('form', {onsubmit: function(ev) {
-        ev.preventDefault();
-        console.log(ctrl.email(), ctrl.password());
-      }}, [
-      m.component(Input, {type: 'email', label: '注册邮箱', name: 'email', value: ctrl.email}),
-      m.component(Input, {type: 'password', label: '密码', name: 'password', value: ctrl.password}),
-      m('button', {type: 'submit'}, '登录')
-    ])];
+          ev.preventDefault();
+          console.log(ctrl.email(), ctrl.password());
+        }, config: autoFocus}, [
+        m.component(Input, {type: 'email', label: '注册邮箱', name: 'email', value: ctrl.email}),
+        m.component(Input, {type: 'password', label: '密码', name: 'password', value: ctrl.password}),
+        m('button', {type: 'submit'}, '登录')
+      ])];
   }
 };
 
@@ -403,17 +407,18 @@ var Register = {
   controller: function() {
     this.email = m.prop('');
     this.username = m.prop('');
+    this.captcha = m.prop('');
+    this.agreement = m.prop('');
   },
   view: function(ctrl) {
     return [GuestNavTab, m('form', {onsubmit: function(ev) {
-        ev.preventDefault();
-        console.log(ctrl.email(), ctrl.password());
-      }}, [
-      m.component(Input, {type: 'email', label: '电子邮箱', name: 'email', value: ctrl.email}),
-      m.component(Input, {type: 'text', label: '用户名', name: 'username', value: ctrl.email}),
-      m.component(Input, {type: 'text', label: '下边图片的内容是什么？', name: 'captcha', value: ctrl.email}),
-      m('button', {type: 'submit'}, '创建新帐号')
-    ])];
+          ev.preventDefault();
+        }, config: autoFocus}, [
+        m.component(Input, {type: 'email', label: '电子邮箱', name: 'email', value: ctrl.email}),
+        m.component(Input, {type: 'text', label: '用户名', name: 'username', value: ctrl.username}),
+        m.component(Input, {type: 'text', label: '下边图片的内容是什么？', name: 'captcha', value: ctrl.captcha}),
+        m('button', {type: 'submit'}, '创建新帐号')
+      ])];
   }
 };
 
@@ -421,16 +426,91 @@ var Password = {
   controller: function() {
     this.email = m.prop('');
     this.username = m.prop('');
+
+    this.captcha = m.prop('');
+
+    this.security = m.prop('');
+    this.password = m.prop('');
+    this.password2 = m.prop('');
+
+    this.step = 0;
+
+    this.return = m.prop();
+    this.error = m.prop();
+
+    this.config =
+      this.submit = function(ev) {
+        console.log(this.step);
+        ev.preventDefault();
+        if (this.step == 0) {
+          // validate email and username
+          var fields = ['email', 'username'];
+          for (var i in fields) {
+            if (!this[fields[i]]()) {
+              $('input[name="' + fields[i] + '"]', ev.target).focus();
+              m.redraw.strategy("none");
+              return false;
+            }
+          }
+        }
+        else if (this.step == 1) {
+          if (!this.captcha()) {
+            $('input[name="captcha"]', ev.target).focus();
+            m.redraw.strategy("none");
+            return false;
+          }
+
+          m.request({method: "POST", url: "/api/identificationcode", data: {email: this.email(), username: this.username(), captcha: this.captcha()}});
+        }
+        else
+        {
+          var fields = ['security', 'password'];
+          for (var i in fields) {
+            if (!this[fields[i]]()) {
+              $('input[name="' + fields[i] + '"]', ev.target).focus();
+              m.redraw.strategy("none");
+              return false;
+            }
+          }
+
+          if (this.password() != this.password2()) {
+            $('input[name="password2"]', ev.target).focus();
+            m.redraw.strategy("none");
+            return false;
+          }
+
+          m.request({method: "POST", url: "/api/user/" + this.security(), data: {password: this.password()}});
+        }
+
+        // move to next step
+        this.step++;
+      }.bind(this);
   },
   view: function(ctrl) {
-    return [GuestNavTab, m('form', {onsubmit: function(ev) {
-        ev.preventDefault();
-        console.log(ctrl.email(), ctrl.password());
-      }}, [
-      m.component(Input, {type: 'email', label: '注册邮箱', name: 'email', value: ctrl.email}),
-      m.component(Input, {type: 'text', label: '用户名', name: 'username', value: ctrl.username}),
-      m('button', {type: 'submit'}, '发送重设密码链接')
-    ])];
+    switch (ctrl.step) {
+      case 0:
+        var fields = [
+          m.component(Input, {type: 'email', label: '注册邮箱', name: 'email', value: ctrl.email}),
+          m.component(Input, {type: 'text', label: '用户名', name: 'username', value: ctrl.username}),
+          m('button', {type: 'submit'}, '请求重设密码')
+        ];
+        break;
+      case 1:
+        var fields = [
+          m.component(Input, {type: 'text', label: '下边图片的内容是什么？', name: 'captcha', value: ctrl.captcha}),
+          m('button', {type: 'submit'}, '发送重设密码的安全验证码')
+        ];
+        break;
+      default:
+        var fields = [
+          m.component(Input, {type: 'text', label: '安全验证码', name: 'security', value: ctrl.security}),
+          m.component(Input, {type: 'password', label: '新密码', name: 'password', value: ctrl.password}),
+          m.component(Input, {type: 'password', label: '确认新密码', name: 'password2', value: ctrl.password2}),
+          m('button', {type: 'submit'}, '保存密码')
+        ];
+    }
+
+    return [GuestNavTab, m('form', {onsubmit: ctrl.submit, config: autoFocus}, fields)];
   }
 };
 
