@@ -394,7 +394,7 @@ var Captcha = {
     this.visible = false;
     var captcha = this;
     this.show = function(el) {
-      $(el).hide().prev(':has(input)').find('input:first').blur(function() {
+      $(el).hide().prev(':has(input)').find('input:first').focus(function() {
         if (!captcha.visible) {
           captcha.visible = true;
           var getCaptcha = function() {

@@ -1,0 +1,75 @@
+/* font */
+html {
+  color: #333;
+  line-height: 1.5; }
+
+a {
+  text-decoration: none;
+  color: #2962FF; }
+
+h1, h2, h3 {
+  margin: 0;
+  padding: 0.5em 0; }
+
+article > * {
+  padding: 4.5rem 0 4rem;
+  text-align: center;
+  clear: both; }
+article > *:nth-child(even) {
+  background-color: #eeeedc; }
+article > * > * {
+  width: 736px;
+  margin: 0 auto; }
+article header {
+  text-align: center;
+  color: white;
+  background-image: url(/geekpush/image/bg.jpg);
+  background-color: transparent;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat; }
+  article header div.nav {
+    position: fixed;
+    top: 0;
+    padding: 0;
+    width: 100%;
+    height: 3.5rem;
+    text-align: center;
+    background-color: white;
+    border-bottom: 1px solid #eeeedc; }
+    article header div.nav nav {
+      display: inline-block; }
+    article header div.nav img {
+      display: inline-block;
+      height: 2.5rem;
+      padding: 0.5em; }
+    article header div.nav a {
+      display: block;
+      float: left;
+      border-right: 1px solid #eeeedc;
+      padding: 1.2rem 1rem 0.8rem; }
+    article header div.nav a.active, article header div.nav a:hover {
+      background-color: #eeeedc; }
+article section div.text-image {
+  padding: 1rem 0; }
+  article section div.text-image > p, article section div.text-image > img {
+    display: inline-block;
+    vertical-align: middle; }
+  article section div.text-image > p {
+    box-sizing: border-box;
+    width: 40%;
+    padding-right: 0.5rem;
+    text-align: left; }
+  article section div.text-image > img {
+    width: 60%; }
+article section div.card {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 40%;
+  margin: 1rem;
+  padding: 1rem;
+  background-color: white;
+  border: 1px solid #cdcd97;
+  border-radius: 5px; }
+
+/*# sourceMappingURL=app.css.map */
