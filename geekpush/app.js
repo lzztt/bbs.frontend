@@ -4,8 +4,7 @@
   'use strict';
   var configLinks = function(article) {
     $(window).load(function() {
-
-      var isMobile,
+      var isMobile, navWidth,
         $navdiv = $('div.nav'),
         $logo = $navdiv.find('img'),
         $links = $navdiv.find('a'),
@@ -13,8 +12,8 @@
         linkOffsets = {};
 
       var hideNav = function() {
-        $navdiv.css('left', '-' + $navdiv.outerWidth() + 'px');
-        $logo.css('left', '0px');
+        $navdiv.css('left', '-' + navWidth + 'px');
+        $logo.css('left', '0');
       };
 
       var checkWidth = function() {
@@ -25,11 +24,15 @@
         isMobile = current;
 
         if (isMobile) {
+          // collect nav width
+          if (!navWidth)
+            navWidth = $navdiv.outerWidth();
+
           hideNav();
           $logo.on('click', function() {
             if ($navdiv.offset().left < 0) {
-              $navdiv.css('left', '0px');
-              $logo.css('left', $navdiv.outerWidth() + 'px');
+              $navdiv.css('left', '0');
+              $logo.css('left', navWidth + 'px');
             }
             else {
               hideNav();
@@ -38,11 +41,12 @@
           $links.on('click', hideNav);
         }
         else {
-          $navdiv.css('left', '0px');
-          $logo.css('left', '0px').off('click');
+          $navdiv.css('left', '0');
+          $logo.css('left', '0').off('click');
           $links.off('click', hideNav);
         }
 
+        // collect link offsets;
         var topOffset = isMobile ? 0 : $nav.height();
         $links.each(function() {
           var id = $(this).attr('href');
@@ -54,18 +58,17 @@
         });
       }
 
-      checkWidth();
       $(window).on('resize', checkWidth);
 
       $links.click(function(ev) {
         ev.preventDefault();
-        $("html, body").animate({scrollTop: linkOffsets[$(this).attr('href')] + "px"});
+        ev.stopPropagation();
+        $(window).scrollTop(linkOffsets[$(this).attr('href')]);
         $('.active', this.parentNode).removeClass('active');
         $(this).addClass('active');
       });
 
-      var current;
-      var findActive = function() {
+      var current, findActive = function() {
         var active, offset = $(window).scrollTop();
         for (var i in linkOffsets)
         {
@@ -84,8 +87,11 @@
         }
       }
 
-      findActive();
       $(window).on('scroll', findActive);
+
+      // run the program
+      checkWidth();
+      findActive();
     });
   };
 
