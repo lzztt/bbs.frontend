@@ -3,8 +3,10 @@
 (function(article) {
   'use strict';
   var configLinks = function(article) {
+    $('> *', article).css('opacity', '0').animate({opacity: 1}, 600);
+    
     $(window).load(function() {
-      var isMobile, navWidth,
+      var isMobile, navWidth, inScrollAnimation,
         $navdiv = $('div.nav'),
         $logo = $navdiv.find('img'),
         $links = $navdiv.find('a'),
@@ -12,8 +14,11 @@
         linkOffsets = {};
 
       var hideNav = function() {
-        $navdiv.css('left', '-' + navWidth + 'px');
-        $logo.css('left', '0');
+        //$navdiv.css('left', '-' + navWidth + 'px');
+        //$logo.css('left', '0');
+        $navdiv.animate({left: '-' + navWidth + 'px'});
+        $nav.animate({opacity: 0});
+        $logo.animate({left: 0});
       };
 
       var checkWidth = function() {
@@ -31,8 +36,11 @@
           hideNav();
           $logo.on('click', function() {
             if ($navdiv.offset().left < 0) {
-              $navdiv.css('left', '0');
-              $logo.css('left', navWidth + 'px');
+              //$navdiv.css('left', '0');
+              //$logo.css('left', navWidth + 'px');
+              $navdiv.animate({left: 0});
+              $nav.animate({opacity: 1});
+              $logo.animate({left: navWidth + 'px'});
             }
             else {
               hideNav();
@@ -42,6 +50,7 @@
         }
         else {
           $navdiv.css('left', '0');
+          $nav.css('opacity', '1');
           $logo.css('left', '0').off('click');
           $links.off('click', hideNav);
         }
@@ -63,12 +72,19 @@
       $links.click(function(ev) {
         ev.preventDefault();
         ev.stopPropagation();
-        $(window).scrollTop(linkOffsets[$(this).attr('href')]);
+        inScrollAnimation = true;
+        $("html, body").animate({scrollTop: linkOffsets[$(this).attr('href')] + "px"}, {complete: function() {
+            inScrollAnimation = false;
+          }});
+        // $(window).scrollTop(linkOffsets[$(this).attr('href')]);
         $('.active', this.parentNode).removeClass('active');
         $(this).addClass('active');
       });
 
       var current, findActive = function() {
+        if (inScrollAnimation)
+          return;
+
         var active, offset = $(window).scrollTop();
         for (var i in linkOffsets)
         {
