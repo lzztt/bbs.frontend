@@ -157,15 +157,9 @@ var NavConfig = function(ulRoot, isInit) {
 
   var isMenuVisible = false;
 
-  var toggleLevel = function(ul) {
-    $(ul).removeClass('overlay').find('ul').hide().removeClass('overlay');
-    $('span.label', ul).remove();
-  };
-
   var $trigger = $('<div style="position:fixed; left: 0; top: 0; padding: 1em 0.5em"><button type="button">菜单</button></div>').appendTo(document.body)
     .click(function(ev) {
       if (isMenuVisible) {
-        //toggleLevel($(ulRoot);
         $(ulRoot.parentNode).hide();
         $(this).css("left", 0);
         isMenuVisible = false;
@@ -177,6 +171,12 @@ var NavConfig = function(ulRoot, isInit) {
       }
     });
 
+  var toggleLevel = function(ul) {
+    $(ul).removeClass('overlay').find('ul').hide().removeClass('overlay');
+    $(ul).find('span.label').removeClass('label');
+  };
+
+  // group span
   $('span', ulRoot).each(function() {
     var $this = $(this), ulNext = this.nextSibling, ulCurrent = this.parentElement.parentElement;
     $('<li><span class="back">' + $this.text() + '</span></li>').prependTo(ulNext)
@@ -192,19 +192,15 @@ var NavConfig = function(ulRoot, isInit) {
 
       var $this = $(this), ulNext = this.nextSibling, ulCurrent = this.parentElement.parentElement;
 
-      $(ulCurrent).addClass('overlay');
+      var isLabel = $this.toggleClass('label').hasClass('label');
 
-      var $label = $('<span class="label">' + $this.text() + '</span>').appendTo(this.parentElement)
-        .click(function(ev) {
-          ev.stopPropagation();
-          toggleLevel(ulCurrent);
-        });
-
-      var ulNextWidth = $(ulCurrent).outerWidth() - $label.outerWidth();
-      $label.css('left', ulNextWidth);
-
-      $(ulNext).outerWidth(ulNextWidth).show();
-      ulNext.scrollTop = 0;
+      if (isLabel) {
+        $(ulNext).outerWidth($(ulCurrent).addClass('overlay').outerWidth() - $this.outerWidth()).show();
+        ulNext.scrollTop = 0;
+      }
+      else {
+        toggleLevel(ulCurrent);
+      }
     });
 
   $('a', ulRoot).click(function(ev) {
