@@ -21,7 +21,8 @@ a {
   width: 270px;
   max-width: 270px;
   display: none;
-  background: #E6E6E6; }
+  background: #E6E6E6;
+  border-right: 1px solid #9a9a9a; }
   #navbar ul {
     margin: 0;
     padding: 0;
@@ -54,22 +55,21 @@ a {
       display: inline-block;
       float: right;
       content: '>'; }
-    #navbar ul span.label {
-      display: none; }
   #navbar ul.overlay {
-    background: #cdcdcd;
+    overflow-y: hidden;
     /* label box width = li span height = ( line-height + 2 * padding ) */ }
     #navbar ul.overlay > li > span.label {
       display: block;
-      position: fixed;
+      position: absolute;
       top: 0;
+      right: 0;
       box-sizing: border-box;
       width: 2.5rem;
       height: 100%;
       padding: 0.75rem;
       color: #333;
       background-color: #cdcdcd;
-      border-right: 1px solid #9a9a9a; }
+      border-left: 1px solid #9a9a9a; }
       #navbar ul.overlay > li > span.label::before {
         content: ""; }
 
