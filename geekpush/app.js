@@ -3,8 +3,12 @@
 (function(article) {
   'use strict';
   var configLinks = function(article) {
-    $('> *', article).css('opacity', '0').animate({opacity: 1}, 600);
-    
+    $(".am-init").on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(ev) {
+      $(this).removeClass(function(index, css) {
+        return (css.match(/(^|\s)am-\S+/g) || []).join(' ');
+      }).off(ev);
+    });
+
     $(window).load(function() {
       var isMobile, navWidth, inScrollAnimation,
         $navdiv = $('div.nav'),
@@ -22,7 +26,7 @@
       };
 
       var checkWidth = function() {
-        current = $(window).width() < 768;
+        var current = $(window).width() < 768;
         if (current === isMobile) {
           return;
         }
@@ -75,37 +79,66 @@
         inScrollAnimation = true;
         $("html, body").animate({scrollTop: linkOffsets[$(this).attr('href')] + "px"}, {complete: function() {
             inScrollAnimation = false;
+            showAnimation();
           }});
         // $(window).scrollTop(linkOffsets[$(this).attr('href')]);
         $('.active', this.parentNode).removeClass('active');
         $(this).addClass('active');
       });
 
-      var current, findActive = function() {
+      var active, findActive = function() {
         if (inScrollAnimation)
           return;
 
-        var active, offset = $(window).scrollTop();
+        var current, offset = $(window).scrollTop();
         for (var i in linkOffsets)
         {
           if (linkOffsets[i] <= offset) {
-            active = i;
+            current = i;
           }
           else {
             break;
           }
         }
 
-        if (current != active) {
+        if (active !== current) {
           $nav.find('a.active').removeClass('active');
-          $nav.find('a[href=' + active + ']').addClass('active');
-          current = active;
+          $nav.find('a[href=' + current + ']').addClass('active');
+          active = current;
         }
-      }
+      };
 
-      $(window).on('scroll', findActive);
+      var bottom = 0, hitBottom = false, showAnimation = function() {
+        if (hitBottom || inScrollAnimation)
+          return;
+
+        var current = $(window).scrollTop() + $(window).height();
+        if (current <= bottom)
+          return;
+
+        if (current < $(document).height() - 16) {
+          bottom = current;
+          $('.am-init').each(function() {
+            var $this = $(this);
+            if ($this.offset().top < bottom) {
+              $this.addClass('am-run').removeClass('am-init');
+            }
+          });
+        }
+        else {
+          hitBottom = true;
+          bottom = $(document).height();
+          $('.am-init').addClass('am-run').removeClass('am-init');
+        }
+      };
+
+      $(window).on('scroll', function() {
+        showAnimation();
+        findActive();
+      });
 
       // run the program
+      showAnimation();
       checkWidth();
       findActive();
     });
@@ -144,7 +177,7 @@
             article.sections.map(function(section, index) {
               return m('a', {href: '#section' + index}, section.title);
             }))]),
-        m('section', [
+        m('section.am-init.am-enter-up', [
           m('h1', article.title),
           m('h2', article.slogan)
         ])
@@ -162,8 +195,8 @@
     view: function(ctrl, data) {
       var section = data.data;
       return m('section', {id: data.id}, [
-        m('h1', section.title),
-        m('p', section.body.map(function(line) {
+        m('h1.am-init.am-enter-up', section.title),
+        m('p.am-init.am-enter-up', section.body.map(function(line) {
           return [line, m('br')];
         }))
       ]);
@@ -174,14 +207,14 @@
     view: function(ctrl, data) {
       var section = data.data;
       return m('section', {id: data.id}, [
-        m('h1', section.title),
+        m('h1.am-init.am-enter-up', section.title),
         section.body.map(function(ti) {
           return m('div.text-image', [
-            m('p', [
+            m('p.am-init.am-enter-left', [
               m('h2', ti.title),
               m('p', ti.body)
             ]),
-            m('img', {src: ti.image})
+            m('img.am-init.am-enter-right', {src: ti.image})
           ]);
         })
       ]);
@@ -192,9 +225,9 @@
     view: function(ctrl, data) {
       var section = data.data;
       return m('section', {id: data.id}, [
-        m('h1', section.title),
+        m('h1.am-init.am-enter-up', section.title),
         m('div', section.body.map(function(card) {
-          return m('div.card', [
+          return m('div.card.am-init.am-fade-zoom', [
             m('h2', card.title),
             m('p', card.body.map(function(line) {
               return [m.trust(line

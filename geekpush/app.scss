@@ -26,6 +26,37 @@ h1, h2, h3 {
    padding: 0.5em 0;
 }
 
+/* ANIMATION */
+.am-enter-up.am-run {
+    transition: all .75s;
+}
+.am-enter-up.am-init {
+    transform: translateY(25px);
+    opacity: 0;
+}
+.am-enter-left.am-run {
+    transition: all .75s;
+}
+.am-enter-left.am-init {
+    transform: translateX(-20px);
+    opacity: 0;
+}
+.am-enter-right.am-run {
+    transition: all .75s;
+}
+.am-enter-right.am-init {
+    transform: translateX(20px);
+    opacity: 0;
+}
+.am-fade-zoom.am-run {
+    transition: all .75s;
+}
+.am-fade-zoom.am-init {
+    transform: scale(0.9);
+    opacity: 0;
+}
+/* END ANIMATION */
+
 article {
    > * {
       padding: 2rem;
@@ -63,6 +94,7 @@ article {
          top: 0;
          left: 0;
          padding: 0;
+         z-index: 999;
          background-color: white;
 
          @media #{$phone} {            
