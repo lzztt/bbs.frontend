@@ -19,21 +19,27 @@ var Form = (function() {
 
   var Captcha = {
     controller: function() {
-      this.visible = false;
+      console.log('# Captcha.controller');
       var captcha = this;
-      this.config = function(el) {
-        $(el).hide().prev(':has(input)').find('input:first').focus(function() {
-          if (!captcha.visible) {
-            captcha.visible = true;
-            var getCaptcha = function() {
-              return '/api/captcha/' + Math.random().toString().slice(2);
-            };
-            $(el).show().append('<div class="captcha"><img alt="图形验证未能正确显示，请刷新" src="' + getCaptcha() + '"><br><a onclick="this.previousSibling.src=getCaptcha()">看不清，换一张</a></div>');
-          }
-        });
+      this.config = function(el, isInit) {
+        console.log('Captcha.controller.config');
+        $(el).hide();
+        if (!isInit) {
+          console.log('Captcha.controller.config: isInit=false');
+          $(el).prev(':has(input)').find('input:first').focus(function() {
+            console.log('captch:input:prev focused');
+            if (!$(el).is(':visible')) {
+              var getCaptcha = function() {
+                return '/api/captcha/' + Math.random().toString().slice(2);
+              };
+              $(el).show().append('<div class="captcha"><img alt="图形验证未能正确显示，请刷新" src="' + getCaptcha() + '"><br><a onclick="this.previousSibling.src=getCaptcha()">看不清，换一张</a></div>');
+            }
+          });
+        }
       };
     },
     view: function(ctrl, data) {
+      console.log('# Captcha.view');
       return m.component(Input, {type: 'text', label: '下边图片的内容是什么？', name: 'captcha', value: data.value, config: ctrl.config});
     }
   };
