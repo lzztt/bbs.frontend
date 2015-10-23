@@ -1,6 +1,7 @@
 'use strict';
 var Login = {
   controller: function() {
+    console.log('# Login.controller()');
     if (cache.get('uid') > 0) {
       m.route('/');
     }
