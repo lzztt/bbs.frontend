@@ -20,6 +20,11 @@ var Form = (function() {
   var Captcha = {
     controller: function() {
       console.log('# Captcha.controller');
+
+      var getCaptchaURI = function() {
+        return '/api/captcha/' + Math.random().toString().slice(2);
+      };
+
       var captcha = this;
       this.config = function(el, isInit) {
         console.log('Captcha.controller.config');
@@ -29,10 +34,12 @@ var Form = (function() {
           $(el).prev(':has(input)').find('input:first').focus(function() {
             console.log('captch:input:prev focused');
             if (!$(el).is(':visible')) {
-              var getCaptcha = function() {
-                return '/api/captcha/' + Math.random().toString().slice(2);
-              };
-              $(el).show().append('<div class="captcha"><img alt="图形验证未能正确显示，请刷新" src="' + getCaptcha() + '"><br><a onclick="this.previousSibling.src=getCaptcha()">看不清，换一张</a></div>');
+              $('<div class="captcha"><img alt="图形验证未能正确显示，请刷新" src="' + getCaptchaURI() + '"><br><a style="cursor: pointer;">看不清，换一张</a></div>')
+                .appendTo($(el).show())
+                .find('a')
+                .click(function(ev) {
+                  $(this.parentNode).find('img').attr('src', getCaptchaURI());
+                });
             }
           });
         }
