@@ -5,7 +5,6 @@ var Password = {
     console.log('# Password.controller');
     this.email = m.prop('');
     this.username = m.prop('');
-
     this.captcha = m.prop('');
 
     this.security = m.prop('');
@@ -24,6 +23,8 @@ var Password = {
       ev.stopPropagation();
       ev.stopImmediatePropagation();
 
+      var form = ev.target;
+
       if (viewIsNew) {
         viewIsNew = false;
         // pause redraw
@@ -37,7 +38,7 @@ var Password = {
           console.log(i + ' ' + fields[i] + ': ' + ctrl[fields[i]]());
           if (!ctrl[fields[i]]()) {
             console.log(fields[i] + ' empty');
-            $('input[name="' + fields[i] + '"]', ev.target).focus();
+            $('input[name="' + fields[i] + '"]', form).focus();
             return false;
           }
         }
@@ -56,13 +57,15 @@ var Password = {
           .then(function(data) {
             console.log('ident request finished');
             if (validateResponse(data)) {
-              alert("安全验证码已经成功发送到您的注册邮箱 " + ctrl.email + " ，请检查email。\n如果您的收件箱内没有此电子邮件，请检查电子邮件的垃圾箱，或者与网站管理员联系。");
+              alert("安全验证码已经成功发送到您的注册邮箱 " + ctrl.email() + " ，请检查email。\n如果您的收件箱内没有此电子邮件，请检查电子邮件的垃圾箱，或者与网站管理员联系。");
               // clear captcha image
-              $('div.captcha', ev.target).remove();
-              // continue to redraw
-              m.endComputation();
+              $('div.captcha', form).remove();
+
+              // go to next step
               viewIsNew = true;
               ctrl.step++;
+              // continue to redraw the view
+              m.endComputation();
             }
           });
       }
@@ -71,13 +74,13 @@ var Password = {
         var fields = ['security', 'password'];
         for (var i in fields) {
           if (!ctrl[fields[i]]()) {
-            $('input[name="' + fields[i] + '"]', ev.target).focus();
+            $('input[name="' + fields[i] + '"]', form).focus();
             return false;
           }
         }
 
         if (ctrl.password() != ctrl.password2()) {
-          $('input[name="password2"]', ev.target).focus();
+          $('input[name="password2"]', form).focus();
           return false;
         }
 
@@ -96,10 +99,11 @@ var Password = {
             console.log('password request finished');
             if (validateResponse(data)) {
               alert("您的新密码已经设置成功");
-              // continue to redraw
-              m.endComputation();
+              // redirect to login
               viewIsNew = true;
               m.route('/login');
+              // continue to redraw the view
+              m.endComputation();
             }
           });
       }
