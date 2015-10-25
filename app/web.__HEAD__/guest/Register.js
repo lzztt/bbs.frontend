@@ -80,7 +80,8 @@ Register.Init = function(success) {
       }.bind(this));
   }.bind(this);
 
-  return [GuestNavTab,
+  return [
+    m.component(NavTab, {links: guestLinks, active: m.route()}),
     m('form', {onsubmit: submit, config: Form.autoFocus}, [
       m.component(Form.Input, {type: 'email', label: '电子邮箱', name: 'email', value: this.email}),
       m.component(Form.Input, {type: 'text', label: '用户名', name: 'username', value: this.username}),

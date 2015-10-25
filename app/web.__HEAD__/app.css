@@ -118,6 +118,9 @@ form fieldset {
     max-width: 600px;
     height: 150px; }
 
+button {
+  margin-right: 0.3rem; }
+
 /* END FORM */
 /* USER DT DD */
 dl {
@@ -171,5 +174,10 @@ dl {
     background: lightgreen; }
 
 /* END USER DT DD */
+/* TABLE */
+table {
+  clear: both; }
+
+/* END TABLE */
 
 /*# sourceMappingURL=app.css.map */

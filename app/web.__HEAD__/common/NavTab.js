@@ -16,21 +16,9 @@ var guestLinks = [
   {uri: "/register", name: '注册帐号'},
 ];
 
-var GuestNavTab = {
-  view: function(ctrl) {
-    return m.component(NavTab, {links: guestLinks, active: m.route()});
-  }
-};
-
 var userLinks = [
   {uri: "/", name: '首页'},
   {uri: "/user", name: '我的账户'},
-  {uri: "/pm", name: '短信'},
+  {uri: "/pm/inbox", name: '短信'},
   {uri: "/logout", name: '登出'},
 ];
-
-var UserNavTab = {
-  view: function(ctrl) {
-    return m.component(NavTab, {links: userLinks, active: m.route()});
-  }
-};

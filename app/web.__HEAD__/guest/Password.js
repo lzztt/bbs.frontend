@@ -80,7 +80,8 @@ Password.Init = function(success) {
       }.bind(this));
   }.bind(this);
 
-  return [GuestNavTab,
+  return [
+    m.component(NavTab, {links: guestLinks, active: m.route()}),
     m('form', {onsubmit: submit, config: Form.autoFocus}, [
       m.component(Form.Input, {type: 'email', label: '注册邮箱', name: 'email', value: this.email}),
       m.component(Form.Input, {type: 'text', label: '用户名', name: 'username', value: this.username}),
@@ -148,7 +149,8 @@ Password.Setter = function(success) {
       });
   }.bind(this);
 
-  return [GuestNavTab,
+  return [
+    m.component(NavTab, {links: guestLinks, active: m.route()}),
     m('form', {onsubmit: submit, config: Form.autoFocus}, [
       m.component(Form.Input, {type: 'text', label: '安全验证码', name: 'security', value: this.security}),
       m.component(Form.Input, {type: 'password', label: '新密码', name: 'password', value: this.password}),
