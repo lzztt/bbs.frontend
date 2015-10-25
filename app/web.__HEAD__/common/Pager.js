@@ -56,9 +56,10 @@ var Pager = {
   view: function(ctrl, data) {
     console.log('Pager view');
     var links = ctrl.buildLinks(data.current, data.count);
+    console.log(links);
     if (links.length > 0) {
       return m('nav', {class: 'pager'}, links.map(function(l) {
-        var attr = {key: l.id};
+        var attr = {};
         if (l.active) {
           attr.class = 'active';
         }

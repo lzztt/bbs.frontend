@@ -59,7 +59,9 @@ var Login = {
   },
   view: function(ctrl) {
     console.log('# Login.view');
-    return [GuestNavTab, m('form', {onsubmit: ctrl.submit, config: Form.autoFocus}, [
+    return [
+      m.component(NavTab, {links: guestLinks, active: m.route()}),
+      m('form', {onsubmit: ctrl.submit, config: Form.autoFocus}, [
         m.component(Form.Input, {type: 'email', label: '注册邮箱', name: 'email', value: ctrl.email}),
         m.component(Form.Input, {type: 'password', label: '密码', name: 'password', value: ctrl.password}),
         m('button', {type: 'submit'}, '登录')

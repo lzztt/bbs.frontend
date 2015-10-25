@@ -101,3 +101,20 @@ var validateResponse = function(data) {
   }
   return true;
 };
+
+var toLocalDateTimeString = function(dt) {
+  var d = '' + dt.getDate(),
+    m = '' + (dt.getMonth() + 1),
+    h = '' + dt.getHours(),
+    min = '' + dt.getMinutes();
+  if (d.length < 2)
+    d = '0' + d;
+  if (m.length < 2)
+    m = '0' + m;
+  if (h.length < 2)
+    h = '0' + h;
+  if (min.length < 2)
+    min = '0' + min;
+
+  return m + '/' + d + ' ' + h + ':' + min;
+}

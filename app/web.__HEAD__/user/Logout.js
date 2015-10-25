@@ -1,3 +1,5 @@
+'use strict';
+
 var Logout = {
   controller: function() {
     console.log('# Logout.controller');
