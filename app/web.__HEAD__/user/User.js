@@ -1,3 +1,5 @@
+'use strict';
+
 var User = {
   controller: function() {
     console.log('# User.controller()');
@@ -24,18 +26,34 @@ var User = {
     }.bind(this);
 
     this.save = function(ev) {
-      if (this.edit) {
+      if (!$.isEmptyObject(this.edit)) {
         var user = this.user();
         for (var key in this.edit) {
           user[key] = this.edit[key];
         }
         this.user(user);
+
+        // send changes to server
+        m.request({
+          method: "POST",
+          url: "/api/user/" + user.id + '?action=put',
+          data: this.edit,
+          background: true,
+          serialize: function(data) {
+            return m.route.buildQueryString(data)
+          },
+          config: function(xhr) {
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
+          }})
+          .then(function(data) {
+            validateResponse(data);
+          });
       }
       this.editMode = !this.editMode;
     }.bind(this);
 
     this.imageCropper = function(el, isInit) {
-      console.log(isInit);
       if (!isInit) {
         var user = this.user();
         var avatar = user.avatar ? user.avatar : '/data/avatars/avatar0' + Math.ceil(Math.random() * 5) + '.jpg';
@@ -56,11 +74,8 @@ var User = {
           this.checked = true;
       });
     }.bind(this);
-  },
-  view: function(ctrl) {
-    var user = ctrl.user();
-    var bdate = user.birthday ? new Date(user.birthday * 1000) : new Date();
-    var bdateString = (function(dt) {
+
+    this.UTCDateString = function(dt) {
       var d = '' + dt.getUTCDate(),
         m = '' + (dt.getUTCMonth() + 1),
         y = dt.getUTCFullYear();
@@ -68,11 +83,19 @@ var User = {
         d = '0' + d;
       if (m.length < 2)
         m = '0' + m;
-      return [m, d, y].join('/');
-    })(bdate);
+      return m + '/' + d + '/' + y;
+    };
+
+    this.ISODateString = function(dt) {
+      return dt.toISOString().split('T')[0];
+    }
+  },
+  view: function(ctrl) {
+    var user = ctrl.user();
+    var bdate = user.birthday ? new Date(user.birthday * 1000) : new Date();
 
     return [
-      UserNavTab,
+      m.component(NavTab, {links: userLinks, active: m.route()}),
       m('figure', [
         m('div', {class: "imgCropper", config: ctrl.imageCropper}),
         m('figcaption', [
@@ -104,7 +127,7 @@ var User = {
                   m.redraw.strategy("none");
                 }}), m('label', {for : 'sex0'}, '女')])
           ]),
-        m('dt', '生日'), !ctrl.editMode ? m('dd', user.birthday ? bdateString : '') : m('input', {type: 'date', value: bdate.toISOString().split('T')[0], onchange: function(ev) {
+        m('dt', '生日'), !ctrl.editMode ? m('dd', user.birthday ? ctrl.UTCDateString(bdate) : '') : m('input', {type: 'date', value: ctrl.ISODateString(bdate), onchange: function(ev) {
             ctrl.edit.birthday = new Date(ev.target.value).getTime() / 1000;
             m.redraw.strategy("none");
           }}),
@@ -133,7 +156,7 @@ var User = {
         m('tbody', user.topics.map(function(node) {
           return m('tr', [
             m('td', m('a', {href: '/node/' + node.nid, config: m.route}, node.title)),
-            m('td', (new Date(node.createTime * 1000)).toLocaleDateString())
+            m('td', ctrl.UTCDateString(new Date(node.createTime * 1000)))
           ]);
         }))
       ]),
@@ -146,7 +169,7 @@ var User = {
         m('tbody', user.comments.map(function(node) {
           return m('tr', [
             m('td', m('a', {href: '/node/' + node.nid, config: m.route}, node.title)),
-            m('td', (new Date(node.createTime * 1000)).toLocaleDateString())
+            m('td', ctrl.UTCDateString(new Date(node.createTime * 1000)))
           ]);
         }))
       ])
