@@ -9,8 +9,8 @@ var Form = (function() {
     view: function(ctrl, data) {
       return m('fieldset', {config: data.config}, [
         m('label', {for : data.name}, data.label),
-        m('input', {type: data.type, name: data.name, value: data.value(), onchange: function() {
-            data.value(this.value);
+        m('input', {type: data.type, name: data.name, value: data.value(), onchange: function(ev) {
+            data.value(ev.target.value);
             m.redraw.strategy("none"); // do not redraw view
           }})
       ]);
