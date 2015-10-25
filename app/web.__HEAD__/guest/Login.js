@@ -2,16 +2,21 @@
 var Login = {
   controller: function() {
     console.log('# Login.controller()');
-    if (cache.get('uid') > 0) {
-      m.route('/');
-    }
 
     this.email = m.prop('');
     this.password = m.prop('');
+
+    var isRedrawPaused = false;
     this.submit = function(ev) {
       ev.preventDefault();
       ev.stopPropagation();
       ev.stopImmediatePropagation();
+
+      if (!isRedrawPaused) {
+        isRedrawPaused = true;
+        // pause redraw
+        m.startComputation();
+      }
 
       m.request({
         method: "POST",
@@ -27,41 +32,33 @@ var Login = {
         .then(function(data) {
           console.log(data);
           if (validateResponse(data)) {
-            if (data.sessionID) {
+            if (data.sessionID && data.uid) {
               cache.set('sessionID', data.sessionID);
               cache.set('uid', data.uid);
-              if (data.uid > 0) {
-                cache.set('username', data.username);
-                cache.set('role', data.role);
+              cache.set('username', data.username);
+              cache.set('role', data.role);
+
+              var redirect = session.get('redirect');
+              if (redirect) {
+                session.remove('redirect');
+                m.route(redirect);
               }
               else {
-                // still a guest?
-                alert('用户登录失败');
+                m.route('/');
               }
+              // continue to redraw the view
+              m.endComputation();
             }
             else {
-              alert('对话加载失败');
+              // still a guest?
+              alert('用户登录失败');
             }
-          }
-
-          var redirect = session.get('redirect');
-          if (redirect) {
-            session.remove('redirect');
-            if (redirect.substring(0, 4) === 'http') {
-              window.location.href = redirect;
-            }
-            else {
-              m.route(redirect);
-            }
-          }
-          else {
-            m.route('/');
-            ;
           }
         });
     }.bind(this);
   },
   view: function(ctrl) {
+    console.log('# Login.view');
     return [GuestNavTab, m('form', {onsubmit: ctrl.submit, config: Form.autoFocus}, [
         m.component(Form.Input, {type: 'email', label: '注册邮箱', name: 'email', value: ctrl.email}),
         m.component(Form.Input, {type: 'password', label: '密码', name: 'password', value: ctrl.password}),
