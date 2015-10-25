@@ -28,6 +28,22 @@ var session = {
   },
   clear: function() {
     sessionStorage.clear();
+  },
+  getID: function() {
+    var cookieName = 'LZXSID',
+      dc = document.cookie;
+    if (dc.length > 0) {
+      var cname = cookieName + "=",
+        begin = dc.indexOf(cname);
+      if (begin != -1) {
+        begin += cname.length;
+        var end = dc.indexOf(";", begin);
+        if (end == -1)
+          end = dc.length;
+        return dc.substring(begin, end);
+      }
+    }
+    return null;
   }
 };
 
@@ -56,6 +72,21 @@ var cache = {
     localStorage.clear();
   }
 };
+
+var validateLoginSession = function() {
+  // guest user
+  if (!cache.get('uid')) {
+    m.route('/login');
+    return false;
+  }
+  // outdated client session
+  if (cache.get('sessionID') != session.getID()) {
+    cache.remove('uid');
+    m.route('/login');
+    return false;
+  }
+  return true;
+}
 
 var validateResponse = function(data) {
   if (!data) {
