@@ -1,5 +1,12 @@
 'use strict';
 
+var userLinks = [
+  {uri: "/", name: '首页'},
+  {uri: "/user", name: '我的账户'},
+  {uri: "/pm/inbox", name: '短信'},
+  {uri: "/logout", name: '登出'},
+];
+
 var User = {
   controller: function() {
     console.log('# User.controller()');
@@ -95,7 +102,7 @@ var User = {
     var bdate = user.birthday ? new Date(user.birthday * 1000) : new Date();
 
     return [
-      m.component(NavTab, {links: userLinks, active: m.route()}),
+      ctrl.isSelf ? m.component(NavTab, {links: userLinks, active: '/user'}) : null,
       m('figure', [
         m('div', {class: "imgCropper", config: ctrl.imageCropper}),
         m('figcaption', [
