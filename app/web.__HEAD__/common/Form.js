@@ -1,15 +1,28 @@
 'use strict';
 
 var Form = (function() {
-  var autoFocus = function(form) {
-    $('input:first', form).focus(); // first element autofocus
+  var elid = 0;
+  var isArray = Array.isArray || function(object) {
+    return type.call(object) === "[object Array]";
   };
 
+  var autoFocus = function(form) {
+    $('input:first, textarea:first', form).focus(); // first element autofocus
+  };
+
+  /*
+   * data { 
+   *  label, text
+   *  value: m.prop() getter-setter
+   *  config: element config function, optional
+   * }
+   */
   var Input = {
     view: function(ctrl, data) {
-      return m('fieldset', {config: data.config}, [
-        m('label', {for : data.name}, data.label),
-        m('input', {type: data.type, name: data.name, value: data.value(), onchange: function(ev) {
+      var id = '_input' + elid++;
+      return m('fieldset', data.config ? {config: data.config} : null, [
+        data.label ? m('label', {for : id}, data.label) : null,
+        m('input', {type: data.type, id: id, value: data.value(), onchange: function(ev) {
             data.value(ev.target.value);
             m.redraw.strategy("none"); // do not redraw view
           }})
@@ -17,6 +30,13 @@ var Form = (function() {
     }
   };
 
+  /*
+   * data { 
+   *  label, text
+   *  value: m.prop() getter-setter
+   *  config: element config function, optional
+   * }
+   */
   var Captcha = {
     controller: function() {
       console.log('# Captcha.controller');
@@ -47,13 +67,68 @@ var Form = (function() {
     },
     view: function(ctrl, data) {
       console.log('# Captcha.view');
-      return m.component(Input, {type: 'text', label: '下边图片的内容是什么？', name: 'captcha', value: data.value, config: ctrl.config});
+      return m.component(Input, {type: 'text', label: '下边图片的内容是什么？', value: data.value, config: ctrl.config});
     }
   };
+
+  /*
+   * read-only text:
+   * data { 
+   *  label, text
+   *  value: a function: m.prop() getter-setter,
+   *        or [an array of] text, (virtual) element
+   *  config: element config function, optional
+   * }
+   */
+  var Text = {
+    view: function(ctrl, data) {
+      var value = typeof data.value === 'function' ? data.value() : data.value;
+      return m('fieldset', data.config ? {config: data.config} : null, [
+        data.label ? m('label', data.label) : null,
+        value
+      ]);
+    }
+  }
+
+  /*
+   * data { 
+   *  label, text
+   *  value: m.prop() getter-setter
+   *  config: element config function, optional
+   * }
+   */
+  var TextArea = {
+    view: function(ctrl, data) {
+      var id = '_textarea' + elid++;
+      return m('fieldset', data.config ? {config: data.config} : null, [
+        data.label ? m('label', {for : id}, data.label) : null,
+        m('textarea', {id: id, value: data.value(), onchange: function(ev) {
+            data.value(ev.target.value);
+            m.redraw.strategy("none"); // do not redraw view
+          }})
+      ]);
+    }
+  };
+
+  var Button = {
+    view: function(ctrl, data) {
+      if (isArray(data)) {
+        return m('fieldset', data.map(function(b) {
+          m('button', b.type ? {type: b.type} : null, b.value)
+        }));
+      }
+      else {
+        return m('fieldset', m('button', data.type ? {type: data.type} : null, data.value));
+      }
+    }
+  }
 
   return {
     Input: Input,
     Captcha: Captcha,
+    Text: Text,
+    TextArea: TextArea,
+    Button: Button,
     autoFocus: autoFocus,
   };
 })();

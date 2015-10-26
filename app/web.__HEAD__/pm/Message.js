@@ -37,6 +37,7 @@ var Message = {
     this.sendReply = function(ev) {
       var msg = this.replyMsg();
       if (msg.length < 5) {
+        m.redraw.strategy('none');
         alert('短信内容最少为5个字符');
         return;
       }
@@ -79,15 +80,13 @@ var Message = {
             ])
           ]);
         }),
-        // need to use Form.Text and Form.TextArea
-        // need to use Form.Text and Form.TextArea
-        // need to use Form.Text and Form.TextArea
-        '收信人 ' + replyTo.username,
-        m('textarea', {value: ctrl.replyMsg(), onchange: function(ev) {
-            ctrl.replyMsg(ev.target.value);
-            m.redraw.strategy("none");
-          }}),
-        m('button', {onclick: ctrl.sendReply}, '发送')
+        // THIS NEED TO BE A COMPONENT OR A ROUTE PAGE
+        // and NEED TO BE IN A POPUP WINDOW ON USER AND NODE page
+        m('form', {onsubmit: ctrl.sendReply}, [
+          m.component(Form.Text, {label: '收信人', value: replyTo.username}),
+          m.component(Form.TextArea, {label: '', value: ctrl.replyMsg}),
+          m.component(Form.Button, {type: 'submit', value: '发送'})
+        ])
       ]);
     }
     else {

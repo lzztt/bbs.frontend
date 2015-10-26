@@ -102,19 +102,19 @@ nav.navtab a.active {
 
 /* END NAVTAB */
 /* FORM */
-form fieldset {
+fieldset {
   display: block;
   clear: both;
   margin: 0;
   padding: 0.3rem 0;
   border: 0; }
-  form fieldset label, form fieldset .label {
+  fieldset label, fieldset .label {
     display: block; }
-  form fieldset textarea, form fieldset input[type="text"], form fieldset input[type='url'], form fieldset input[type='email'], form fieldset input[type='password'] {
+  fieldset textarea, fieldset input[type="text"], fieldset input[type='url'], fieldset input[type='email'], fieldset input[type='password'] {
     box-sizing: border-box;
     width: 100%;
     max-width: 250px; }
-  form fieldset textarea {
+  fieldset textarea {
     max-width: 600px;
     height: 150px; }
 
