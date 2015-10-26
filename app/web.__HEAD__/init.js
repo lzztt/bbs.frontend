@@ -3,8 +3,6 @@
 //setup routes to start w/ the `#` symbol
 m.route.mode = "hash";
 
-
-
 var session = {
   set: function(key, value) {
     if (value == null) {
