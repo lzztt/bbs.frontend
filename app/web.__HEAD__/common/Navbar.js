@@ -2,7 +2,7 @@
 
 var Navbar = (function() {
   var model = [
-    {name: '论坛', children: [
+    {id: 1, name: '论坛', children: [
         {id: 5, name: '生活资讯', children: [
             {id: 8, name: '跳蚤市场'},
             {id: 9, name: '住房信息'},
@@ -194,12 +194,10 @@ var Navbar = (function() {
     },
     view: function(ctrl) {
       return m('ul', {config: ctrl.config}, ctrl.links.map(function(link) {
-        if ('children' in link)
-        {
+        if ('children' in link) {
           return m('li', {class: 'group'}, [m('span', link.name), m.component(MenuGroup, {data: link.children})]);
         }
-        else
-        {
+        else {
           return m('li', {class: 'link'}, m('a', {href: '/tag/' + link.id, config: m.route}, link.name));
         }
       }));
