@@ -86,11 +86,11 @@ Register.Init = function(success) {
       m.component(Form.Input, {type: 'email', label: '电子邮箱', name: 'email', value: this.email}),
       m.component(Form.Input, {type: 'text', label: '用户名', name: 'username', value: this.username}),
       m.component(Form.Captcha, {value: this.captcha}),
-      m('fieldset', ['[',
-        m('a', {href: '/node/23200'}, '网站使用规范'),
-        '] [',
-        m('a', {href: '/term'}, '免责声明'),
-        ']']),
-      m('fieldset', m('button', {type: 'submit'}, '同意使用规范和免责声明，并创建帐号'))
+      m.component(Form.Text, {value: ['[',
+          m('a', {href: '/node/23200'}, '网站使用规范'),
+          '] [',
+          m('a', {href: '/term'}, '免责声明'),
+          ']']}),
+      m.component(Form.Button, {type: 'submit', value: '同意使用规范和免责声明，并创建帐号'})
     ])];
 };

@@ -72,7 +72,7 @@ var Login = {
       m('form', {onsubmit: ctrl.submit, config: Form.autoFocus}, [
         m.component(Form.Input, {type: 'email', label: '注册邮箱', name: 'email', value: ctrl.email}),
         m.component(Form.Input, {type: 'password', label: '密码', name: 'password', value: ctrl.password}),
-        m('button', {type: 'submit'}, '登录')
+        m.component(Form.Button, {type: 'submit', value: '登录'})
       ])];
   }
 };

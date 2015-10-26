@@ -86,7 +86,7 @@ Password.Init = function(success) {
       m.component(Form.Input, {type: 'email', label: '注册邮箱', name: 'email', value: this.email}),
       m.component(Form.Input, {type: 'text', label: '用户名', name: 'username', value: this.username}),
       m.component(Form.Captcha, {value: this.captcha}),
-      m('fieldset', m('button', {type: 'submit'}, '请求重设密码'))
+      m.component(Form.Button, {type: 'submit', value: '请求重设密码'})
     ])];
 };
 
@@ -155,6 +155,6 @@ Password.Setter = function(success) {
       m.component(Form.Input, {type: 'text', label: '安全验证码', name: 'security', value: this.security}),
       m.component(Form.Input, {type: 'password', label: '新密码', name: 'password', value: this.password}),
       m.component(Form.Input, {type: 'password', label: '确认新密码', name: 'password2', value: password2}),
-      m('fieldset', m('button', {type: 'submit'}, '保存密码'))
+      m.component(Form.Button, {type: 'submit', value: '保存密码'})
     ])];
 };
