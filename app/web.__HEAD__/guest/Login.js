@@ -1,4 +1,12 @@
 'use strict';
+
+var guestLinks = [
+  {uri: "/", name: '首页'},
+  {uri: "/login", name: '登录'},
+  {uri: "/password", name: '忘记密码'},
+  {uri: "/register", name: '注册帐号'},
+];
+
 var Login = {
   controller: function() {
     console.log('# Login.controller()');
