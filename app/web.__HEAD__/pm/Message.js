@@ -33,64 +33,45 @@ var Message = {
       }.bind(this);
     }.bind(this);
 
-    this.replyMsg = m.prop('');
-    this.sendReply = function(ev) {
-      var msg = this.replyMsg();
-      if (msg.length < 5) {
-        m.redraw.strategy('none');
-        alert('短信内容最少为5个字符');
-        return;
-      }
-      m.request({
-        method: 'POST',
-        url: '/api/message',
-        data: {toUID: this.msgs().replyTo.id, body: msg, topicMID: this.id},
-        serialize: function(data) {
-          return m.route.buildQueryString(data)
-        },
-        config: function(xhr) {
-          xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
-          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
-        }})
-        .then(function(data) {
-          if (validateResponse(data)) {
-            this.msgs().msgs.push(data);
-            this.replyMsg('');
-          }
-        }.bind(this));
+    this.editor = false;
+    this.onMsgSent = function(data) {
+      this.msgs().msgs.push(data);
+      this.editor = false;
+    }.bind(this);
+    this.toggleMsgEditor = function() {
+      this.editor = !this.editor;
     }.bind(this);
   },
   view: function(ctrl) {
     console.log('# Message.view()');
-    var body,
-      msgs = ctrl.msgs().msgs,
-      replyTo = ctrl.msgs().replyTo;
+    if (!ctrl.editor) {
+      var body,
+        msgs = ctrl.msgs().msgs,
+        replyTo = ctrl.msgs().replyTo;
 
-    if (msgs) {
-      body = m('article', [
-        msgs.map(function(msg, index) {
-          return           m('section', {key: msg.id}, [
-            m('header', [
-              m('a', {href: '/user/' + msg.uid, config: m.route}, msg.username),
-              ' ' + toLocalDateTimeString(new Date(msg.time * 1000))
-            ]),
-            m('p', [
-              msg.body + ' ',
-              m('button', {onclick: ctrl.delete(index)}, index ? '删除' : '删除对话')
-            ])
-          ]);
-        }),
-        // THIS NEED TO BE A COMPONENT OR A ROUTE PAGE
-        // and NEED TO BE IN A POPUP WINDOW ON USER AND NODE page
-        m('form', {onsubmit: ctrl.sendReply}, [
-          m.component(Form.Text, {label: '收信人', value: replyTo.username}),
-          m.component(Form.TextArea, {label: '', value: ctrl.replyMsg}),
-          m.component(Form.Button, {type: 'submit', value: '发送'})
-        ])
-      ]);
+      if (msgs) {
+        body = m('article', [
+          msgs.map(function(msg, index) {
+            return m('section', {key: msg.id}, [
+              m('header', [
+                m('a', {href: '/user/' + msg.uid, config: m.route}, msg.username),
+                ' ' + toLocalDateTimeString(new Date(msg.time * 1000))
+              ]),
+              m('p', [
+                msg.body + ' ',
+                m('button', {onclick: ctrl.delete(index)}, index ? '删除' : '删除对话')
+              ])
+            ]);
+          }),
+          m('div', m('button', {onclick: ctrl.toggleMsgEditor}, '回复'))
+        ]);
+      }
+      else {
+        body = '错误: 短信不存在';
+      }
     }
     else {
-      body = '错误: 短信不存在';
+      body = m.component(MsgEditor, {replyTo: ctrl.msgs().replyTo, topicMID: ctrl.id, success: ctrl.onMsgSent, cancel: ctrl.toggleMsgEditor});
     }
 
     return [

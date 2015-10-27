@@ -95,10 +95,24 @@ var User = {
 
     this.ISODateString = function(dt) {
       return dt.toISOString().split('T')[0];
-    }
+    };
+    
+    this.editor = false;
+    this.toggleMsgEditor = function() {
+      this.editor = !this.editor;
+    }.bind(this);
+    this.sentMsg = function() {
+      this.editor = false;
+      alert('您的新短信已经成功发送给 ' + this.user().username + ' ，同时也保存在了您的短信发件箱中');
+    }.bind(this);
   },
   view: function(ctrl) {
+    console.log('# User.view()');
     var user = ctrl.user();
+    if( ctrl.editor ) {
+      return m.component(MsgEditor, {replyTo: {id: user.id, username: user.username}, success: ctrl.sentMsg, cancel: ctrl.toggleMsgEditor});
+    }
+    
     var bdate = user.birthday ? new Date(user.birthday * 1000) : new Date();
 
     return [
@@ -113,7 +127,7 @@ var User = {
       ctrl.isSelf ? [
         ctrl.editMode ? m('button', {type: "button", onclick: ctrl.save}, '保存') : null,
         m('button', {type: "button", onclick: ctrl.toggleEditMode}, ctrl.editMode ? '取消' : '编辑个人资料')
-      ] : null,
+      ] : m('button', {type: "button", onclick: ctrl.toggleMsgEditor}, '发送站内短信'),
       m('dl', [
         m('dt', '微信'), !ctrl.editMode ? m('dd', user.wechat) : m('input', {type: 'text', value: user.wechat, onchange: function(ev) {
             ctrl.edit.wechat = ev.target.value;
