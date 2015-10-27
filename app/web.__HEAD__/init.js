@@ -101,7 +101,8 @@ var validateResponse = function(data) {
 };
 
 var toLocalDateTimeString = function(dt) {
-  var d = '' + dt.getDate(),
+  var y = dt.getFullYear(),
+    d = '' + dt.getDate(),
     m = '' + (dt.getMonth() + 1),
     h = '' + dt.getHours(),
     min = '' + dt.getMinutes();
@@ -114,5 +115,5 @@ var toLocalDateTimeString = function(dt) {
   if (min.length < 2)
     min = '0' + min;
 
-  return m + '/' + d + ' ' + h + ':' + min;
+  return m + '/' + d + '/' + y + ' ' + h + ':' + min;
 }
