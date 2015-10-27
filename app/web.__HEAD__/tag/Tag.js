@@ -6,8 +6,13 @@ var Tag = {
     this.nodes = m.request({method: "GET", url: '/api/tag/' + this.id});
   },
   view: function(ctrl) {
+    console.log(ctrl.nodes());
     return m('ul', ctrl.nodes().map(function(node) {
-      return m('li', m('a', {href: '/node/' + node.id, config: m.route}, node.title));
+      return m('li', [
+        m('a', {href: '/node/' + node.id, config: m.route}, node.title),
+        m('a', {href: '/user/' + node.uid, config: m.route}, node.username),
+        toLocalDateTimeString(new Date(node.create_time * 1000))
+      ]);
     }));
   }
 };

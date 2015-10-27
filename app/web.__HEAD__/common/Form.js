@@ -114,7 +114,7 @@ var Form = (function() {
     view: function(ctrl, data) {
       if (isArray(data)) {
         return m('fieldset', data.map(function(b) {
-          m('button', b.type ? {type: b.type} : null, b.value)
+          return m('button', b.type ? {type: b.type} : null, b.value);
         }));
       }
       else {
