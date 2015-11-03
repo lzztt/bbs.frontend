@@ -1,4 +1,4 @@
-
+'use strict';
 
 var Node = {
   controller: function() {
@@ -29,6 +29,8 @@ var Node = {
         article.unshift(pager);
         article.push(pager);
       }
+      
+      article.push(Editor);
 
       return m('article', article);
     }
