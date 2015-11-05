@@ -400,5 +400,3 @@ var markx = function(text) {
 
   return article;
 };
-
-
