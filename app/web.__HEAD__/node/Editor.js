@@ -23,7 +23,7 @@ var Editor = {
     this.markItUp = function() {
       return function(el, isInit) {
         if (!isInit) {
-          $('textarea', el).markItUp(myMarkxSettings, {previewHandler: preview, previewAutoRefresh: false, afterInsert: function(h) {
+          $('textarea', el).markItUp(myMarkxSettings, {previewHandler: preview, afterInsert: function(h) {
               ctrl.body(h.textarea.value)
             }})
           $previewBox = $('<div id="preview"></div>').appendTo(el)
