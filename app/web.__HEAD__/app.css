@@ -180,32 +180,35 @@ table {
 
 /* END TABLE */
 /* markx font color */
-em.fc-red {
+li.fc-red a, em.fc-red {
   font-style: normal;
   color: red; }
 
-em.fc-blue {
+li.fc-blue a, em.fc-blue {
   font-style: normal;
-  color: blue; }
+  color: #0000e3; }
 
-em.fc-green {
+li.fc-green a, em.fc-green {
   font-style: normal;
   color: green; }
 
-em.bc-red {
+li.bc-red a, em.bc-red {
   display: inline-block;
   font-style: normal;
-  background-color: red; }
+  color: #333;
+  background-color: #ff6666; }
 
-em.bc-blue {
+li.bc-blue a, em.bc-blue {
   display: inline-block;
   font-style: normal;
-  background-color: blue; }
+  color: #333;
+  background-color: #6397ff; }
 
-em.bc-green {
+li.bc-green a, em.bc-green {
   display: inline-block;
   font-style: normal;
-  background-color: green; }
+  color: #333;
+  background-color: #66cc66; }
 
 /* END markx font color */
 
