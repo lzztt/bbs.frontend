@@ -224,29 +224,7 @@ var markx = function(text) {
     if (ret !== line)
       return ret;
 
-    ret = link(line);
-    if (ret !== line)
-      return ret;
-
-    return font(email(line));
-  }
-
-  var link = function(line) {
-    console.log('link: ' + line);
-    // must be a new line, and 1 line only
-    // https://www.houstonbbs.com[text]
-    if (line.substr(0, 4) === 'http') {
-      console.log('found link: ' + line);
-      if (line[line.length - 1] !== ']') {
-        return line.replace(/^(https?:\/\/)(([\w\-]{2,20}\.){1,4}\w{2,6}(\/[^\/\s<"\'\(\)\[\]\|]+)?)$/, "<a href='$1$2'>$2</a>");
-      }
-      else {
-        return line.replace(/^(https?:\/\/)(([\w\-]{2,20}\.){1,4}\w{2,6}(\/[^\/\s<"\'\(\)\[\]\|]+)?)\[(.+)\]$/, "<a href='$1$2'>$5</a>");
-      }
-    }
-    else {
-      return line;
-    }
+    return link(email(font(line)));
   }
 
   var image = function(line) {
@@ -261,7 +239,7 @@ var markx = function(text) {
         return line.replace(/^(https?:\/\/([\w\-]{2,20}\.){1,4}\w{2,6}(\/[^\/\s<"\'\(\)\[\]\|]+)+\.jpe?g)$/, "<img src='$1'>");
       }
       else {
-        return line.replace(/^(https?:\/\/([\w\-]{2,20}\.){1,4}\w{2,6}(\/[^\/\s<"\'\(\)\[\]\|]+)+\.jpe?g)\[([^ \[\]][^\[\]]*[^ \[\]])\]$/, "<figure><figcaption>$4</figcaption><img src='$1'></figure>");
+        return line.replace(/^(https?:\/\/([\w\-]{2,20}\.){1,4}\w{2,6}(\/[^\/\s<"\'\(\)\[\]\|]+)+\.jpe?g)\[([^\s\[\]][^\[\]]*[^\s\[\]])\]$/, "<figure><figcaption>$4</figcaption><img src='$1'></figure>");
       }
     }
     else if (line[0] === '/') {
@@ -270,11 +248,30 @@ var markx = function(text) {
         return line.replace(/^((\/[^\/\s<"\'\(\)\[\]\|]+)+\.jpe?g)$/, "<img src='" + imageDomain + "$1'>");
       }
       else {
-        return line.replace(/^((\/[^\/\s<"\'\(\)\[\]\|]+)+\.jpe?g)\[([^ \[\]][^\[\]]*[^ \[\]])\]$/, "<figure><figcaption>$3</figcaption><img src='" + imageDomain + "$1'></figure>");
+        return line.replace(/^((\/[^\/\s<"\'\(\)\[\]\|]+)+\.jpe?g)\[([^\s\[\]][^\[\]]*[^\s\[\]])\]$/, "<figure><figcaption>$3</figcaption><img src='" + imageDomain + "$1'></figure>");
       }
     }
     else {
       return line;
+    }
+  }
+
+  var link = function(line) {
+    console.log('link: ' + line);
+    // must be a new line, and 1 line only
+    // https://www.houstonbbs.com[text]
+    if (line.indexOf('http://') === -1 && line.indexOf('https://') === -1) {
+      return line;
+    }
+    else {
+      console.log('found link: ' + line);
+      var li = line.replace(/(https?:\/\/)(([\w\-]{2,20}\.){1,4}\w{2,6}([^\s<"\'\(\)\[\]\|]+)?)\[([^\s\[\]][^\[\]]*[^\s\[\]])\]/, "<a href='$1$2'>$5</a>");
+      if (li.length !== line.length) {
+        return li;
+      }
+      else {
+        return line.replace(/(https?:\/\/)(([\w\-]{2,20}\.){1,4}\w{2,6}([^\s<"\'\(\)\[\]\|]+)?)/, "<a href='$1$2'>$2</a>");
+      }
     }
   }
 
@@ -302,14 +299,14 @@ var markx = function(text) {
     // [r text] [!r text], color can be red, blue, green
     if (line.indexOf('[') !== -1) {
       line = line
-        .replace(/\[r ([^\[\]]+[^ \[\]])\]/g, "<em class='fc-red'>$1</em>")
-        .replace(/\[g ([^\[\]]+[^ \[\]])\]/g, "<em class='fc-green'>$1</em>")
-        .replace(/\[b ([^\[\]]+[^ \[\]])\]/g, "<em class='fc-blue'>$1</em>");
+        .replace(/\[r ([^\s\[\]][^\[\]]*[^\s\[\]])\]/g, "<em class='fc-red'>$1</em>")
+        .replace(/\[g ([^\s\[\]][^\[\]]*[^\s\[\]])\]/g, "<em class='fc-green'>$1</em>")
+        .replace(/\[b ([^\s\[\]][^\[\]]*[^\s\[\]])\]/g, "<em class='fc-blue'>$1</em>");
       if (line.indexOf('[!') !== -1) {
         return line
-          .replace(/\[!r ([^\[\]]+[^ \[\]])\]/g, "<em class='bc-red'>$1</em>")
-          .replace(/\[!g ([^\[\]]+[^ \[\]])\]/g, "<em class='bc-green'>$1</em>")
-          .replace(/\[!b ([^\[\]]+[^ \[\]])\]/g, "<em class='bc-blue'>$1</em>");
+          .replace(/\[!r ([^\s\[\]][^\[\]]*[^\s\[\]])\]/g, "<em class='bc-red'>$1</em>")
+          .replace(/\[!g ([^\s\[\]][^\[\]]*[^\s\[\]])\]/g, "<em class='bc-green'>$1</em>")
+          .replace(/\[!b ([^\s\[\]][^\[\]]*[^\s\[\]])\]/g, "<em class='bc-blue'>$1</em>");
       }
     }
 
