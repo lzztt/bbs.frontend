@@ -236,19 +236,19 @@ var markx = function(text) {
     if (line.substr(0, 4) === 'http') {
       console.log('found image: ' + line);
       if (line[line.length - 1] !== ']') {
-        return line.replace(/^(https?:\/\/([\w\-]{2,20}\.){1,4}\w{2,6}(\/[^\/\s<"\'\(\)\[\]\|]+)+\.jpe?g)$/, "<img src='$1'>");
+        return line.replace(/^(https?:\/\/([\w\-]{2,20}\.){1,4}\w{2,6}(\/[^\/\s<"\'\(\)\[\]\|]+)+\.(jpe?g|png|gif))$/, "<img src='$1'>");
       }
       else {
-        return line.replace(/^(https?:\/\/([\w\-]{2,20}\.){1,4}\w{2,6}(\/[^\/\s<"\'\(\)\[\]\|]+)+\.jpe?g)\[([^\s\[\]][^\[\]]*[^\s\[\]])\]$/, "<figure><figcaption>$4</figcaption><img src='$1'></figure>");
+        return line.replace(/^(https?:\/\/([\w\-]{2,20}\.){1,4}\w{2,6}(\/[^\/\s<"\'\(\)\[\]\|]+)+\.(jpe?g|png|gif))\[([^\s\[\]][^\[\]]*[^\s\[\]])\]$/, "<figure><figcaption>$5</figcaption><img src='$1'></figure>");
       }
     }
     else if (line[0] === '/') {
       console.log('found image: ' + line);
       if (line[line.length - 1] !== ']') {
-        return line.replace(/^((\/[^\/\s<"\'\(\)\[\]\|]+)+\.jpe?g)$/, "<img src='" + imageDomain + "$1'>");
+        return line.replace(/^((\/[^\/\s<"\'\(\)\[\]\|]+)+\.(jpe?g|png|gif))$/, "<img src='" + imageDomain + "$1'>");
       }
       else {
-        return line.replace(/^((\/[^\/\s<"\'\(\)\[\]\|]+)+\.jpe?g)\[([^\s\[\]][^\[\]]*[^\s\[\]])\]$/, "<figure><figcaption>$3</figcaption><img src='" + imageDomain + "$1'></figure>");
+        return line.replace(/^((\/[^\/\s<"\'\(\)\[\]\|]+)+\.(jpe?g|png|gif))\[([^\s\[\]][^\[\]]*[^\s\[\]])\]$/, "<figure><figcaption>$4</figcaption><img src='" + imageDomain + "$1'></figure>");
       }
     }
     else {
