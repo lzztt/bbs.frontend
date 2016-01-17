@@ -1,7 +1,6 @@
 'use strict';
 
 var Form = (function() {
-  var elid = 0;
   var isArray = Array.isArray || function(object) {
     return type.call(object) === "[object Array]";
   };
@@ -19,10 +18,9 @@ var Form = (function() {
    */
   var Input = {
     view: function(ctrl, data) {
-      var id = '_input' + elid++;
       return m('fieldset', data.config ? {config: data.config} : null, [
-        data.label ? m('label', {for : id}, data.label) : null,
-        m('input', {type: data.type, id: id, value: data.value(), onchange: function(ev) {
+        data.label ? m('label', data.label) : null,
+        m('input', {type: data.type, value: data.value(), onchange: function(ev) {
             data.value(ev.target.value);
             m.redraw.strategy("none"); // do not redraw view
           }})
@@ -99,10 +97,9 @@ var Form = (function() {
    */
   var TextArea = {
     view: function(ctrl, data) {
-      var id = '_textarea' + elid++;
       return m('fieldset', data.config ? {config: data.config} : null, [
-        data.label ? m('label', {for : id}, data.label) : null,
-        m('textarea', {id: id, value: data.value(), onchange: function(ev) {
+        data.label ? m('label', data.label) : null,
+        m('textarea', {value: data.value(), onchange: function(ev) {
             data.value(ev.target.value);
             m.redraw.strategy("none"); // do not redraw view
           }})
@@ -121,7 +118,29 @@ var Form = (function() {
         return m('fieldset', m('button', data.type ? {type: data.type} : null, data.value));
       }
     }
-  }
+  };
+  
+  var FileUploader = {
+    controller: function() {
+      console.log('# FileUploader.controller');
+
+      var getCaptchaURI = function() {
+        return '/api/captcha/' + Math.random().toString().slice(2);
+      };
+
+      var captcha = this;
+      this.config = function(el, isInit) {
+        console.log('FileUploader.controller.config');
+        $(el).hide();
+        if (!isInit) {
+          console.log('FileUploader.controller.config: isInit=false');
+        }
+      };
+    },
+    view: function(ctrl, data) {
+      
+    }
+  };
 
   return {
     Input: Input,
