@@ -54,7 +54,7 @@ var Message = {
           msgs.map(function(msg, index) {
             return m('section', {key: msg.id}, [
               m('header', [
-                m('a', {href: '/user/' + msg.uid, config: m.route}, msg.username),
+                m('a', {href: '/app/web/user/' + msg.uid, config: m.route}, msg.username),
                 ' ' + toLocalDateTimeString(new Date(msg.time * 1000))
               ]),
               m('p', [

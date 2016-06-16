@@ -198,7 +198,7 @@ var Navbar = (function() {
           return m('li', {class: 'group'}, [m('span', link.name), m.component(MenuGroup, {data: link.children})]);
         }
         else {
-          return m('li', {class: 'link'}, m('a', {href: '/tag/' + link.id, config: m.route}, link.name));
+          return m('li', {class: 'link'}, m('a', {href: '/app/web/tag/' + link.id, config: m.route}, link.name));
         }
       }));
     }
