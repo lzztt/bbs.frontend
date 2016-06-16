@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 //setup routes to start w/ the `#` symbol
 m.route.mode = "pathname";
@@ -7,8 +7,7 @@ var session = {
   set: function(key, value) {
     if (value == null) {
       sessionStorage.removeItem(key);
-    }
-    else {
+    } else {
       sessionStorage.setItem(key, JSON.stringify(value));
     }
   },
@@ -16,8 +15,7 @@ var session = {
     var value = sessionStorage.getItem(key);
     if (value == null) {
       return null;
-    }
-    else {
+    } else {
       return JSON.parse(value);
     }
   },
@@ -28,7 +26,7 @@ var session = {
     sessionStorage.clear();
   },
   getID: function() {
-    var cookieName = 'LZXSID',
+    var cookieName = "LZXSID",
       dc = document.cookie;
     if (dc.length > 0) {
       var cname = cookieName + "=",
@@ -49,8 +47,7 @@ var cache = {
   set: function(key, value) {
     if (value == null) {
       localStorage.removeItem(key);
-    }
-    else {
+    } else {
       localStorage.setItem(key, JSON.stringify(value));
     }
   },
@@ -58,8 +55,7 @@ var cache = {
     var value = localStorage.getItem(key);
     if (value == null) {
       return null;
-    }
-    else {
+    } else {
       return JSON.parse(value);
     }
   },
@@ -73,14 +69,12 @@ var cache = {
 
 var validateLoginSession = function() {
   // guest user
-  if (!cache.get('uid')) {
-    m.route('/app/user/login');
+  if (!cache.get("uid")) {
     return false;
   }
   // outdated client session
-  if (cache.get('sessionID') != session.getID()) {
-    cache.remove('uid');
-    m.route('/app/user/login');
+  if (cache.get("sessionID") != session.getID()) {
+    cache.remove("uid");
     return false;
   }
   return true;
@@ -88,10 +82,9 @@ var validateLoginSession = function() {
 
 var validateResponse = function(data) {
   if (!data) {
-    alert('服务器没有响应');
+    alert("服务器没有响应");
     return false;
-  }
-  else {
+  } else {
     if (data.error) {
       alert(data.error);
       return false;
@@ -102,24 +95,24 @@ var validateResponse = function(data) {
 
 var toLocalDateString = function(dt) {
   var y = dt.getFullYear(),
-    d = '' + dt.getDate(),
-    m = '' + (dt.getMonth() + 1);
+    d = "" + dt.getDate(),
+    m = "" + (dt.getMonth() + 1);
 
   if (d.length < 2)
-    d = '0' + d;
+    d = "0" + d;
   if (m.length < 2)
-    m = '0' + m;
+    m = "0" + m;
 
-  return m + '/' + d + '/' + y;
-}
+  return m + "/" + d + "/" + y;
+};
 
 var toLocalDateTimeString = function(dt) {
-  var h = '' + dt.getHours(),
-    m = '' + dt.getMinutes();
+  var h = "" + dt.getHours(),
+    m = "" + dt.getMinutes();
   if (h.length < 2)
-    h = '0' + h;
+    h = "0" + h;
   if (m.length < 2)
-    m = '0' + m;
+    m = "0" + m;
 
-  return toLocalDateString(dt) + ' ' + h + ':' + m;
-}
+  return h + ":" + m + " " + toLocalDateString(dt);
+};

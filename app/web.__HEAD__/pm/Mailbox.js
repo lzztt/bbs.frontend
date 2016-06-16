@@ -1,8 +1,8 @@
 'use strict';
 
 var mailboxLinks = [
-  {uri: "/pm/inbox", name: '收件箱'},
-  {uri: "/pm/sent", name: '发件箱'}
+  {uri: "/app/web/pm/inbox", name: '收件箱'},
+  {uri: "/app/web/pm/sent", name: '发件箱'}
 ];
 
 var Mailbox = {
@@ -35,8 +35,8 @@ var Mailbox = {
           ])),
         m('tbody', msgs.map(function(msg) {
           return m('tr', [
-            m('td', m('a', {href: '/pm/' + msg.mid, config: m.route}, msg.body)),
-            m('td', m('a', {href: '/user/' + msg.uid, config: m.route}, msg.user)),
+            m('td', m('a', {href: '/app/web/pm/' + msg.mid, config: m.route}, msg.body)),
+            m('td', m('a', {href: '/app/web/user/' + msg.uid, config: m.route}, msg.user)),
             m('td', toLocalDateTimeString(new Date(msg.time * 1000)))
           ]);
         })));
@@ -52,7 +52,7 @@ var Mailbox = {
     }
 
     return [
-      m.component(NavTab, {links: userLinks, active: '/pm/inbox'}),
+      m.component(NavTab, {links: userLinks, active: '/app/user/pm/inbox'}),
       m.component(NavTab, {links: mailboxLinks, active: m.route()}),
       table
     ];
