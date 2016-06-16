@@ -1,10 +1,10 @@
 'use strict';
 
 var guestLinks = [
-  {uri: "/", name: '首页'},
-  {uri: "/login", name: '登录'},
-  {uri: "/password", name: '忘记密码'},
-  {uri: "/register", name: '注册帐号'},
+  {uri: "/app/web/", name: '首页'},
+  {uri: "/app/web/login", name: '登录'},
+  {uri: "/app/web/password", name: '忘记密码'},
+  {uri: "/app/web/register", name: '注册帐号'},
 ];
 
 var Login = {

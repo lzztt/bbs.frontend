@@ -9,18 +9,18 @@ var PageNotFound = {
 };
 
 //define a route
-m.route(document.getElementById('page'), "/404", {
-  '/404': PageNotFound,
-  "/": Home,
-  '/login': Login,
-  '/register': Register,
-  '/password': Password,
-  '/logout': Logout,
-  "/user/:uid": User,
-  '/user': User,
-  '/pm/inbox': Mailbox,
-  '/pm/sent': Mailbox,
-  '/pm/:mid': Message,
-  "/tag/:tid": Tag,
-  "/node/:nid": Node,
+m.route(document.getElementById('page'), '/app/web/404', {
+  '/app/web/404': PageNotFound,
+  '/app/web/': Home,
+  '/app/web/login': Login,
+  '/app/web/register': Register,
+  '/app/web/password': Password,
+  '/app/web/logout': Logout,
+  '/app/web/user/:uid': User,
+  '/app/web/user': User,
+  '/app/web/pm/inbox': Mailbox,
+  '/app/web/pm/sent': Mailbox,
+  '/app/web/pm/:mid': Message,
+  '/app/web/tag/:tid': Tag,
+  '/app/web/node/:nid': Node,
 });

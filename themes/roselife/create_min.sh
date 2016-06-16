@@ -2,7 +2,7 @@ function min
 {
   type=$1;
   version=$2;
-  java -jar /home/web/yuicompressor-2.4.7/build/yuicompressor-2.4.7.jar -v --type $type --charset utf-8 -o min/$version.min.$type min/$version.$type;
+  java -jar /home/web/yuicompressor-2.4.8.jar -v --type $type --charset utf-8 -o min/$version.min.$type min/$version.$type;
 }
 
 time=`date +%s`;
