@@ -17,18 +17,21 @@ var Password = {
       m.route("/app/user/login");
     };
   },
-  view: function(self) {
+  view: function(ctrl) {
     console.log("# Password.view");
-    if (self.step == 0) {
-      return Password.Init(self.next);
+    if (ctrl.step == 0) {
+      return Password.Init(ctrl.next);
     } else {
-      return Password.Setter(self.finish);
+      return Password.Setter(ctrl.finish);
     }
   }
 };
 
 Password.Init = function(success) {
   console.log("# Password.Init");
+
+  var self = this;
+
   this.email = m.prop("");
   this.username = m.prop("");
   this.captcha = m.prop("");
@@ -51,8 +54,8 @@ Password.Init = function(success) {
     // validate email and username
     var fields = ["email", "username", "captcha"];
     for (var i in fields) {
-      console.log(i + " " + fields[i] + ": " + this[fields[i]]());
-      if (!this[fields[i]]()) {
+      console.log(i + " " + fields[i] + ": " + self[fields[i]]());
+      if (!self[fields[i]]()) {
         console.log(fields[i] + " empty");
         $("input[name='" + fields[i] + "']", form).focus();
         return false;
@@ -63,9 +66,9 @@ Password.Init = function(success) {
         method: "POST",
         url: "/api/identificationcode",
         data: {
-          email: this.email(),
-          username: this.username(),
-          captcha: this.captcha()
+          email: self.email(),
+          username: self.username(),
+          captcha: self.captcha()
         },
         serialize: function(data) {
           return m.route.buildQueryString(data)
@@ -78,7 +81,7 @@ Password.Init = function(success) {
       .then(function(data) {
         console.log("ident request finished");
         if (validateResponse(data)) {
-          alert("安全验证码已经成功发送到您的注册邮箱 " + this.email() + " ，请检查email。\n如果您的收件箱内没有此电子邮件，请检查电子邮件的垃圾箱，或者与网站管理员联系。");
+          alert("安全验证码已经成功发送到您的注册邮箱 " + self.email() + " ，请检查email。\n如果您的收件箱内没有此电子邮件，请检查电子邮件的垃圾箱，或者与网站管理员联系。");
           // clear captcha image
           $("div.captcha", form).remove();
 
@@ -87,8 +90,8 @@ Password.Init = function(success) {
           // continue to redraw the view
           m.endComputation();
         }
-      }.bind(this));
-  }.bind(this);
+      });
+  };
 
   return [
     m.component(NavTab, {
@@ -124,6 +127,9 @@ Password.Init = function(success) {
 
 Password.Setter = function(success) {
   console.log("# Password.Setter");
+
+  var self = this;
+
   this.security = m.prop("");
   this.password = m.prop("");
 
@@ -147,22 +153,22 @@ Password.Setter = function(success) {
 
     var fields = ["security", "password"];
     for (var i in fields) {
-      if (!this[fields[i]]()) {
+      if (!self[fields[i]]()) {
         $("input[name='" + fields[i] + "']", form).focus();
         return false;
       }
     }
 
-    if (this.password() != password2()) {
+    if (self.password() != password2()) {
       $("input[name='password2']", form).focus();
       return false;
     }
 
     m.request({
         method: "POST",
-        url: "/api/user/" + this.security() + "?action=put",
+        url: "/api/user/" + self.security() + "?action=put",
         data: {
-          password: this.password()
+          password: self.password()
         },
         serialize: function(data) {
           return m.route.buildQueryString(data)
@@ -182,7 +188,7 @@ Password.Setter = function(success) {
           m.endComputation();
         }
       });
-  }.bind(this);
+  };
 
   return [
     m.component(NavTab, {
