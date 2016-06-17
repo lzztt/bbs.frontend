@@ -392,6 +392,7 @@ article.pm {
    section > * {
       margin: 0;
       padding: 0.2rem 0.4rem;
+      white-space: pre-wrap;
    }
    header {
       background-color: #ffebcd;
