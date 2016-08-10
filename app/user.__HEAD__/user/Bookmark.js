@@ -4,6 +4,7 @@ var Bookmark = {
   controller: function() {
     console.log("# Bookmark.controller()");
     if (!validateLoginSession()) {
+      session.set("redirect", m.route());
       m.route("/app/user/login");
       return;
     }
@@ -98,7 +99,9 @@ var Bookmark = {
           "class": "bookmarks even_odd_parent"
         },
         nodes.map(function(node, index) {
-          return m("li", [
+          return m("li", {
+            key: node.id
+          }, [
             m("i", {
               "class": "icon-trash",
               onclick: ctrl.deleteBookmark(index)
@@ -112,7 +115,9 @@ var Bookmark = {
           "class": "bookmarks even_odd_parent"
         },
         nodes.map(function(node) {
-          return m("li", m("a", {
+          return m("li", {
+            key: node.id
+          }, m("a", {
             href: "/node/" + node.id
           }, node.title));
         }));
@@ -123,7 +128,7 @@ var Bookmark = {
         count: p.pageCount,
         handler: ctrl.loadPage
       });
-      pager = pager.view(pager.controller()); // just render the component
+      // pager = pager.view(pager.controller()); // just render the component
       list = [pager, list, pager];
     }
 

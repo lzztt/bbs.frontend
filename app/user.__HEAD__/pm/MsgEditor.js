@@ -68,7 +68,8 @@ var MsgEditor = {
     console.log("# MsgEditor.view()");
     return m("form", {
       onsubmit: ctrl.sendMsg,
-      onreset: ctrl.cancel
+      onreset: ctrl.cancel,
+      config: Form.autoFocus
     }, [
       m.component(Form.Text, {
         label: "收信人",

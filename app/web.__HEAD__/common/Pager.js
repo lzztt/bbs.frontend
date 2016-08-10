@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var Pager = {
   controller: function() {
@@ -14,15 +14,13 @@ var Pager = {
       if (count <= 7) {
         first = 1;
         last = count;
-      }
-      else {
+      } else {
         first = current - 3;
         last = current + 3;
         if (first < 1) {
           first = 1;
           last = 7;
-        }
-        else if (last > count) {
+        } else if (last > count) {
           first = count - 6;
           last = count;
         }
@@ -32,43 +30,60 @@ var Pager = {
       var links = [];
       if (first < last) {
         if (count > 7 && first > 1) {
-          links.push({id: 1, name: '<<'});
-          links.push({id: current - 1, name: '<'});
+          links.push({
+            id: 1,
+            name: "<<"
+          });
+          links.push({
+            id: current - 1,
+            name: "<"
+          });
         }
         for (var i = first; i <= last; i++) {
-          if (i !== current)
-          {
-            links.push({id: i, name: i});
-          }
-          else
-          {
-            links.push({id: i, name: i, active: true});
+          if (i !== current) {
+            links.push({
+              id: i,
+              name: i
+            });
+          } else {
+            links.push({
+              id: i,
+              name: i,
+              active: true
+            });
           }
         }
         if (count > 7 && last < count) {
-          links.push({id: current + 1, name: '>'});
-          links.push({id: count, name: '>>'});
+          links.push({
+            id: current + 1,
+            name: ">"
+          });
+          links.push({
+            id: count,
+            name: ">>"
+          });
         }
       }
       return links;
     }
   },
   view: function(ctrl, data) {
-    console.log('Pager view');
+    console.log("Pager view");
     var links = ctrl.buildLinks(data.current, data.count);
     console.log(links);
     if (links.length > 0) {
-      return m('nav', {class: 'pager'}, links.map(function(l) {
+      return m("nav", {
+        "class": "pager"
+      }, links.map(function(l) {
         var attr = {};
         if (l.active) {
-          attr.class = 'active';
-        }
-        else {
+          attr["class"] = "active";
+        } else {
           attr.onclick = function() {
             data.handler(l.id)
           };
         }
-        return m('a', attr, l.name);
+        return m("a", attr, l.name);
       }));
     }
   }

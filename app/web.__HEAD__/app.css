@@ -1,81 +1,41 @@
 /* BASIC */
 /* height */
-html, #navbar {
+html {
   height: 100%; }
 
 /* font */
 html {
+  font: Tahoma, Geneva, Arial, sans-serif;
   color: #333;
-  line-height: 1.5; }
+  line-height: 1.5rem; }
+
+header, nav, section, article, aside, footer, div, form, fieldset {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
 
 a {
   text-decoration: none;
   color: #2962FF; }
 
-/* END BASIC */
-/* NAVBAR */
-#navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 270px;
-  max-width: 270px;
-  display: none;
-  background: #E6E6E6;
-  border-right: 1px solid #9a9a9a; }
-  #navbar ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 270px;
-    max-width: 270px;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background: #E6E6E6; }
-    #navbar ul ul {
-      display: none; }
-    #navbar ul a, #navbar ul span {
-      display: block;
-      padding: 0.5rem;
-      text-align: center;
-      background-color: #E6E6E6;
-      border-bottom: 1px solid #cdcdcd;
-      cursor: pointer; }
-    #navbar ul a:hover, #navbar ul span:hover {
-      background-color: white; }
-    #navbar ul span::before {
-      display: inline-block;
-      float: left;
-      content: '<'; }
-    #navbar ul span.back::before {
-      display: inline-block;
-      float: right;
-      content: '>'; }
-  #navbar ul.overlay {
-    overflow-y: hidden;
-    /* label box width = li span height = ( line-height + 2 * padding ) */ }
-    #navbar ul.overlay > li > span.label {
-      display: block;
-      position: absolute;
-      top: 0;
-      right: 0;
-      box-sizing: border-box;
-      width: 2.5rem;
-      height: 100%;
-      padding: 0.75rem;
-      color: #333;
-      background-color: #cdcdcd;
-      border-left: 1px solid #9a9a9a; }
-      #navbar ul.overlay > li > span.label::before {
-        content: ""; }
+h1, h2, h3 {
+  margin: 0.5rem 0; }
 
-/* END NAVBAR */
+h1 {
+  font-size: 1.5rem; }
+
+h2 {
+  font-size: 1.25rem; }
+
+h3 {
+  font-size: 1.125rem; }
+
+.even_odd_parent > *:nth-child(even) {
+  background-color: #eee; }
+
+/* END BASIC */
 #page {
-  padding: 3rem; }
+  width: 100%; }
 
 /* PAGER */
 nav.pager {
@@ -92,24 +52,75 @@ nav.pager {
 
 /* END PAGER */
 /* NAVTAB */
-nav.navtab a {
-  display: inline-block;
-  padding: 0.2em 0.5em;
-  background-color: gold;
-  border-right: 1px solid #ccac00; }
-nav.navtab a.active {
-  background-color: #ccac00; }
+nav.navtab {
+  margin: 0.5rem 0; }
+  nav.navtab a {
+    display: inline-block;
+    padding: 0.2em 0.5em;
+    background-color: gold;
+    border-right: 1px solid #ccac00; }
+  nav.navtab a.active {
+    background-color: #ccac00; }
 
 /* END NAVTAB */
-/* FORM */
+/* BEGIN RESPONSIVE TABLE */
+th, td {
+  padding: 0.3rem; }
+
+@media (max-width: 767px) {
+  /* Force table to not be like tables anymore */
+  table, caption, tbody, tr, td {
+    display: block;
+    box-sizing: border-box;
+    width: 100%; }
+
+  thead, thead tr, th {
+    display: none; }
+
+  td {
+    /* Behave  like a "row" */
+    border: none;
+    /*border-bottom: 1px dashed #ccc;*/
+    position: relative;
+    padding-left: 25%; }
+
+  td:first-child {
+    background: #F0E68C; }
+
+  td:last-child {
+    border-bottom: 0; }
+
+  td:before {
+    content: attr(data-header);
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 0;
+    left: 0;
+    width: 25%;
+    padding: 0.3em;
+    white-space: nowrap;
+    color: #006666; }
+
+  td:empty {
+    display: none; } }
+@media (min-width: 768px) {
+  table {
+    width: 100%;
+    table-layout: fixed; }
+    table thead {
+      background: #7fbdef; } }
+/* END RESPONSIVE TABLE */
+/* BEGIN RESPONSIVE FORM */
 fieldset {
   display: block;
   clear: both;
   margin: 0;
-  padding: 0.3rem 0;
+  padding: 0.3rem;
   border: 0; }
   fieldset label, fieldset .label {
-    display: block; }
+    display: block;
+    color: #006666; }
   fieldset textarea, fieldset input[type="text"], fieldset input[type='url'], fieldset input[type='email'], fieldset input[type='password'] {
     box-sizing: border-box;
     width: 100%;
@@ -121,7 +132,66 @@ fieldset {
 button {
   margin-right: 0.3rem; }
 
-/* END FORM */
+@media (min-width: 768px) {
+  form fieldset {
+    padding-left: 30%;
+    position: relative;
+    line-height: 1.5rem; }
+    form fieldset label, form fieldset .label {
+      box-sizing: border-box;
+      width: 30%;
+      text-align: right;
+      padding: 0.2em 0.5em 0.2em 0.2em;
+      position: absolute;
+      left: 0;
+      top: 0; }
+    form fieldset textarea {
+      height: 300px; } }
+/* END RESPONSIVE FORM */
+/* BEGIN BUTTON */
+button, .button {
+  background-color: gold;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  border: 1px solid #f2ab1e;
+  display: inline-block;
+  color: #105389;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5rem;
+  box-sizing: content-box;
+  height: 1.5rem;
+  padding: 1px 6px;
+  text-decoration: none;
+  text-align: center; }
+
+button:hover, button:active, .button:hover, .button:active {
+  background-color: #f2ab1e; }
+
+button:disabled {
+  background-color: lightgray; }
+
+/* This button was generated using CSSButtonGenerator.com */
+/* END BUTTON */
+/* PM LIST */
+table.pm_list {
+  clear: both; }
+  table.pm_list th {
+    text-align: left; }
+  table.pm_list td {
+    overflow: hidden;
+    white-space: nowrap; }
+  table.pm_list td:first-child {
+    color: #2962FF;
+    text-overflow: ellipsis; }
+  @media (min-width: 768px) {
+    table.pm_list tr > *:first-child {
+      width: 70%; }
+    table.pm_list tr > *:not(:first-child) {
+      width: 15%; } }
+
+/* END PM LIST */
 /* USER DT DD */
 dl {
   overflow: hidden; }
@@ -139,7 +209,7 @@ dl {
   dl > input[type=text], dl > input[type=date], dl > input[type=url] {
     display: block;
     line-height: 1.5rem;
-    padding: 0 1em;
+    padding: 0 1rem;
     border-radius: 3px;
     outline: none;
     border: 1px solid #69c773;
@@ -167,49 +237,49 @@ dl {
       display: inline-block;
       line-height: 1.5rem;
       margin: 0;
-      padding: 0 1em; }
+      padding: 0 1rem; }
   dl span.radio + span.radio {
     margin-left: -1px; }
   dl input[type=radio]:checked + label {
     background: lightgreen; }
 
 /* END USER DT DD */
-/* TABLE */
-table {
-  clear: both; }
+/* USER TOPICS */
+table.user_topics th {
+  text-align: left; }
+table.user_topics td {
+  overflow: hidden;
+  white-space: nowrap; }
+table.user_topics td:first-child {
+  color: #2962FF;
+  text-overflow: ellipsis; }
+@media (min-width: 768px) {
+  table.user_topics {
+    width: 49%;
+    float: left;
+    margin-right: 1%; }
+    table.user_topics tr > *:nth-child(1) {
+      width: 70%;
+      white-space: nowrap;
+      overflow: hidden; }
+    table.user_topics tr > *:nth-child(2) {
+      width: 30%; } }
 
-/* END TABLE */
-/* markx font color */
-li.fc-red a, em.fc-red {
-  font-style: normal;
-  color: red; }
+/* END USER TOPICS */
+/* USER BOOKMARK PAGE */
+ul.bookmarks {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+  ul.bookmarks li {
+    padding: 0.3rem; }
 
-li.fc-blue a, em.fc-blue {
-  font-style: normal;
-  color: #0000e3; }
+/* END USER BOOKMARK PAGE */
+/* MESSAGE */
+article.pm section > * {
+  margin: 0;
+  padding: 0.2rem 0.4rem; }
+article.pm header {
+  background-color: #ffebcd; }
 
-li.fc-green a, em.fc-green {
-  font-style: normal;
-  color: green; }
-
-li.bc-red a, em.bc-red {
-  display: inline-block;
-  font-style: normal;
-  color: #333;
-  background-color: #ff6666; }
-
-li.bc-blue a, em.bc-blue {
-  display: inline-block;
-  font-style: normal;
-  color: #333;
-  background-color: #6397ff; }
-
-li.bc-green a, em.bc-green {
-  display: inline-block;
-  font-style: normal;
-  color: #333;
-  background-color: #66cc66; }
-
-/* END markx font color */
-
-/*# sourceMappingURL=app.css.map */
+/* END MESSAGE */

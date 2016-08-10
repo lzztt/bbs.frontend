@@ -8,10 +8,12 @@ var Register = {
       return;
     }
 
+    var self = this;
+
     this.step = 0;
     this.next = function() {
-      this.step++;
-    }.bind(this);
+      self.step++;
+    };
     this.finish = function() {
       m.route("/app/user/login");
     };
@@ -28,6 +30,9 @@ var Register = {
 
 Register.Init = function(success) {
   console.log("# Register.Init");
+
+  var self = this;
+
   this.email = m.prop("");
   this.username = m.prop("");
   this.captcha = m.prop("");
@@ -50,8 +55,8 @@ Register.Init = function(success) {
     // validate email and username
     var fields = ["email", "username", "captcha"];
     for (var i in fields) {
-      console.log(i + " " + fields[i] + ": " + this[fields[i]]());
-      if (!this[fields[i]]()) {
+      console.log(i + " " + fields[i] + ": " + self[fields[i]]());
+      if (!self[fields[i]]()) {
         console.log(fields[i] + " empty");
         $("input[name='" + fields[i] + "']", form).focus();
         return false;
@@ -62,22 +67,15 @@ Register.Init = function(success) {
         method: "POST",
         url: "/api/user",
         data: {
-          email: this.email(),
-          username: this.username(),
-          captcha: this.captcha()
-        },
-        serialize: function(data) {
-          return m.route.buildQueryString(data)
-        },
-        config: function(xhr) {
-          xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
-          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+          email: self.email(),
+          username: self.username(),
+          captcha: self.captcha()
         }
       })
       .then(function(data) {
         console.log("user request finished");
         if (validateResponse(data)) {
-          alert("感谢注册！帐号激活\n安全验证码已经成功发送到您的注册邮箱 " + this.email() + " ，请检查email。\n如果您的收件箱内没有此电子邮件，请检查电子邮件的垃圾箱，或者与网站管理员联系。");
+          alert("感谢注册！帐号激活\n安全验证码已经成功发送到您的注册邮箱 " + self.email() + " ，请检查email。\n如果您的收件箱内没有此电子邮件，请检查电子邮件的垃圾箱，或者与网站管理员联系。");
           // clear captcha image
           $("div.captcha", form).remove();
 
@@ -86,8 +84,8 @@ Register.Init = function(success) {
           // continue to redraw the view
           m.endComputation();
         }
-      }.bind(this));
-  }.bind(this);
+      });
+  };
 
   return [
     m.component(NavTab, {

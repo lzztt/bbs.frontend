@@ -4,6 +4,7 @@ var Message = {
   controller: function() {
     console.log("# Message.controller()");
     if (!validateLoginSession()) {
+      session.set("redirect", m.route());
       m.route("/app/user/login");
       return;
     }
@@ -54,9 +55,7 @@ var Message = {
         replyTo = ctrl.msgs().replyTo;
 
       if (msgs) {
-        body = m("article", {
-          "class": "pm"
-        }, [msgs.map(function(msg, index) {
+        body = m("article.topic", [msgs.map(function(msg, index) {
             return m("section", {
               key: msg.id
             }, [

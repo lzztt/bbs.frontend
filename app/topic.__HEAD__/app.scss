@@ -1,0 +1,29 @@
+@import "../../lib/css/base";
+@import "../../lib/css/markx";
+
+/* BEGIN EDITOR FILELIST */
+/* Small devices (tablets, 768px) and up */
+@media (min-width: 768px) {
+   table.file_list tr {
+      th, td {
+         padding: 0.1rem 0.3rem;
+      }
+
+      > *:nth-child(1) {
+         width: 25%;
+      }
+
+      > *:nth-child(2) {
+         width: 65%;
+      }
+
+      > *:nth-child(3) {
+         width: 10%;
+      }
+   }
+}
+/* END EDITOR FILELIST */
+
+nav.pager {
+   float: none;
+}

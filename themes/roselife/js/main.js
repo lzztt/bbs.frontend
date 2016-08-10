@@ -228,6 +228,27 @@ $(document).ready(function () {
             editorBody.markItUp(myBBCodeSettings);
 
             // button actions
+            $('button.report').click(function (e) {
+               var reason = prompt("请管理员审查本贴，原因如下 (目前只支持举报QQ骗子和办假学位证)：", "本贴疑似骗子贴/办证贴");
+               if (reason) {
+                  $.ajax({
+                     type: "POST",
+                     url: '/api/report',
+                     data: $(this).attr('data-action') + "&reason=" + encodeURIComponent(reason),
+                     success: function (data) {
+                        if (data && "error" in data) {
+                           alert("举报失败: " + data.error + " :(");
+                        } else {
+                           alert("举报成功，谢谢您为维护良好信息交流环境做出的努力！");
+                        }
+                     },
+                     error: function() {
+                        alert("系统错误，举报失败 :(");
+                     }
+                  });
+               }
+            });
+
             $('button.delete').click(function (e) {
                var answer = confirm("此操作不可恢复，您确认要删除该内容吗？");
                if (answer)
