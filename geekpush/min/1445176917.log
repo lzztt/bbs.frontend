@@ -1,0 +1,336 @@
+
+[WARNING] Try to use a single 'var' statement per scope.
+]}]},],}; ---> var  <--- m=(functionapp(window,undefined)
+
+[WARNING] Invalid hint syntax: use strict
+(functionapp(window,undefined){ ---> "use strict" <--- ;functionisFunction(object){returntypeofobject
+
+[WARNING] Try to use a single 'var' statement per scope.
+call(object)==="[object Array]";}; ---> var  <--- type={}.toString;var parser=
+
+[WARNING] Try to use a single 'var' statement per scope.
+;var type={}.toString; ---> var  <--- parser=/(?:(^|#|\.)([^#\.\[\]]+))|(\[.+?\])/g,attrParser=/\[(.+?)(?:=("|'|)(.*?)\2)?\]/;var voidElements
+
+[WARNING] Try to use a single 'var' statement per scope.
+var parser=/(?:(^|#|\.)([^#\.\[\]]+))|(\[.+?\])/g,attrParser=/\[(.+?)(?:=("|'|)(.*?)\2)?\]/; ---> var  <--- voidElements=/^(AREA|BASE|BR|COL|COMMAND|EMBED|HR|IMG|INPUT|KEYGEN|LINK|META|PARAM|SOURCE|TRACK|WBR)$/;var noop=function()
+
+[WARNING] Try to use a single 'var' statement per scope.
+attrParser=/\[(.+?)(?:=("|'|)(.*?)\2)?\]/;var voidElements=/^(AREA|BASE|BR|COL|COMMAND|EMBED|HR|IMG|INPUT|KEYGEN|LINK|META|PARAM|SOURCE|TRACK|WBR)$/; ---> var  <--- noop=function(){};var $document
+
+[WARNING] Try to use a single 'var' statement per scope.
+var noop=function(){}; ---> var  <--- $document,$location,$requestAnimationFrame,$cancelAnimationFrame;functioninitialize
+
+[WARNING] Try to use a single 'var' statement per scope.
+returnparameterize(tag,args);} ---> var  <--- hasAttrs=pairs!=null&&isObject(pairs)
+
+[WARNING] Try to use a single 'var' statement per scope.
+"view" in pairs||"subtree" in pairs); ---> var  <--- attrs=hasAttrs?pairs:{};var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+attrs=hasAttrs?pairs:{}; ---> var  <--- classAttrName="class" in attrs?"class":"className";
+
+[WARNING] Try to use a single 'var' statement per scope.
+="class" in attrs?"class":"className"; ---> var  <--- cell={tag:"div",attrs:{
+
+[WARNING] Try to use a single 'var' statement per scope.
+:"div",attrs:{}}; ---> var  <--- match,classes=[];if(!
+
+[WARNING] Try to use a single 'var' statement per scope.
+3][0]==="["){ ---> var  <--- pair=attrParser.exec(match[3]
+
+[WARNING] Try to use a single 'var' statement per scope.
+:true);}}}}} ---> var  <--- children=hasAttrs?args.slice(1)
+
+[WARNING] Try to use a single 'var' statement per scope.
+cell.children=children;}for( ---> var  <--- attrName in attrs){if(attrs.hasOwnProperty
+
+[WARNING] Try to use a single 'var' statement per scope.
+childNodes[index]||null);} ---> var  <--- DELETION=1,INSERTION=2,MOVE=
+
+[WARNING] Try to use a single 'var' statement per scope.
+;var actions=[];for( ---> var  <--- prop in existing){actions.push(existing
+
+[WARNING] Try to use a single 'var' statement per scope.
+push(existing[prop]);} ---> var  <--- changes=actions.sort(sortChanges),newCached
+
+[WARNING] Try to use a single 'var' statement per scope.
+if(change.action===INSERTION){ ---> var  <--- dummy=$document.createElement("div");dummy
+
+[WARNING] Try to use a single 'var' statement per scope.
+if(change.action===MOVE){ ---> var  <--- changeElement=change.element;var maybeChanged=parentElement
+
+[WARNING] Try to use a single 'var' statement per scope.
+){var changeElement=change.element; ---> var  <--- maybeChanged=parentElement.childNodes[index];if
+
+[WARNING] Try to use a single 'var' statement per scope.
+[0],index);}} ---> var  <--- cached=typeofdata==="string"||typeofdata===
+
+[WARNING] Try to use a single 'var' statement per scope.
+===data.length,subArrayCount=0; ---> var  <--- existing={},shouldMaintainIdentities=false;forKeys
+
+[WARNING] Try to use a single 'var' statement per scope.
+,cached,existing,parentElement);} ---> var  <--- cacheCount=0;for(var i=0
+
+[WARNING] Try to use a single 'var' statement per scope.
+;}var cacheCount=0;for( ---> var  <--- i=0,len=data.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+;i<len;i++){ ---> var  <--- item=build(parentElement,parentTag,cached,
+
+[WARNING] Try to use a single 'var' statement per scope.
+view,cachedControllers,data.controller); ---> var  <--- key=+(data&&data.attrs&&
+
+[WARNING] Try to use a single 'var' statement per scope.
+attrs=cached.attrs||{}; ---> var  <--- dataAttrKeys=Object.keys(data.attrs)
+
+[WARNING] Try to use a single 'var' statement per scope.
+Object.keys(data.attrs); ---> var  <--- hasKeys=dataAttrKeys.length>("key" in data
+
+[WARNING] Try to use a single 'var' statement per scope.
+data.tag)){return;} ---> var  <--- isNew=cached.nodes.length===0;
+
+[WARNING] Try to use a single 'var' statement per scope.
+namespace=getObjectNamespace(data,namespace); ---> var  <--- node;if(isNew){node=constructNode
+
+[WARNING] Try to use a single 'var' statement per scope.
+node=constructNode(data,namespace); ---> var  <--- attrs=constructAttrs(data,node,namespace,
+
+[WARNING] Try to use a single 'var' statement per scope.
+data,node,namespace,hasKeys); ---> var  <--- children=constructChildren(data,node,cached,
+
+[WARNING] Try to use a single 'var' statement per scope.
+{for(var attrName in dataAttrs){ ---> var  <--- dataAttr=dataAttrs[attrName];var cachedAttr=
+
+[WARNING] Try to use a single 'var' statement per scope.
+{var dataAttr=dataAttrs[attrName]; ---> var  <--- cachedAttr=cachedAttrs[attrName];if(!
+
+[WARNING] Try to use a single 'var' statement per scope.
+&&isObject(dataAttr)){for( ---> var  <--- rule in dataAttr){if(cachedAttr==null
+
+[WARNING] Try to use a single 'var' statement per scope.
+dataAttr[rule];}}for( ---> var  <--- rule in cachedAttr){if(!(rule
+
+[WARNING] The variable rule has already been declared in the same scope...
+[rule];}}for(var  ---> rule <---  in cachedAttr){if(!(rule in 
+
+[WARNING] Try to use a single 'var' statement per scope.
+cached.children);}}}} ---> var  <--- insertAdjacentBeforeEnd=(function(){var rangeStrategy=
+
+[WARNING] Try to use a single 'var' statement per scope.
+.createContextualFragment(data));}; ---> var  <--- insertAdjacentStrategy=function(parentElement,data){parentElement
+
+[WARNING] Try to use a single 'var' statement per scope.
+[index];if(nextSibling){ ---> var  <--- isElement=nextSibling.nodeType!==1;var placeholder
+
+[WARNING] Try to use a single 'var' statement per scope.
+var isElement=nextSibling.nodeType!==1; ---> var  <--- placeholder=$document.createElement("span");if
+
+[WARNING] Try to use a single 'var' statement per scope.
+{insertAdjacentBeforeEnd(parentElement,data);} ---> var  <--- nodes=[];while(parentElement.childNodes
+
+[WARNING] Try to use a single 'var' statement per scope.
+{endFirstComputation();}};} ---> var  <--- html;var documentNode={appendChild:function(
+
+[WARNING] Try to use a single 'var' statement per scope.
+);}};}var html; ---> var  <--- documentNode={appendChild:function(node){
+
+[WARNING] Try to use a single 'var' statement per scope.
+;},childNodes:[]}; ---> var  <--- nodeCache=[],cellCache={};
+
+[WARNING] Try to use a single 'var' statement per scope.
+{thrownew Error("Ensure the DOM element being passed to m.route/m.mount/m.render is not undefined.");} ---> var  <--- id=getCellCacheKey(root);var isDocumentRoot=
+
+[WARNING] Try to use a single 'var' statement per scope.
+}var id=getCellCacheKey(root); ---> var  <--- isDocumentRoot=root===$document;var node=isDocumentRoot
+
+[WARNING] Try to use a single 'var' statement per scope.
+);var isDocumentRoot=root===$document; ---> var  <--- node=isDocumentRoot||root===$document.documentElement?
+
+[WARNING] Try to use a single 'var' statement per scope.
+}returngettersetter(store);}; ---> var  <--- roots=[],components=[],
+
+[WARNING] Try to use a single 'var' statement per scope.
+null,topComponent,unloaders=[]; ---> var  <--- FRAME_BUDGET=16;functionparameterize(component,args
+
+[WARNING] Try to use a single 'var' statement per scope.
+prototype=component.controller.prototype;} ---> var  <--- view=function(ctrl){var currentArgs=
+
+[WARNING] Try to use a single 'var' statement per scope.
+;view.$original=component.view; ---> var  <--- output={controller:controller,view:view
+
+[WARNING] Try to use a single 'var' statement per scope.
+){index=roots.length;} ---> var  <--- isPrevented=false;var event={preventDefault:
+
+[WARNING] Try to use a single 'var' statement per scope.
+.length;}var isPrevented=false; ---> var  <--- event={preventDefault:function(){isPrevented
+
+[WARNING] Try to use a single 'var' statement per scope.
+index].onunload(event);} ---> var  <--- isNullComponent=component===null;if(!isPrevented
+
+[WARNING] Try to use a single 'var' statement per scope.
+);roots[index]=root; ---> var  <--- currentComponent=component?(topComponent=component):
+
+[WARNING] Try to use a single 'var' statement per scope.
+component={controller:noop}); ---> var  <--- controller=new (component.controller||noop)
+
+[WARNING] Try to use a single 'var' statement per scope.
+getCellCacheKey(root),1);} ---> var  <--- redrawing=false,forcing=false;m.
+
+[WARNING] Try to use a single 'var' statement per scope.
+;if(controllers[i]){ ---> var  <--- args=[controllers[i]];m
+
+[WARNING] Try to use a single 'var' statement per scope.
+.redraw.strategy("diff");} ---> var  <--- pendingRequests=0;m.startComputation=function(
+
+[WARNING] Try to use a single 'var' statement per scope.
+var currentTarget=e.currentTarget||this; ---> var  <--- _this=callbackThis||this;withAttrCallback.call(
+
+[WARNING] Try to use a single 'var' statement per scope.
+(prop));};}; ---> var  <--- modes={pathname:"",hash:"#"
+
+[WARNING] Try to use a single 'var' statement per scope.
+hash:"#",search:"?"}; ---> var  <--- redirect=noop,routeParams,currentRoute,isDefaultRoute=
+
+[WARNING] Try to use a single 'var' statement per scope.
+{if(isString(root)){ ---> var  <--- oldRoute=currentRoute;currentRoute=root;var args
+
+[WARNING] Try to use a single 'var' statement per scope.
+var oldRoute=currentRoute;currentRoute=root; ---> var  <--- args=arg1||{};var queryIndex=
+
+[WARNING] Try to use a single 'var' statement per scope.
+;var args=arg1||{}; ---> var  <--- queryIndex=currentRoute.indexOf("?");var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+queryIndex=currentRoute.indexOf("?"); ---> var  <--- params=queryIndex>-1?parseQueryString(currentRoute
+
+[WARNING] Try to use a single 'var' statement per scope.
+1)):{};for( ---> var  <--- i in args){params[i]=
+
+[WARNING] Try to use a single 'var' statement per scope.
+i]=args[i];} ---> var  <--- querystring=buildQueryString(params);var currentPath=
+
+[WARNING] Try to use a single 'var' statement per scope.
+}var querystring=buildQueryString(params); ---> var  <--- currentPath=queryIndex>-1?currentRoute.slice
+
+[WARNING] Try to use a single 'var' statement per scope.
+?"?":"&")+querystring;} ---> var  <--- shouldReplaceHistoryEntry=(arguments.length===3?arg2
+
+[WARNING] Try to use a single 'var' statement per scope.
+.substr(0,queryStart);} ---> var  <--- keys=Object.keys(router);var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+keys=Object.keys(router); ---> var  <--- index=keys.indexOf(path);if
+
+[WARNING] Try to use a single 'var' statement per scope.
+]);returntrue;}for( ---> var  <--- route in router){if(route===path
+
+[WARNING] Try to use a single 'var' statement per scope.
+[route]);returntrue;} ---> var  <--- matcher=new RegExp("^"+route.replace
+
+[WARNING] Try to use a single 'var' statement per scope.
+.match(/:[^\/]+/g)||[]; ---> var  <--- values=[].slice.call(arguments
+
+[WARNING] Try to use a single 'var' statement per scope.
+=e.currentTarget||e.srcElement; ---> var  <--- args=m.route.mode==="pathname"&&
+
+[WARNING] Try to use a single 'var' statement per scope.
+prefix){var duplicates={}; ---> var  <--- str=[];for(var prop in 
+
+[WARNING] Try to use a single 'var' statement per scope.
+;var str=[];for( ---> var  <--- prop in object){var key=prefix?
+
+[WARNING] Try to use a single 'var' statement per scope.
+;for(var prop in object){ ---> var  <--- key=prefix?prefix+"["+prop+
+
+[WARNING] Try to use a single 'var' statement per scope.
++"["+prop+"]":prop; ---> var  <--- value=object[prop];if(value
+
+[WARNING] Try to use a single 'var' statement per scope.
+{if(isArray(value)){ ---> var  <--- keys=[];duplicates[key]=
+
+[WARNING] Try to use a single 'var' statement per scope.
+pair=string.split("="); ---> var  <--- key=decodeURIComponent(pair[0]);
+
+[WARNING] Try to use a single 'var' statement per scope.
+=decodeURIComponent(pair[0]); ---> var  <--- value=pair.length===2?decodeURIComponent(
+
+[WARNING] Try to use a single 'var' statement per scope.
+,RESOLVED=3,REJECTED=4; ---> var  <--- self=this,state=0,promiseValue=
+
+[WARNING] Try to use a single 'var' statement per scope.
+);}returnvalue;};} ---> var  <--- deferred=m.deferred();var outstanding
+
+[WARNING] Try to use a single 'var' statement per scope.
+var deferred=m.deferred(); ---> var  <--- outstanding=args.length;var results=new 
+
+[WARNING] Try to use a single 'var' statement per scope.
+);var outstanding=args.length; ---> var  <--- results=new Array(outstanding);if(
+
+[WARNING] Try to use a single 'var' statement per scope.
+10000000000000000)).toString(36); ---> var  <--- script=$document.createElement("script");window
+
+[WARNING] Try to use a single 'var' statement per scope.
+.appendChild(script);}else{ ---> var  <--- xhr=new window.XMLHttpRequest();xhr
+
+[WARNING] Try to use a single 'var' statement per scope.
+(isFunction(options.config)){ ---> var  <--- maybeXhr=options.config(xhr,options)
+
+[WARNING] Try to use a single 'var' statement per scope.
+null){xhr=maybeXhr;}} ---> var  <--- data=options.method==="GET"||!options
+
+[WARNING] Try to use a single 'var' statement per scope.
+"?")<0?"?":"&"; ---> var  <--- querystring=buildQueryString(data);xhrOptions.url
+
+[WARNING] Try to use a single 'var' statement per scope.
+}var deferred=new Deferred(); ---> var  <--- isJSONP=xhrOptions.dataType&&xhrOptions.dataType.
+
+[WARNING] Try to use a single 'var' statement per scope.
+.dataType.toLowerCase()==="jsonp"; ---> var  <--- serialize=xhrOptions.serialize=isJSONP?identity:
+
+[WARNING] Try to use a single 'var' statement per scope.
+:xhrOptions.serialize||JSON.stringify; ---> var  <--- deserialize=xhrOptions.deserialize=isJSONP?identity:
+
+[WARNING] Try to use a single 'var' statement per scope.
+:xhrOptions.deserialize||JSON.parse; ---> var  <--- extract=isJSONP?function(jsonp){return
+
+[WARNING] Try to use a single 'var' statement per scope.
+unwrapSuccess:xhrOptions.unwrapError)||identity; ---> var  <--- response=unwrap(deserialize(extract(e.
+
+[WARNING] Invalid hint syntax: use strict
+});(function(article){ ---> "use strict" <--- ;var configLinks=function(article){$
+
+[WARNING] Try to use a single 'var' statement per scope.
+("nav"),linkOffsets={}; ---> var  <--- hideNav=function(){$navdiv.animate(
+
+[WARNING] Try to use a single 'var' statement per scope.
+{left:0});}; ---> var  <--- checkWidth=function(){var current=$
+
+[WARNING] Try to use a single 'var' statement per scope.
+.off("click",hideNav);} ---> var  <--- topOffset=isMobile?0:$nav.height(
+
+[WARNING] Try to use a single 'var' statement per scope.
+.addClass("active");}); ---> var  <--- active,findActive=function(){if(
+
+[WARNING] Try to use a single 'var' statement per scope.
+window).scrollTop();for( ---> var  <--- i in linkOffsets){if(linkOffsets[i
+
+[WARNING] Try to use a single 'var' statement per scope.
+);active=current;}}; ---> var  <--- bottom=0,hitBottom=false,showAnimation=
+
+[WARNING] Try to use a single 'var' statement per scope.
+findActive();});}; ---> var  <--- Article={view:function(ctrl){
+
+[WARNING] Try to use a single 'var' statement per scope.
+(Footer)]);}}; ---> var  <--- Header={view:function(ctrl){
+
+[WARNING] Try to use a single 'var' statement per scope.
+)])]);}}; ---> var  <--- Footer={view:function(ctrl,data
+
+[WARNING] Try to use a single 'var' statement per scope.
+("footer","Copyright © 2015 GeekPush.com. All rights reserved.");}}; ---> var  <--- TextSection={view:function(ctrl,data
+
+[WARNING] Try to use a single 'var' statement per scope.
+}))]);}}; ---> var  <--- TextImageSection={view:function(ctrl,data
+
+[WARNING] Try to use a single 'var' statement per scope.
+;})]);}}; ---> var  <--- CardSection={view:function(ctrl,data

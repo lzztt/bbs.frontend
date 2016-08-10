@@ -22,6 +22,8 @@ var Login = {
       return;
     }
 
+    var self = this;
+
     this.email = m.prop("");
     this.password = m.prop("");
 
@@ -41,8 +43,8 @@ var Login = {
           method: "POST",
           url: "/api/authentication",
           data: {
-            email: this.email(),
-            password: this.password()
+            email: self.email(),
+            password: self.password()
           },
           serialize: function(data) {
             return m.route.buildQueryString(data)
@@ -62,6 +64,7 @@ var Login = {
               cache.set("role", data.role);
 
               var redirect = session.get("redirect");
+              console.log("redirect = '" + redirect + "'");
               if (redirect) {
                 session.remove("redirect");
                 m.route(redirect);
@@ -76,7 +79,7 @@ var Login = {
             }
           }
         });
-    }.bind(this);
+    };
   },
   view: function(ctrl) {
     console.log("# Login.view");

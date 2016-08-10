@@ -1,11 +1,5 @@
 "use strict";
 
-var PageNotFound = {
-  view: function(ctrl) {
-    return "Page Not Found :(";
-  }
-};
-
 var AppHome = {
   controller: function() {
     console.log("# Home.controller()");
@@ -20,8 +14,6 @@ var AppHome = {
   }
 };
 
-var appBase = "/app/user";
-
 //define a route
 m.route(document.getElementById("page"), "/app/user/page-not-found", {
   "/app/user/page-not-found": PageNotFound,
@@ -34,5 +26,6 @@ m.route(document.getElementById("page"), "/app/user/page-not-found", {
   "/app/user/:uid": User,
   "/app/user/mailbox/inbox": Mailbox,
   "/app/user/mailbox/sent": Mailbox,
-  "/app/user/pm/:mid": Message
+  "/app/user/pm/:mid": Message,
+  "/:arg...": Redirect
 });

@@ -51,18 +51,6 @@ nav.pager {
     cursor: auto; }
 
 /* END PAGER */
-/* NAVTAB */
-nav.navtab {
-  margin: 0.5rem 0; }
-  nav.navtab a {
-    display: inline-block;
-    padding: 0.2em 0.5em;
-    background-color: gold;
-    border-right: 1px solid #ccac00; }
-  nav.navtab a.active {
-    background-color: #ccac00; }
-
-/* END NAVTAB */
 /* BEGIN RESPONSIVE TABLE */
 th, td {
   padding: 0.3rem; }
@@ -107,7 +95,9 @@ th, td {
 @media (min-width: 768px) {
   table {
     width: 100%;
-    table-layout: fixed; }
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0; }
     table thead {
       background: #7fbdef; } }
 /* END RESPONSIVE TABLE */
@@ -141,7 +131,7 @@ button {
       box-sizing: border-box;
       width: 30%;
       text-align: right;
-      padding: 0.2em 0.5em 0.2em 0.2em;
+      padding: 0.5rem 0.5rem 0.3rem 0.3rem;
       position: absolute;
       left: 0;
       top: 0; }
@@ -174,6 +164,27 @@ button:disabled {
 
 /* This button was generated using CSSButtonGenerator.com */
 /* END BUTTON */
+/* TOPIC */
+article.topic section > * {
+  margin: 0;
+  padding: 0.2rem 0.4rem;
+  white-space: pre-wrap; }
+article.topic header {
+  background-color: #ffebcd; }
+
+/* END TOPIC */
+/* NAVTAB */
+nav.navtab {
+  margin: 0.5rem 0; }
+  nav.navtab a {
+    display: inline-block;
+    padding: 0.2em 0.5em;
+    background-color: gold;
+    border-right: 1px solid #ccac00; }
+  nav.navtab a.active {
+    background-color: #ccac00; }
+
+/* END NAVTAB */
 /* PM LIST */
 table.pm_list {
   clear: both; }
@@ -275,11 +286,5 @@ ul.bookmarks {
     padding: 0.3rem; }
 
 /* END USER BOOKMARK PAGE */
-/* MESSAGE */
-article.pm section > * {
-  margin: 0;
-  padding: 0.2rem 0.4rem; }
-article.pm header {
-  background-color: #ffebcd; }
 
-/* END MESSAGE */
+/*# sourceMappingURL=app.css.map */

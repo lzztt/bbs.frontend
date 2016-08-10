@@ -21,6 +21,7 @@ var User = {
   controller: function() {
     console.log("# User.controller()");
     if (!validateLoginSession()) {
+      session.set("redirect", m.route());
       m.route("/app/user/login");
       return;
     }
@@ -283,6 +284,7 @@ var User = {
             m.redraw.strategy("none");
           }
         }),
+        m("dt", "论坛声望"), m("dd", user.points),
         m("dt", "注册时间"), m("dd", (new Date(user.createTime * 1000)).toLocaleDateString()),
         m("dt", "上次登陆时间"), m("dd", (new Date(user.lastAccessTime * 1000)).toLocaleDateString()),
         m("dt", "上次登陆地点"), m("dd", user.lastAccessCity)
