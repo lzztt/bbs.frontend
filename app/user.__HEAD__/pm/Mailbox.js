@@ -12,6 +12,7 @@ var Mailbox = {
   controller: function() {
     console.log("# Mailbox.controller()");
     if (!validateLoginSession()) {
+      session.set("redirect", m.route());
       m.route("/app/user/login");
       return;
     }
@@ -120,7 +121,9 @@ var Mailbox = {
           "class": "even_odd_parent"
         },
         msgs.map(function(msg, index) {
-          return m("tr", [
+          return m("tr", {
+            key: msg.mid
+          }, [
             m("td", {
                 "data-header": "短信"
               },
@@ -165,7 +168,7 @@ var Mailbox = {
         count: p.pageCount,
         handler: ctrl.loadPage
       });
-      pager = pager.view(pager.controller()); // just render the component
+      // pager = pager.view(pager.controller()); // just render the component
       table = [pager, table, pager];
     }
 

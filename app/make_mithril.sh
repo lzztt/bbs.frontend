@@ -25,10 +25,10 @@ if [ -d "$appdir" ]; then
         fi
     done
 
-    #java -jar /home/web/yuicompressor-2.4.8.jar -v --type js --charset utf-8 -o $appnew/app.min.js $appnew/$time.js > $appnew/min.log 2>&1
+    #java -jar /home/web/yuicompressor-2.4.8.jar -v --type js --charset utf-8 -o $appnew/app.min.js $appnew/$time.js > $appnew/min.js.log 2>&1
     uglifyjs --mangle --screw-ie8 -v -o $appnew/app.min.js -- $appnew/$time.js > $appnew/min.js.log 2>&1
     if [ $? -ne 0 ]; then
-        cat $appnew/min.log
+        cat $appnew/min.js.log
         echo "new app failed: $appnew"
         exit 1;
     fi
@@ -51,7 +51,7 @@ if [ -d "$appdir" ]; then
 
     java -jar /home/web/yuicompressor-2.4.8.jar -v --type css --charset utf-8 -o $appnew/app.min.css $appnew/$time.css > $appnew/min.css.log 2>&1
     if [ $? -ne 0 ]; then
-        cat $appnew/min.log
+        cat $appnew/min.css.log
         echo "new app failed: $appnew"
         exit 1;
     fi
