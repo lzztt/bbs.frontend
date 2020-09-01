@@ -113,6 +113,10 @@ Disallow:
 User-agent: Adsbot-Google
 Disallow:
 
+# facebook ads
+User-agent: facebookexternalhit/1.1
+Disallow:
+
 User-agent: *
 Disallow: /
 
