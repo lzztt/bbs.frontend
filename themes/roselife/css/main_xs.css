@@ -72,7 +72,7 @@ a#logo img
    vertical-align: bottom;
 }
 
-header#page_header span 
+header#page_header span
 {
    display: inline-block;
    vertical-align: bottom;
@@ -112,7 +112,7 @@ div#messagebox, div#popupbox
    padding: 10px 3px;
    position: absolute;
    top: 0;
-   left: 0;   
+   left: 0;
    min-width: 310px;
    min-height: 50px;
    z-index: 9999;
@@ -171,7 +171,7 @@ th, td
 @media (max-width: 767px) {
 
    /* Force table to not be like tables anymore */
-   table, caption, thead, tbody, th, td, tr { 
+   table, caption, thead, tbody, th, td, tr {
       display: block;
       box-sizing: border-box;
    }
@@ -180,12 +180,12 @@ th, td
       display: none;
    }
 
-   td { 
+   td {
       /* Behave  like a "row" */
       border: none;
       /*border-bottom: 1px dashed #ccc;*/
       position: relative;
-      padding-left: 25%; 
+      padding-left: 25%;
    }
 
    td:first-child
@@ -197,14 +197,14 @@ th, td
       border-bottom: 0;
    }
 
-   td:before { 
+   td:before {
       content: attr(data-header);
       /* Now like a table header */
       position: absolute;
       /* Top/left values mimic padding */
       top: 0;
       left: 0;
-      width: 25%; 
+      width: 25%;
       padding: 0.3em;
       white-space: nowrap;
       color: #006666;
@@ -399,6 +399,30 @@ ul.tabs li.active a {
    animation: spin 1s infinite linear;
 }
 /* END SPINNER */
+
+/* BEGIN IMAGE LIST */
+div#file_list {
+   display: flex;
+   flex-wrap: wrap;
+   align-items: flex-end;
+ }
+
+ div#file_list figure {
+   margin: 0.2em;
+ }
+
+ div#file_list figcaption {
+   width: 200px;
+ }
+
+ div#file_list label {
+   margin-right: 0.2em;
+ }
+
+ div#file_list input {
+   margin: 0.2em 0;
+ }
+ /* END IMAGE LIST */
 
 #copyright
 {
@@ -613,7 +637,7 @@ table.forum-topics tr > *:first-child
    border: 0;
 }
 
-table.forum-topics tr > *:first-child:before 
+table.forum-topics tr > *:first-child:before
 {
    content: '\263A';
    display: inline-block;
@@ -667,9 +691,9 @@ section.activities a.activity_future:before
    display: block;
    text-align: center;
    background-color: #b7fcb7;
-   padding: 0.2em 0.5em;  
+   padding: 0.2em 0.5em;
 }
-#yp_list, #yp_list ul 
+#yp_list, #yp_list ul
 {
    padding: 0;
    margin:  0;
@@ -741,7 +765,7 @@ section.activities a.activity_future:before
 {
    text-align: right;
    font-size: 0.929em;
-   color: gray; 
+   color: gray;
 }
 /* END YP BCARD */
 
@@ -791,7 +815,7 @@ table.pm_list tr > *:first-child
 /* END PM LIST */
 
 /* BEGIN USER FORMS */
-input.name 
+input.name
 {
    width: 30%;
 }

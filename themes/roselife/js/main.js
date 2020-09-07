@@ -222,8 +222,14 @@ $(document).ready(function () {
          {
             var editorBody = $('#bbcode_editor textarea'),
                 editorTitle = $('#bbcode_editor .node_title'),
-                fileTable = $('#file_list'),
-                fileTableBody = $('tbody', fileTable);
+                blobs = new Map(),
+                reducer = window.imageBlobReduce(),
+                fileList = $('#file_list'),
+                template = null;
+
+            if (fileList.get(0)) {
+                template = fileList.get(0).parentElement.querySelector('template').content;
+            }
 
             editorBody.markItUp(myBBCodeSettings);
 
@@ -257,11 +263,15 @@ $(document).ready(function () {
                }
             });
 
+            function clearFiles() {
+               fileList.children().remove();
+               blobs.clear();
+            }
+
             $('button.reply').click(function (e) {
                editorForm.attr('action', $(this).attr('data-action'));
                editorTitle.hide();
-               fileTable.hide();
-               fileTableBody.children().remove();
+               clearFiles();
 
                editorBody.val('').focus();
 
@@ -271,8 +281,7 @@ $(document).ready(function () {
             $('button.quote').click(function (e) {
                editorForm.attr('action', $(this).attr('data-action'));
                editorTitle.hide();
-               fileTable.hide();
-               fileTableBody.children().remove();
+               clearFiles();
                var data = $($(this).attr('data-raw'));
                var author = data.find('pre.username').html(),
                    quoteText = '[quote="' + author + '"]' + data.find('pre.body').html() + '[/quote]\n';
@@ -284,25 +293,34 @@ $(document).ready(function () {
                window.scrollTo(0, editorForm.offset().top);
             });
 
-            var updateFileTable = function (files) {
+            var updateFileList = function (files) {
+               var images = fileList.get(0);
+
                for (var i = 0; i < files.length; i++) {
-                  var fid = files[i].fid ? files[i].fid : files[i].path,
-                      imageExt = new Array('jpeg', 'gif', 'png'),
-                      fileExt = files[i].path.split('.').pop(),
-                      bbcode;
+                  var figure = template.cloneNode(true);
 
-                  if (imageExt.indexOf(fileExt) >= 0) {
-                     bbcode = '[img]' + files[i].path + '[/img]';
-                  }
-                  else {
-                     bbcode = '[file="' + files[i].path + '"]' + files[i].name + '[/file]';
-                  }
+                  var img = figure.querySelector('img');
+                  img.src = files[i].path;
 
-                  var row = '<tr><td><input type="text" name="files[' + fid + '][name]" value="' + files[i].name + '"><input type="hidden" name="files[' + fid + '][path]" value="' + files[i].path + '"></td>' +
-                      '<td>' + bbcode + '</td><td><button type="button" class="file_delete">删除</button></td></tr>';
-                  fileTableBody.append(row);
+                  var button = figure.querySelector('button');
+                  button.onclick = function (e) {
+                     var fig = this.parentElement.parentElement;
+                     fig.parentElement.removeChild(fig);
+                  };
+
+                  var idInput = figure.querySelector('input[name="file_id[]"]');
+                  idInput.disabled = false;
+                  idInput.value = files[i].id;
+
+                  var nameInput = figure.querySelector('input[name="file_name[]"]');
+                  nameInput.disabled = false;
+                  nameInput.value = files[i].name;
+
+                  var codeInput = figure.querySelector('input[name="file_code[]"]');
+                  codeInput.value = '[img]' + files[i].path + '[/img]';
+
+                  images.appendChild(figure);
                }
-               addTableHeader(fileTable);
             }
 
             $('button.edit').click(function (e) {
@@ -317,18 +335,13 @@ $(document).ready(function () {
                   editorTitle.hide();
                }
 
-               fileTableBody.children().remove();
+               clearFiles();
                var data = $($(this).attr('data-raw'));
                var files = $.parseJSON(data.find('pre.files').html()); // may return null
 
                if (files instanceof Array && files.length > 0)
                {
-                  updateFileTable(files);
-                  fileTable.show();
-               }
-               else
-               {
-                  fileTable.hide();
+                  updateFileList(files);
                }
 
                editorBody.val($($(this).attr('data-raw')).find('pre.body').html()).focus();
@@ -339,8 +352,7 @@ $(document).ready(function () {
             $('button.create_node').click(function (e) {
                editorForm.attr('action', $(this).attr('data-action'));
                editorTitle.show();
-               fileTable.hide();
-               fileTableBody.children().remove();
+               clearFiles();
 
                editorBody.val('');
                $('input', editorTitle).val('').focus();
@@ -348,90 +360,92 @@ $(document).ready(function () {
                window.scrollTo(0, editorForm.offset().top);
             });
 
-            $('#file_upload').click(function (e) {
-               var file = $('#file_select');
-               if (file.val().length > 0)
-               {
-                  var totalSize = 0, files = file.get(0).files;
-                  if (files)
-                  {
-                     // check count
-                     if (files.length > 5)
-                     {
-                        alert('一次只能上传 5 张图片');
-                        return;
-                     }
-                     // check total file size
-                     for (i = 0; i < files.length; i++)
-                     {
-                        totalSize += files[i].size;
-                        if (totalSize > 5242880)
-                        {
-                           alert('一次只能上传图片的总大小为 5 MB，您只能选择前 ' + i + ' 张图片上传');
-                           return;
-                        }
-                     }
+            if (template) {
+               document.getElementById('file_select').onchange = function (e) {
+                  var fileInput = e.target;
+                  var file = fileInput.files[0];
+                  var images = fileList.get(0);
+                  if (!file) {
+                     return;
                   }
-                  var button = $(this);
-                  button.prepend('<span class="spinner"></span>');
-                  button.prop("disabled", true);
 
-                  file.upload('/api/file?action=post', function (res) {
-                     file.val('');
-                     button.prop("disabled", false);
-                     button.find('span.spinner').remove();
-                     if (res) {
-                        try {
-                           if (res.error && res.error.length > 0) {
-                              var msg = '';
-                              if (Object.prototype.toString.call(res.error) === '[object Array]') {
-                                 for (var i = 0; i < res.error.length; i++) {
-                                    msg = msg + res.error[i].name + ' : ' + res.error[i].error + "\n";
-                                 }
-                              }
-                              else // string
-                              {
-                                 msg = res.error;
-                              }
-                              alert(msg);
-                           }
+                  var id = Math.random().toString(36).substring(2, 5);
 
-                           if (res.saved && res.saved.length > 0) {
-                              updateFileTable(res.saved);
-                              fileTable.show();
-                           }
-                        }
-                        catch (e)
+                  reducer
+                     .toBlob(
+                        file,
                         {
-                           alert('上传文件失败，请换用其他浏览器上传文件。错误信息:' + e.message);
-                           submitBug({msg: e.message, data: res});
+                           max: 600,
+                           unsharpAmount: 80,
+                           unsharpRadius: 0.6,
+                           unsharpThreshold: 2
                         }
-                     }
-                  });
-               }
-            });
+                     )
+                     .then(function (blob) {
+                        fileInput.value = null;
+                        blobs.set(id, blob);
 
-            $('#file_clear').click(function () {
-               $('#file_select').val('');
-            });
+                        var figure = template.cloneNode(true);
 
-            fileTable.on("click", ".file_delete", function (e) {
-               //$(".file_delete", fileTable).live("click", function(e) {
-               var row = this.parentNode.parentNode;
-               var table = row.parentNode.parentNode;
-               table.deleteRow(row.rowIndex);
-               if (table.rows.length <= 1)
-               {
-                  fileTable.hide();
-               }
-            });
+                        var img = figure.querySelector('img');
+                        img.src = URL.createObjectURL(blob);
+                        img.onload = function () {
+                           URL.revokeObjectURL(img.src);
+                        };
+
+                        var button = figure.querySelector('button');
+                        button.onclick = function () {
+                           var fig = this.parentElement.parentElement;
+                           fig.parentElement.removeChild(fig);
+                           blobs.delete(id);
+                        };
+
+                        var idInput = figure.querySelector('input[name="file_id[]"]');
+                        idInput.disabled = false;
+                        idInput.value = id;
+
+                        var nameInput = figure.querySelector('input[name="file_name[]"]');
+                        nameInput.disabled = false;
+                        nameInput.value = file.name;
+
+                        images.appendChild(figure);
+                     });
+               };
+            }
 
             $('#bbcode_editor button:submit').click(function (e) {
-               if ($('#file_select').val())
-               {
-                  alert('请先上传或清空选中的文件');
-                  e.preventDefault();
-               }
+               e.preventDefault();
+
+               var formData = new FormData(editorForm.get(0));
+               formData.getAll('file_id[]').forEach(id => {
+                  if (blobs.has(id)) {
+                     formData.append(id, blobs.get(id), id);
+                  }
+               });
+
+               fetch(editorForm.attr('action'), {
+                  method: 'POST',
+                  body: formData,
+               })
+                  .then(response => response.json())
+                  .then(data => {
+                     validateResponse(data);
+
+                     if (data.redirect) {
+                        blobs.clear();
+
+                        var a = document.createElement('a');
+                        a.href = data.redirect;
+
+                        if (window.location.href.replace(/#.*/, '') == a.href.replace(/#.*/, '')) {
+                           window.location.reload();
+                        } else {
+                           window.location.assign(a.href);
+                        }
+                     }
+                  }).catch(error => {
+                     alert(error);
+                  });
             });
 
             $('button.bookmark').click(function () {
