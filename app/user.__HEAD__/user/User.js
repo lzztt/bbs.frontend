@@ -48,8 +48,8 @@ var User = {
       var answer = confirm('此操作不可恢复，确认删除此用户: ' + user.username + ' (' + uid + ')?');
       if (answer) {
         m.request({
-            method: "GET",
-            url: '/api/user/' + uid + '?action=delete'
+            method: "DELETE",
+            url: '/api/user/' + uid
           })
           .then(function(data) {
             if (validateResponse(data)) {
@@ -77,8 +77,8 @@ var User = {
 
         // send changes to server
         m.request({
-            method: "POST",
-            url: "/api/user/" + user.id + "?action=put",
+            method: "PUT",
+            url: "/api/user/" + user.id,
             data: self.edit,
             background: true,
             serialize: function(data) {
@@ -105,7 +105,8 @@ var User = {
           $(el).imageCropper({
             windowWidth: 120,
             windowHeight: 120,
-            uploadURL: "/api/user/" + uid + "?action=put",
+            uploadURL: "/api/user/" + uid,
+            method: 'PUT',
             uploadName: "avatar",
             defaultImage: avatar
           });

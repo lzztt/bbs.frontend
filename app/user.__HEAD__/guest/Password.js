@@ -165,8 +165,8 @@ Password.Setter = function(success) {
     }
 
     m.request({
-        method: "POST",
-        url: "/api/user/" + self.security() + "?action=put",
+        method: "PUT",
+        url: "/api/user/" + self.security(),
         data: {
           password: self.password()
         },

@@ -13,7 +13,7 @@ adApp.controller('AddCtrl', ['$scope', '$routeParams', '$cookies', '$http', '$lo
 
       $scope.navbar = getNavbar(adLinks, $location.path().substring(1));
       $scope.addAd = function () {
-         $http.post('/api/ad?action=post', 'name=' + encodeURIComponent($scope.name) + '&email=' + encodeURIComponent($scope.email) + '&type_id=' + $scope.type_id, {
+         $http.post('/api/ad', 'name=' + encodeURIComponent($scope.name) + '&email=' + encodeURIComponent($scope.email) + '&type_id=' + $scope.type_id, {
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
             if (validateResponse(data)) {
                alert('广告添加成功:' + data.name + ' : ' + data.email);

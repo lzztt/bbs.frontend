@@ -1,5 +1,5 @@
 function submitBug(msg) {
-   $.post('/api/bug?action=post', msg);
+   $.post('/api/bug', msg);
 }
 
 var session = {
@@ -468,7 +468,9 @@ $(document).ready(function () {
             {
                if (nids) {
                   button.prop("disabled", true);
-                  $.get('/api/bookmark/' + nids.join() + '?action=delete', function () {
+                  fetch('/api/bookmark/' + nids.join(), {
+                     method: 'DELETE',
+                  }).then(() => {
                      button.text('编辑');
                      $('button.delete_bookmark').hide();
                      nids = [];
@@ -551,7 +553,8 @@ $(document).ready(function () {
                 + '<fieldset><label class="label">新密码</label><input name="password" type="password" required></fieldset>'
                 + '<fieldset><label class="label">确认新密码</label><input name="password2" type="password" required></fieldset>'
                 + '<fieldset><button type="submit">更改密码</button></fieldset></form>',
-            handler: '/api/user/[uid]?action=put',
+            handler: '/api/user/[uid]',
+            method: 'PUT',
             vars: {uid: cache.get('uid')},
             success: function (data) {
                if (validateResponse(data)) {
@@ -602,6 +605,7 @@ $(document).ready(function () {
 
             var html = popupForms[key].html;
             var handler = popupForms[key].handler;
+            var method = popupForms[key].method ? popupForms[key].method : 'POST';
 
             // apply varibles
             var vars = {};
@@ -633,7 +637,7 @@ $(document).ready(function () {
                e.preventDefault();
                if (handler) {
                   $.ajax({
-                     method: "POST",
+                     method: method,
                      url: handler,
                      data: form.serialize(),
                      dataType: 'json',

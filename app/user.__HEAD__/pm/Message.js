@@ -23,8 +23,8 @@ var Message = {
         if (answer) {
           var msgs = self.msgs().msgs;
           m.request({
-            method: "GET",
-            url: "/api/message/" + msgs[index].id + "?action=delete"
+            method: "DELETE",
+            url: "/api/message/" + msgs[index].id
           }).then(function(data) {
             if (validateResponse(data)) {
               if (index === 0) {

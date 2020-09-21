@@ -9,7 +9,6 @@ js/jquery.hoverIntent.js
 js/jquery.superfish.js
 js/jquery.markitup.js
 js/jquery.markitup.bbcode.set.js
-js/jquery.upload-1.0.2.js
 js/image-blob-reduce.js
 js/main.js
 '

@@ -23,7 +23,7 @@ adApp.controller('PaymentCtrl', ['$scope', '$routeParams', '$cookies', '$http', 
 
       $scope.addPayment = function () {
          var date = $scope.time.getFullYear() + '-' + ($scope.time.getMonth() + 1) + '-' + $scope.time.getDate();
-         $http.post('/api/adpayment?action=post', 'ad_id=' + $scope.ad.id + '&amount=' + $scope.amount + '&time=' + date + '&ad_time=' + $scope.ad_time + '&comment=' + encodeURIComponent($scope.comment), {
+         $http.post('/api/adpayment', 'ad_id=' + $scope.ad.id + '&amount=' + $scope.amount + '&time=' + date + '&ad_time=' + $scope.ad_time + '&comment=' + encodeURIComponent($scope.comment), {
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).success(function (data) {
             if (validateResponse(data)) {
                var expDate = new Date(data.expTime * 1000);

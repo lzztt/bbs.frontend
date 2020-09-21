@@ -58,8 +58,8 @@ var Bookmark = {
         }
 
         m.request({
-          method: "GET",
-          url: "/api/bookmark/" + nid.substring(0, nid.length - 1) + "?action=delete"
+          method: "DELETE",
+          url: "/api/bookmark/" + nid.substring(0, nid.length - 1)
         }).then(function(data) {
           if (validateResponse(data)) {
             var p = self.bookmarks().pager;

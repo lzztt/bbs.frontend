@@ -7,8 +7,8 @@ var Logout = {
     var sessionID = session.getID();
     if (sessionID) {
       m.request({
-        method: "GET",
-        url: "/api/authentication/" + sessionID + "?action=delete",
+        method: "DELETE",
+        url: "/api/authentication/" + sessionID,
         background: true
       });
     }

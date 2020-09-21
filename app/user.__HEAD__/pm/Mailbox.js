@@ -67,8 +67,8 @@ var Mailbox = {
         }
 
         m.request({
-          method: "GET",
-          url: "/api/message/" + mid.substring(0, mid.length - 1) + "?action=delete"
+          method: "DELETE",
+          url: "/api/message/" + mid.substring(0, mid.length - 1)
         }).then(function(data) {
           if (validateResponse(data)) {
             var p = self.messages().pager;
