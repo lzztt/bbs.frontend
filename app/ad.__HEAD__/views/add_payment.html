@@ -1,9 +1,0 @@
-<div ng-bind-html="navbar"></div>
-<form accept-charset="UTF-8" autocomplete="off" ng-submit="addPayment()">
-   <fieldset><label class="label">广告名称</label><select ng-model="ad" class="form_element" name="ad" ng-options="a.name for a in ads"></select></fieldset>
-   <fieldset><label class="label" data-help="付款金额，单位为美元">金额 ($)</label><input size="22" name="amount" type="text" ng-model="amount" required></fieldset>
-   <fieldset><label class="label" data-help="付款时间">付款时间</label><input size="22" name="time" type="date" ng-model="time" required></fieldset>
-   <fieldset><label class="label" data-help="广告有效时间，单位为月">广告时间 (月)</label><input size="22" name="ad_time" type="text" ng-model="ad_time" required></fieldset>
-   <fieldset><label class="label" data-help="付款备注">备注</label><textarea rows="5" cols="50" name="comment" ng-model="comment" required></textarea></fieldset>
-   <fieldset><button type="submit">添加付款</button></fieldset>
-</form>
