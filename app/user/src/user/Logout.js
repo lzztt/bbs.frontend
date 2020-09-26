@@ -1,9 +1,18 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
+import { session, cache, validateLoginSession } from "../lib/common";
 
-import { validateLoginSession } from "../lib/common";
+function Logout({ setLoggedIn }) {
+  const sessionId = session.getId();
+  if (sessionId) {
+    fetch("/api/authentication/" + sessionId, {
+      method: "DELETE",
+    });
+  }
 
-function Logout() {
-  return <h2>Logout</h2>;
+  cache.remove("uid");
+  setLoggedIn(false);
+  return <Redirect to="/login" />;
 }
 
 export default Logout;

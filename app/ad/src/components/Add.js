@@ -29,7 +29,7 @@ export default function Add() {
   };
 
   return (
-    <form onSubmit={handleSubmit} acceptCharset="UTF-8" autoComplete="off">
+    <form onSubmit={handleSubmit} autoComplete="off">
       <fieldset>
         <label>名称</label>
         <input

@@ -10,7 +10,7 @@ export default function App() {
   const userId = cache.get("uid");
   if (!sessionId || sessionId !== cache.get("sessionID") || !userId) {
     session.set("redirect", window.location.href);
-    window.location.href = "/app/user/login";
+    window.location.replace("/app/user/login");
     return;
   }
 

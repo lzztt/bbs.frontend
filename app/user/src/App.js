@@ -1,22 +1,55 @@
-import React from "react";
-import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  NavLink,
+  Redirect,
+} from "react-router-dom";
 import { validateLoginSession } from "./lib/common";
 import "./App.css";
 import Login from "./guest/Login";
 import Password from "./guest/Password";
 import Register from "./guest/Register";
-import User from './user/User'
-import Bookmark from './user/Bookmark'
-import Logout from './user/Logout'
-import Mailbox from './pm/Mailbox'
+import User from "./user/User";
+import Bookmark from "./user/Bookmark";
+import Logout from "./user/Logout";
+import Mailbox from "./pm/Mailbox";
+
+const NOT_FOUND = "Not Found!";
+const isLoggedIn = validateLoginSession();
+
+// A wrapper for <Route> that redirects to the login
+// screen if you're not yet authenticated.
+function PrivateRoute({ children, isAuthenticated, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        isAuthenticated ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
+  );
+}
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(isLoggedIn);
+
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <div>
         <nav className="navbar">
           <a href="/">首页</a>
-          {validateLoginSession() ? (
+          {loggedIn ? (
             <>
               <NavLink to="/" exact>
                 我的账户
@@ -36,38 +69,34 @@ function App() {
 
         <Switch>
           <Route path="/login">
-            <Login />
+            {loggedIn ? NOT_FOUND : <Login setLoggedIn={setLoggedIn} />}
           </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/password">
-            <Password />
-          </Route>
-          <Route path="/mailbox">
+          <Route path="/register">{loggedIn ? NOT_FOUND : <Register />}</Route>
+          <Route path="/password">{loggedIn ? NOT_FOUND : <Password />}</Route>
+          <PrivateRoute path="/mailbox" isAuthenticated={loggedIn}>
             <Mailbox />
-          </Route>
-          <Route path="/bookmark">
+          </PrivateRoute>
+          <PrivateRoute path="/bookmark" isAuthenticated={loggedIn}>
             <Bookmark />
+          </PrivateRoute>
+          <Route path="/logout">
+            {!loggedIn ? (
+              <Redirect to="/login" />
+            ) : (
+              <Logout setLoggedIn={setLoggedIn} />
+            )}
           </Route>
           <Route path="/" exact>
-            <User />
+            {!loggedIn ? <Redirect to="/login" /> : <User />}
           </Route>
         </Switch>
       </div>
     </BrowserRouter>
   );
 }
-//   "/app/user": AppHome,
-//   "/app/user/login": Login,
-//   "/app/user/register": Register,
-//   "/app/user/password": Password,
-//   "/app/user/logout": Logout,
-//   "/app/user/bookmark": Bookmark,
 //   "/app/user/:uid": User,
 //   "/app/user/mailbox/inbox": Mailbox,
 //   "/app/user/mailbox/sent": Mailbox,
 //   "/app/user/pm/:mid": Message,
-//   "/:arg...": Redirect
 
 export default App;
