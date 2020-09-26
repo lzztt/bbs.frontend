@@ -63,44 +63,64 @@ export const cache = {
 
 export const rest = {
   get: async (url) => {
-    const response = await fetch(url);
-    return response.json();
+    try {
+      const response = await fetch(url);
+      return await response.json();
+    } catch (error) {
+      alert(error);
+    }
   },
   post: async (url, data) => {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    return response.json();
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      return await response.json();
+    } catch (error) {
+      alert(error);
+    }
   },
   put: async (url, data) => {
-    const response = await fetch(url, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    return response.json();
+    try {
+      const response = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      return await response.json();
+    } catch (error) {
+      alert(error);
+    }
   },
   patch: async (url, data) => {
-    const response = await fetch(url, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    return response.json();
+    try {
+      const response = await fetch(url, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      return await response.json();
+    } catch (error) {
+      alert(error);
+    }
   },
   delete: async (url) => {
-    const response = await fetch(url, {
-      method: "DELETE",
-    });
-    return response.json();
+    try {
+      const response = await fetch(url, {
+        method: "DELETE",
+      });
+      return await response.json();
+    } catch (error) {
+      alert(error);
+    }
   },
 };
 
