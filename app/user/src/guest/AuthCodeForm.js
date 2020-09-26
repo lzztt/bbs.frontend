@@ -5,16 +5,16 @@ import { validateResponse } from "../lib/common";
 const randomId = () => Math.random().toString().slice(2);
 const initId = randomId();
 
-function AuthCodeForm(props) {
+function AuthCodeForm({ handler, submit, next, children }) {
   const [id, setId] = useState(initId);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [captcha, setCaptcha] = useState("");
-  const [next, setNext] = useState(false);
+  const [goToNext, setGoToNext] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch(props.handler, {
+    fetch(handler, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,13 +32,15 @@ function AuthCodeForm(props) {
             "安全验证码已经发送到您的邮箱，请及时查收。\n" +
               "邮件可能会有几分钟延迟，或者在垃圾箱。"
           );
-          setNext(true);
+          setGoToNext(true);
+        } else {
+          setId(randomId());
         }
       });
   };
 
-  return next ? (
-    props.next
+  return goToNext ? (
+    next
   ) : (
     <form onSubmit={handleSubmit}>
       <fieldset>
@@ -80,9 +82,9 @@ function AuthCodeForm(props) {
           </div>
         </fieldset>
       )}
-      {props.children}
+      {children}
       <fieldset>
-        <button type="submit">{props.submit}</button>
+        <button type="submit">{submit}</button>
       </fieldset>
     </form>
   );
