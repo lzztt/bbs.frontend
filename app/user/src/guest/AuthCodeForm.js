@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { validateResponse } from "../lib/common";
+import { rest, validateResponse } from "../lib/common";
 
 const randomId = () => Math.random().toString().slice(2);
 const initId = randomId();
@@ -14,18 +14,12 @@ function AuthCodeForm({ handler, submit, next, children }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch(handler, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    rest
+      .post(handler, {
         username,
         email,
         captcha,
-      }),
-    })
-      .then((response) => response.json())
+      })
       .then((data) => {
         if (validateResponse(data)) {
           alert(

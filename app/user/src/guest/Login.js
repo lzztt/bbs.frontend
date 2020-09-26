@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
-import { cache, session, validateResponse } from "../lib/common";
+import { cache, rest, session, validateResponse } from "../lib/common";
 
 function Login({ setLoggedIn }) {
   const [email, setEmail] = useState("");
@@ -11,17 +11,11 @@ function Login({ setLoggedIn }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch("/api/authentication", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    rest
+      .post("/api/authentication", {
         email: email,
         password: password,
-      }),
-    })
-      .then((response) => response.json())
+      })
       .then((data) => {
         if (validateResponse(data)) {
           if (data.sessionID && data.uid) {

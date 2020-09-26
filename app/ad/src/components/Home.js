@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { validateResponse } from "../lib/common";
+import { rest, validateResponse } from "../lib/common";
 
 const toDate = (timestamp) => new Date(timestamp * 1000).toLocaleDateString();
 
@@ -8,20 +8,16 @@ export default function Home() {
   const [payments, setPayments] = useState([]);
 
   useEffect(() => {
-    fetch("/api/ad")
-      .then((response) => response.json())
-      .then((data) => {
-        if (validateResponse(data)) {
-          setAds(data);
-        }
-      });
-    fetch("/api/adpayment")
-      .then((response) => response.json())
-      .then((data) => {
-        if (validateResponse(data)) {
-          setPayments(data);
-        }
-      });
+    rest.get("/api/ad").then((data) => {
+      if (validateResponse(data)) {
+        setAds(data);
+      }
+    });
+    rest.get("/api/adpayment").then((data) => {
+      if (validateResponse(data)) {
+        setPayments(data);
+      }
+    });
   }, []);
 
   return (

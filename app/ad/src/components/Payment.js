@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { validateResponse } from "../lib/common";
+import { rest, validateResponse } from "../lib/common";
 import "./Form.css";
 
 export default function Payment() {
@@ -11,31 +11,23 @@ export default function Payment() {
   const [comment, setComment] = useState("");
 
   useEffect(() => {
-    fetch("/api/ad/name")
-      .then((response) => response.json())
-      .then((data) => {
-        if (validateResponse(data)) {
-          setAds(data);
-        }
-      });
+    rest.get("/api/ad/name").then((data) => {
+      if (validateResponse(data)) {
+        setAds(data);
+      }
+    });
   }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch("/api/adpayment", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    rest
+      .post("/api/adpayment", {
         adId,
         amount,
         time,
         adTime,
         comment,
-      }),
-    })
-      .then((response) => response.json())
+      })
       .then((data) => {
         if (validateResponse(data)) {
           var expDate = new Date(data.expTime * 1000);

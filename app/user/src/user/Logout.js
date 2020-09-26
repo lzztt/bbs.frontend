@@ -1,13 +1,11 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import { session, cache, validateLoginSession } from "../lib/common";
+import { session, cache, rest } from "../lib/common";
 
 function Logout({ setLoggedIn }) {
   const sessionId = session.getId();
   if (sessionId) {
-    fetch("/api/authentication/" + sessionId, {
-      method: "DELETE",
-    });
+    rest.delete("/api/authentication/" + sessionId);
   }
 
   cache.remove("uid");

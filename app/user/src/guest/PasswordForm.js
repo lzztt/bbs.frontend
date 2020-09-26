@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import { validateResponse } from "../lib/common";
+import { rest, validateResponse } from "../lib/common";
 
 function PasswordForm() {
   const [code, setCode] = useState("");
@@ -15,16 +15,10 @@ function PasswordForm() {
       alert("两次输入的密码不一致，请重新输入。");
       return;
     }
-    fetch("/api/user/" + code, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    rest
+      .put("/api/user/" + code, {
         password,
-      }),
-    })
-      .then((response) => response.json())
+      })
       .then((data) => {
         if (validateResponse(data)) {
           alert("密码设置成功，您现在可以登陆。");
@@ -32,8 +26,6 @@ function PasswordForm() {
         }
       });
   };
-
-  // redirect here?
 
   return (
     <form onSubmit={handleSubmit}>
