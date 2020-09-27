@@ -6,7 +6,8 @@ import IndeterminateCheckBoxIcon from "@material-ui/icons/IndeterminateCheckBox"
 import DeleteIcon from "@material-ui/icons/Delete";
 import Pagination from "@material-ui/lab/Pagination";
 
-import { rest, toLocalDateString, validateResponse } from "../lib/common";
+import { rest, session, toLocalDateString, validateResponse } from "../lib/common";
+import NavTab from "./NavTab";
 
 const set = new Set();
 
@@ -19,6 +20,8 @@ function Mailbox() {
   useEffect(() => {
     loadPage(1);
   }, [mailbox]);
+
+  session.set('mailbox', mailbox);
 
   const loadPage = (i) => {
     rest.get("/api/message/" + mailbox + "?p=" + i).then((data) => {
@@ -72,11 +75,7 @@ function Mailbox() {
 
   return (
     <>
-      <nav className="navbar">
-        <NavLink to="/mailbox/inbox">收件箱</NavLink>
-        <NavLink to="/mailbox/sent">发件箱</NavLink>
-      </nav>
-
+      <NavTab mailbox={mailbox} />
       <ul className="pm_list even_odd_parent">
         <li>
           {selected.size === 0 ? (

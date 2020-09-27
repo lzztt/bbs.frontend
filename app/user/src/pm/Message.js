@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { rest, toLocalDateTimeString } from "../lib/common";
+import { rest, session, toLocalDateTimeString } from "../lib/common";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import EditIcon from "@material-ui/icons/Edit";
+import NavTab from "./NavTab";
 
 const data = {
   msgs: [
@@ -44,6 +45,8 @@ function Message() {
     });
   }, [messageId]);
 
+  const mailbox = session.get("mailbox") || "inbox";
+
   const handleDelete = (id) => {
     console.log(id);
   };
@@ -57,10 +60,7 @@ function Message() {
 
   return (
     <>
-      <nav className="navbar">
-        <Link to="/mailbox/inbox">收件箱</Link>
-        <Link to="/mailbox/sent">发件箱</Link>
-      </nav>
+      <NavTab mailbox={mailbox} />
       <article className="topic">
         {messages.map((msg) => (
           <section key={msg.id}>

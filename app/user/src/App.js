@@ -55,7 +55,16 @@ function App() {
               <NavLink to="/" exact>
                 我的账户
               </NavLink>
-              <NavLink to="/mailbox">短信</NavLink>
+              <NavLink
+                to="/mailbox/inbox"
+                isActive={(match, location) => {
+                  return ["mailbox", "pm"].includes(
+                    location.pathname.split("/")[1]
+                  );
+                }}
+              >
+                短信
+              </NavLink>
               <NavLink to="/bookmark">收藏夹</NavLink>
               <NavLink to="/logout">登出</NavLink>
             </>
