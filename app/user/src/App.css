@@ -372,33 +372,27 @@ dl input[type="radio"]:checked + label {
 
 /* END USER DT DD */
 /* USER TOPICS */
-table.user_topics th {
-  text-align: left;
+ul.user_topics {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-table.user_topics td {
-  overflow: hidden;
-  white-space: nowrap;
+ul.user_topics > li {
+  display: grid;
+  padding: 0.3rem;
 }
-table.user_topics td:first-child {
-  color: #2962ff;
-  text-overflow: ellipsis;
-}
+
 @media (min-width: 768px) {
-  table.user_topics {
-    width: 49%;
-    float: left;
-    margin-right: 1%;
-  }
-  table.user_topics tr > *:nth-child(1) {
-    width: 70%;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  table.user_topics tr > *:nth-child(2) {
-    width: 30%;
+  ul.user_topics > li {
+    grid-template-columns: 70fr 30fr;
   }
 }
 
+ul.user_topics > li > a {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 /* END USER TOPICS */
 /* USER BOOKMARK PAGE */
 ul.bookmarks {

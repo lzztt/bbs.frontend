@@ -78,6 +78,9 @@ function App() {
         </nav>
 
         <Switch>
+          <Route path="/" exact>
+            {!loggedIn ? <Redirect to="/login" /> : <User />}
+          </Route>
           <Route path="/login">
             {loggedIn ? NOT_FOUND : <Login setLoggedIn={setLoggedIn} />}
           </Route>
@@ -102,9 +105,9 @@ function App() {
               <Logout setLoggedIn={setLoggedIn} />
             )}
           </Route>
-          <Route path="/" exact>
-            {!loggedIn ? <Redirect to="/login" /> : <User />}
-          </Route>
+          <PrivateRoute path="/:userId" isAuthenticated={loggedIn}>
+            <User />
+          </PrivateRoute>
         </Switch>
       </div>
     </BrowserRouter>
