@@ -11,7 +11,7 @@ const set = new Set();
 
 function Bookmark() {
   const [selected, setSelected] = useState(set);
-  const [nodes, setNodes] = useState([]);
+  const [nodes, setNodes] = useState(null);
   const [page, setPage] = useState({});
 
   useEffect(() => {
@@ -64,6 +64,10 @@ function Bookmark() {
   const handlePageChange = (event, value) => {
     loadPage(value);
   };
+
+  if (!Array.isArray(nodes)) {
+    return "";
+  }
 
   if (nodes.length === 0) {
     return "收藏夹里还是空空的。 看到感兴趣的帖子，可以点右上角按钮收藏。";

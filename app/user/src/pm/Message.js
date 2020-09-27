@@ -1,44 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { rest, session, toLocalDateTimeString } from "../lib/common";
+import { Link, useParams, useHistory } from "react-router-dom";
+import {
+  rest,
+  session,
+  validateResponse,
+  toLocalDateTimeString,
+} from "../lib/common";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import EditIcon from "@material-ui/icons/Edit";
 import NavTab from "./NavTab";
-
-const data = {
-  msgs: [
-    {
-      id: 761600,
-      time: 1562539042,
-      body: "Houston BBS is not working.",
-      uid: 18817,
-      username: "xkxmin",
-      avatar: "/data/avatars/avatar01.jpg",
-    },
-    {
-      id: 761677,
-      time: 1562563491,
-      body: "嗯，谢谢告知\n现在已经修好了",
-      uid: 1,
-      username: "admin",
-      avatar: "/data/avatars/1-100.png",
-    },
-  ],
-  replyTo: { id: 18817, username: "xkxmin" },
-};
+import MsgEditor from "./MsgEditor";
 
 function Message() {
   const { messageId } = useParams();
-  const [messages, setMessages] = useState([]);
+  const history = useHistory();
+  const [messages, setMessages] = useState(null);
   const [replyTo, setReplyTo] = useState({});
   const [editor, setEditor] = useState(false);
 
   useEffect(() => {
-    if (data) {
-      setMessages(data.msgs);
-      setReplyTo(data.replyTo);
-      return;
-    }
     rest.get("/api/message/" + messageId).then((data) => {
       setMessages(data.msgs);
       setReplyTo(data.replyTo);
@@ -47,40 +27,75 @@ function Message() {
 
   const mailbox = session.get("mailbox") || "inbox";
 
-  const handleDelete = (id) => {
-    console.log(id);
+  const handleDelete = (index) => {
+    var answer = window.confirm(
+      index === 0 ? "整个对话的所有消息将被删除？" : "此条消息将被删除？"
+    );
+    if (answer) {
+      rest.delete("/api/message/" + messages[index].id).then((data) => {
+        if (validateResponse(data)) {
+          if (index === 0) {
+            history.replace("/mailbox/" + mailbox);
+          } else {
+            const tmp = [...messages];
+            tmp.splice(index, 1);
+            setMessages(tmp);
+          }
+        }
+      });
+    }
   };
+
   const handleReply = () => {
     setEditor(true);
   };
 
-  if (editor) {
-    return "editor";
+  const closeEditor = (newMessage) => {
+    if (newMessage) {
+      setMessages([...messages, newMessage]);
+    }
+    setEditor(false);
+  };
+
+  if (!Array.isArray(messages)) {
+    return "";
+  }
+
+  if (messages.length === 0) {
+    return "还没有短信可以显示，开始发送站内短信吧。";
   }
 
   return (
     <>
       <NavTab mailbox={mailbox} />
-      <article className="topic">
-        {messages.map((msg) => (
-          <section key={msg.id}>
-            <header>
-              <Link to={"/app/user/" + msg.uid}>{msg.username}</Link>
-              {toLocalDateTimeString(new Date(msg.time * 1000))}
-            </header>
-            <p>
-              {msg.body}{" "}
-              <DeleteForeverIcon onClick={() => handleDelete(msg.id)} />
-            </p>
-          </section>
-        ))}
-        <div>
-          <button onClick={handleReply}>
-            <EditIcon />
-            回复
-          </button>
-        </div>
-      </article>
+      {editor ? (
+        <MsgEditor
+          replyTo={replyTo}
+          topicMid={messageId}
+          closeEditor={closeEditor}
+        />
+      ) : (
+        <article className="topic">
+          {messages.map((msg, index) => (
+            <section key={msg.id}>
+              <header>
+                <Link to={"/app/user/" + msg.uid}>{msg.username}</Link>
+                {toLocalDateTimeString(new Date(msg.time * 1000))}
+              </header>
+              <p>
+                {msg.body}{" "}
+                <DeleteForeverIcon onClick={() => handleDelete(index)} />
+              </p>
+            </section>
+          ))}
+          <div>
+            <button onClick={handleReply}>
+              <EditIcon />
+              回复
+            </button>
+          </div>
+        </article>
+      )}
     </>
   );
 }

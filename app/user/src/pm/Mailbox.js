@@ -14,7 +14,7 @@ const set = new Set();
 function Mailbox() {
   const { mailbox } = useParams();
   const [selected, setSelected] = useState(set);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(null);
   const [page, setPage] = useState({});
 
   useEffect(() => {
@@ -68,6 +68,10 @@ function Mailbox() {
   const handlePageChange = (event, value) => {
     loadPage(value);
   };
+
+  if (!Array.isArray(messages)) {
+    return "";
+  }
 
   if (messages.length === 0) {
     return "还没有短信可以显示，开始发送站内短信吧。";
