@@ -28,6 +28,7 @@ function AuthCodeForm({ handler, submit, next, children }) {
           );
           setGoToNext(true);
         } else {
+          setCaptcha("");
           setId(randomId());
         }
       });
