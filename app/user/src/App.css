@@ -233,9 +233,15 @@ article.topic section > * {
   margin: 0;
   padding: 0.2rem 0.4rem;
   white-space: pre-wrap;
+  display: flex;
+  align-items: center;
 }
 article.topic header {
   background-color: #ffebcd;
+}
+article.topic button {
+  display: flex;
+  align-items: center;
 }
 
 /* END TOPIC */
@@ -253,29 +259,43 @@ nav.navbar a.active {
   background-color: #ccac00;
 }
 
-/* END NAVbar */
+/* END NAVBAR */
 /* PM LIST */
-table.pm_list {
-  clear: both;
+ul.pm_list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-table.pm_list th {
-  text-align: left;
+ul.pm_list > li {
+  padding: 0.3rem;
 }
-table.pm_list td {
-  overflow: hidden;
+
+ul.pm_list > li:first-child {
+  display: flex;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  ul.pm_list > li:not(:first-child) {
+    display: grid;
+    grid-template-columns: 70fr 15fr 15fr;
+  }
+}
+
+ul.pm_list > li > span {
   white-space: nowrap;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
 }
-table.pm_list td:first-child {
-  color: #2962ff;
+
+ul.pm_list > li > span > a {
+  overflow: hidden;
   text-overflow: ellipsis;
 }
-@media (min-width: 768px) {
-  table.pm_list tr > *:first-child {
-    width: 70%;
-  }
-  table.pm_list tr > *:not(:first-child) {
-    width: 15%;
-  }
+
+ul.pm_list > li > span:first-child svg:first-child {
+  margin-right: 0.3rem;
 }
 
 /* END PM LIST */
@@ -386,8 +406,14 @@ ul.bookmarks {
   margin: 0;
   padding: 0;
 }
-ul.bookmarks li {
+ul.bookmarks > li {
   padding: 0.3rem;
+  display: flex;
+  align-items: center;
+}
+
+ul.bookmarks > li > svg:first-child {
+  margin-right: 0.3rem;
 }
 
 /* END USER BOOKMARK PAGE */

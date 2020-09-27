@@ -18,6 +18,17 @@ function Bookmark() {
     loadPage(1);
   }, []);
 
+  const loadPage = (i) => {
+    const uid = cache.get("uid");
+    rest.get("/api/bookmark/" + uid + "?p=" + i).then((data) => {
+      if (validateResponse(data)) {
+        setSelected(new Set());
+        setNodes(data.nodes);
+        setPage(data.pager);
+      }
+    });
+  };
+
   const add = (id) => {
     const tmp = new Set(selected);
     tmp.add(id);
@@ -33,17 +44,6 @@ function Bookmark() {
   };
   const removeAll = () => {
     setSelected(new Set());
-  };
-
-  const loadPage = (i) => {
-    const uid = cache.get("uid");
-    rest.get("/api/bookmark/" + uid + "?p=" + i).then((data) => {
-      if (validateResponse(data)) {
-        setSelected(new Set());
-        setNodes(data.nodes);
-        setPage(data.pager);
-      }
-    });
   };
 
   const handleDelete = () => {
@@ -70,48 +70,35 @@ function Bookmark() {
   }
 
   return (
-    <>
-      <ul className="bookmarks even_odd_parent">
-        <li
-          style={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          {selected.size === 0 ? (
-            <CheckBoxOutlineBlankIcon onClick={addAll} />
-          ) : selected.size === nodes.length ? (
-            <CheckBoxIcon onClick={removeAll} />
+    <ul className="bookmarks even_odd_parent">
+      <li>
+        {selected.size === 0 ? (
+          <CheckBoxOutlineBlankIcon onClick={addAll} />
+        ) : selected.size === nodes.length ? (
+          <CheckBoxIcon onClick={removeAll} />
+        ) : (
+          <IndeterminateCheckBoxIcon onClick={removeAll} />
+        )}
+        {selected.size > 0 && <DeleteIcon onClick={handleDelete} />}
+        {page.pageCount > 1 && (
+          <Pagination
+            page={page.pageNo}
+            count={page.pageCount}
+            onChange={handlePageChange}
+          />
+        )}
+      </li>
+      {nodes.map((node) => (
+        <li>
+          {selected.has(node.id) ? (
+            <CheckBoxIcon onClick={() => remove(node.id)} />
           ) : (
-            <IndeterminateCheckBoxIcon onClick={removeAll} />
+            <CheckBoxOutlineBlankIcon onClick={() => add(node.id)} />
           )}
-          {selected.size > 0 && <DeleteIcon onClick={handleDelete} />}
-          {page.pageCount > 1 && (
-            <Pagination
-              page={page.pageNo}
-              count={page.pageCount}
-              onChange={handlePageChange}
-            />
-          )}
+          <a href={"/node/" + node.id}>{node.title}</a>
         </li>
-        {nodes.map((node) => (
-          <li
-            key={node.id}
-            style={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            {selected.has(node.id) ? (
-              <CheckBoxIcon onClick={() => remove(node.id)} />
-            ) : (
-              <CheckBoxOutlineBlankIcon onClick={() => add(node.id)} />
-            )}
-            <a href={"/node/" + node.id}>{node.title}</a>
-          </li>
-        ))}
-      </ul>
-    </>
+      ))}
+    </ul>
   );
 }
 

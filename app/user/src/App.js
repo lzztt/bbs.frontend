@@ -15,6 +15,7 @@ import User from "./user/User";
 import Bookmark from "./user/Bookmark";
 import Logout from "./user/Logout";
 import Mailbox from "./pm/Mailbox";
+import Message from "./pm/Message";
 
 const NOT_FOUND = "Not Found!";
 const isLoggedIn = validateLoginSession();
@@ -54,7 +55,7 @@ function App() {
               <NavLink to="/" exact>
                 我的账户
               </NavLink>
-              <NavLink to="/mailbox/inbox">短信</NavLink>
+              <NavLink to="/mailbox">短信</NavLink>
               <NavLink to="/bookmark">收藏夹</NavLink>
               <NavLink to="/logout">登出</NavLink>
             </>
@@ -73,8 +74,14 @@ function App() {
           </Route>
           <Route path="/register">{loggedIn ? NOT_FOUND : <Register />}</Route>
           <Route path="/password">{loggedIn ? NOT_FOUND : <Password />}</Route>
-          <PrivateRoute path="/mailbox" isAuthenticated={loggedIn}>
+          <Route path="/mailbox" exact>
+            <Redirect to="/mailbox/inbox" />
+          </Route>
+          <PrivateRoute path="/mailbox/:mailbox" isAuthenticated={loggedIn}>
             <Mailbox />
+          </PrivateRoute>
+          <PrivateRoute path="/pm/:messageId" isAuthenticated={loggedIn}>
+            <Message />
           </PrivateRoute>
           <PrivateRoute path="/bookmark" isAuthenticated={loggedIn}>
             <Bookmark />
@@ -95,8 +102,6 @@ function App() {
   );
 }
 //   "/app/user/:uid": User,
-//   "/app/user/mailbox/inbox": Mailbox,
-//   "/app/user/mailbox/sent": Mailbox,
 //   "/app/user/pm/:mid": Message,
 
 export default App;
