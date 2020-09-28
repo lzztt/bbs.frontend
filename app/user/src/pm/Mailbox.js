@@ -6,7 +6,12 @@ import IndeterminateCheckBoxIcon from "@material-ui/icons/IndeterminateCheckBox"
 import DeleteIcon from "@material-ui/icons/Delete";
 import Pagination from "@material-ui/lab/Pagination";
 
-import { rest, session, toLocalDateString, validateResponse } from "../lib/common";
+import {
+  rest,
+  session,
+  toLocalDateString,
+  validateResponse,
+} from "../lib/common";
 import NavTab from "./NavTab";
 
 const set = new Set();
@@ -21,7 +26,7 @@ function Mailbox() {
     loadPage(1);
   }, [mailbox]);
 
-  session.set('mailbox', mailbox);
+  session.set("mailbox", mailbox);
 
   const loadPage = (i) => {
     rest.get("/api/message/" + mailbox + "?p=" + i).then((data) => {
@@ -95,6 +100,7 @@ function Mailbox() {
               page={page.pageNo}
               count={page.pageCount}
               onChange={handlePageChange}
+              size="small"
             />
           )}
         </li>
@@ -119,6 +125,24 @@ function Mailbox() {
             <span>{toLocalDateString(new Date(msg.time * 1000))}</span>
           </li>
         ))}
+        <li>
+          {selected.size === 0 ? (
+            <CheckBoxOutlineBlankIcon onClick={addAll} />
+          ) : selected.size === messages.length ? (
+            <CheckBoxIcon onClick={removeAll} />
+          ) : (
+            <IndeterminateCheckBoxIcon onClick={removeAll} />
+          )}
+          {selected.size > 0 && <DeleteIcon onClick={handleDelete} />}
+          {page.pageCount > 1 && (
+            <Pagination
+              page={page.pageNo}
+              count={page.pageCount}
+              onChange={handlePageChange}
+              size="small"
+            />
+          )}
+        </li>
       </ul>
     </>
   );

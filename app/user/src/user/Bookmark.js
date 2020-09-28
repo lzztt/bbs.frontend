@@ -89,6 +89,7 @@ function Bookmark() {
             page={page.pageNo}
             count={page.pageCount}
             onChange={handlePageChange}
+            size="small"
           />
         )}
       </li>
@@ -102,6 +103,24 @@ function Bookmark() {
           <a href={"/node/" + node.id}>{node.title}</a>
         </li>
       ))}
+      <li>
+        {selected.size === 0 ? (
+          <CheckBoxOutlineBlankIcon onClick={addAll} />
+        ) : selected.size === nodes.length ? (
+          <CheckBoxIcon onClick={removeAll} />
+        ) : (
+          <IndeterminateCheckBoxIcon onClick={removeAll} />
+        )}
+        {selected.size > 0 && <DeleteIcon onClick={handleDelete} />}
+        {page.pageCount > 1 && (
+          <Pagination
+            page={page.pageNo}
+            count={page.pageCount}
+            onChange={handlePageChange}
+            size="small"
+          />
+        )}
+      </li>
     </ul>
   );
 }

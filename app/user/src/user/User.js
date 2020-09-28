@@ -37,13 +37,14 @@ const data = {
     { nid: 71933, title: "用户名不存在", createTime: 1445829035 },
   ],
 };
+const mock = window.location.host !== "www.houstonbbs.com";
 
 function User() {
   const [user, setUser] = useState({});
   const userId = useParams().userId || cache.get("uid");
 
   useEffect(() => {
-    if (false && data) {
+    if (mock && data) {
       setUser(data);
       return;
     }
@@ -57,54 +58,73 @@ function User() {
   }
 
   return (
-    <>
-      <figure>
-        <div className="imgCropper">
-          <img src={user.avatar} />
+    <div
+      style={{
+        display: "flex",
+        flexFlow: "row wrap",
+      }}
+    >
+      <div className="user_info">
+        <div>
+          <figure>
+            <div className="imgCropper">
+              <img src={user.avatar} />
+            </div>
+            <figcaption>{user.username}</figcaption>
+          </figure>
+          <button type="button">发短信</button>
+          <button type="button">删除用户</button>
         </div>
-        <figcaption>{user.username}</figcaption>
-      </figure>
-      <button type="button">发送站内短信</button>
-      <button type="button">删除用户</button>
-      <dl>
-        <dt>微信</dt>
-        <dd>{user.wechat}</dd>
-        <dt>个人网站</dt>
-        <dd>{user.website}</dd>
-        <dt>性别</dt>
-        <dd>{user.sex === 1 ? "男" : user.sex === 0 ? "女" : "未知"}</dd>
-        <dt>生日</dt>
-        <dd>{user.birthday}</dd>
-        <dt>职业</dt>
-        <dd>{user.occupation}</dd>
-        <dt>兴趣爱好</dt>
-        <dd>{user.interests}</dd>
-        <dt>自我介绍</dt>
-        <dd>{user.favoriteQuotation}</dd>
-        <dt>论坛声望</dt>
-        <dd>{user.points}</dd>
-        <dt>注册时间</dt>
-        <dd>{toLocalDateString(new Date(user.createTime * 1000))}</dd>
-        <dt>上次登陆时间</dt>
-        <dd>{toLocalDateString(new Date(user.lastAccessTime * 1000))}</dd>
-        <dt>上次登陆地点</dt>
-        <dd>{user.lastAccessCity}</dd>
-      </dl>
-      {[user.topics, user.comments].map((nodes, index) => (
-        <ul key={index} className="user_topics even_odd_parent">
-          <li key={index}>
-            <span>论坛话题</span>
-            <span>发表时间</span>
+        <ul>
+          <li>
+            <label>贡献点数</label>
+            {user.points}
           </li>
-          {nodes.map((node) => (
-            <li key={node.nid}>
-              <a href={"/node/" + node.nid}>{node.title}</a>
-              {toLocalDateString(new Date(node.createTime * 1000))}
-            </li>
-          ))}
+          <li>
+            <label>注册时间</label>
+            {toLocalDateString(new Date(user.createTime * 1000))}
+          </li>
+          <li>
+            <label>最近访问</label>
+            {toLocalDateString(new Date(user.lastAccessTime * 1000))}
+          </li>
+          <li>
+            <label>最近城市</label>
+            {user.lastAccessCity}
+          </li>
         </ul>
-      ))}
-    </>
+        <article
+          style={{
+            width: "100%",
+          }}
+        >
+          <label>自我介绍</label>
+          <p>{user.favoriteQuotation}</p>
+        </article>
+      </div>
+      <ul className="user_topics even_odd_parent">
+        <li>
+          <span>最近发布的话题</span>
+        </li>
+        {user.topics.map((node) => (
+          <li key={node.nid}>
+            <a href={"/node/" + node.nid}>{node.title}</a>
+            {toLocalDateString(new Date(node.createTime * 1000))}
+          </li>
+        ))}
+      </ul>
+      <ul className="user_topics even_odd_parent">
+        <li>
+          <span>最近回复的话题</span>
+        </li>
+        {user.topics.map((node) => (
+          <li key={node.nid}>
+            <a href={"/node/" + node.nid}>{node.title}</a>
+            {toLocalDateString(new Date(node.createTime * 1000))}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
