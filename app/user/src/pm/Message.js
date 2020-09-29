@@ -12,11 +12,11 @@ import NavTab from "./NavTab";
 import MsgEditor from "./MsgEditor";
 
 function Message() {
-  const { messageId } = useParams();
-  const history = useHistory();
   const [messages, setMessages] = useState(null);
   const [replyTo, setReplyTo] = useState({});
   const [editor, setEditor] = useState(false);
+  const { messageId } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     rest.get("/api/message/" + messageId).then((data) => {

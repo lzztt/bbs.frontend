@@ -7,6 +7,7 @@ import {
   validateResponse,
   toLocalDateString,
 } from "../lib/common";
+import MsgEditor from "../pm/MsgEditor";
 
 const data = {
   id: 1,
@@ -41,7 +42,12 @@ const mock = window.location.host !== "www.houstonbbs.com";
 
 function User() {
   const [user, setUser] = useState({});
-  const userId = useParams().userId || cache.get("uid");
+  const [editor, setEditor] = useState(false);
+
+  const params = useParams();
+  const userId = params.userId ? parseInt(params.userId, 10) : cache.get("uid");
+  const isSelf = userId === cache.get("uid");
+  const isAdmin = cache.get("uid") === 1;
 
   useEffect(() => {
     if (mock && data) {
@@ -53,8 +59,35 @@ function User() {
     });
   }, [userId]);
 
+  const deleteUser = () => {
+    const answer = window.confirm(
+      "此操作不可恢复，确认删除此用户: " + user.username + " (" + user.id + ")?"
+    );
+    if (answer) {
+      rest.delete("/api/user/" + user.id).then((data) => {
+        if (validateResponse(data)) {
+          alert(
+            "用户 " + user.username + " ID: " + user.id + " 已经从系统中删除。"
+          );
+        }
+      });
+    }
+  };
+
   if (!user.id) {
     return "";
+  }
+
+  if (editor) {
+    return (
+      <MsgEditor
+        replyTo={{
+          id: user.id,
+          username: user.username,
+        }}
+        closeEditor={() => setEditor(false)}
+      />
+    );
   }
 
   return (
@@ -72,10 +105,26 @@ function User() {
             </div>
             <figcaption>{user.username}</figcaption>
           </figure>
-          <button type="button">发短信</button>
-          <button type="button">删除用户</button>
+          {isSelf && <button type="button">编辑</button>}
+          {!isSelf && (
+            <button type="button" onClick={() => setEditor(true)}>
+              发短信
+            </button>
+          )}
+          {isAdmin && !isSelf && (
+            <button type="button" onClick={deleteUser}>
+              删除用户
+            </button>
+          )}
         </div>
         <ul>
+          <li>
+            <label>社区活力</label>
+            {
+              100
+              // past 7 days, number link to chart
+            }
+          </li>
           <li>
             <label>贡献点数</label>
             {user.points}
