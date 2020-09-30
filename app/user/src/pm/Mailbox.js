@@ -24,6 +24,7 @@ function Mailbox() {
 
   useEffect(() => {
     loadPage(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mailbox]);
 
   session.set("mailbox", mailbox);
@@ -117,7 +118,9 @@ function Mailbox() {
               ) : (
                 <CheckBoxOutlineBlankIcon onClick={() => add(msg.mid)} />
               )}
-              <Link to={"/pm/" + msg.mid}>{msg.body}</Link>
+              <Link to={"/pm/" + msg.mid}>
+                {msg.isNew > 0 ? <b>{msg.body}</b> : msg.body}
+              </Link>
             </span>
             <span>
               <Link to={"/app/user/" + msg.uid}>{msg.user}</Link>

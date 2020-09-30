@@ -1,51 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   rest,
   cache,
-  session,
   validateResponse,
   toLocalDateString,
 } from "../lib/common";
 import MsgEditor from "../pm/MsgEditor";
 import AvatarEditor from "./AvatarEditor";
 
-const data = {
-  id: 1,
-  username: "admin",
-  wechat: null,
-  qq: null,
-  website: null,
-  sex: 1,
-  birthday: 0,
-  relationship: null,
-  occupation: null,
-  interests: null,
-  favoriteQuotation: null,
-  createTime: 1274345250,
-  lastAccessTime: 1600959692,
-  avatar: "/data/avatars/1-100.png",
-  points: 215,
-  status: 1,
-  lastAccessCity: "Mountain View (美国 加利福尼亚州)",
-  topics: [
-    { nid: 144497, title: "网站的站内短信被hack了", createTime: 1556600026 },
-    { nid: 83692, title: "dealer卖车专贴", createTime: 1466464865 },
-    { nid: 51274, title: "刚给数据库瘦了一下身", createTime: 1410668312 },
-  ],
-  comments: [
-    { nid: 144497, title: "网站的站内短信被hack了", createTime: 1556600026 },
-    { nid: 83692, title: "dealer卖车专贴", createTime: 1466464865 },
-    { nid: 71933, title: "用户名不存在", createTime: 1445829035 },
-  ],
-};
-const mock = window.location.host !== "www.houstonbbs.com";
-
 function User() {
   const [user, setUser] = useState({});
   const [messageEditor, setMessageEditor] = useState(false);
+  const [aboutMeEditor, setAboutMeEditor] = useState(false);
   const [avatarImage, setAvatarImage] = useState(null);
   const avatarRef = useRef(null);
+  const textInputRef = useRef(null);
   const params = useParams();
 
   const userId = params.userId ? parseInt(params.userId, 10) : cache.get("uid");
@@ -53,10 +23,6 @@ function User() {
   const isAdmin = cache.get("uid") === 1;
 
   useEffect(() => {
-    if (mock && data) {
-      setUser(data);
-      return;
-    }
     rest.get("/api/user/" + userId).then((data) => {
       setUser(data);
     });
@@ -114,12 +80,19 @@ function User() {
     if (avatar) {
       setUser({ ...user, avatar });
       rest.put("/api/user/" + user.id, { avatar }).then((data) => {
-        if (validateResponse(data)) {
-          setUser(data);
-        }
+        validateResponse(data);
       });
     }
     setAvatarImage(null);
+  };
+
+  const saveAboutMe = () => {
+    const favoriteQuotation = textInputRef.current.value;
+    setUser({ ...user, favoriteQuotation });
+    rest.put("/api/user/" + user.id, { favoriteQuotation }).then((data) => {
+      validateResponse(data);
+    });
+    setAboutMeEditor(false);
   };
 
   if (messageEditor) {
@@ -149,11 +122,15 @@ function User() {
         <div>
           <figure>
             <div ref={avatarRef}>
-              <img src={user.avatar} onClick={changeAvatar} />
+              <img
+                alt="头像图片"
+                src={user.avatar}
+                onClick={changeAvatar}
+                style={{ cursor: "pointer" }}
+              />
             </div>
             <figcaption>{user.username}</figcaption>
           </figure>
-          {isSelf && <button type="button">编辑</button>}
           {!isSelf && (
             <button type="button" onClick={() => setMessageEditor(true)}>
               发短信
@@ -166,7 +143,7 @@ function User() {
           )}
         </div>
         <ul>
-          <li>
+          {/* <li>
             <label>社区活力</label>
             {
               100
@@ -176,7 +153,7 @@ function User() {
           <li>
             <label>贡献点数</label>
             {user.points}
-          </li>
+          </li> */}
           <li>
             <label>注册时间</label>
             {toLocalDateString(new Date(user.createTime * 1000))}
@@ -196,7 +173,27 @@ function User() {
           }}
         >
           <label>自我介绍</label>
-          <p>{user.favoriteQuotation}</p>
+          {isSelf &&
+            (aboutMeEditor ? (
+              <>
+                <button onClick={saveAboutMe}>保存</button>
+                <button onClick={() => setAboutMeEditor(false)}>取消</button>
+              </>
+            ) : (
+              <button onClick={() => setAboutMeEditor(true)}>编辑</button>
+            ))}
+          {aboutMeEditor ? (
+            <textarea rows="5" cols="50" ref={textInputRef}>
+              {user.favoriteQuotation}
+            </textarea>
+          ) : (
+            <p>
+              {user.favoriteQuotation
+                ? user.favoriteQuotation
+                : "还没有自我介绍呢！" +
+                  (isSelf ? "（点击“编辑”按钮可添加）" : "")}
+            </p>
+          )}
         </article>
       </div>
       <ul className="user_topics even_odd_parent">

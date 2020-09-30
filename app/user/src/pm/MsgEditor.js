@@ -4,14 +4,14 @@ import { rest, validateResponse } from "../lib/common";
 
 function MsgEditor({ replyTo, topicMid, onClose }) {
   const [message, setMessage] = useState("");
-  const textInput = useRef(null);
+  const textInputRef = useRef(null);
 
   const sendMessage = (event) => {
     event.preventDefault();
 
     if (message.length < 5) {
       alert("短信内容最少为5个字符");
-      textInput.current.focus();
+      textInputRef.current.focus();
       return;
     }
 
@@ -38,7 +38,7 @@ function MsgEditor({ replyTo, topicMid, onClose }) {
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          ref={textInput}
+          ref={textInputRef}
         />
       </fieldset>
       <fieldset>

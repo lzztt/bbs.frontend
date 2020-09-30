@@ -288,6 +288,7 @@ ul.pm_list > li > span:first-child svg:first-child {
   flex-flow: row wrap;
   width: 100%;
   max-width: 600px;
+  margin: 0.5rem;
 }
 
 .user_info ul {
@@ -325,6 +326,9 @@ ul.user_topics > li {
 }
 
 @media (min-width: 768px) {
+  ul.user_topics {
+    margin: 0.5rem;
+  }
   ul.user_topics > li {
     grid-template-columns: 70fr 30fr;
   }

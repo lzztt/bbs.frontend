@@ -1,13 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  rest,
-  cache,
-  session,
-  validateResponse,
-  toLocalDateString,
-} from "../lib/common";
+import React, { useRef } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
+
+const WIDTH = 128;
+const HEIGHT = 128;
 
 function AvatarEditor({ image, onClose }) {
   const cropperRef = useRef(null);
@@ -40,8 +36,8 @@ function AvatarEditor({ image, onClose }) {
   const crop = () => {
     // Crop
     const croppedCanvas = cropperRef.current.cropper.getCroppedCanvas({
-      width: 100,
-      height: 100,
+      width: WIDTH,
+      height: HEIGHT,
       imageSmoothingEnabled: true,
       imageSmoothingQuality: "high",
     });
@@ -60,19 +56,21 @@ function AvatarEditor({ image, onClose }) {
     <>
       <Cropper
         src={image}
-        style={{ height: 400, width: "100%" }}
+        style={{ maxHeight: 640, width: "100%" }}
         // Cropper.js options
         aspectRatio={1}
         viewMode={1}
-        minCropBoxHeight={100}
-        minCropBoxWidth={100}
+        minCropBoxHeight={HEIGHT}
+        minCropBoxWidth={WIDTH}
         guides={false}
         cropend={crop}
         ready={crop}
         ref={cropperRef}
       />
       <div ref={resultRef}></div>
-      <button onClick={() => onClose(resultRef.current.firstChild.src)}>保存</button>
+      <button onClick={() => onClose(resultRef.current.firstChild.src)}>
+        保存
+      </button>
       <button onClick={() => onClose(null)}>取消</button>
     </>
   );
