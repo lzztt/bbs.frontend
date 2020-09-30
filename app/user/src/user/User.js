@@ -8,6 +8,7 @@ import {
   toLocalDateString,
 } from "../lib/common";
 import MsgEditor from "../pm/MsgEditor";
+import AvatarEditor from "./AvatarEditor";
 
 const data = {
   id: 1,
@@ -42,7 +43,8 @@ const mock = window.location.host !== "www.houstonbbs.com";
 
 function User() {
   const [user, setUser] = useState({});
-  const [editor, setEditor] = useState(false);
+  const [messageEditor, setMessageEditor] = useState(false);
+  const [avatarImage, setAvatarImage] = useState(null);
 
   const params = useParams();
   const userId = params.userId ? parseInt(params.userId, 10) : cache.get("uid");
@@ -59,6 +61,10 @@ function User() {
     });
   }, [userId]);
 
+  if (!user.id) {
+    return "";
+  }
+
   const deleteUser = () => {
     const answer = window.confirm(
       "此操作不可恢复，确认删除此用户: " + user.username + " (" + user.id + ")?"
@@ -74,18 +80,52 @@ function User() {
     }
   };
 
-  if (!user.id) {
-    return "";
-  }
+  const changeAvatar = () => {
+    if (!isSelf) {
+      return;
+    }
 
-  if (editor) {
+    var input = document.createElement("input");
+    input.type = "file";
+    input.style.display = "none";
+    input.addEventListener("change", () => {
+      const file = input.files[0];
+
+      if (!file) {
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = function (evt) {
+        setAvatarImage(reader.result);
+        document.body.removeChild(input);
+      };
+
+      reader.readAsDataURL(file);
+    });
+
+    document.body.appendChild(input);
+    input.click();
+  };
+
+  if (messageEditor) {
     return (
       <MsgEditor
         replyTo={{
           id: user.id,
           username: user.username,
         }}
-        closeEditor={() => setEditor(false)}
+        closeEditor={() => setMessageEditor(false)}
+      />
+    );
+  }
+
+  if (avatarImage) {
+    return (
+      <AvatarEditor
+        image={avatarImage}
+        closeEditor={() => setAvatarImage(null)}
       />
     );
   }
@@ -100,14 +140,14 @@ function User() {
       <div className="user_info">
         <div>
           <figure>
-            <div className="imgCropper">
-              <img src={user.avatar} />
+            <div>
+              <img src={user.avatar} onClick={changeAvatar} />
             </div>
             <figcaption>{user.username}</figcaption>
           </figure>
           {isSelf && <button type="button">编辑</button>}
           {!isSelf && (
-            <button type="button" onClick={() => setEditor(true)}>
+            <button type="button" onClick={() => setMessageEditor(true)}>
               发短信
             </button>
           )}

@@ -70,10 +70,12 @@ function AuthCodeForm({ handler, submit, next, children }) {
               alt="图形验证未能正确显示，请刷新"
               src={"/api/captcha/" + id}
             />
-            <br />
-            <a style={{ cursor: "pointer" }} onClick={() => setId(randomId())}>
+            <div
+              style={{ color: "#2962ff", cursor: "pointer" }}
+              onClick={() => setId(randomId())}
+            >
               看不清，换一张
-            </a>
+            </div>
           </div>
         </fieldset>
       )}

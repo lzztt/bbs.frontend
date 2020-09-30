@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 
 import { rest, validateResponse } from "../lib/common";
@@ -7,12 +7,14 @@ function PasswordForm() {
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const textInput = useRef(null);
   const history = useHistory();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (password !== passwordConfirm) {
       alert("两次输入的密码不一致，请重新输入。");
+      textInput.current.focus();
       return;
     }
     rest
@@ -48,6 +50,7 @@ function PasswordForm() {
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          ref={textInput}
         />
       </fieldset>
       <fieldset>

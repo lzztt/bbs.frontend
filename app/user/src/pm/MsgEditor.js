@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import { rest, validateResponse } from "../lib/common";
 
 function MsgEditor({ replyTo, topicMid, closeEditor }) {
   const [message, setMessage] = useState("");
+  const textInput = useRef(null);
 
   const sendMessage = (event) => {
     event.preventDefault();
 
     if (message.length < 5) {
       alert("短信内容最少为5个字符");
+      textInput.current.focus();
       return;
     }
 
@@ -36,6 +38,7 @@ function MsgEditor({ replyTo, topicMid, closeEditor }) {
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          ref={textInput}
         />
       </fieldset>
       <fieldset>

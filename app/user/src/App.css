@@ -304,8 +304,13 @@ ul.pm_list > li > span:first-child svg:first-child {
   color: #29447e;
 }
 
-
 /* END USER DT DD */
+/* CROPPER */
+.cropper-view-box,
+.cropper-face {
+  border-radius: 50%;
+}
+/* END CROPPER */
 /* USER TOPICS */
 ul.user_topics {
   list-style: none;
