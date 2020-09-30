@@ -9,7 +9,7 @@ import {
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 
-function AvatarEditor({ image, closeEditor }) {
+function AvatarEditor({ image, onClose }) {
   const cropperRef = useRef(null);
   const resultRef = useRef(null);
 
@@ -36,6 +36,7 @@ function AvatarEditor({ image, closeEditor }) {
     context.fill();
     return canvas;
   };
+
   const crop = () => {
     // Crop
     const croppedCanvas = cropperRef.current.cropper.getCroppedCanvas({
@@ -71,8 +72,8 @@ function AvatarEditor({ image, closeEditor }) {
         ref={cropperRef}
       />
       <div ref={resultRef}></div>
-      <button onClick={() => {}}>保存</button>
-      <button onClick={closeEditor}>取消</button>
+      <button onClick={() => onClose(resultRef.current.firstChild.src)}>保存</button>
+      <button onClick={() => onClose(null)}>取消</button>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   rest,
@@ -45,8 +45,9 @@ function User() {
   const [user, setUser] = useState({});
   const [messageEditor, setMessageEditor] = useState(false);
   const [avatarImage, setAvatarImage] = useState(null);
-
+  const avatarRef = useRef(null);
   const params = useParams();
+
   const userId = params.userId ? parseInt(params.userId, 10) : cache.get("uid");
   const isSelf = userId === cache.get("uid");
   const isAdmin = cache.get("uid") === 1;
@@ -98,15 +99,27 @@ function User() {
       const reader = new FileReader();
 
       reader.onload = function (evt) {
+        // avatarRef.current.removeChild(input);
         setAvatarImage(reader.result);
-        document.body.removeChild(input);
       };
 
       reader.readAsDataURL(file);
     });
 
-    document.body.appendChild(input);
+    avatarRef.current.appendChild(input);
     input.click();
+  };
+
+  const closeAvatarEditor = (avatar) => {
+    if (avatar) {
+      setUser({ ...user, avatar });
+      rest.put("/api/user/" + user.id, { avatar }).then((data) => {
+        if (validateResponse(data)) {
+          setUser(data);
+        }
+      });
+    }
+    setAvatarImage(null);
   };
 
   if (messageEditor) {
@@ -116,18 +129,13 @@ function User() {
           id: user.id,
           username: user.username,
         }}
-        closeEditor={() => setMessageEditor(false)}
+        onClose={() => setMessageEditor(false)}
       />
     );
   }
 
   if (avatarImage) {
-    return (
-      <AvatarEditor
-        image={avatarImage}
-        closeEditor={() => setAvatarImage(null)}
-      />
-    );
+    return <AvatarEditor image={avatarImage} onClose={closeAvatarEditor} />;
   }
 
   return (
@@ -140,7 +148,7 @@ function User() {
       <div className="user_info">
         <div>
           <figure>
-            <div>
+            <div ref={avatarRef}>
               <img src={user.avatar} onClick={changeAvatar} />
             </div>
             <figcaption>{user.username}</figcaption>

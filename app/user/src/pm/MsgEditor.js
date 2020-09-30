@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 
 import { rest, validateResponse } from "../lib/common";
 
-function MsgEditor({ replyTo, topicMid, closeEditor }) {
+function MsgEditor({ replyTo, topicMid, onClose }) {
   const [message, setMessage] = useState("");
   const textInput = useRef(null);
 
@@ -23,13 +23,13 @@ function MsgEditor({ replyTo, topicMid, closeEditor }) {
       })
       .then(function (data) {
         if (validateResponse(data)) {
-          closeEditor(data);
+          onClose(data);
         }
       });
   };
 
   return (
-    <form onSubmit={sendMessage} onReset={() => closeEditor(null)}>
+    <form onSubmit={sendMessage} onReset={() => onClose(null)}>
       <fieldset>
         <label>收信人</label>
         {replyTo.username}

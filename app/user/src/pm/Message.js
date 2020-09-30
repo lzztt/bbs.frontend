@@ -72,7 +72,7 @@ function Message() {
         <MsgEditor
           replyTo={replyTo}
           topicMid={messageId}
-          closeEditor={closeEditor}
+          onClose={closeEditor}
         />
       ) : (
         <article className="topic">
