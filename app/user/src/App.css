@@ -282,6 +282,24 @@ ul.pm_list > li > span:first-child svg:first-child {
 }
 
 /* END PM LIST */
+/* AVATAR TEXT */
+.avatar_circle {
+  width: 128px;
+  height: 128px;
+  line-height: 128px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: gray;
+}
+.avatar_circle div {
+  margin: 0 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 50px;
+  color: #fff;
+  text-align: center;
+}
+/* AVATAR TEXT */
 /* USER DT DD */
 .user_info {
   display: flex;
@@ -303,6 +321,10 @@ ul.pm_list > li > span:first-child svg:first-child {
   clear: left;
   text-align: right;
   color: #29447e;
+}
+
+.user_info figcaption {
+  text-align: center;
 }
 
 /* END USER DT DD */

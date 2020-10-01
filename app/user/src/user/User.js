@@ -28,7 +28,7 @@ function User() {
     });
   }, [userId]);
 
-  if (!user.id) {
+  if (!user || !user.id) {
     return "";
   }
 
@@ -122,12 +122,22 @@ function User() {
         <div>
           <figure>
             <div ref={avatarRef}>
-              <img
-                alt="头像图片"
-                src={user.avatar}
-                onClick={changeAvatar}
-                style={{ cursor: "pointer" }}
-              />
+              {user.avatar ? (
+                <img
+                  alt={user.username + "的头像"}
+                  src={user.avatar}
+                  onClick={changeAvatar}
+                  style={isSelf ? { cursor: "pointer" } : {}}
+                />
+              ) : (
+                <div
+                  className="avatar_circle"
+                  onClick={changeAvatar}
+                  style={isSelf ? { cursor: "pointer" } : {}}
+                >
+                  <div>{user.username}</div>
+                </div>
+              )}
             </div>
             <figcaption>{user.username}</figcaption>
           </figure>

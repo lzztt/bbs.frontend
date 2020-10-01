@@ -77,7 +77,7 @@ function Bookmark() {
     <ul className="bookmarks even_odd_parent">
       <li>
         {selected.size === 0 ? (
-          <CheckBoxOutlineBlankIcon onClick={addAll} />
+          <CheckBoxOutlineBlankIcon onClick={addAll} color="disabled" />
         ) : selected.size === nodes.length ? (
           <CheckBoxIcon onClick={removeAll} />
         ) : (
@@ -98,14 +98,17 @@ function Bookmark() {
           {selected.has(node.id) ? (
             <CheckBoxIcon onClick={() => remove(node.id)} />
           ) : (
-            <CheckBoxOutlineBlankIcon onClick={() => add(node.id)} />
+            <CheckBoxOutlineBlankIcon
+              onClick={() => add(node.id)}
+              color="disabled"
+            />
           )}
           <a href={"/node/" + node.id}>{node.title}</a>
         </li>
       ))}
       <li>
         {selected.size === 0 ? (
-          <CheckBoxOutlineBlankIcon onClick={addAll} />
+          <CheckBoxOutlineBlankIcon onClick={addAll} color="disabled" />
         ) : selected.size === nodes.length ? (
           <CheckBoxIcon onClick={removeAll} />
         ) : (

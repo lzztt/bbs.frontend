@@ -89,7 +89,7 @@ function Mailbox() {
       <ul className="pm_list even_odd_parent">
         <li>
           {selected.size === 0 ? (
-            <CheckBoxOutlineBlankIcon onClick={addAll} />
+            <CheckBoxOutlineBlankIcon onClick={addAll} color="disabled" />
           ) : selected.size === messages.length ? (
             <CheckBoxIcon onClick={removeAll} />
           ) : (
@@ -116,7 +116,10 @@ function Mailbox() {
               {selected.has(msg.mid) ? (
                 <CheckBoxIcon onClick={() => remove(msg.mid)} />
               ) : (
-                <CheckBoxOutlineBlankIcon onClick={() => add(msg.mid)} />
+                <CheckBoxOutlineBlankIcon
+                  onClick={() => add(msg.mid)}
+                  color="disabled"
+                />
               )}
               <Link to={"/pm/" + msg.mid}>
                 {msg.isNew > 0 ? <b>{msg.body}</b> : msg.body}
@@ -130,7 +133,7 @@ function Mailbox() {
         ))}
         <li>
           {selected.size === 0 ? (
-            <CheckBoxOutlineBlankIcon onClick={addAll} />
+            <CheckBoxOutlineBlankIcon onClick={addAll} color="disabled" />
           ) : selected.size === messages.length ? (
             <CheckBoxIcon onClick={removeAll} />
           ) : (
