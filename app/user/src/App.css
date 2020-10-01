@@ -253,13 +253,14 @@ ul.pm_list > li {
   padding: 0.3rem;
 }
 
-ul.pm_list > li:first-child {
+ul.pm_list > li:first-child,
+ul.pm_list > li:last-child {
   display: flex;
   align-items: center;
 }
 
 @media (min-width: 768px) {
-  ul.pm_list > li:not(:first-child) {
+  ul.pm_list > li:not(:first-child):not(:last-child) {
     display: grid;
     grid-template-columns: 70fr 15fr 15fr;
   }
@@ -288,16 +289,14 @@ ul.pm_list > li > span:first-child svg:first-child {
   height: 128px;
   line-height: 128px;
   border-radius: 50%;
-  overflow: hidden;
-  background: gray;
-}
-.avatar_circle div {
-  margin: 0 1rem;
   white-space: nowrap;
   overflow: hidden;
-  font-size: 50px;
-  color: #fff;
+  background: white;
+  color: black;
+  border: 1px solid gray;
   text-align: center;
+  font-size: 50px;
+  font-family: "Courier New", Courier, monospace;
 }
 /* AVATAR TEXT */
 /* USER DT DD */

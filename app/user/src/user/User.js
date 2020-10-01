@@ -135,7 +135,12 @@ function User() {
                   onClick={changeAvatar}
                   style={isSelf ? { cursor: "pointer" } : {}}
                 >
-                  <div>{user.username}</div>
+                  {user.username
+                    .toString()
+                    .substr(
+                      0,
+                      user.username.toString().match(/^[A-Za-z0-9]{3}/) ? 3 : 2
+                    )}
                 </div>
               )}
             </div>
