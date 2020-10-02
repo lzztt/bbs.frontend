@@ -24,7 +24,9 @@ function User() {
 
   useEffect(() => {
     rest.get("/api/user/" + userId).then((data) => {
-      setUser(data);
+      if (validateResponse(data)) {
+        setUser(data);
+      }
     });
   }, [userId]);
 

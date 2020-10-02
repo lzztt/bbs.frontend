@@ -1,3 +1,5 @@
+// import mock_rest from './mock/rest'
+
 export const session = {
   set: (key, value) => {
     if (value == null) {
@@ -63,6 +65,7 @@ export const cache = {
 
 export const rest = {
   get: async (url) => {
+    // if (process.env.NODE_ENV === "development") return await mock_rest.get(url);
     try {
       const response = await fetch(url);
       return await response.json();
@@ -71,6 +74,7 @@ export const rest = {
     }
   },
   post: async (url, data) => {
+    // if (process.env.NODE_ENV === "development") return await mock_rest.post(url);
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -85,6 +89,7 @@ export const rest = {
     }
   },
   put: async (url, data) => {
+    // if (process.env.NODE_ENV === "development") return await mock_rest.put(url);
     try {
       const response = await fetch(url, {
         method: "PUT",
@@ -99,6 +104,7 @@ export const rest = {
     }
   },
   patch: async (url, data) => {
+    // if (process.env.NODE_ENV === "development") return await mock_rest.patch(url);
     try {
       const response = await fetch(url, {
         method: "PATCH",
@@ -113,6 +119,7 @@ export const rest = {
     }
   },
   delete: async (url) => {
+    // if (process.env.NODE_ENV === "development") return await mock_rest.delete(url);
     try {
       const response = await fetch(url, {
         method: "DELETE",

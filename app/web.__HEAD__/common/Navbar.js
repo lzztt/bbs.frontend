@@ -393,7 +393,7 @@ var Navbar = (function() {
 
         var isMenuVisible = false;
 
-        var $trigger = $("<div style="position:fixed; left: 0; top: 0; padding: 1em 0.5em"><button type="button">菜单</button></div>").appendTo(document.body)
+        var $trigger = $('<div style="position:fixed; left: 0; top: 0; padding: 1em 0.5em"><button type="button">菜单</button></div>').appendTo(document.body)
             .click(function(ev) {
                 if (isMenuVisible) {
                     $(ulRoot.parentNode).hide();
@@ -416,7 +416,7 @@ var Navbar = (function() {
                 var $this = $(this),
                     ulNext = this.nextSibling,
                     ulCurrent = this.parentElement.parentElement;
-                $("<li><span class="back">" + $this.text() + "</span></li>").prependTo(ulNext)
+                $('<li><span class="back">' + $this.text() + '</span></li>').prependTo(ulNext)
                     .click(function(ev) {
                         ev.stopImmediatePropagation();
                         ev.stopPropagation();
