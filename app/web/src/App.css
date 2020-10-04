@@ -279,8 +279,8 @@ nav#menu {
   bottom: calc(2rem + 25vh);
   display: flex;
   flex-flow: row wrap;
+  align-items: flex-end;
   margin: 0;
-  background-color: #eee;
 }
 
 nav#menu.hidden {
@@ -314,6 +314,7 @@ nav.navbar a.active, nav.navbar a:hover {
     right: 0;
     bottom: 0;
     justify-content: space-between;
+    background-color: #eee;
   }
 
   nav#menu.hidden {
