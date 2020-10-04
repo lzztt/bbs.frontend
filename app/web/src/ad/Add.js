@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { rest, validateResponse } from "../lib/common";
 import NavTab from "./NavTab";
-import "./Form.css";
 
 export default function Add() {
   const [name, setName] = useState("");

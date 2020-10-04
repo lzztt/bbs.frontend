@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { rest, validateResponse } from "../lib/common";
 import NavTab from "./NavTab";
-import "./Form.css";
 
 export default function Payment() {
   const [ads, setAds] = useState([]);

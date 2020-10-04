@@ -1,3 +1,8 @@
+<?php
+const HOUSTON = 1;
+const DALLAS = 2;
+const SFBAY = 4;
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="zh">
   <head>
@@ -22,22 +27,132 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title><?= $head_title ?></title>
+
+    <!--BEGIN JS-->
+    <script defer src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script defer src="//cdnjs.cloudflare.com/ajax/libs/pica/6.1.1/pica.min.js" integrity="sha512-bfVc1C16JO+zN0PADKfNz2gZz+x3H1ZGo7aLsHz1i7XncAb3eE/GV559ndX1pMhwPtjwIe+0y9EgX99l4PmFIA==" crossorigin="anonymous"></script>
+
+    <?php if ($debug) : ?>
+      <script defer src="/themes/<?= $theme ?>/js/jquery.cookie.js"></script>
+      <script defer src="/themes/<?= $theme ?>/js/jquery.imageslider.js"></script>
+      <script defer src="/themes/<?= $theme ?>/js/jquery.hoverIntent.js"></script>
+      <script defer src="/themes/<?= $theme ?>/js/jquery.superfish.js"></script>
+      <script defer src="/themes/<?= $theme ?>/js/jquery.markitup.js"></script>
+      <script defer src="/themes/<?= $theme ?>/js/jquery.markitup.bbcode.set.js"></script>
+      <script defer src="/themes/<?= $theme ?>/js/image-blob-reduce.js"></script>
+      <script defer src="/themes/<?= $theme ?>/js/main.js"></script>
+    <?php else : ?>
+      <script defer src="/themes/<?= $theme ?>/min/<?= $min_version ?>.min.js"></script>
+    <?php endif ?>
+    <!--END JS-->
+
+    <!--BEGIN CSS-->
+    <?php if ($debug) : ?>
+      <link href="/themes/<?= $theme ?>/css/normalize.css" rel="stylesheet" type="text/css">
+      <link href="/themes/<?= $theme ?>/css/markitup.style.css" rel="stylesheet" type="text/css">
+      <link href="/themes/<?= $theme ?>/css/markitup.bbcode.css" rel="stylesheet" type="text/css">
+      <link href="/themes/<?= $theme ?>/css/nav_xs.css" rel="stylesheet" type="text/css">
+      <link href="/themes/<?= $theme ?>/css/nav_sm.css" rel="stylesheet" type="text/css">
+      <link href="/themes/<?= $theme ?>/css/main_xs.css" rel="stylesheet" type="text/css">
+      <link href="/themes/<?= $theme ?>/css/main_sm.css" rel="stylesheet" type="text/css">
+      <link href="/themes/<?= $theme ?>/css/main_md.css" rel="stylesheet" type="text/css">
+      <link href="/themes/<?= $theme ?>/css/main_lg.css" rel="stylesheet" type="text/css">
+      <?php if ($city === DALLAS || $city === SFBAY) : ?>
+        <link href="/themes/<?= $theme ?>/css/main.dallas.css" rel="stylesheet" type="text/css">
+      <?php endif ?>
+      <link href="/themes/<?= $theme ?>/css/fontello.css" rel="stylesheet" type="text/css">
+    <?php else : ?>
+      <link href="/themes/<?= $theme ?>/min/<?= $min_version ?>.min.css" rel="stylesheet" type="text/css">
+      <?php if ($city === DALLAS || $city === SFBAY) : ?>
+        <link href="/themes/<?= $theme ?>/min/<?= $min_version ?>.dallas.min.css" rel="stylesheet" type="text/css">
+      <?php endif ?>
+    <?php endif ?>
+    <!--END CSS-->
+
+    <title><?= $head_title ?></title>
+    <meta name='description' content='<?= $head_description ?>'>
+    <?php if ($city === HOUSTON || $city === DALLAS) : ?>
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-8257334386742604",
+          enable_page_level_ads: true
+        });
+      </script>
+    <?php endif ?>
+    <script>
+      window.appData = {
+        tags: <?= $page_navbar ?>,
+      };
+    </script>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <div id='page'>
+      <header id='page_header'>
+        <?php if ($city === HOUSTON) : ?>
+          <div id="page_header_ad" style="background-image: url('/data/ad/ad_bg.jpg');">
+            <span>
+              <a href="http://31realty.net" target="_blank"><img src="/data/ad/31realty.jpg"></a>
+              <a href="https://www.johnleeins.com" target="_blank"><img src="/data/ad/johnlee.gif"></a>
+            </span>
+          </div>
+        <?php elseif ($city === DALLAS) : ?>
+          <div id="page_header_ad" style="background-image: url('/data/ad/ad_bg.jpg');"><span><a></a></span></div>
+        <?php elseif ($city === SFBAY) : ?>
+          <div id="page_header_ad" style="background-image: url('/data/ad/bg_bayever.jpg');"><span><a></a></span></div>
+        <?php endif ?>
+      </header>
+    <main id='page_body' style="min-height: 80vh;"></main>
+      <footer id='page_footer' style="display: none">
+        <?php if ($city === HOUSTON) : ?>
+          <div id='copyright'>© 2009-2020 HoustonBBS 版权所有 | <a href='/term'>免责声明</a> | <a href="mailto:support@houstonbbs.com">联系我们</a> | <a href="mailto:ad@houstonbbs.com?subject=想在HoustonBBS上做个广告">广告洽谈</a></div>
+        <?php elseif ($city === DALLAS) : ?>
+          <div id='copyright'>© 2014-2020 DallasBBS 版权所有 | <a href='/term'>免责声明</a> | <a href="mailto:support@dallasbbs.com">联系我们</a></div>
+        <?php elseif ($city === SFBAY) : ?>
+          <div id='copyright'>© 2018-2020 bayever 版权所有 | <a href='/term'>免责声明</a> | <a href="mailto:support@bayever.com">联系我们</a></div>
+        <?php endif ?>
+      </footer>
+    </div>
+    <div id="messagebox"></div>
+    <div id="popupbox"></div>
+    <a id="goTop" class="button">返回顶部</a>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-    <template id="content">
-      <a href="/node/1">test node</a>
+    <template id="responsive_ad">
+      <!-- responsive_ad -->
+      <ins
+        class="adsbygoogle"
+        style="display: block"
+        data-ad-client="ca-pub-8257334386742604"
+        data-ad-slot="1050744881"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      ></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
     </template>
+    <template id="content"><?= $content ?></template>
+    <?php if (!$debug) : ?>
+      <?php
+      if ($city === HOUSTON) :
+        $track_id = 'UA-36671672-1';
+      elseif ($city === DALLAS) :
+        $track_id = 'UA-36671672-2';
+      elseif ($city === SFBAY) :
+        $track_id = 'UA-36671672-5';
+      endif
+      ?>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $track_id ?>"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', '<?= $track_id ?>');
+      </script>
+    <?php endif ?>
   </body>
 </html>

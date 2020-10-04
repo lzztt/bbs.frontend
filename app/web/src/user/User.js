@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import {
   rest,
   cache,
@@ -17,6 +17,7 @@ function User() {
   const avatarRef = useRef(null);
   const textInputRef = useRef(null);
   const params = useParams();
+  const history = useHistory();
 
   const userId = params.userId ? parseInt(params.userId, 10) : cache.get("uid");
   const isSelf = userId === cache.get("uid");
@@ -148,16 +149,14 @@ function User() {
             </div>
             <figcaption>{user.username}</figcaption>
           </figure>
-          {!isSelf && (
-            <button type="button" onClick={() => setMessageEditor(true)}>
-              发短信
+          {isSelf ? (
+            <button onClick={() => history.replace("/user/logout")}>
+              登出
             </button>
+          ) : (
+            <button onClick={() => setMessageEditor(true)}>发短信</button>
           )}
-          {isAdmin && !isSelf && (
-            <button type="button" onClick={deleteUser}>
-              删除用户
-            </button>
-          )}
+          {isAdmin && !isSelf && <button onClick={deleteUser}>删除用户</button>}
         </div>
         <ul>
           {/* <li>
