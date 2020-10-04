@@ -111,56 +111,6 @@ $(document).ready(function () {
          }
       });
 
-      // menu
-      $('nav#page_navbar ul.sf-menu').superfish();
-
-      // navbar toggler
-      var hasToggler = false, toggler = $('div.nav_mobile > a.icon-menu'), navbar = $('nav#page_navbar');
-      var navbarToggler = function ()
-      {
-         if (navbar.css('display') === 'none')
-         {
-            if (!hasToggler)
-            {
-               toggler.on('click', function (e) {
-                  e.preventDefault();
-                  navbar.toggleClass('hidden');
-               });
-               hasToggler = true;
-            }
-         }
-         else
-         {
-            if (hasToggler)
-            {
-               toggler.off('click');
-               hasToggler = false;
-            }
-            if (!navbar.hasClass('hidden'))
-            {
-               navbar.addClass('hidden');
-            }
-         }
-      }
-
-      navbarToggler();
-      $(window).resize(navbarToggler);
-
-      $('div.nav_mobile a.icon-left-big').click(function (e) {
-         e.preventDefault();
-         window.history.back();
-      });
-
-      $('div.nav_mobile a.icon-right-big').click(function (e) {
-         e.preventDefault();
-         window.history.forward();
-      });
-
-      $('div.nav_mobile a.icon-cw').click(function (e) {
-         e.preventDefault();
-         location.reload();
-      });
-
       // responsive table header
       var addTableHeader = function (table) {
          var headers = new Array();
@@ -455,41 +405,6 @@ $(document).ready(function () {
                });
             });
          }
-
-         // user bookmark page
-         var nids = [];
-         $('button.edit_bookmark').click(function () {
-            var button = $(this);
-            if (button.text() == '编辑') {
-               button.text('保存');
-               $('button.delete_bookmark').show();
-            }
-            else
-            {
-               if (nids) {
-                  button.prop("disabled", true);
-                  fetch('/api/bookmark/' + nids.join(), {
-                     method: 'DELETE',
-                  }).then(() => {
-                     button.text('编辑');
-                     $('button.delete_bookmark').hide();
-                     nids = [];
-                     button.prop("disabled", false);
-                  });
-               }
-               else {
-                  button.text('编辑');
-                  $('button.delete_bookmark').hide();
-               }
-            }
-
-         });
-
-         $('button.delete_bookmark').click(function () {
-            button = $(this);
-            nids.push(button.attr('data-nid'));
-            button.parent().remove();
-         });
       }
 
       // scroll to top
@@ -534,34 +449,6 @@ $(document).ready(function () {
 
       // popup windows
       var popupForms = {
-         login: {
-            html: '<form accept-charset="UTF-8" autocomplete="on" method="post">'
-                + '<fieldset><label class="label">注册邮箱</label><input name="email" type="email" required autofocus></fieldset>'
-                + '<fieldset><label class="label">密码</label><input name="password" type="password" required></fieldset>'
-                + '<fieldset><button type="submit">登录</button></fieldset></form>',
-            handler: '/api/authentication',
-            success: function (data) {
-               if (validateResponse(data)) {
-                  loadSession(data);
-                  return '<script>location.reload();</script>';
-               }
-            }
-         },
-         changePassword: {
-            html: '<form accept-charset="UTF-8" autocomplete="off" method="post">'
-                + '<fieldset><label class="label oldpassword">旧密码</label><input name="password_old" type="password" required autofocus></fieldset>'
-                + '<fieldset><label class="label">新密码</label><input name="password" type="password" required></fieldset>'
-                + '<fieldset><label class="label">确认新密码</label><input name="password2" type="password" required></fieldset>'
-                + '<fieldset><button type="submit">更改密码</button></fieldset></form>',
-            handler: '/api/user/[uid]',
-            method: 'PUT',
-            vars: {uid: cache.get('uid')},
-            success: function (data) {
-               if (validateResponse(data)) {
-                  return '密码更改成功。';
-               }
-            }
-         },
          sendPM: {
             html: '<form accept-charset="UTF-8" autocomplete="off" method="post">'
                 + '<fieldset><label class="label">收信人</label><a href="/app/user/profile/[uid]">[username]</a><input name="toUID" type="hidden" value="[uid]"></fieldset>'
