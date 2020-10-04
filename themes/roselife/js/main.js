@@ -102,12 +102,13 @@ $(document).ready(function () {
          var container = $(this);
          var uri = container.attr('data-ajax');
          if (uri) {
-            $.getJSON(uri, function (data) {
-               for (var prop in data)
-               {
-                  $('.ajax_' + prop, container).html(data[prop]);
+           fetch(uri)
+             .then((response) => response.json())
+             .then((data) => {
+               for (var prop in data) {
+                 $(".ajax_" + prop, container).html(data[prop]);
                }
-            });
+             });
          }
       });
 
@@ -152,18 +153,6 @@ $(document).ready(function () {
          if (username)
          {
             $('#username').text(username);
-         }
-
-         // check pm every 5 minutes
-         var pmCheckTime = cache.get('pmCheckTime');
-         if( !pmCheckTime || Date.now() > pmCheckTime + 300000)
-         {
-            $.get('/api/message/new', function (data) {
-               if (data.count && data.count > 0) {
-                  $("a#pm").append('<span style="color:red;"> (' + data.count + ')<span>');
-               }
-            });
-            cache.set('pmCheckTime', Date.now());
          }
 
          // node page
