@@ -58,6 +58,26 @@ h3 {
   width: 100%;
 }
 
+@media (min-width: 768px) {
+  .attach_images {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+
+  .attach_images img {
+    max-width: 300px;
+  }
+
+  .attach_images figcaption {
+    max-width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+}
+}
+
 /* BEGIN RESPONSIVE TABLE */
 th,
 td {
@@ -299,7 +319,8 @@ nav.navbar a {
   border-bottom: 1px solid #ccac00;
 }
 
-nav.navbar a.active, nav.navbar a:hover {
+nav.navbar a.active,
+nav.navbar a:hover {
   background-color: #ccac00;
 }
 
