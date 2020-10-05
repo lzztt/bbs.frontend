@@ -113,7 +113,7 @@ div#messagebox, div#popupbox
    position: absolute;
    top: 0;
    left: 0;
-   min-width: 310px;
+   min-width: min(100vw, 600px);;
    min-height: 50px;
    z-index: 9999;
    background-color: white;

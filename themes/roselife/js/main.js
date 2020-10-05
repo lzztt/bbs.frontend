@@ -453,7 +453,6 @@ $(document).ready(function () {
       };
 
       var popupbox = $('div#popupbox'),
-          messagebox = $('div#messagebox'),
           overlay = $('<div id="overlay"></div>'),
           popupVisible = false;
 
@@ -467,6 +466,30 @@ $(document).ready(function () {
          popupbox.css('left', $window.scrollLeft() + Math.max(($window.width() - popupbox.outerWidth()) / 2, 0));
          popupbox.css('top', $window.scrollTop() + Math.max(($window.height() - popupbox.outerHeight()) / 2, 0));
       };
+
+      $(window).resize(function () {
+        if (popupVisible) {
+          centerPopupBox();
+        }
+      });
+
+      $(".attach_images > figure").click(function (e) {
+        e.preventDefault();
+        if ($(window).width() < 600) {
+          return;
+        }
+
+        // add overlay
+        if (!jQuery.contains(document, overlay[0])) {
+          overlay.insertBefore(popupbox);
+        }
+
+        popupbox.html("");
+        var figure = this.cloneNode(true);
+        figure.style.margin = 0;
+        popupbox.append(figure).show(0, centerPopupBox);
+        popupVisible = true;
+      });
 
       $('a.popup').click(function (e) {
          e.preventDefault();
@@ -501,12 +524,6 @@ $(document).ready(function () {
             // show popup
             popupbox.html(html).show(0, centerPopupBox);
             popupVisible = true;
-
-            $(window).resize(function () {
-               if (popupVisible) {
-                  centerPopupBox();
-               }
-            });
 
             var form = $('form', popupbox);
             form.submit(function (e) {
