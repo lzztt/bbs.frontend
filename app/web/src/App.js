@@ -92,11 +92,17 @@ function App() {
         </div>
         {window.appData && window.appData.tags && (
           <div>
-            {window.appData.tags.map((tag) => (
-              <a key={tag.id} href={`/forum/${tag.id}`}>
-                {tag.name}
-              </a>
-            ))}
+            {window.appData.tags.map((tag) =>
+              window.location.pathname === `/forum/${tag.id}` ? (
+                <a key={tag.id} href={`/forum/${tag.id}`} className="active">
+                  {tag.name}
+                </a>
+              ) : (
+                <a key={tag.id} href={`/forum/${tag.id}`}>
+                  {tag.name}
+                </a>
+              )
+            )}
           </div>
         )}
       </nav>
