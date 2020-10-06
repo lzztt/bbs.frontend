@@ -89,6 +89,7 @@ function App() {
               <NavLink to="/user/register">注册帐号</NavLink>
             </>
           )}
+          <a href="/search">搜索</a>
         </div>
         {window.appData && window.appData.tags && (
           <div>

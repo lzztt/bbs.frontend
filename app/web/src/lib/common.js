@@ -168,6 +168,47 @@ export const toLocalDateString = (dt) => {
   return m + "/" + d + "/" + y;
 };
 
+export const popup = (element) => {
+  const overlay = document.createElement("div");
+  const popupbox = document.createElement("div");
+
+  popupbox.appendChild(element);
+  document.body.appendChild(overlay);
+  document.body.appendChild(popupbox);
+
+  const close = () => {
+    document.body.removeChild(popupbox);
+    document.body.removeChild(overlay);
+  };
+
+  Object.assign(overlay.style, {
+    zIndex: "998",
+    position: "fixed",
+    inset: "0",
+    backgroundColor: "wheat",
+    opacity: "0.5",
+    cursor: "pointer",
+  });
+
+  Object.assign(popupbox.style, {
+    zIndex: "999",
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    backgroundColor: "white",
+    border: "1px solid black",
+    minWidth: Math.min(window.innerWidth - 10, 600) + "px",
+    minHeight: "50px",
+  });
+
+  overlay.addEventListener("click", close, { once: true });
+
+  return popupbox;
+};
+
+window.popup = popup;
+
 export const toLocalDateTimeString = (dt) => {
   let h = "" + dt.getHours();
   let m = "" + dt.getMinutes();

@@ -452,43 +452,15 @@ $(document).ready(function () {
          }
       };
 
-      var popupbox = $('div#popupbox'),
-          overlay = $('<div id="overlay"></div>'),
-          popupVisible = false;
-
-      overlay.click(function () {
-         overlay.detach();
-         popupbox.hide()
-         popupVisible = false;
-      });
-
-      var centerPopupBox = function () {
-         popupbox.css('left', $window.scrollLeft() + Math.max(($window.width() - popupbox.outerWidth()) / 2, 0));
-         popupbox.css('top', $window.scrollTop() + Math.max(($window.height() - popupbox.outerHeight()) / 2, 0));
-      };
-
-      $(window).resize(function () {
-        if (popupVisible) {
-          centerPopupBox();
-        }
-      });
-
       $(".attach_images > figure").click(function (e) {
         e.preventDefault();
         if ($(window).width() < 600) {
           return;
         }
 
-        // add overlay
-        if (!jQuery.contains(document, overlay[0])) {
-          overlay.insertBefore(popupbox);
-        }
-
-        popupbox.html("");
         var figure = this.cloneNode(true);
         figure.style.margin = 0;
-        popupbox.append(figure).show(0, centerPopupBox);
-        popupVisible = true;
+        window.popup(figure);
       });
 
       $('a.popup').click(function (e) {
@@ -497,11 +469,6 @@ $(document).ready(function () {
          var key = link.attr('href').substr(1);
 
          if (key in popupForms) {
-            // add overlay
-            if (!jQuery.contains(document, overlay[0])) {
-               overlay.insertBefore(popupbox);
-            }
-
             var html = popupForms[key].html;
             var handler = popupForms[key].handler;
             var method = popupForms[key].method ? popupForms[key].method : 'POST';
@@ -522,8 +489,7 @@ $(document).ready(function () {
             }
 
             // show popup
-            popupbox.html(html).show(0, centerPopupBox);
-            popupVisible = true;
+            var popupbox = window.popup($(html)[0]);
 
             var form = $('form', popupbox);
             form.submit(function (e) {
@@ -537,7 +503,7 @@ $(document).ready(function () {
                      success: function (data) {
                         var response = popupForms[key].success(data);
                         if (response) {
-                           popupbox.html(response);
+                           $(popupbox).html(response);
                         }
                      },
                      error: function () {
