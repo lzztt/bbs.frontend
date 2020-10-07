@@ -184,7 +184,10 @@ export const popup = (element) => {
   Object.assign(overlay.style, {
     zIndex: "998",
     position: "fixed",
-    inset: "0",
+    top: "0",
+    bottom: "0",
+    left: "0",
+    right: "0",
     backgroundColor: "wheat",
     opacity: "0.5",
     cursor: "pointer",
