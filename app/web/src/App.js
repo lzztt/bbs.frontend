@@ -1,10 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   BrowserRouter,
   Switch,
   Route,
   NavLink,
   Redirect,
+  useLocation,
 } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import { cache, validateLoginSession } from "./lib/common";
@@ -46,18 +47,15 @@ function PrivateRoute({ children, isAuthenticated, ...rest }) {
   );
 }
 
-function App() {
-  const [loggedIn, setLoggedIn] = useState(isLoggedIn);
+function Navbar({ loggedIn }) {
   const navRef = useRef(null);
-  const userId = cache.get("uid") || 0;
-
   const navHidden = "navbar hidden";
   const navVisible = "navbar";
 
-  const toggleNav = () => {
+  const toggle = () => {
     if (navRef.current.className === navHidden) {
       navRef.current.className = navVisible;
-      document.addEventListener("click", toggleNav, {
+      document.addEventListener("click", toggle, {
         capture: true,
         once: true,
       });
@@ -67,8 +65,8 @@ function App() {
   };
 
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <MenuIcon color="primary" id="menu_icon" onClick={toggleNav} />
+    <>
+      <MenuIcon color="primary" id="menu_icon" onClick={toggle} />
       <nav ref={navRef} id="menu" className={navHidden}>
         <div>
           <a href="/">首页</a>
@@ -117,69 +115,81 @@ function App() {
           </div>
         )}
       </nav>
+    </>
+  );
+}
 
+function RouteSwitch({ loggedIn, setLoggedIn }) {
+  const location = useLocation();
+  useEffect(() => {
+    window.app.gtagPageView();
+  }, [location]);
+
+  const userId = cache.get("uid") || 0;
+
+  return (
+    <Switch>
+      <Route path="/user" exact>
+        {!loggedIn ? <Redirect to="/user/login" /> : <User />}
+      </Route>
+      <Route path="/user/login">
+        {loggedIn ? <NotFound /> : <Login setLoggedIn={setLoggedIn} />}
+      </Route>
+      <Route path="/user/register">
+        {loggedIn ? <NotFound /> : <Register />}
+      </Route>
+      <Route path="/user/password">
+        {loggedIn ? <NotFound /> : <Password />}
+      </Route>
+      <Route path="/user/mailbox" exact>
+        <Redirect to="/user/mailbox/inbox" />
+      </Route>
+      <PrivateRoute path="/user/mailbox/:mailbox" isAuthenticated={loggedIn}>
+        <Mailbox />
+      </PrivateRoute>
+      <PrivateRoute path="/user/pm/:messageId" isAuthenticated={loggedIn}>
+        <Message />
+      </PrivateRoute>
+      <PrivateRoute path="/user/bookmark" isAuthenticated={loggedIn}>
+        <Bookmark />
+      </PrivateRoute>
+      <Route path="/user/logout">
+        {!loggedIn ? (
+          <Redirect to="/user/login" />
+        ) : (
+          <Logout setLoggedIn={setLoggedIn} />
+        )}
+      </Route>
+      <PrivateRoute path="/user/:userId" isAuthenticated={loggedIn}>
+        <User />
+      </PrivateRoute>
+      <PrivateRoute path="/ad/add" isAuthenticated={loggedIn && userId === 1}>
+        <AdAdd />
+      </PrivateRoute>
+      <PrivateRoute
+        path="/ad/payment"
+        isAuthenticated={loggedIn && userId === 1}
+      >
+        <AdPayment />
+      </PrivateRoute>
+      <PrivateRoute path="/ad" exact isAuthenticated={loggedIn && userId === 1}>
+        <AdHome />
+      </PrivateRoute>
+      <Route path="*">
+        <NotFound />
+      </Route>
+    </Switch>
+  );
+}
+
+function App() {
+  const [loggedIn, setLoggedIn] = useState(isLoggedIn);
+
+  return (
+    <BrowserRouter>
+      <Navbar {...{ loggedIn }} />
       <div id="app_main">
-        <Switch>
-          <Route path="/user" exact>
-            {!loggedIn ? <Redirect to="/user/login" /> : <User />}
-          </Route>
-          <Route path="/user/login">
-            {loggedIn ? <NotFound /> : <Login setLoggedIn={setLoggedIn} />}
-          </Route>
-          <Route path="/user/register">
-            {loggedIn ? <NotFound /> : <Register />}
-          </Route>
-          <Route path="/user/password">
-            {loggedIn ? <NotFound /> : <Password />}
-          </Route>
-          <Route path="/user/mailbox" exact>
-            <Redirect to="/user/mailbox/inbox" />
-          </Route>
-          <PrivateRoute
-            path="/user/mailbox/:mailbox"
-            isAuthenticated={loggedIn}
-          >
-            <Mailbox />
-          </PrivateRoute>
-          <PrivateRoute path="/user/pm/:messageId" isAuthenticated={loggedIn}>
-            <Message />
-          </PrivateRoute>
-          <PrivateRoute path="/user/bookmark" isAuthenticated={loggedIn}>
-            <Bookmark />
-          </PrivateRoute>
-          <Route path="/user/logout">
-            {!loggedIn ? (
-              <Redirect to="/user/login" />
-            ) : (
-              <Logout setLoggedIn={setLoggedIn} />
-            )}
-          </Route>
-          <PrivateRoute path="/user/:userId" isAuthenticated={loggedIn}>
-            <User />
-          </PrivateRoute>
-          <PrivateRoute
-            path="/ad/add"
-            isAuthenticated={loggedIn && userId === 1}
-          >
-            <AdAdd />
-          </PrivateRoute>
-          <PrivateRoute
-            path="/ad/payment"
-            isAuthenticated={loggedIn && userId === 1}
-          >
-            <AdPayment />
-          </PrivateRoute>
-          <PrivateRoute
-            path="/ad"
-            exact
-            isAuthenticated={loggedIn && userId === 1}
-          >
-            <AdHome />
-          </PrivateRoute>
-          <Route path="*">
-            <NotFound />
-          </Route>
-        </Switch>
+        <RouteSwitch {...{ loggedIn, setLoggedIn }} />
       </div>
     </BrowserRouter>
   );

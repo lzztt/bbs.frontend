@@ -143,16 +143,24 @@ const SFBAY = 4;
         $track_id = 'UA-36671672-5';
       endif
       ?>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $track_id ?>"></script>
       <script>
         window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-          dataLayer.push(arguments);
-        }
+        function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', '<?= $track_id ?>');
+        gtag('config', '<?= $track_id ?>', {
+          send_page_view: false
+        });
+
+        window.app = window.app || {};
+        app.gtagPageView = () => gtag('event', 'page_view', {
+          page_title: document.title,
+          page_location: location.href,
+          page_path: location.pathname,
+          send_to: '<?= $track_id ?>',
+        });
       </script>
     <?php endif ?>
   </body>

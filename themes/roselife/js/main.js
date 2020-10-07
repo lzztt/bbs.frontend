@@ -440,7 +440,7 @@ $(document).ready(function () {
       var popupForms = {
          sendPM: {
             html: '<form accept-charset="UTF-8" autocomplete="off" method="post">'
-                + '<fieldset><label class="label">收信人</label><a href="/app/user/profile/[uid]">[username]</a><input name="toUID" type="hidden" value="[uid]"></fieldset>'
+                + '<fieldset><label class="label">收信人</label><a href="/user/[uid]">[username]</a><input name="toUID" type="hidden" value="[uid]"></fieldset>'
                 + '<fieldset><label class="label">短信正文</label><textarea name="body" required autofocus></textarea></fieldset>'
                 + '<fieldset><button type="submit">发送短信</button></fieldset></form>',
             handler: '/api/message',
