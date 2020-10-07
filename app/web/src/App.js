@@ -49,16 +49,30 @@ function PrivateRoute({ children, isAuthenticated, ...rest }) {
 
 function Navbar({ loggedIn }) {
   const navRef = useRef(null);
+  const togglerRef = useRef(null);
+
   const navHidden = "navbar hidden";
   const navVisible = "navbar";
 
   const toggle = () => {
     if (navRef.current.className === navHidden) {
       navRef.current.className = navVisible;
-      document.addEventListener("click", toggle, {
-        capture: true,
-        once: true,
-      });
+      document.addEventListener(
+        "click",
+        (event) => {
+          if (
+            togglerRef.current === event.target ||
+            togglerRef.current.contains(event.target)
+          ) {
+            return;
+          }
+          navRef.current.className = navHidden;
+        },
+        {
+          capture: true,
+          once: true,
+        }
+      );
     } else {
       navRef.current.className = navHidden;
     }
@@ -66,7 +80,12 @@ function Navbar({ loggedIn }) {
 
   return (
     <>
-      <MenuIcon color="primary" id="menu_icon" onClick={toggle} />
+      <MenuIcon
+        ref={togglerRef}
+        color="primary"
+        id="menu_icon"
+        onClick={toggle}
+      />
       <nav ref={navRef} id="menu" className={navHidden}>
         <div>
           <a href="/">首页</a>
@@ -99,9 +118,9 @@ function Navbar({ loggedIn }) {
           )}
           <a href="/search">搜索</a>
         </div>
-        {window.appData && window.appData.tags && (
+        {window.app.navTags && (
           <div>
-            {window.appData.tags.map((tag) =>
+            {window.app.navTags.map((tag) =>
               window.location.pathname === `/forum/${tag.id}` ? (
                 <a key={tag.id} href={`/forum/${tag.id}`} className="active">
                   {tag.name}

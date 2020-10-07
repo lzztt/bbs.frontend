@@ -35,11 +35,8 @@ const SFBAY = 4;
 
     <!--BEGIN CSS-->
     <?php if ($debug) : ?>
-      <link href="/themes/<?= $theme ?>/css/normalize.css" rel="stylesheet" type="text/css">
       <link href="/themes/<?= $theme ?>/css/markitup.style.css" rel="stylesheet" type="text/css">
       <link href="/themes/<?= $theme ?>/css/markitup.bbcode.css" rel="stylesheet" type="text/css">
-      <link href="/themes/<?= $theme ?>/css/nav_xs.css" rel="stylesheet" type="text/css">
-      <link href="/themes/<?= $theme ?>/css/nav_sm.css" rel="stylesheet" type="text/css">
       <link href="/themes/<?= $theme ?>/css/main_xs.css" rel="stylesheet" type="text/css">
       <link href="/themes/<?= $theme ?>/css/main_sm.css" rel="stylesheet" type="text/css">
       <link href="/themes/<?= $theme ?>/css/main_md.css" rel="stylesheet" type="text/css">
@@ -47,7 +44,6 @@ const SFBAY = 4;
       <?php if ($city === DALLAS || $city === SFBAY) : ?>
         <link href="/themes/<?= $theme ?>/css/main.dallas.css" rel="stylesheet" type="text/css">
       <?php endif ?>
-      <link href="/themes/<?= $theme ?>/css/fontello.css" rel="stylesheet" type="text/css">
     <?php else : ?>
       <link href="/themes/<?= $theme ?>/min/<?= $min_version ?>.min.css" rel="stylesheet" type="text/css">
       <?php if ($city === DALLAS || $city === SFBAY) : ?>
@@ -67,11 +63,6 @@ const SFBAY = 4;
         });
       </script>
     <?php endif ?>
-    <script>
-      window.appData = {
-        tags: <?= $page_navbar ?>,
-      };
-    </script>
   </head>
   <body>
     <div id='page'>
@@ -161,6 +152,8 @@ const SFBAY = 4;
           page_path: location.pathname,
           send_to: '<?= $track_id ?>',
         });
+
+        app.navTags = <?= $page_navbar ?>;
       </script>
     <?php endif ?>
   </body>
