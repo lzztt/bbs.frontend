@@ -410,18 +410,9 @@ blockquote
    padding: 2rem 0.2rem 0.2rem 0.5rem;
    position: relative;
    color: #454545;
-
    border-left: 1px solid #c76c0c;
-
-   -moz-box-shadow: 2px 2px 15px #ccc;
-   -webkit-box-shadow: 2px 2px 15px #ccc;
    box-shadow: 2px 2px 15px #ccc;
 }
-
-/* blockquote blockquote
-{
-   margin: 0.5em 1em 0.7em 1.5em;
-} */
 
 blockquote:before
 {

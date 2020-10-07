@@ -51,15 +51,25 @@ function App() {
   const navRef = useRef(null);
   const userId = cache.get("uid") || 0;
 
+  const navHidden = "navbar hidden";
+  const navVisible = "navbar";
+
   const toggleNav = () => {
-    navRef.current.className =
-      navRef.current.className === "navbar hidden" ? "navbar" : "navbar hidden";
+    if (navRef.current.className === navHidden) {
+      navRef.current.className = navVisible;
+      document.addEventListener("click", toggleNav, {
+        capture: true,
+        once: true,
+      });
+    } else {
+      navRef.current.className = navHidden;
+    }
   };
 
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <MenuIcon color="primary" id="menu_icon" onClick={toggleNav} />
-      <nav ref={navRef} id="menu" className="navbar hidden">
+      <nav ref={navRef} id="menu" className={navHidden}>
         <div>
           <a href="/">首页</a>
           {loggedIn ? (
