@@ -201,8 +201,14 @@ export const popup = (element) => {
     transform: "translate(-50%, -50%)",
     backgroundColor: "white",
     border: "1px solid black",
-    minWidth: Math.min(window.innerWidth - 10, 600) + "px",
+    minWidth: "min(100vw, 600px)",
+    maxWidth: "100vw",
     minHeight: "50px",
+    maxHeight: "90vh",
+    overflow: "auto",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   });
 
   overlay.addEventListener("click", close, { once: true });
@@ -210,7 +216,7 @@ export const popup = (element) => {
   return popupbox;
 };
 
-window.popup = popup;
+window.app.popup = popup;
 
 export const toLocalDateTimeString = (dt) => {
   let h = "" + dt.getHours();

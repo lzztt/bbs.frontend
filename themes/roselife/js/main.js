@@ -439,7 +439,7 @@ $(document).ready(function () {
       // popup windows
       var popupForms = {
          sendPM: {
-            html: '<form accept-charset="UTF-8" autocomplete="off" method="post">'
+            html: '<form accept-charset="UTF-8" autocomplete="off" method="post" style="width:100%;">'
                 + '<fieldset><label class="label">收信人</label><a href="/user/[uid]">[username]</a><input name="toUID" type="hidden" value="[uid]"></fieldset>'
                 + '<fieldset><label class="label">短信正文</label><textarea name="body" required autofocus></textarea></fieldset>'
                 + '<fieldset><button type="submit">发送短信</button></fieldset></form>',
@@ -460,7 +460,7 @@ $(document).ready(function () {
 
         var figure = this.cloneNode(true);
         figure.style.margin = 0;
-        window.popup(figure);
+        window.app.popup(figure);
       });
 
       $('a.popup').click(function (e) {
@@ -489,7 +489,7 @@ $(document).ready(function () {
             }
 
             // show popup
-            var popupbox = window.popup($(html)[0]);
+            var popupbox = window.app.popup($(html)[0]);
 
             var form = $('form', popupbox);
             form.submit(function (e) {
