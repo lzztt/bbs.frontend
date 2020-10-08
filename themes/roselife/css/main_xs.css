@@ -99,6 +99,32 @@ header#page_header ul li
    background-color: #eee;
 }
 
+section.items div {
+   margin: 0;
+   padding: 0;
+   display: grid;
+   grid-template-columns: auto 50px;
+}
+
+section.items div > * {
+   padding: 3px 5px 2px;
+   white-space: nowrap;
+}
+section.items div a {
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+section.items div span {
+   justify-self: stretch;
+   text-align: end;
+}
+
+section.items div *:nth-child(4n+3),
+section.items div *:nth-child(4n+4) {
+   background-color: #eee;
+}
+
 div#ad
 {
    display: none;

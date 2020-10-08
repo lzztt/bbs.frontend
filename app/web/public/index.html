@@ -54,7 +54,7 @@ const SFBAY = 4;
 
     <title><?= $head_title ?></title>
     <meta name='description' content='<?= $head_description ?>'>
-    <?php if ($city === HOUSTON || $city === DALLAS) : ?>
+    <?php if (!$debug && $city !== SFBAY) : ?>
       <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
       <script>
         (adsbygoogle = window.adsbygoogle || []).push({
@@ -124,37 +124,35 @@ const SFBAY = 4;
         <script defer src="/themes/<?= $theme ?>/min/<?= $min_version ?>.min.js"></script>
       <?php endif ?>
     </template>
-    <?php if (!$debug) : ?>
-      <?php
-      if ($city === HOUSTON) :
-        $track_id = 'UA-36671672-1';
-      elseif ($city === DALLAS) :
-        $track_id = 'UA-36671672-2';
-      elseif ($city === SFBAY) :
-        $track_id = 'UA-36671672-5';
-      endif
-      ?>
-      <!-- Global site tag (gtag.js) - Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $track_id ?>"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+    <?php
+    if ($city === HOUSTON) :
+      $track_id = 'UA-36671672-1';
+    elseif ($city === DALLAS) :
+      $track_id = 'UA-36671672-2';
+    elseif ($city === SFBAY) :
+      $track_id = 'UA-36671672-5';
+    endif
+    ?>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $track_id ?>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-        gtag('config', '<?= $track_id ?>', {
-          send_page_view: false
-        });
+      gtag('config', '<?= $track_id ?>', {
+        send_page_view: false
+      });
 
-        window.app = window.app || {};
-        app.gtagPageView = () => gtag('event', 'page_view', {
-          page_title: document.title,
-          page_location: location.href,
-          page_path: location.pathname,
-          send_to: '<?= $track_id ?>',
-        });
+      window.app = window.app || {};
+      app.gtagPageView = () => gtag('event', 'page_view', {
+        page_title: document.title,
+        page_location: location.href,
+        page_path: location.pathname,
+        send_to: '<?= $track_id ?>',
+      });
 
-        app.navTags = <?= $page_navbar ?>;
-      </script>
-    <?php endif ?>
+      app.navTags = <?= $page_navbar ?>;
+    </script>
   </body>
 </html>
