@@ -68,7 +68,7 @@ var validateResponse = function (data) {
    return true;
 };
 
-$(document).ready(function () {
+window.addEventListener('load', function () {
    var loadSession = function (data) {
       if (data.sessionID) {
          cache.set('sessionID', data.sessionID);
