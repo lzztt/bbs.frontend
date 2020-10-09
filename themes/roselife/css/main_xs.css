@@ -5,8 +5,10 @@ body
    /* Use a 16px base font size with a 18px line height */
    font-size: 1em; /* 16px x .875 = 14px */
    line-height: 1.286em; /* 14px x 1.286 = 18px */
-   font-family: Tahoma, Geneva, Helvetica, Arial, Verdana, "Bitstream Vera Sans", sans-serif, 宋体, SimSun;
-   /* font: 0.875em Tahoma,Geneva,Helvetica,Arial,Verdana,"Bitstream Vera Sans",sans-serif,宋体,SimSun; */
+   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
    background-color: #D3D3D3; /* lightgray */
    position: relative;
 }
@@ -96,32 +98,6 @@ header#page_header ul li
 
 .even_odd_parent > *:nth-child(even)
 {
-   background-color: #eee;
-}
-
-section.items div {
-   margin: 0;
-   padding: 0;
-   display: grid;
-   grid-template-columns: auto 50px;
-}
-
-section.items div > * {
-   padding: 3px 5px 2px;
-   white-space: nowrap;
-}
-section.items div a {
-   overflow: hidden;
-   text-overflow: ellipsis;
-}
-
-section.items div span {
-   justify-self: stretch;
-   text-align: end;
-}
-
-section.items div *:nth-child(4n+3),
-section.items div *:nth-child(4n+4) {
    background-color: #eee;
 }
 
@@ -374,30 +350,6 @@ ul.tabs li.active a {
 
 /* END TAB NAVIGATION */
 
-/* BEGIN SPINNER */
-@-moz-keyframes spin { to { -moz-transform: rotate(360deg); } }
-@-webkit-keyframes spin { to { -webkit-transform: rotate(360deg); } }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.spinner {
-   display: inline-block;
-   vertical-align: middle;
-   margin: 0 0.2em;
-   box-sizing: border-box;
-   width: 1em;
-   height: 1em;
-   border-radius: 50%;
-   border-bottom: 2px solid #a0522d;
-   border-top: 2px solid #b22222;
-   border-left: 2px solid #31cc31;
-   border-right: 2px solid #1e90ff;
-
-   -moz-animation: spin 1s infinite linear;
-   -webkit-animation: spin 1s infinite linear;
-   animation: spin 1s infinite linear;
-}
-/* END SPINNER */
-
 /* BEGIN IMAGE LIST */
 div#file_list {
    display: flex;
@@ -522,72 +474,35 @@ section.items header
    font-weight: normal;
 }
 
-section.items ul
-{
-   list-style: none;
+section.items div {
    margin: 0;
    padding: 0;
+   display: grid;
+   grid-template-columns: auto 50px;
 }
 
-section.items ul li
-{
-   /*border-bottom: 1px dashed #CCC;*/
-   position: relative;
-}
-
-section.items ul li:after
-{
-   content: attr(data-after);
-   display: inline-block;
-   position: absolute;
-   right: 0;
-   padding: 2px 8px;
-   vertical-align: bottom;
-}
-
-section.items ul li a
-{
-   display: inline-block;
-   width: 80%;
-   overflow: hidden;
-   white-space: nowrap;
+section.items div > * {
    padding: 3px 5px 2px;
-   vertical-align: bottom;
+   white-space: nowrap;
+}
+section.items div a {
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+section.items div span {
+   justify-self: stretch;
+   text-align: end;
+}
+
+section.items div *:nth-child(4n+3),
+section.items div *:nth-child(4n+4) {
+   background-color: #eee;
 }
 
 section.home_activities
 {
    display: none;
-}
-
-section.home_hot_nodes ul li:nth-child(1):after
-{
-   background-color: #FF0000;
-}
-
-section.home_hot_nodes ul li:nth-child(2):after
-{
-   background-color: #FF3300;
-}
-
-section.home_hot_nodes ul li:nth-child(3):after
-{
-   background-color: #FF6600;
-}
-
-section.home_hot_nodes ul li:nth-child(4):after
-{
-   background-color: #FF9900;
-}
-
-section.home_hot_nodes ul li:nth-child(5):after
-{
-   background-color: #FFCC00;
-}
-
-section.home_hot_nodes ul li:nth-child(6):after
-{
-   background-color: #FFFF00;
 }
 
 #site_stat
