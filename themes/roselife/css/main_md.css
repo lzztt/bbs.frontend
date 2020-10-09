@@ -1,4 +1,4 @@
-/* 
+/*
  * Medium devices (desktops, 1024px) and up
  * width: (1024 - 28) px scrollbar, 3-column layout
  */
@@ -22,7 +22,7 @@
    div#home_images
    {
       display: inline-block;
-      vertical-align: top;      
+      vertical-align: top;
       width: 696px;
    }
 
@@ -31,11 +31,21 @@
       display: inline-block;
       width: 300px;
    }
-   
+
    section.home_activities header
    {
       padding: 1px 4px;
       text-align: center;
+   }
+
+   section.home_activities .activity_now span
+   {
+      background-color: greenyellow;
+   }
+
+   section.home_activities .activity_future span
+   {
+      background-color: gold;
    }
    /* END HOME PAGE */
 

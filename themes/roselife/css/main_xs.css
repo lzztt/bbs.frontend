@@ -474,30 +474,69 @@ section.items header
    font-weight: normal;
 }
 
-section.items div {
+section.items ul {
+   list-style: none;
+}
+
+section.items ul,
+section.items ul li {
    margin: 0;
    padding: 0;
-   display: grid;
-   grid-template-columns: auto 50px;
+   display: flex;
 }
 
-section.items div > * {
-   padding: 3px 5px 2px;
+section.items ul {
+   flex-flow: column nowrap;
+}
+
+section.items ul li {
+   flex-flow: row nowrap;
+   justify-content: space-between;
+}
+
+section.items ul li > * {
+   padding: 3px 3px 2px;
    white-space: nowrap;
 }
-section.items div a {
+
+section.items ul li > a {
    overflow: hidden;
    text-overflow: ellipsis;
+   margin-left: 5px;
 }
 
-section.items div span {
-   justify-self: stretch;
-   text-align: end;
+section.items ul li > span {
+   margin-right: 5px;
 }
 
-section.items div *:nth-child(4n+3),
-section.items div *:nth-child(4n+4) {
-   background-color: #eee;
+section.home_hot_nodes ul li:nth-child(1) > span
+{
+   background-color: #FF0000;
+}
+
+section.home_hot_nodes ul li:nth-child(2) > span
+{
+   background-color: #FF3300;
+}
+
+section.home_hot_nodes ul li:nth-child(3) > span
+{
+   background-color: #FF6600;
+}
+
+section.home_hot_nodes ul li:nth-child(4) > span
+{
+   background-color: #FF9900;
+}
+
+section.home_hot_nodes ul li:nth-child(5) > span
+{
+   background-color: #FFCC00;
+}
+
+section.home_hot_nodes ul li:nth-child(6) > span
+{
+   background-color: #FFFF00;
 }
 
 section.home_activities

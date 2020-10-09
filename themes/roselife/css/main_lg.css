@@ -1,4 +1,4 @@
-/* 
+/*
  * Large devices (large desktops, 1280px) and up)
  * width: (1280 - 32) px, count scrollbar, 4-column layout
  */
@@ -16,16 +16,6 @@
    div#home_images
    {
       width: 948px;
-   }
-
-   section.home_activities li.activity_now:after
-   {
-      background-color: greenyellow;
-   }
-
-   section.home_activities li.activity_future:after
-   {
-      background-color: gold;
    }
    /* END HOME PAGE */
 
