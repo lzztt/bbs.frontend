@@ -71,7 +71,11 @@ function MsgEditor() {
         <DialogTitle id="form-dialog-title">
           收信人：{toUser.username}
         </DialogTitle>
-        <DialogContent>
+        <DialogContent
+          style={{
+            flex: "unset",
+          }}
+        >
           <TextField
             required
             multiline
