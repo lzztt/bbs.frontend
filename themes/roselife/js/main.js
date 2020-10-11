@@ -436,22 +436,6 @@ window.addEventListener('load', function () {
          e.preventDefault();
       });
 
-      // popup windows
-      var popupForms = {
-         sendPM: {
-            html: '<form accept-charset="UTF-8" autocomplete="off" method="post" style="width:100%;">'
-                + '<fieldset><label class="label">收信人</label><a href="/user/[uid]">[username]</a><input name="toUID" type="hidden" value="[uid]"></fieldset>'
-                + '<fieldset><label class="label">短信正文</label><textarea name="body" required autofocus></textarea></fieldset>'
-                + '<fieldset><button type="submit">发送短信</button></fieldset></form>',
-            handler: '/api/message',
-            success: function (data) {
-               if (validateResponse(data)) {
-                  return '短信发送成功。';
-               }
-            }
-         }
-      };
-
       $(".attach_images > figure").click(function (e) {
         e.preventDefault();
         if ($(window).width() < 600) {
@@ -461,62 +445,6 @@ window.addEventListener('load', function () {
         var figure = this.cloneNode(true);
         figure.style.margin = 0;
         window.app.popup(figure);
-      });
-
-      $('a.popup').click(function (e) {
-         e.preventDefault();
-         var link = $(this);
-         var key = link.attr('href').substr(1);
-
-         if (key in popupForms) {
-            var html = popupForms[key].html;
-            var handler = popupForms[key].handler;
-            var method = popupForms[key].method ? popupForms[key].method : 'POST';
-
-            // apply varibles
-            var vars = {};
-            if ('vars' in popupForms[key]) {
-               vars = $.extend(vars, popupForms[key].vars);
-            }
-            if (link.attr('data-vars')) {
-               vars = $.extend(vars, JSON.parse(link.attr('data-vars')));
-            }
-            if (!$.isEmptyObject(vars)) {
-               for (var k in vars) {
-                  html = html.replace(new RegExp('\\[' + k + '\\]', 'g'), String(vars[k]));
-                  handler = handler.replace(new RegExp('\\[' + k + '\\]', 'g'), String(vars[k]));
-               }
-            }
-
-            // show popup
-            var popupbox = window.app.popup($(html)[0]);
-
-            var form = $('form', popupbox);
-            form.submit(function (e) {
-               e.preventDefault();
-               if (handler) {
-                  $.ajax({
-                     method: method,
-                     url: handler,
-                     data: form.serialize(),
-                     dataType: 'json',
-                     success: function (data) {
-                        var response = popupForms[key].success(data);
-                        if (response) {
-                           $(popupbox).html(response);
-                        }
-                     },
-                     error: function () {
-                        alert('错误：提交数据错误');
-                     }
-                  });
-               }
-               else
-               {
-                  alert('错误：无法提交数据');
-               }
-            });
-         }
       });
 
       if (uid > 0) {
