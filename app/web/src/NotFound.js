@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import MsgEditor from "./pm/MsgEditor";
 
 // const isExternal = () => {
 //   return (
@@ -13,14 +14,22 @@ function NotFound() {
 
   useEffect(() => {
     // if (showTemplate) {
-      const template = document.querySelector("#content");
-      if (template) {
-        nodeRef.current.appendChild(template.content.cloneNode(true));
-        document.querySelector('#page_footer').style.display = "block";
-      }
+    const template = document.querySelector("#content");
+    if (template) {
+      nodeRef.current.appendChild(template.content.cloneNode(true));
+      document.querySelector("#page_footer").style.display = "block";
+    }
     // }
   });
 
+  if (window.location.pathname.startsWith("/node/")) {
+    return (
+      <>
+        <div ref={nodeRef} />
+        <MsgEditor />
+      </>
+    );
+  }
   return <div ref={nodeRef} />;
   // return showTemplate ? <div ref={nodeRef} /> : "Not Found!";
 }

@@ -14,7 +14,6 @@ import MsgEditor from "./MsgEditor";
 function Message() {
   const [messages, setMessages] = useState(null);
   const [replyTo, setReplyTo] = useState({});
-  const [editor, setEditor] = useState(false);
   const { messageId } = useParams();
   const history = useHistory();
 
@@ -47,14 +46,17 @@ function Message() {
   };
 
   const handleReply = () => {
-    setEditor(true);
+    window.app.openMsgEditor({
+      toUser: replyTo,
+      topicMid: messageId,
+      onClose: updateMessages,
+    });
   };
 
-  const closeEditor = (newMessage) => {
+  const updateMessages = (newMessage) => {
     if (newMessage) {
       setMessages([...messages, newMessage]);
     }
-    setEditor(false);
   };
 
   if (!Array.isArray(messages)) {
@@ -68,34 +70,27 @@ function Message() {
   return (
     <>
       <NavTab mailbox={mailbox} />
-      {editor ? (
-        <MsgEditor
-          replyTo={replyTo}
-          topicMid={messageId}
-          onClose={closeEditor}
-        />
-      ) : (
-        <article className="topic">
-          {messages.map((msg, index) => (
-            <section key={msg.id}>
-              <header>
-                <Link to={"/user/" + msg.uid}>{msg.username}</Link>
-                {toLocalDateTimeString(new Date(msg.time * 1000))}
-              </header>
-              <p>
-                {msg.body}{" "}
-                <DeleteForeverIcon onClick={() => handleDelete(index)} />
-              </p>
-            </section>
-          ))}
-          <div>
-            <button onClick={handleReply}>
-              <EditIcon />
-              回复
-            </button>
-          </div>
-        </article>
-      )}
+      <article className="topic">
+        {messages.map((msg, index) => (
+          <section key={msg.id}>
+            <header>
+              <Link to={"/user/" + msg.uid}>{msg.username}</Link>
+              {toLocalDateTimeString(new Date(msg.time * 1000))}
+            </header>
+            <p>
+              {msg.body}{" "}
+              <DeleteForeverIcon onClick={() => handleDelete(index)} />
+            </p>
+          </section>
+        ))}
+        <div>
+          <button onClick={handleReply}>
+            <EditIcon />
+            回复
+          </button>
+        </div>
+      </article>
+      <MsgEditor />
     </>
   );
 }

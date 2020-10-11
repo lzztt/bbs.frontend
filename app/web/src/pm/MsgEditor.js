@@ -1,51 +1,99 @@
-import React, { useState, useRef } from "react";
-
+import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import TextField from "@material-ui/core/TextField";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 import { rest, validateResponse } from "../lib/common";
+import Notification from "./Notification";
 
-function MsgEditor({ replyTo, topicMid, onClose }) {
+function MsgEditor() {
+  const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
-  const textInputRef = useRef(null);
+  const [toUser, setToUser] = useState({});
+  const [topicMid, setTopicMid] = useState(null);
+  const [onClose, setOnClose] = useState(null);
+  const [notification, setNotification] = useState(null);
+
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+  window.app.openMsgEditor = ({ toUser, topicMid = null, onClose = null }) => {
+    setToUser(toUser);
+    setTopicMid(topicMid);
+    setOnClose(() => onClose);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setMessage("");
+    setToUser({});
+    setTopicMid(null);
+    setOnClose(null);
+    setNotification(null);
+  };
 
   const sendMessage = (event) => {
-    event.preventDefault();
-
     if (message.length < 5) {
       alert("短信内容最少为5个字符");
-      textInputRef.current.focus();
       return;
     }
 
     rest
       .post("/api/message", {
-        toUid: replyTo.id,
+        toUid: toUser.id,
         body: message,
         topicMid,
       })
       .then(function (data) {
         if (validateResponse(data)) {
-          onClose(data);
+          handleClose();
+          if (onClose) onClose(data);
+          setNotification("短信发送成功！");
         }
       });
   };
 
   return (
-    <form onSubmit={sendMessage} onReset={() => onClose(null)}>
-      <fieldset>
-        <label>收信人</label>
-        {replyTo.username}
-      </fieldset>
-      <fieldset>
-        <textarea
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          ref={textInputRef}
-        />
-      </fieldset>
-      <fieldset>
-        <button type="submit">发送</button>
-        <button type="reset">取消</button>
-      </fieldset>
-    </form>
+    <>
+      <Dialog
+        fullScreen={fullScreen}
+        fullWidth={true}
+        maxWidth={"sm"}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">
+          收信人：{toUser.username}
+        </DialogTitle>
+        <DialogContent>
+          <TextField
+            required
+            multiline
+            autoFocus
+            fullWidth
+            value={message}
+            onChange={(event) => setMessage(event.target.value)}
+            placeholder="短信内容最少为5个字符"
+            variant="outlined"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" onClick={handleClose} color="primary">
+            取消
+          </Button>
+          <Button variant="contained" onClick={sendMessage} color="primary">
+            发送
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Notification message={notification} />
+    </>
   );
 }
 
