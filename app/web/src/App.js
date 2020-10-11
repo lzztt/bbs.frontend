@@ -82,7 +82,6 @@ function Navbar({ loggedIn }) {
     <>
       <MenuIcon
         ref={togglerRef}
-        color="primary"
         id="menu_icon"
         onClick={toggle}
       />
