@@ -80,11 +80,7 @@ function Navbar({ loggedIn }) {
 
   return (
     <>
-      <MenuIcon
-        ref={togglerRef}
-        id="menu_icon"
-        onClick={toggle}
-      />
+      <MenuIcon ref={togglerRef} id="menu_icon" onClick={toggle} />
       <nav ref={navRef} id="menu" className={navHidden}>
         <div>
           <a href="/">首页</a>
@@ -140,6 +136,7 @@ function Navbar({ loggedIn }) {
 function RouteSwitch({ loggedIn, setLoggedIn }) {
   const location = useLocation();
   useEffect(() => {
+    if (process.env.NODE_ENV === "development") return;
     window.app.gtagPageView();
   }, [location]);
 

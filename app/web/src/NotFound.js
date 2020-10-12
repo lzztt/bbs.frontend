@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import MsgEditor from "./pm/MsgEditor";
+import Editor from "./editor/Editor";
 
 // const isExternal = () => {
 //   return (
@@ -25,6 +26,7 @@ function NotFound() {
   if (window.location.pathname.startsWith("/node/")) {
     return (
       <>
+        <Editor />
         <div ref={nodeRef} />
         <MsgEditor />
       </>

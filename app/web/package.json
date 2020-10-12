@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "image-blob-reduce": "^1.0.7",
     "lint-staged": "^10.4.0",
     "prettier": "^2.1.2",
     "react": "^16.13.1",
@@ -20,7 +21,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && gzip build/static/*/*.{js,css}",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

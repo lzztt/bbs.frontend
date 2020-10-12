@@ -4,6 +4,9 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import CloseIcon from "@material-ui/icons/Close";
+import IconButton from "@material-ui/core/IconButton";
+import Toolbar from "@material-ui/core/Toolbar";
 import TextField from "@material-ui/core/TextField";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
@@ -63,14 +66,29 @@ function MsgEditor() {
       <Dialog
         fullScreen={fullScreen}
         fullWidth={true}
-        maxWidth={"sm"}
+        maxWidth={"md"}
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">
-          收信人：{toUser.username}
-        </DialogTitle>
+        <Toolbar style={{ justifyContent: "space-between" }}>
+          <DialogTitle
+            id="form-dialog-title"
+            style={{
+              paddingLeft: "0",
+            }}
+          >
+            收信人：{toUser.username}
+          </DialogTitle>
+          <IconButton
+            edge="end"
+            color="inherit"
+            onClick={handleClose}
+            aria-label="close"
+          >
+            <CloseIcon />
+          </IconButton>
+        </Toolbar>
         <DialogContent
           style={{
             flex: "unset",

@@ -1,4 +1,5 @@
 // import mock_rest from './mock/rest'
+window.app = window.app || {};
 
 export const session = {
   set: (key, value) => {
