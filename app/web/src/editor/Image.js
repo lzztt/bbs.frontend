@@ -1,9 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
+import { FormHelperText } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   figure: {
     margin: "0.5rem",
+    display: "flex",
+    flexFlow: "column nowrap",
+    width: "200px",
   },
 }));
 
@@ -12,7 +18,7 @@ function Image({ name, src, code, index, updateImageName, deleteImage }) {
   const classes = useStyles();
 
   useEffect(() => {
-    if (!code && src.startsWith("blob:")) {
+    if (!code) {
       imgRef.current.onload = () => {
         URL.revokeObjectURL(src);
       };
@@ -22,22 +28,31 @@ function Image({ name, src, code, index, updateImageName, deleteImage }) {
   return (
     <figure className={classes.figure}>
       <img ref={imgRef} src={src} width="200" />
-      <figcaption width="200">
-        <label>名称</label>
-        <input
-          type="text"
+      <figcaption>
+        <TextField
+          required
+          fullWidth
+          label="名称"
+          size="small"
           value={name}
-          size={15}
-          name="file_name[]"
           onChange={(event) => updateImageName(index, event.target.value)}
         />
-        <br />
-        <label>代码</label>
-        <input disabled type="text" value={code} size={15} name="file_code[]" />
-        <br />
-        <button type="button" onClick={() => deleteImage(index)}>
+        {code && (
+          <TextField
+            fullWidth
+            disabled
+            label="代码"
+            size="small"
+            value={code}
+          />
+        )}
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => deleteImage(index)}
+        >
           删除
-        </button>
+        </Button>
       </figcaption>
     </figure>
   );
