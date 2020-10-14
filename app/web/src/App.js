@@ -8,6 +8,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { cache, validateLoginSession } from "./lib/common";
 import "./App.css";
 import Login from "./guest/Login";
@@ -136,7 +137,6 @@ function Navbar({ loggedIn }) {
 function RouteSwitch({ loggedIn, setLoggedIn }) {
   const location = useLocation();
   useEffect(() => {
-    if (process.env.NODE_ENV === "development") return;
     window.app.gtagPageView();
   }, [location]);
 
@@ -197,15 +197,40 @@ function RouteSwitch({ loggedIn, setLoggedIn }) {
   );
 }
 
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      '"Roboto"',
+      '"Oxygen"',
+      '"Ubuntu"',
+      '"Cantarell"',
+      '"Fira Sans"',
+      '"Droid Sans"',
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+      '"Noto Color Emoji"',
+    ].join(","),
+  },
+});
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(isLoggedIn);
 
   return (
     <BrowserRouter>
-      <Navbar {...{ loggedIn }} />
-      <div id="app_main">
-        <RouteSwitch {...{ loggedIn, setLoggedIn }} />
-      </div>
+      <ThemeProvider theme={theme}>
+        <Navbar {...{ loggedIn }} />
+        <div id="app_main">
+          <RouteSwitch {...{ loggedIn, setLoggedIn }} />
+        </div>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

@@ -6,8 +6,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 // import ReactMarkdown from "react-markdown";
 import { rest, validateResponse } from "../lib/common";
 import TextField from "@material-ui/core/TextField";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useTheme } from "@material-ui/core/styles";
 import Image from "./Image";
 
 import ImageBlobReduce from "image-blob-reduce";
@@ -15,51 +13,34 @@ import ImageBlobReduce from "image-blob-reduce";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "900px",
+    margin: "auto",
   },
-  div: {
+  titleDiv: {
     display: "flex",
     flexDirection: "column",
     [theme.breakpoints.up("sm")]: {
       flexDirection: "row-reverse",
     },
   },
-  half: {
+  halfWidth: {
     width: "100%",
     [theme.breakpoints.up("sm")]: {
       width: "50%",
     },
   },
+  imgDiv: {
+    display: "flex",
+    alignItems: "flex-end",
+  },
 }));
 
-if (process.env.NODE_ENV === "development") {
-  window.app.navTags = [
-    { id: 8, name: "跳蚤市场" },
-    { id: 9, name: "住房信息" },
-    { id: 10, name: "车行天下" },
-    { id: 12, name: "招聘求职" },
-    { id: 13, name: "相亲征友" },
-    { id: 23, name: "谈天说地" },
-    { id: 16, name: "活动旅游" },
-    { id: 21, name: "美食健康" },
-    { id: 24, name: "家有一小" },
-    { id: 25, name: "论坛发展" },
-  ];
-}
-
 function Editor() {
-  const [type, setType] = useState("node"); //(null);
-  const [nodeId, setNodeId] = useState(null);
-  const [commentId, setCommentId] = useState(null);
-  const [tagId, setTagId] = useState(null);
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-  const [images, setImages] = useState([]);
+  const [data, setData] = useState(null);
+  const [url, setUrl] = useState("");
+  const [submit, setSubmit] = useState("");
 
   const fileInputRef = useRef(null);
-
-  const theme = useTheme();
   const classes = useStyles();
-  const fullWidth = useMediaQuery(theme.breakpoints.down("sm"));
 
   window.app.openNodeEditor = ({
     nodeId = null,
@@ -67,13 +48,20 @@ function Editor() {
     title = "",
     body = "",
     images = [],
-  }) => {
-    setType("node");
-    setNodeId(nodeId);
-    setTagId(tagId);
-    setTitle(title);
-    setBody(body);
-    setImages(images);
+  } = {}) => {
+    if (nodeId) {
+      setUrl(`/node/${nodeId}/edit`);
+      setSubmit("更新话题");
+    } else {
+      setUrl(`/forum/node`);
+      setSubmit("发布新话题");
+    }
+    setData({
+      tagId,
+      title,
+      body,
+      images,
+    });
   };
 
   window.app.openCommentEditor = ({
@@ -81,24 +69,45 @@ function Editor() {
     commentId = null,
     body = "",
     images = [],
-  }) => {
-    setType("comment");
-    setNodeId(nodeId);
-    setCommentId(commentId);
-    setBody(body);
-    setImages(images);
+  } = {}) => {
+    if (commentId) {
+      setUrl(`/comment/${commentId}/edit`);
+      setSubmit("更新评论");
+    } else if (nodeId) {
+      setUrl(`/node/${nodeId}/comment`);
+      setSubmit("发布新评论");
+    } else {
+      return;
+    }
+    setData({
+      body,
+      images,
+    });
   };
 
+  if (!data) {
+    return "";
+  }
+
   const handleTagChange = (event) => {
-    setTagId(event.target.value);
+    setData({
+      ...data,
+      tagId: event.target.value,
+    });
   };
 
   const handleTitleChange = (event) => {
-    setTitle(event.target.value);
+    setData({
+      ...data,
+      title: event.target.value,
+    });
   };
 
   const handleBodyChange = (event) => {
-    setBody(event.target.value);
+    setData({
+      ...data,
+      body: event.target.value,
+    });
   };
 
   const fileInputChange = (event) => {
@@ -118,43 +127,89 @@ function Editor() {
       })
       .then(function (blob) {
         fileInput.value = null;
-        setImages([
-          ...images,
+        const tmp = [
+          ...data.images,
           {
             name: file.name,
             src: URL.createObjectURL(blob),
             blob,
           },
-        ]);
+        ];
+        setData({
+          ...data,
+          images: tmp,
+        });
       });
   };
 
   function updateImageName(index, name) {
-    const tmp = [...images];
+    const tmp = [...data.images];
     tmp[index].name = name;
-    setImages(tmp);
+    setData({
+      ...data,
+      images: tmp,
+    });
   }
 
   function deleteImage(index) {
-    const tmp = [...images];
+    const tmp = [...data.images];
     tmp.splice(index, 1);
-    setImages(tmp);
+    setData({
+      ...data,
+      images: tmp,
+    });
   }
 
   const postMessage = (event) => {
-    if (type === "node") {
-      if (nodeId) {
-        // edit
-      } else {
-        // create
-      }
-    } else {
-      if (commentId) {
-        // edit
-      } else {
-        // create
-      }
+    var formData = new FormData();
+    if ("title" in data) {
+      formData.append("title", data.title);
+      formData.append("tagId", data.tagId);
+      formData.append("body", data.body);
+      data.images.map((image) => {
+        if ("blob" in image) {
+          const id = Math.random().toString(36).substring(2, 5);
+          formData.append(id, blob, id);
+          formData.append("file_id[]", id);
+        } else {
+          formData.append("file_id[]", image.id);
+        }
+        formData.append("file_name[]", image.name);
+      });
     }
+    // formData.getAll("file_id[]").forEach((id) => {
+    //   if (blobs.has(id)) {
+    //     formData.append(id, blobs.get(id), id);
+    //   }
+    // });
+
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        validateResponse(data);
+
+        if (data.redirect) {
+          // blobs.clear();
+
+          var a = document.createElement("a");
+          a.href = data.redirect;
+
+          if (
+            window.location.href.replace(/#.*/, "") ===
+            a.href.replace(/#.*/, "")
+          ) {
+            window.location.reload();
+          } else {
+            window.location.assign(a.href);
+          }
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
     // if (message.length < 5) {
     //   alert("短信内容最少为5个字符");
     //   return;
@@ -174,50 +229,53 @@ function Editor() {
 
   return (
     <div className={classes.root}>
-      <div className={classes.div}>
-        <TextField
-          className={classes.half}
-          required
-          select
-          value={tagId}
-          onChange={handleTagChange}
-          label="讨论区"
-          placeholder="请选择话题要发往的讨论区"
-        >
-          {window.app.navTags.map((tagId) => (
-            <MenuItem key={tagId.id} value={tagId.id}>
-              {tagId.name}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          className={classes.half}
-          required
-          value={title}
-          onChange={handleTitleChange}
-          label="标题"
-          placeholder="话题的标题"
-        />
-      </div>
+      {"title" in data && (
+        <div className={classes.titleDiv}>
+          <TextField
+            className={classes.halfWidth}
+            required
+            select
+            value={data.tagId}
+            onChange={handleTagChange}
+            label="讨论区"
+            placeholder="话题的讨论区"
+          >
+            {window.app.navTags.map((tagId) => (
+              <MenuItem key={tagId.id} value={tagId.id}>
+                {tagId.name}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            className={classes.halfWidth}
+            required
+            value={data.title}
+            onChange={handleTitleChange}
+            label="标题"
+            placeholder="话题的标题"
+          />
+        </div>
+      )}
       <TextField
         required
         fullWidth
         multiline
-        value={body}
+        value={data.body}
         onChange={handleBodyChange}
         label="正文"
         placeholder="支持纯文本格式和BBCode格式"
       />
       {/* <ReactMarkdown className="preview" source={body} /> */}
       <div>
-        <div style={{ display: "flex", alignItems: "flex-end" }}>
-          {images.map((image, index) => (
-            <Image
-              key={index}
-              {...image}
-              {...{ index, updateImageName, deleteImage }}
-            />
-          ))}
+        <div className={classes.imgDiv}>
+          {data.images &&
+            data.images.map((image, index) => (
+              <Image
+                key={index}
+                {...image}
+                {...{ index, updateImageName, deleteImage }}
+              />
+            ))}
         </div>
         <input
           ref={fileInputRef}
@@ -236,8 +294,7 @@ function Editor() {
       </div>
       <div>
         <Button variant="contained" color="primary" onClick={postMessage}>
-          {(nodeId || commentId ? "保存" : "发布新") +
-            (type === "node" ? "话题" : "评论")}
+          {submit}
         </Button>
       </div>
     </div>

@@ -288,17 +288,6 @@ window.addEventListener('load', function () {
                window.scrollTo(0, editorForm.offset().top);
             });
 
-            $('button.create_node').click(function (e) {
-               editorForm.attr('action', $(this).attr('data-action'));
-               editorTitle.show();
-               clearFiles();
-
-               editorBody.val('');
-               $('input', editorTitle).val('').focus();
-
-               window.scrollTo(0, editorForm.offset().top);
-            });
-
             if (template) {
                document.getElementById('file_select').onchange = function (e) {
                   var fileInput = e.target;

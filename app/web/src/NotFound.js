@@ -26,8 +26,8 @@ function NotFound() {
   if (window.location.pathname.startsWith("/node/")) {
     return (
       <>
-        <Editor />
         <div ref={nodeRef} />
+        <Editor />
         <MsgEditor />
       </>
     );
