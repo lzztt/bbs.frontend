@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "900px",
     margin: "auto",
+    padding: "1rem",
+    border: "1px solid gray",
+    borderRadius: "0.5rem",
   },
   titleDiv: {
     display: "flex",
@@ -30,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   imgDiv: {
     display: "flex",
+    flexFlow: "row wrap",
     alignItems: "flex-end",
   },
 }));
@@ -39,6 +43,7 @@ function Editor() {
   const [url, setUrl] = useState("");
   const [submit, setSubmit] = useState("");
 
+  const editorRef = useRef(null);
   const fileInputRef = useRef(null);
   const classes = useStyles();
 
@@ -60,7 +65,17 @@ function Editor() {
       tagId,
       title,
       body,
-      images,
+      images: images.map((image) => ({
+        ...image,
+        src: image.path,
+        code: `[img]${image.path}[/img]`,
+      })),
+    });
+
+    window.scrollTo({
+      top: editorRef.current.getBoundingClientRect().bottom,
+      left: 0,
+      behavior: "smooth",
     });
   };
 
@@ -81,12 +96,22 @@ function Editor() {
     }
     setData({
       body,
-      images,
+      images: images.map((image) => ({
+        ...image,
+        src: image.path,
+        code: `[img]${image.path}[/img]`,
+      })),
+    });
+
+    window.scrollTo({
+      top: editorRef.current.getBoundingClientRect().bottom,
+      left: 0,
+      behavior: "smooth",
     });
   };
 
   if (!data) {
-    return "";
+    return <div ref={editorRef} />;
   }
 
   const handleTagChange = (event) => {
@@ -163,25 +188,30 @@ function Editor() {
   const postMessage = (event) => {
     var formData = new FormData();
     if ("title" in data) {
+      if (data.title.length < 5) {
+        alert("标题太短了");
+        return;
+      }
       formData.append("title", data.title);
       formData.append("tagId", data.tagId);
-      formData.append("body", data.body);
-      data.images.map((image) => {
-        if ("blob" in image) {
-          const id = Math.random().toString(36).substring(2, 5);
-          formData.append(id, blob, id);
-          formData.append("file_id[]", id);
-        } else {
-          formData.append("file_id[]", image.id);
-        }
-        formData.append("file_name[]", image.name);
-      });
     }
-    // formData.getAll("file_id[]").forEach((id) => {
-    //   if (blobs.has(id)) {
-    //     formData.append(id, blobs.get(id), id);
-    //   }
-    // });
+
+    if (data.body.length < 5) {
+      alert("正文太短了");
+      return;
+    }
+    formData.append("body", data.body);
+    formData.append("update_file", 1);
+    data.images.map((image) => {
+      if ("blob" in image) {
+        const id = Math.random().toString(36).substring(2, 5);
+        formData.append(id, image.blob, id);
+        formData.append("file_id[]", id);
+      } else {
+        formData.append("file_id[]", image.id);
+      }
+      formData.append("file_name[]", image.name);
+    });
 
     fetch(url, {
       method: "POST",
@@ -192,8 +222,6 @@ function Editor() {
         validateResponse(data);
 
         if (data.redirect) {
-          // blobs.clear();
-
           var a = document.createElement("a");
           a.href = data.redirect;
 
@@ -210,25 +238,10 @@ function Editor() {
       .catch((error) => {
         alert(error);
       });
-    // if (message.length < 5) {
-    //   alert("短信内容最少为5个字符");
-    //   return;
-    // }
-    // rest
-    //   .post("/api/message", {
-    //     toUid: toUser.id,
-    //     body: message,
-    //     topicMid,
-    //   })
-    //   .then((data) => {
-    //     if (validateResponse(data)) {
-    //       // redirect
-    //     }
-    //   });
   };
 
   return (
-    <div className={classes.root}>
+    <div ref={editorRef} className={classes.root}>
       {"title" in data && (
         <div className={classes.titleDiv}>
           <TextField

@@ -36,15 +36,7 @@ function Image({ name, src, code, index, updateImageName, deleteImage }) {
           value={name}
           onChange={(event) => updateImageName(index, event.target.value)}
         />
-        {code && (
-          <TextField
-            fullWidth
-            disabled
-            label="代码"
-            size="small"
-            value={code}
-          />
-        )}
+        <TextField fullWidth disabled label="代码" size="small" value={code} />
         <Button
           variant="contained"
           color="primary"
