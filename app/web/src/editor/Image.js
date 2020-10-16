@@ -36,7 +36,14 @@ function Image({ name, src, code, index, updateImageName, deleteImage }) {
           value={name}
           onChange={(event) => updateImageName(index, event.target.value)}
         />
-        <TextField fullWidth disabled label="代码" size="small" value={code} />
+        <TextField
+          fullWidth
+          disabled
+          label="代码"
+          size="small"
+          value={code}
+          style={{ marginBottom: "0.5rem" }}
+        />
         <Button
           variant="contained"
           color="primary"

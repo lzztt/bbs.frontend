@@ -40,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: "row wrap",
     alignItems: "flex-end",
   },
+  submitDiv: {
+    marginTop: "0.5rem",
+  },
 }));
 
 function Editor() {
@@ -279,7 +282,7 @@ function Editor() {
         placeholder="支持纯文本格式和BBCode格式"
       />
       {/* <ReactMarkdown className="preview" source={body} /> */}
-      <div>
+      <div style={{ margin: "0.5rem 0" }}>
         <div className={classes.imgDiv}>
           {data.images &&
             data.images.map((image, index) => (
@@ -305,7 +308,7 @@ function Editor() {
           上传图片
         </Button>
       </div>
-      <div>
+      <div className={classes.submitDiv}>
         <Button variant="contained" color="primary" onClick={postMessage}>
           {submit}
         </Button>
