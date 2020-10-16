@@ -23,7 +23,10 @@ function NotFound() {
     // }
   });
 
-  if (window.location.pathname.startsWith("/node/")) {
+  if (
+    window.location.pathname.startsWith("/node/") ||
+    window.location.pathname.startsWith("/forum/")
+  ) {
     return (
       <>
         <div ref={nodeRef} />

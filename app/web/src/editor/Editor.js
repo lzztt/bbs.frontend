@@ -10,10 +10,14 @@ import Image from "./Image";
 
 import ImageBlobReduce from "image-blob-reduce";
 
+// import delete and report actions
+let _ = window.app.delete;
+_ = window.app.report;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "900px",
-    margin: "auto",
+    margin: "1rem auto",
     padding: "1rem",
     border: "1px solid gray",
     borderRadius: "0.5rem",
@@ -43,7 +47,6 @@ function Editor() {
   const [url, setUrl] = useState("");
   const [submit, setSubmit] = useState("");
 
-  const editorRef = useRef(null);
   const fileInputRef = useRef(null);
   const classes = useStyles();
 
@@ -73,7 +76,7 @@ function Editor() {
     });
 
     window.scrollTo({
-      top: editorRef.current.getBoundingClientRect().bottom,
+      top: document.body.scrollHeight,
       left: 0,
       behavior: "smooth",
     });
@@ -104,14 +107,14 @@ function Editor() {
     });
 
     window.scrollTo({
-      top: editorRef.current.getBoundingClientRect().bottom,
+      top: document.body.scrollHeight,
       left: 0,
       behavior: "smooth",
     });
   };
 
   if (!data) {
-    return <div ref={editorRef} />;
+    return "";
   }
 
   const handleTagChange = (event) => {
@@ -213,11 +216,8 @@ function Editor() {
       formData.append("file_name[]", image.name);
     });
 
-    fetch(url, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
+    rest
+      .post(url, formData)
       .then((data) => {
         validateResponse(data);
 
@@ -241,7 +241,7 @@ function Editor() {
   };
 
   return (
-    <div ref={editorRef} className={classes.root}>
+    <div className={classes.root}>
       {"title" in data && (
         <div className={classes.titleDiv}>
           <TextField
