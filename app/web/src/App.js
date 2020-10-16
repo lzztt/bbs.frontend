@@ -30,6 +30,15 @@ const theme = createMuiTheme({
       '"Noto Color Emoji"',
     ].join(","),
   },
+  overrides: {
+    // Style sheet name
+    MuiButton: {
+      // Name of the rule
+      root: {
+        padding: "0 16px", // for macOS and iOS
+      },
+    },
+  },
 });
 
 function App() {

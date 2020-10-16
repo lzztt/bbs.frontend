@@ -106,24 +106,10 @@ function MsgEditor() {
           />
         </DialogContent>
         <DialogActions>
-          <Button
-            variant="contained"
-            onClick={handleClose}
-            color="primary"
-            style={{
-              padding: "0",
-            }}
-          >
+          <Button variant="contained" onClick={handleClose} color="primary">
             取消
           </Button>
-          <Button
-            variant="contained"
-            onClick={sendMessage}
-            color="primary"
-            style={{
-              padding: "0",
-            }}
-          >
+          <Button variant="contained" onClick={sendMessage} color="primary">
             发送
           </Button>
         </DialogActions>
