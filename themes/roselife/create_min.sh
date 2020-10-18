@@ -3,13 +3,6 @@ set -e
 time=`date +%s`
 
 list='
-js/jquery.imageslider.js
-js/main.js
-'
-cat $list > min/$time.js
-terser min/$time.js --comments false -c -m -o min/$time.min.js
-
-list='
 css/main_xs.css
 css/main_sm.css
 css/main_md.css

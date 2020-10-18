@@ -489,6 +489,26 @@ ul.bookmarks > li > svg:first-child {
   margin-right: 0.3rem;
 }
 
+/* IMAGE SLIDER */
+@keyframes fade_in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade_out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+/* END IMAGE SLIDER */
+
 /* END USER BOOKMARK PAGE */
 
 /*# sourceMappingURL=app.css.map */
