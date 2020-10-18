@@ -13,8 +13,8 @@ function Login({ setLoggedIn }) {
     event.preventDefault();
     rest
       .post("/api/authentication", {
-        email: email,
-        password: password,
+        email,
+        password,
       })
       .then((data) => {
         if (validateResponse(data)) {

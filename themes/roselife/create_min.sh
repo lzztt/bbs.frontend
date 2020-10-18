@@ -3,7 +3,6 @@ set -e
 time=`date +%s`
 
 list='
-js/jquery.cookie.js
 js/jquery.imageslider.js
 js/main.js
 '

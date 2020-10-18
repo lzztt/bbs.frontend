@@ -24,19 +24,12 @@ export const session = {
     sessionStorage.clear();
   },
   getId: () => {
-    const cookieName = "LZXSID",
-      dc = document.cookie;
-    if (dc.length > 0) {
-      const cname = cookieName + "=";
-      let begin = dc.indexOf(cname);
-      if (begin !== -1) {
-        begin += cname.length;
-        let end = dc.indexOf(";", begin);
-        if (end === -1) end = dc.length;
-        return dc.substring(begin, end);
-      }
-    }
-    return null;
+    const cookie = document.cookie
+      ? document.cookie
+          .split("; ")
+          .find((item) => item.trim().startsWith("LZXSID="))
+      : null;
+    return cookie ? cookie.trim().split("=")[1] : null;
   },
 };
 
@@ -145,11 +138,32 @@ export const validateLoginSession = () => {
   if (!cache.get("uid")) {
     return false;
   }
-  // outdated client session
-  if (cache.get("sessionID") !== session.getId()) {
-    cache.remove("uid");
+
+  const sessionId = session.getId();
+  if (!sessionId) {
     return false;
   }
+
+  // outdated client session
+  if (sessionId !== cache.get("sessionID")) {
+    // clear client cache and session
+    cache.clear();
+    session.clear();
+
+    rest.get("/api/authentication/" + sessionId).then((data) => {
+      if (validateResponse(data)) {
+        if (data.sessionID) {
+          cache.set("sessionID", data.sessionID);
+          cache.set("uid", data.uid);
+          cache.set("username", data.username);
+          cache.set("role", data.role);
+        }
+      }
+    });
+
+    return false;
+  }
+
   return true;
 };
 
