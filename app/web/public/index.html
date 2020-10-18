@@ -35,8 +35,6 @@ const SFBAY = 4;
 
     <!--BEGIN CSS-->
     <?php if ($debug) : ?>
-      <link href="/themes/<?= $theme ?>/css/markitup.style.css" rel="stylesheet" type="text/css">
-      <link href="/themes/<?= $theme ?>/css/markitup.bbcode.css" rel="stylesheet" type="text/css">
       <link href="/themes/<?= $theme ?>/css/main_xs.css" rel="stylesheet" type="text/css">
       <link href="/themes/<?= $theme ?>/css/main_sm.css" rel="stylesheet" type="text/css">
       <link href="/themes/<?= $theme ?>/css/main_md.css" rel="stylesheet" type="text/css">
@@ -111,11 +109,6 @@ const SFBAY = 4;
       <?php if ($debug) : ?>
         <script defer src="/themes/<?= $theme ?>/js/jquery.cookie.js"></script>
         <script defer src="/themes/<?= $theme ?>/js/jquery.imageslider.js"></script>
-        <script defer src="/themes/<?= $theme ?>/js/jquery.hoverIntent.js"></script>
-        <script defer src="/themes/<?= $theme ?>/js/jquery.superfish.js"></script>
-        <script defer src="/themes/<?= $theme ?>/js/jquery.markitup.js"></script>
-        <script defer src="/themes/<?= $theme ?>/js/jquery.markitup.bbcode.set.js"></script>
-        <script defer src="/themes/<?= $theme ?>/js/image-blob-reduce.js"></script>
         <script defer src="/themes/<?= $theme ?>/js/main.js"></script>
       <?php else : ?>
         <script defer src="/themes/<?= $theme ?>/min/<?= $min_version ?>.min.js"></script>

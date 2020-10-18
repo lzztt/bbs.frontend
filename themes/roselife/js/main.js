@@ -50,20 +50,6 @@ var cache = {
    }
 };
 
-var validateResponse = function (data) {
-   if (!data) {
-      alert('服务器没有响应');
-      return false;
-   }
-   else {
-      if (data.error) {
-         alert(data.error);
-         return false;
-      }
-   }
-   return true;
-};
-
 window.addEventListener('load', function () {
    var loadSession = function (data) {
       if (data.sessionID) {
@@ -72,9 +58,6 @@ window.addEventListener('load', function () {
          if (data.uid > 0) {
             cache.set('username', data.username);
             cache.set('role', data.role);
-         }
-         if (data.pm > 0) {
-            session.set('pm', data.pm);
          }
          return data.uid;
       }
@@ -108,29 +91,11 @@ window.addEventListener('load', function () {
          }
       });
 
-      // responsive table header
-      var addTableHeader = function (table) {
-         var headers = new Array();
-         $('th', table).each(function () {
-            headers.push(this.innerHTML);
-         });
-         if (headers.length > 0) {
-            $('tbody tr', table).each(function () {
-               var tds = $('td', this);
-               for (i = 0; i < tds.length; i++) {
-                  $(tds.get(i)).attr('data-header', headers[i]);
-               }
-            });
-         }
-      };
-      $('table').each(function () {
-         addTableHeader(this);
-      });
-
       var showGuestPage = function () {
          $('.v_guest').show();
          $('[class*="v_user"]').remove();
       };
+
       var showUserPage = function () {
          $('.v_guest').remove();
          $('.v_user').show();
@@ -186,10 +151,12 @@ window.addEventListener('load', function () {
          session.clear();
          // boot as guest
          // showPage(0);
-         $.get('/api/authentication/' + sessionID, function (data) {
-            loadSession(data);
-            showPage(cache.get('uid'));
-         });
+         fetch("/api/authentication/" + sessionID)
+           .then((resp) => resp.json())
+           .then((data) => {
+             loadSession(data);
+             showPage(cache.get("uid"));
+           });
       }
       else {
          showPage(cache.get('uid'));

@@ -5,17 +5,12 @@ time=`date +%s`
 list='
 js/jquery.cookie.js
 js/jquery.imageslider.js
-js/jquery.markitup.js
-js/jquery.markitup.bbcode.set.js
-js/image-blob-reduce.js
 js/main.js
 '
 cat $list > min/$time.js
 terser min/$time.js --comments false -c -m -o min/$time.min.js
 
 list='
-css/markitup.style.css
-css/markitup.bbcode.css
 css/main_xs.css
 css/main_sm.css
 css/main_md.css
