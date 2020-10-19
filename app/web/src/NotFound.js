@@ -44,7 +44,7 @@ function NotFound() {
           const uri = element.dataset.ajax;
           if (uri) {
             fetch(uri)
-              .then((response) => response.json())
+              .then((response) => (response.ok ? response.json() : {}))
               .then((data) => {
                 for (const prop in data) {
                   element.querySelector(".ajax_" + prop).innerHTML = data[prop];
