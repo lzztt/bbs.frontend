@@ -1,3 +1,14 @@
+@import-normalize;
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 body {
   margin: 0;
   /* from bootstrap and github: https://github.com/twbs/bootstrap/blob/main/scss/_variables.scss#L399 */
@@ -7,6 +18,23 @@ body {
     "Noto Color Emoji";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  line-height: 1.375rem; /* 22px */
+  color: #333;
+  background-color: #d3d3d3;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.25rem; /* 20px */
+  }
+}
+
+strong,
+b {
+  font-weight: 700;
 }
 
 code {

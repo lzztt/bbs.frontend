@@ -1,31 +1,4 @@
-@import-normalize;
 /* BASIC */
-/* height */
-html {
-  height: 100%;
-}
-
-/* font */
-html {
-  font: Tahoma, Geneva, Arial, sans-serif;
-  color: #333;
-  line-height: 1.5rem;
-}
-
-header,
-nav,
-section,
-article,
-aside,
-footer,
-div,
-form,
-fieldset {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
 a {
   text-decoration: none;
   color: #2962ff;

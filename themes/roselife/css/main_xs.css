@@ -1,25 +1,4 @@
 /* BEGIN ALL PAGES */
-html, body { border: 0; margin: 0; padding: 0; }
-body
-{
-   /* Use a 16px base font size with a 18px line height */
-   font-size: 1em; /* 16px x .875 = 14px */
-   line-height: 1.286em; /* 14px x 1.286 = 18px */
-   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-    "Noto Color Emoji";
-   background-color: #D3D3D3; /* lightgray */
-   position: relative;
-}
-
-header, nav, section, article, aside, footer, div
-{
-   -webkit-box-sizing: border-box;
-   -moz-box-sizing: border-box;
-   box-sizing: border-box;
-}
-
 a
 {
    color: #105289;
@@ -47,10 +26,6 @@ span.time
    display: none;
 }
 
-div#page
-{
-}
-
 header#page_header, nav#page_navbar, section#page_body, footer#page_footer
 {
    clear: both;
@@ -61,36 +36,7 @@ header#page_header, section#page_body
    background-color: white;
 }
 
-a#logo
-{
-   display: inline-block;
-   vertical-align: bottom;
-}
-
-a#logo img
-{
-   width: 30px;
-   height: 30px;
-   vertical-align: bottom;
-}
-
 header#page_header span
-{
-   display: inline-block;
-   vertical-align: bottom;
-}
-
-header#page_header ul
-{
-   list-style: none;
-   display: inline-block;
-   margin: 0;
-   padding: 0.5em;
-   vertical-align: bottom;
-   float: right;
-}
-
-header#page_header ul li
 {
    display: inline-block;
    vertical-align: bottom;
@@ -350,30 +296,6 @@ ul.tabs li.active a {
 
 /* END TAB NAVIGATION */
 
-/* BEGIN IMAGE LIST */
-div#file_list {
-   display: flex;
-   flex-wrap: wrap;
-   align-items: flex-end;
- }
-
- div#file_list figure {
-   margin: 0.2em;
- }
-
- div#file_list figcaption {
-   width: 200px;
- }
-
- div#file_list label {
-   margin-right: 0.2em;
- }
-
- div#file_list input {
-   margin: 0.2em 0;
- }
- /* END IMAGE LIST */
-
 #copyright
 {
    text-align: center;
@@ -495,7 +417,7 @@ section.items ul li {
 }
 
 section.items ul li > * {
-   padding: 3px 3px 2px;
+   padding: 2px 3px 1px;
    white-space: nowrap;
 }
 
@@ -628,50 +550,6 @@ section.activities a.activity_future:before
 }
 /* END ACTIVITY LIST PAGE */
 
-/* BEGIN YP LIST */
-#yp_join
-{
-   display: block;
-   text-align: center;
-   background-color: #b7fcb7;
-   padding: 0.2em 0.5em;
-}
-#yp_list, #yp_list ul
-{
-   padding: 0;
-   margin:  0;
-   list-style: none;
-}
-
-#yp_list li.l1
-{
-   display: block;
-   padding: 0.5em;
-   overflow: hidden;
-}
-#yp_list .l1 a
-{
-   padding: 1px 5px;
-}
-#yp_list .l1 a:hover
-{
-   background-color: #ccc;
-}
-
-#yp_list .l1 > a
-{
-   color:purple;
-}
-#yp_list .l1 ul
-{
-   padding-left: 0.7em;
-}
-#yp_list .l2
-{
-   display: inline-block;
-}
-/* END YP LIST */
-
 /* BEGIN YP BCARD */
 .bcard
 {
@@ -711,63 +589,6 @@ section.activities a.activity_future:before
    color: gray;
 }
 /* END YP BCARD */
-
-/* BEGIN USER INFO */
-/*dt,dd*/
-dt,dd
-{
-   display: block;
-   float: left;
-   margin: 0;
-   padding: 3px;
-}
-dt
-{
-   width: 100px;
-   clear: left;
-   text-align: right;
-   color: #29447E;
-}
-dd
-{
-   float: left;
-}
-
-/*user*/
-dl
-{
-   overflow: hidden;
-}
-.user_topics
-{
-   margin-top: 0.5em;
-}
-.user_topics caption
-{
-   font-size: 1.2em;
-   color: purple;
-}
-/* END USER INFO */
-
-/* BEGIN PM LIST */
-table.pm_list tr > *:first-child
-{
-   overflow: hidden;
-   white-space: nowrap;
-}
-/* END PM LIST */
-
-/* BEGIN USER FORMS */
-input.name
-{
-   width: 30%;
-}
-
-.label.oldpassword
-{
-   color: black;
-}
-/* END USER FORMS */
 
 /* BEGIN FORUM TOPIC NODE */
 .author_panel
@@ -836,18 +657,3 @@ article footer .actions
    display: none;
 }
 /* END PAGE HEADER AD */
-
-/* BEGIN USER BOOKMARK PAGE */
-ul.bookmarks
-{
-   list-style: none;
-   margin: 0;
-   padding: 0;
-}
-
-ul.bookmarks li
-{
-   line-height: 2em;
-   padding-left: 0.5em;
-}
-/* END USER BOOKMARK PAGE */

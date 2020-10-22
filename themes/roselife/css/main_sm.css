@@ -1,26 +1,6 @@
 /* Small devices (tablets, 768px) and up */
 @media (min-width: 768px)
 {
-   /* BEGIN ALL PAGES */
-   body
-   {
-      /* Use a 14px base font size with a 18px line height */
-      font-size: 0.875em; /* 16px x .875 = 14px */
-      line-height: 1.286em; /* 14px x 1.286 = 18px */
-   }
-
-   div#logo
-   {
-      height: 60px;
-      width: 60px;
-   }
-
-   div#logo img
-   {
-      height: 60px;
-      width: 60px;
-   }
-
    /* BEGIN RESPONSIVE TABLE */
    table
    {
@@ -47,7 +27,7 @@
    {
       box-sizing: border-box;
       width: 30%;
-      text-align: right;      
+      text-align: right;
       padding: 0.2em 0.5em 0.2em 0.2em;
       position:absolute;
       left:0;
@@ -107,7 +87,7 @@
    section.items
    {
       display: inline-block;
-      vertical-align: top;      
+      vertical-align: top;
       width: 50%;
    }
 
@@ -125,7 +105,7 @@
 
    /* BEGIN FORUM TOPIC LIST PAGE */
    /* only show first 2 columns */
-   table.forum-topics td 
+   table.forum-topics td
    {
       display: table-cell;
       border: none;
@@ -138,7 +118,7 @@
       overflow: hidden;
    }
 
-   table.forum-topics tr > *:first-child:before 
+   table.forum-topics tr > *:first-child:before
    {
       display: none;
    }
@@ -166,56 +146,6 @@
       vertical-align: top;
    }
    /* END YP BCARD */
-
-   /* BEGIN USER INFO */
-   table.user_topics
-   {
-      width:49%;
-      float: left;
-      margin-right: 1%;
-   }
-
-   table.user_topics tr > *:nth-child(1)
-   {
-      width: 70%;
-      white-space: nowrap;
-      overflow: hidden;
-   }
-   table.user_topics tr > *:nth-child(2)
-   {
-      width: 30%;
-   }
-   /* END USER INFO */
-
-   /* BEGIN PM LIST */
-   table.pm_list tr > *:first-child
-   {
-      width: 70%;
-      padding: 0 0.5em;
-   }
-   table.pm_list tr > *:not(:first-child)
-   {
-      width: 15%;
-   }
-   /* END PM LIST */
-
-   /* BEGIN EDITOR FILELIST */
-   #file_list tr > *:nth-child(1)
-   {
-      width: 25%;
-      padding: 0 0.5em;
-   }
-   #file_list tr > *:nth-child(2)
-   {
-      width: 65%;
-      padding: 0 0.5em;
-   }
-   #file_list tr > *:nth-child(3)
-   {
-      width: 10%;
-      padding: 0 0.5em;
-   }
-   /* END EDITOR FILELIST */
 
    /* BEGIN FORUM TOPIC NODE */
    div.forum_post
@@ -304,7 +234,7 @@
       vertical-align: bottom;
       width: 50%;
    }
-   
+
    #page_header_ad a img
    {
       display: inline-block;
