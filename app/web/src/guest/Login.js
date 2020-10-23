@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-
+import Button from "@material-ui/core/Button";
 import { cache, rest, session, validateResponse } from "../lib/common";
 
 function Login({ setLoggedIn }) {
@@ -67,7 +67,9 @@ function Login({ setLoggedIn }) {
         />
       </fieldset>
       <fieldset>
-        <button type="submit">登录</button>
+        <Button variant="contained" color="primary" elementType="submit">
+          登录
+        </Button>
       </fieldset>
     </form>
   );

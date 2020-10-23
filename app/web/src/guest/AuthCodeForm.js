@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Button from "@material-ui/core/Button";
 import { rest, validateResponse } from "../lib/common";
 
 const randomId = () => Math.random().toString().slice(2);
@@ -81,7 +81,9 @@ function AuthCodeForm({ handler, submit, next, children }) {
       )}
       {children}
       <fieldset>
-        <button type="submit">{submit}</button>
+        <Button variant="contained" color="primary" elementType="submit">
+          {submit}
+        </Button>
       </fieldset>
     </form>
   );

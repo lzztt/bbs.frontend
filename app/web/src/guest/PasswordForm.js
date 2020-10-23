@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
-
+import Button from "@material-ui/core/Button";
 import { rest, validateResponse } from "../lib/common";
 
 function PasswordForm() {
@@ -63,7 +63,9 @@ function PasswordForm() {
         />
       </fieldset>
       <fieldset>
-        <button type="submit">保存密码</button>
+        <Button variant="contained" color="primary" elementType="submit">
+          保存密码
+        </Button>
       </fieldset>
     </form>
   );

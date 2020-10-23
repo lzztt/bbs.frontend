@@ -35,47 +35,12 @@ header#page_header span
    vertical-align: bottom;
 }
 
-.even_odd_parent > *:nth-child(even)
-{
-   background-color: #eee;
-}
-
 div#ad
 {
    display: none;
 }
 
-a#goTop
-{
-   position: fixed;
-   bottom:-100px;
-   right:10px;
-}
-
-/* BEGIN BBCODE EDITOR */
-.bbcode_editor
-{
-   padding: 0.5em 0;
-}
-.bbcode_editor fieldset
-{
-   margin-bottom: 0.5em;
-}
-/* END BBCODE EDITOR */
-
 /* BEGIN RESPONSIVE TABLE */
-/*
-tr
-{
-   border-top: 1px solid #ccc;
-}
-
-tr:last-child
-{
-   border-bottom: 1px solid #ccc;
-}
-*/
-
 th, td
 {
    padding: 0.3em;
@@ -128,34 +93,6 @@ th, td
    }
 }
 /* END RESPONSIVE TABLE */
-
-/* BEGIN RESPONSIVE FORM */
-form fieldset
-{
-   display: block;
-   clear: both;
-   margin: 0;
-   padding: 0.2em;
-   border: 0;
-}
-
-form fieldset .label
-{
-   display: block;
-   color: #006666;
-}
-
-textarea, input[type="text"], input[type='url'], input[type='email'], input[type='password']{
-   /* box-sizing: border-box; */
-   width: 100%;
-   max-width: 250px;
-}
-
-textarea {
-   max-width: 600px;
-   height: 150px;
-}
-/* END RESPONSIVE FORM */
 
 /* BEGIN NAV */
 nav.breadcrumb
