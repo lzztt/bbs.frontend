@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Form from "./Form";
 import { rest, validateResponse } from "../lib/common";
 
 const randomId = () => Math.random().toString().slice(2);
@@ -37,33 +39,30 @@ function AuthCodeForm({ handler, submit, next, children }) {
   return goToNext ? (
     next
   ) : (
-    <form onSubmit={handleSubmit}>
-      <fieldset>
-        <label>注册邮箱</label>
-        <input
-          type="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </fieldset>
-      <fieldset>
-        <label>用户名</label>
-        <input
-          type="text"
-          required
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </fieldset>
+    <Form>
+      <TextField
+        required
+        fullWidth
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        label="注册邮箱"
+      />
+      <TextField
+        required
+        fullWidth
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        label="用户名"
+      />
       {email && username && (
-        <fieldset>
-          <label>下边图片的内容是什么？</label>
-          <input
-            type="text"
+        <>
+          <TextField
             required
+            fullWidth
             value={captcha}
             onChange={(e) => setCaptcha(e.target.value)}
+            label="下边图片的内容是什么？"
           />
           <div className="captcha">
             <img
@@ -77,15 +76,13 @@ function AuthCodeForm({ handler, submit, next, children }) {
               看不清，换一张
             </div>
           </div>
-        </fieldset>
+        </>
       )}
       {children}
-      <fieldset>
-        <Button variant="contained" color="primary" elementType="submit">
-          {submit}
-        </Button>
-      </fieldset>
-    </form>
+      <Button variant="contained" color="primary" onClick={handleSubmit}>
+        {submit}
+      </Button>
+    </Form>
   );
 }
 

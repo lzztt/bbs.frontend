@@ -6,20 +6,20 @@ function Register() {
   return (
     <AuthCodeForm
       handler="/api/user"
-      submit="同意使用规范和免责声明，并创建帐号"
+      submit="同意服务条款和隐私政策，并创建帐号"
       next={<PasswordForm />}
     >
-      <fieldset>
+      <div>
         [
-        <a href="/todo" target="_blank">
-          网站使用规范
+        <a href="/term" target="_blank">
+          服务条款
         </a>
         ] [
-        <a href="/term" target="_blank">
-          免责声明
+        <a href="/privacy" target="_blank">
+          隐私政策
         </a>
         ]
-      </fieldset>
+      </div>
     </AuthCodeForm>
   );
 }

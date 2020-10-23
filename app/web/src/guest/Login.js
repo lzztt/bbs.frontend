@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Form from "./Form";
 import { cache, rest, session, validateResponse } from "../lib/common";
 
 function Login({ setLoggedIn }) {
@@ -47,31 +49,27 @@ function Login({ setLoggedIn }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <fieldset>
-        <label>注册邮箱</label>
-        <input
-          type="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </fieldset>
-      <fieldset>
-        <label>密码</label>
-        <input
-          type="password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </fieldset>
-      <fieldset>
-        <Button variant="contained" color="primary" elementType="submit">
-          登录
-        </Button>
-      </fieldset>
-    </form>
+    <Form>
+      <TextField
+        required
+        fullWidth
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        label="注册邮箱"
+      />
+      <TextField
+        required
+        fullWidth
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        label="密码"
+      />
+      <Button variant="contained" color="primary" onClick={handleSubmit}>
+        登录
+      </Button>
+    </Form>
   );
 }
 

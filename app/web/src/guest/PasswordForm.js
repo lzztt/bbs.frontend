@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Form from "./Form";
 import { rest, validateResponse } from "../lib/common";
 
 function PasswordForm() {
@@ -30,44 +32,35 @@ function PasswordForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <fieldset>
-        <h3>设置您的账户密码</h3>安全验证码已发送到您的注册邮箱
-      </fieldset>
-      <fieldset>
-        <label>安全验证码</label>
-        <input
-          type="text"
-          required
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-        />
-      </fieldset>
-      <fieldset>
-        <label>新密码</label>
-        <input
-          type="password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          ref={textInput}
-        />
-      </fieldset>
-      <fieldset>
-        <label>确认新密码</label>
-        <input
-          type="password"
-          required
-          value={passwordConfirm}
-          onChange={(e) => setPasswordConfirm(e.target.value)}
-        />
-      </fieldset>
-      <fieldset>
-        <Button variant="contained" color="primary" elementType="submit">
-          保存密码
-        </Button>
-      </fieldset>
-    </form>
+    <Form>
+      <h3>设置您的账户密码</h3>安全验证码已发送到您的注册邮箱
+      <TextField
+        required
+        fullWidth
+        value={code}
+        onChange={(e) => setCode(e.target.value)}
+        label="安全验证码"
+      />
+      <TextField
+        required
+        fullWidth
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        label="新密码"
+      />
+      <TextField
+        required
+        fullWidth
+        type="password"
+        value={passwordConfirm}
+        onChange={(e) => setPasswordConfirm(e.target.value)}
+        label="确认新密码"
+      />
+      <Button variant="contained" color="primary" onClick={handleSubmit}>
+        保存密码
+      </Button>
+    </Form>
   );
 }
 
