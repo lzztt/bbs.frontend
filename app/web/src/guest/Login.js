@@ -49,7 +49,7 @@ function Login({ setLoggedIn }) {
   };
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <TextField
         required
         fullWidth
@@ -66,7 +66,7 @@ function Login({ setLoggedIn }) {
         onChange={(e) => setPassword(e.target.value)}
         label="密码"
       />
-      <Button variant="contained" color="primary" onClick={handleSubmit}>
+      <Button variant="contained" color="primary" type="submit">
         登录
       </Button>
     </Form>

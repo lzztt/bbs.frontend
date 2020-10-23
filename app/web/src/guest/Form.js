@@ -12,9 +12,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Form({ children }) {
+function Form({ onSubmit, children }) {
   const classes = useStyles();
-  return <div className={classes.root}>{children}</div>;
+  return (
+    <form className={classes.root} onSubmit={onSubmit}>
+      {children}
+    </form>
+  );
 }
 
 export default Form;

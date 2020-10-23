@@ -32,7 +32,7 @@ function PasswordForm() {
   };
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <h3>设置您的账户密码</h3>安全验证码已发送到您的注册邮箱
       <TextField
         required
@@ -57,7 +57,7 @@ function PasswordForm() {
         onChange={(e) => setPasswordConfirm(e.target.value)}
         label="确认新密码"
       />
-      <Button variant="contained" color="primary" onClick={handleSubmit}>
+      <Button variant="contained" color="primary" type="submit">
         保存密码
       </Button>
     </Form>

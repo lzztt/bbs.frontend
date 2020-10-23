@@ -39,7 +39,7 @@ function AuthCodeForm({ handler, submit, next, children }) {
   return goToNext ? (
     next
   ) : (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <TextField
         required
         fullWidth
@@ -79,7 +79,7 @@ function AuthCodeForm({ handler, submit, next, children }) {
         </>
       )}
       {children}
-      <Button variant="contained" color="primary" onClick={handleSubmit}>
+      <Button variant="contained" color="primary" type="submit">
         {submit}
       </Button>
     </Form>
