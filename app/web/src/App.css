@@ -2,6 +2,7 @@
 a {
   text-decoration: none;
   color: #2962ff;
+  cursor: pointer;
 }
 
 h1,
@@ -294,7 +295,7 @@ nav#menu div {
 }
 
 nav.navbar a {
-  padding: 0.2em 0.5em;
+  padding: 0.125rem 0.5rem;
   background-color: gold;
   border-right: 1px solid #ccac00;
   border-bottom: 1px solid #ccac00;
@@ -329,13 +330,13 @@ nav.navbar a:hover {
 }
 /* END NAVBAR */
 /* PM LIST */
-ul.pm_list {
+ul.pm_list, ul.bookmarks {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 ul.pm_list > li {
-  padding: 0.3rem;
+  padding: 0.125rem 0.3rem;
 }
 
 ul.pm_list > li:first-child,
@@ -364,6 +365,16 @@ ul.pm_list > li > span > a {
 }
 
 ul.pm_list > li > span:first-child svg:first-child {
+  margin-right: 0.3rem;
+}
+
+ul.bookmarks > li {
+  padding: 0.125rem 0.3rem;
+  display: flex;
+  align-items: center;
+}
+
+ul.bookmarks > li > svg:first-child {
   margin-right: 0.3rem;
 }
 
@@ -446,21 +457,6 @@ ul.user_topics > li > a {
   text-overflow: ellipsis;
 }
 /* END USER TOPICS */
-/* USER BOOKMARK PAGE */
-ul.bookmarks {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-ul.bookmarks > li {
-  padding: 0.3rem;
-  display: flex;
-  align-items: center;
-}
-
-ul.bookmarks > li > svg:first-child {
-  margin-right: 0.3rem;
-}
 
 /* IMAGE SLIDER */
 @keyframes fade_in {
@@ -481,7 +477,5 @@ ul.bookmarks > li > svg:first-child {
   }
 }
 /* END IMAGE SLIDER */
-
-/* END USER BOOKMARK PAGE */
 
 /*# sourceMappingURL=app.css.map */

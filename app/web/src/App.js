@@ -4,8 +4,13 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { validateLoginSession } from "./lib/common";
 import Navbar from "./Navbar";
 import PageRoute from "./PageRoute";
-import "./App.css";
 import GoToTop from "./GoToTop";
+import "./App.css";
+import "./main_xs.css";
+import "./main_sm.css";
+import "./main_md.css";
+import "./main_lg.css";
+import "./main_xl.css";
 
 const isLoggedIn = validateLoginSession();
 
