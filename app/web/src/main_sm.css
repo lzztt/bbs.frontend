@@ -216,29 +216,20 @@
 
    #page_header_ad
    {
-      display: block;
-      background-image: url('/data/ad/happy_new_year.png');
-      width: 100%;
-      text-align: right;
+      display: flex;
+      justify-content: flex-end;
+      min-height: 48px;
    }
-   #page_header_ad span
+
+   #page_header_ad a
    {
-      display: inline-block;
-      vertical-align: bottom;
-      width: 100%;
-      max-width: 936px;
-   }
-   #page_header_ad span a
-   {
-      display: inline-block;
-      vertical-align: bottom;
       width: 50%;
+      max-width: 468px;
    }
 
    #page_header_ad a img
    {
-      display: inline-block;
-      vertical-align: bottom;
+      display: block;
       width: 100%;
    }
    /* END PAGE HEADER AD */

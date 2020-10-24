@@ -29,12 +29,6 @@ header#page_header, section#page_body
    background-color: white;
 }
 
-header#page_header span
-{
-   display: inline-block;
-   vertical-align: bottom;
-}
-
 div#ad
 {
    display: none;

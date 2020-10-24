@@ -52,18 +52,12 @@ const SFBAY = 4;
   <body>
     <div id='page'>
       <header id='page_header'>
-        <?php if ($city === HOUSTON) : ?>
-          <div id="page_header_ad" style="background-image: url('/data/ad/ad_bg.jpg');">
-            <span>
-              <a href="http://31realty.net" target="_blank"><img src="/data/ad/31realty.jpg"></a>
-              <a href="https://www.johnleeins.com" target="_blank"><img src="/data/ad/johnlee.gif"></a>
-            </span>
-          </div>
-        <?php elseif ($city === DALLAS) : ?>
-          <div id="page_header_ad" style="background-image: url('/data/ad/ad_bg.jpg');"><span><a></a></span></div>
-        <?php elseif ($city === SFBAY) : ?>
-          <div id="page_header_ad" style="background-image: url('/data/ad/bg_bayever.jpg');"><span><a></a></span></div>
-        <?php endif ?>
+        <div id="page_header_ad" style="background-image: url('/data/ad/bg_bayever.jpg');">
+          <?php if ($city === HOUSTON) : ?>
+            <a href="http://31realty.net" target="_blank"><img src="/data/ad/31realty.jpg"></a>
+            <a href="https://www.johnleeins.com" target="_blank"><img src="/data/ad/johnlee.gif"></a>
+          <?php endif ?>
+        </div>
       </header>
       <main id='page_body' style="min-height: 80vh;"></main>
       <footer id='page_footer' style="display: none">

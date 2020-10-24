@@ -42,14 +42,8 @@
    /* END YP BCARD */
 
    /* BEGIN PAGE HEADER AD */
-   #page_header_ad span
+   #page_header_ad
    {
-      width: 936px;
-      height: 60px;
-   }
-   #page_header_ad span a
-   {
-      width: 468px;
       height: 60px;
    }
    /* END PAGE HEADER AD */
