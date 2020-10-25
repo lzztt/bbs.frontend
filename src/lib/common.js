@@ -191,55 +191,6 @@ export const toLocalDateString = (dt) => {
   return m + "/" + d + "/" + y;
 };
 
-export const popup = (element) => {
-  const overlay = document.createElement("div");
-  const popupbox = document.createElement("div");
-
-  popupbox.appendChild(element);
-  document.body.appendChild(overlay);
-  document.body.appendChild(popupbox);
-
-  const close = () => {
-    document.body.removeChild(popupbox);
-    document.body.removeChild(overlay);
-  };
-
-  Object.assign(overlay.style, {
-    zIndex: "998",
-    position: "fixed",
-    top: "0",
-    bottom: "0",
-    left: "0",
-    right: "0",
-    backgroundColor: "wheat",
-    opacity: "0.5",
-    cursor: "pointer",
-  });
-
-  Object.assign(popupbox.style, {
-    zIndex: "999",
-    position: "fixed",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: "white",
-    border: "1px solid black",
-    minWidth: "min(100vw, 600px)",
-    maxWidth: "100vw",
-    minHeight: "50px",
-    maxHeight: "90vh",
-    overflow: "auto",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  });
-
-  overlay.addEventListener("click", close, { once: true });
-
-  return popupbox;
-};
-
-window.app.popup = popup;
 window.app.report = function (nodeId) {
   const reason = window.prompt(
     "请管理员审查本贴，原因如下 (目前只支持举报QQ骗子和办假学位证)：",

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import MsgEditor from "./pm/MsgEditor";
 import Editor from "./editor/Editor";
 import { cache } from "./lib/common";
+import ImageViewer from "./ImageViewer";
 
 // const isExternal = () => {
 //   return (
@@ -62,10 +63,7 @@ function NotFound() {
             if (window.innerWidth < 600) {
               return;
             }
-
-            var figure = this.cloneNode(true);
-            figure.style.margin = 0;
-            window.app.popup(figure);
+            window.app.openImageViewer(element);
           };
         });
       };
@@ -172,6 +170,7 @@ function NotFound() {
         <div ref={nodeRef} />
         <Editor />
         <MsgEditor />
+        <ImageViewer />
       </>
     );
   }
