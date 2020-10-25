@@ -26,17 +26,6 @@ const SFBAY = 4;
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-
-    <!--BEGIN CSS-->
-    <?php if ($city === DALLAS || $city === SFBAY) : ?>
-      <?php if ($debug) : ?>
-        <link href="/themes/<?= $theme ?>/css/main.dallas.css" rel="stylesheet" type="text/css">
-      <?php else : ?>
-        <link href="/themes/<?= $theme ?>/min/<?= $min_version ?>.dallas.min.css" rel="stylesheet" type="text/css">
-      <?php endif ?>
-    <?php endif ?>
-    <!--END CSS-->
-
     <title><?= $head_title ?></title>
     <meta name='description' content='<?= $head_description ?>'>
     <?php if (!$debug && $city !== SFBAY) : ?>

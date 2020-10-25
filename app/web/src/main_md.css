@@ -13,23 +13,22 @@
    /* END ALL PAGES */
 
    /* BEGIN HOME PAGE */
-   section.items
+   .home_items
    {
       width: 33.33%;
       width: calc(100%/3);
    }
 
-   div#home_images
-   {
-      display: inline-block;
-      vertical-align: top;
-      width: 696px;
-   }
-
-   section.home_activities
-   {
+   .home_items_md {
       display: inline-block;
       width: 300px;
+      height: 250px;
+      overflow: hidden;
+   }
+
+   div.image_slider
+   {
+      width: calc(100% - 600px);
    }
 
    section.home_activities header

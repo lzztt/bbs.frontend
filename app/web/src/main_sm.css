@@ -57,15 +57,10 @@
    /* END ALL PAGES */
 
    /* BEGIN HOME PAGE */
-   div#home_images
-   {
-      position: relative;
-      padding-right: 300px;
-   }
-
    div.image_slider
    {
       height: 250px;
+      width: calc(100% - 300px);
    }
 
    div.image_slider > a
@@ -73,27 +68,18 @@
       padding-bottom: 250px;
    }
 
-   div.google_ad
-   {
-      display: block;
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 300px;
-      height: 250px;
-      overflow: hidden;
-   }
-
-   section.items
+   .home_items
    {
       display: inline-block;
       vertical-align: top;
       width: 50%;
    }
 
-   section.home_activities
-   {
-      display: none;
+   .home_items_sm {
+      display: inline-block;
+      width: 300px;
+      height: 250px;
+      overflow: hidden;
    }
 
    #site_stat section

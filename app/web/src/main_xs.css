@@ -259,9 +259,9 @@ iframe.googlemap
 /* BEGIN HOME PAGE */
 div.image_slider
 {
-   position: relative;
    background-size: cover;
    background-position-y: center;
+   width: 100%;
 }
 
 div.image_slider > a
@@ -293,12 +293,11 @@ div.image_slider > a span
    white-space: nowrap;
 }
 
-div.google_ad
-{
-   display: none;
+.home_items {
+   width: 100%;
 }
 
-section.items header
+.home_items header
 {
    margin: 0;
    padding: 3px 4px;
@@ -306,74 +305,74 @@ section.items header
    font-weight: normal;
 }
 
-section.items ul {
+.home_items ul {
    list-style: none;
 }
 
-section.items ul,
-section.items ul li {
+.home_items ul,
+.home_items ul li {
    margin: 0;
    padding: 0;
    display: flex;
 }
 
-section.items ul {
+.home_items ul {
    flex-flow: column nowrap;
 }
 
-section.items ul li {
+.home_items ul li {
    flex-flow: row nowrap;
    justify-content: space-between;
 }
 
-section.items ul li > * {
+.home_items ul li > * {
    padding: 2px 3px 1px;
    white-space: nowrap;
 }
 
-section.items ul li > a {
+.home_items ul li > a {
    overflow: hidden;
    text-overflow: ellipsis;
    margin-left: 5px;
 }
 
-section.items ul li > span {
+.home_items ul li > span {
    margin-right: 5px;
 }
 
-section.home_hot_nodes ul li:nth-child(1) > span
+.home_items_sm,
+.home_items_md {
+   display: none;
+}
+
+.home_hot_nodes ul li:nth-child(1) > span
 {
    background-color: #FF0000;
 }
 
-section.home_hot_nodes ul li:nth-child(2) > span
+.home_hot_nodes ul li:nth-child(2) > span
 {
    background-color: #FF3300;
 }
 
-section.home_hot_nodes ul li:nth-child(3) > span
+.home_hot_nodes ul li:nth-child(3) > span
 {
    background-color: #FF6600;
 }
 
-section.home_hot_nodes ul li:nth-child(4) > span
+.home_hot_nodes ul li:nth-child(4) > span
 {
    background-color: #FF9900;
 }
 
-section.home_hot_nodes ul li:nth-child(5) > span
+.home_hot_nodes ul li:nth-child(5) > span
 {
    background-color: #FFCC00;
 }
 
-section.home_hot_nodes ul li:nth-child(6) > span
+.home_hot_nodes ul li:nth-child(6) > span
 {
    background-color: #FFFF00;
-}
-
-section.home_activities
-{
-   display: none;
 }
 
 #site_stat

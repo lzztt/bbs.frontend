@@ -12,13 +12,6 @@
    }
    /* END ALL PAGES */
 
-   /* BEGIN HOME PAGE */
-   div#home_images
-   {
-      width: 948px;
-   }
-   /* END HOME PAGE */
-
    /* BEGIN FORUM TOPIC LIST PAGE */
    /* show all columns */
    table.forum-topics tr > *:nth-child(2),
