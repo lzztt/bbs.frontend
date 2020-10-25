@@ -1,3 +1,60 @@
-# https://www.robotstxt.org/robotstxt.html
-User-agent: *
+User-agent: Googlebot
+User-agent: Slurp
+User-agent: googlebot
+User-agent: bingbot
+User-agent: yahoo-slurp
+User-agent: baiduspider
+User-agent: Baiduspider
+User-agent: YoudaoBot
+User-agent: ia_archiver
+Crawl-delay: 60
+
+# Directories
+Disallow: /api/
+Disallow: /admin/
+Disallow: /comment/reply/
+Disallow: /contact/
+Disallow: /logout/
+Disallow: /node/add/
+Disallow: /search/
+Disallow: /user/
+Disallow: /pm/
+Disallow: /admin
+Disallow: /comment/reply
+Disallow: /contact
+Disallow: /logout
+Disallow: /node/add
+Disallow: /search
+Disallow: /user
+Disallow: /pm
+
+# block access to files
+Disallow: /*.
+Disallow: /*.*
+
+# block non-guest action pages
+Disallow: /*/commet
+Disallow: /*/edit
+Disallow: /*/delete
+Disallow: /node/*/activity
+Disallow: /forum/*/node
+
+# allow all for Google AdSense
+User-agent: Mediapartners-Google
 Disallow:
+
+User-agent: Adsbot-Google
+Disallow:
+
+# facebook ads
+User-agent: facebookexternalhit/1.1
+Disallow:
+
+User-agent: *
+Disallow: /
+
+User-agent: Googlebot-Mobile
+Disallow: /
+
+User-agent: Googlebot-Image
+Disallow: /
