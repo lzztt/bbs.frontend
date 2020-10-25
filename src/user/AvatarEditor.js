@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import Button from "@material-ui/core/Button";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 
@@ -67,11 +68,25 @@ function AvatarEditor({ image, onClose }) {
         ready={crop}
         ref={cropperRef}
       />
-      <div ref={resultRef}></div>
-      <button onClick={() => onClose(resultRef.current.firstChild.src)}>
-        保存
-      </button>
-      <button onClick={() => onClose(null)}>取消</button>
+      <div ref={resultRef} style={{ textAlign: "center" }}></div>
+      <div style={{ textAlign: "center" }}>
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ margin: "0.2rem 1rem" }}
+          onClick={() => onClose(resultRef.current.firstChild.src)}
+        >
+          保存
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ margin: "0.2rem 1rem" }}
+          onClick={() => onClose(null)}
+        >
+          取消
+        </Button>
+      </div>
     </>
   );
 }
