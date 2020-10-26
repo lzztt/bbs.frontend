@@ -60,7 +60,7 @@ function NotFound() {
         $(".attach_images > figure").forEach(function (element) {
           element.onclick = function (e) {
             e.preventDefault();
-            if (window.innerWidth < 600) {
+            if (window.innerWidth < 768) {
               return;
             }
             window.app.openImageViewer(element);
