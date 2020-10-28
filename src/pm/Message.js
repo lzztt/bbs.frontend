@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
-import {
-  rest,
-  session,
-  validateResponse,
-  toLocalDateTimeString,
-} from "../lib/common";
+import { rest, session, validateResponse, toAutoTime } from "../lib/common";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import EditIcon from "@material-ui/icons/Edit";
 import NavTab from "./NavTab";
@@ -75,7 +70,7 @@ function Message() {
           <section key={msg.id}>
             <header>
               <Link to={"/user/" + msg.uid}>{msg.username}</Link>
-              {toLocalDateTimeString(new Date(msg.time * 1000))}
+              {toAutoTime(msg.time)}
             </header>
             <p>
               {msg.body}{" "}

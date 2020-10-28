@@ -6,12 +6,7 @@ import IndeterminateCheckBoxIcon from "@material-ui/icons/IndeterminateCheckBox"
 import DeleteIcon from "@material-ui/icons/Delete";
 import Pagination from "@material-ui/lab/Pagination";
 
-import {
-  rest,
-  session,
-  toLocalDateString,
-  validateResponse,
-} from "../lib/common";
+import { rest, session, toAutoTime, validateResponse } from "../lib/common";
 import NavTab from "./NavTab";
 
 const set = new Set();
@@ -128,7 +123,7 @@ function Mailbox() {
             <span>
               <Link to={"/user/" + msg.uid}>{msg.user}</Link>
             </span>
-            <span>{toLocalDateString(new Date(msg.time * 1000))}</span>
+            <span>{toAutoTime(msg.time)}</span>
           </li>
         ))}
         <li>

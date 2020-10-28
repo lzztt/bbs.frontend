@@ -180,17 +180,6 @@ export const validateResponse = (data) => {
   return true;
 };
 
-export const toLocalDateString = (dt) => {
-  const y = dt.getFullYear();
-  let d = "" + dt.getDate();
-  let m = "" + (dt.getMonth() + 1);
-
-  if (d.length < 2) d = "0" + d;
-  if (m.length < 2) m = "0" + m;
-
-  return m + "/" + d + "/" + y;
-};
-
 window.app.report = function (nodeId) {
   const reason = window.prompt(
     "请管理员审查本贴，原因如下 (目前只支持举报QQ骗子和办假学位证)：",
@@ -217,13 +206,83 @@ window.app.delete = function (type, nodeId) {
   }
 };
 
-export const toLocalDateTimeString = (dt) => {
-  let h = "" + dt.getHours();
-  let m = "" + dt.getMinutes();
-  if (h.length < 2) h = "0" + h;
-  if (m.length < 2) m = "0" + m;
+const date = new Intl.DateTimeFormat("en-US", {
+  month: "numeric",
+  day: "numeric",
+});
 
-  return h + ":" + m + " " + toLocalDateString(dt);
+const yearDate = new Intl.DateTimeFormat("en-US", {
+  year: "2-digit",
+  month: "numeric",
+  day: "numeric",
+});
+
+const time = new Intl.DateTimeFormat("en-US", {
+  hour: "numeric",
+  minute: "2-digit",
+});
+
+const dateTime = new Intl.DateTimeFormat("en-US", {
+  month: "numeric",
+  day: "numeric",
+  hour: "numeric",
+  minute: "2-digit",
+});
+
+const yearDateTime = new Intl.DateTimeFormat("en-US", {
+  year: "2-digit",
+  month: "numeric",
+  day: "numeric",
+  hour: "numeric",
+  minute: "2-digit",
+});
+
+export const toTime = (ts_seconds) => {
+  return time.format(new Date(ts_seconds * 1000));
+};
+
+export const toDate = (ts_seconds) => {
+  return date.format(new Date(ts_seconds * 1000));
+};
+
+export const toYearDate = (ts_seconds) => {
+  return yearDate.format(new Date(ts_seconds * 1000));
+};
+
+export const toDateTime = (ts_seconds) => {
+  return dateTime.format(new Date(ts_seconds * 1000));
+};
+
+export const toYearDateTime = (ts_seconds) => {
+  return yearDateTime.format(new Date(ts_seconds * 1000));
+};
+
+export const toAutoTime = (ts_seconds) => {
+  let dt = new Date(ts_seconds * 1000);
+  let now = new Date();
+  if (now.getFullYear() === dt.getFullYear()) {
+    if (now.getMonth() === dt.getMonth() && now.getDate() === dt.getDate()) {
+      return time.format(dt);
+    } else {
+      return dateTime.format(dt);
+    }
+  } else {
+    return yearDateTime.format(dt);
+  }
+};
+
+export const toAutoTimeOrDate = (ts_seconds) => {
+  let dt = new Date(ts_seconds * 1000);
+  let now = new Date();
+  if (now.getFullYear() === dt.getFullYear()) {
+    if (now.getMonth() === dt.getMonth() && now.getDate() === dt.getDate()) {
+      return time.format(dt);
+    } else {
+      return date.format(dt);
+    }
+  } else {
+    return yearDate.format(dt);
+  }
 };
 
 export const submitBug = (msg) => {

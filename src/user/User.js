@@ -1,11 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import {
-  rest,
-  cache,
-  validateResponse,
-  toLocalDateString,
-} from "../lib/common";
+import { rest, cache, validateResponse, toAutoTimeOrDate } from "../lib/common";
 import MsgEditor from "../pm/MsgEditor";
 import AvatarEditor from "./AvatarEditor";
 
@@ -172,11 +167,11 @@ function User() {
           </li> */}
             <li>
               <label>注册时间</label>
-              {toLocalDateString(new Date(user.createTime * 1000))}
+              {toAutoTimeOrDate(user.createTime)}
             </li>
             <li>
               <label>最近访问</label>
-              {toLocalDateString(new Date(user.lastAccessTime * 1000))}
+              {toAutoTimeOrDate(user.lastAccessTime)}
             </li>
             <li>
               <label>最近城市</label>
@@ -219,7 +214,7 @@ function User() {
           {user.topics.map((node) => (
             <li key={node.nid}>
               <a href={"/node/" + node.nid}>{node.title}</a>
-              {toLocalDateString(new Date(node.createTime * 1000))}
+              {toAutoTimeOrDate(node.createTime)}
             </li>
           ))}
         </ul>
@@ -230,7 +225,7 @@ function User() {
           {user.topics.map((node) => (
             <li key={node.nid}>
               <a href={"/node/" + node.nid}>{node.title}</a>
-              {toLocalDateString(new Date(node.createTime * 1000))}
+              {toAutoTimeOrDate(node.createTime)}
             </li>
           ))}
         </ul>
