@@ -1,7 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import MsgEditor from "./pm/MsgEditor";
 import Editor from "./editor/Editor";
-import { cache, toAutoTimeOrDate } from "./lib/common";
+import {
+  cache,
+  toTime,
+  toDate,
+  toAutoTimeOrDate,
+  toDateTime,
+  toYearDate,
+  toYearDateTime,
+  toAutoTime,
+} from "./lib/common";
 import ImageViewer from "./ImageViewer";
 
 // const isExternal = () => {
@@ -41,7 +50,28 @@ function NotFound() {
 
       const showTime = () => {
         $("[data-time]").forEach((element) => {
-          element.textContent = toAutoTimeOrDate(element.dataset.time);
+          switch (element.dataset.method) {
+            case "toTime":
+              element.textContent = toTime(element.dataset.time);
+              break;
+            case "toDate":
+              element.textContent = toDate(element.dataset.time);
+              break;
+            case "toDateTime":
+              element.textContent = toDateTime(element.dataset.time);
+              break;
+            case "toYearDate":
+              element.textContent = toYearDate(element.dataset.time);
+              break;
+            case "toYearDateTime":
+              element.textContent = toYearDateTime(element.dataset.time);
+              break;
+            case "toAutoTime":
+              element.textContent = toAutoTime(element.dataset.time);
+              break;
+            default:
+              element.textContent = toAutoTimeOrDate(element.dataset.time);
+          }
         });
       };
 

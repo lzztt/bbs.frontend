@@ -383,7 +383,7 @@ section.activities a.activity_future:before
 
 article > *
 {
-   padding: 0.2em 0.4em;
+   padding: 0.25rem;
    overflow: hidden;
 }
 
@@ -392,15 +392,14 @@ article header
    background-color: #FFEBCD;
 }
 
+article header > :not(:last-child)
+{
+   margin-right: 0.25rem;
+}
+
 article header .city
 {
    color: purple;
-}
-
-article header .comment_num
-{
-   display: inline-block;
-   float: right;
 }
 
 article .article_content .attach_images figure

@@ -111,15 +111,6 @@
    /* END FORUM TOPIC NODE */
 
    /* BEGIN PAGE HEADER AD */
-   div#logo_div
-   {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 10;
-      background: white;
-   }
-
    #page_header
    {
       position: relative;
