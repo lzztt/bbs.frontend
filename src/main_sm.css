@@ -1,45 +1,6 @@
 /* Small devices (tablets, 768px) and up */
 @media (min-width: 768px)
 {
-   /* BEGIN RESPONSIVE TABLE */
-   table
-   {
-      width: 100%;
-      table-layout: fixed;
-   }
-
-   thead
-   {
-      background: #7fbdef;
-   }
-   /* END RESPONSIVE TABLE */
-
-   /* BEGIN RESPONSIVE FORM */
-   form fieldset
-   {
-      box-sizing: border-box;
-      padding-left: 30%;
-      position: relative;
-      line-height: 23px;
-   }
-
-   form fieldset .label
-   {
-      box-sizing: border-box;
-      width: 30%;
-      text-align: right;
-      padding: 0.2em 0.5em 0.2em 0.2em;
-      position:absolute;
-      left:0;
-      top:0;
-   }
-
-   textarea
-   {
-      height: 300px;
-   }
-   /* END RESPONSIVE FORM */
-
    /* BEGIN IFRAME */
    iframe.youtube
    {
@@ -88,41 +49,6 @@
       width: 50%;
    }
    /* END HOME PAGE */
-
-   /* BEGIN FORUM TOPIC LIST PAGE */
-   /* only show first 2 columns */
-   table.forum-topics td
-   {
-      display: table-cell;
-      border: none;
-   }
-
-   table.forum-topics tr > *:first-child
-   {
-      display: table-cell;
-      width: 60%;
-      overflow: hidden;
-   }
-
-   table.forum-topics tr > *:first-child:before
-   {
-      display: none;
-   }
-
-   table.forum-topics tr.topic-sticky > *:first-child:before
-   {
-      display: inline-block;
-      content: '置顶';
-      padding: 0.3em;
-      padding-left: 0;
-   }
-
-   table.forum-topics tr > *:nth-child(2)
-   {
-      display: table-cell;
-      width: 40%;
-   }
-   /* END FORUM TOPIC LIST PAGE */
 
    /* BEGIN YP BCARD */
    .bcard

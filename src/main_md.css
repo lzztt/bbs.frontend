@@ -47,20 +47,4 @@
       background-color: gold;
    }
    /* END HOME PAGE */
-
-   /* BEGIN FORUM TOPIC LIST PAGE */
-   /* only show first 3 columns */
-   table.forum-topics td:first-child
-   {
-      width: 40%;
-   }
-
-   table.forum-topics tr > *:nth-child(2),
-   table.forum-topics tr > *:nth-child(3)
-   {
-      display: table-cell;
-      width: 30%;
-   }
-   /* END FORUM TOPIC LIST PAGE */
-
 }

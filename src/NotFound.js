@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import MsgEditor from "./pm/MsgEditor";
 import Editor from "./editor/Editor";
-import { cache } from "./lib/common";
+import { cache, toAutoTimeOrDate } from "./lib/common";
 import ImageViewer from "./ImageViewer";
 
 // const isExternal = () => {
@@ -36,6 +36,12 @@ function NotFound() {
       const $remove = (selector) => {
         $(selector).forEach((element) => {
           element.remove();
+        });
+      };
+
+      const showTime = () => {
+        $("[data-time]").forEach((element) => {
+          element.textContent = toAutoTimeOrDate(element.dataset.time);
         });
       };
 
@@ -156,6 +162,7 @@ function NotFound() {
         ajaxLoad();
         imageClick();
         showPage();
+        showTime();
       }, 0);
     }
     // }

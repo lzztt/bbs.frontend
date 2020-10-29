@@ -34,60 +34,6 @@ div#ad
    display: none;
 }
 
-/* BEGIN RESPONSIVE TABLE */
-th, td
-{
-   padding: 0.3em;
-}
-
-@media (max-width: 767px) {
-
-   /* Force table to not be like tables anymore */
-   table, caption, thead, tbody, th, td, tr {
-      display: block;
-      box-sizing: border-box;
-   }
-
-   thead, thead tr, th {
-      display: none;
-   }
-
-   td {
-      /* Behave  like a "row" */
-      border: none;
-      /*border-bottom: 1px dashed #ccc;*/
-      position: relative;
-      padding-left: 25%;
-   }
-
-   td:first-child
-   {
-      background: #F0E68C;
-   }
-
-   td:last-child {
-      border-bottom: 0;
-   }
-
-   td:before {
-      content: attr(data-header);
-      /* Now like a table header */
-      position: absolute;
-      /* Top/left values mimic padding */
-      top: 0;
-      left: 0;
-      width: 25%;
-      padding: 0.3em;
-      white-space: nowrap;
-      color: #006666;
-   }
-
-   td:empty {
-      display: none;
-   }
-}
-/* END RESPONSIVE TABLE */
-
 /* BEGIN NAV */
 nav.breadcrumb
 {
@@ -99,37 +45,6 @@ nav.breadcrumb a:after
    content: '\3E';
    margin: 0 0.3em;
 }
-
-/* BEGIN BUTTON */
-button, a.button {
-   background-color:gold;
-   -webkit-border-radius:6px;
-   -moz-border-radius:6px;
-   border-radius:6px;
-   border:1px solid #f2ab1e;
-   display:inline-block;
-   color:#105389;
-   font-weight:normal;
-   font-style:normal;
-   line-height:1.5rem;
-   box-sizing: content-box;
-   height:1.5rem;
-   padding: 1px 6px;
-   text-decoration:none;
-   text-align:center;
-}
-
-button:hover, button:active,
-a.button:hover, a.button:active {
-   background-color: #f2ab1e;
-}
-
-button:disabled
-{
-   background-color: lightgray;
-}
-/* This button was generated using CSSButtonGenerator.com */
-/* END BUTTON */
 
 /* BEGIN PAGER */
 header.content_header
@@ -395,45 +310,6 @@ div.image_slider > a span
    color: #105289;
 }
 /* END HOME PAGE */
-
-
-/* BEGIN FORUM TOPIC LIST PAGE */
-/* only show first column */
-table.forum-topics tr > *:first-child
-{
-   display: inline-block;
-   width: 100%;
-   overflow: hidden;
-   white-space: nowrap;
-   vertical-align: bottom;
-   padding: 0.3em;
-   background: transparent;
-   border: 0;
-}
-
-table.forum-topics tr > *:first-child:before
-{
-   content: '\263A';
-   display: inline-block;
-   position: relative;
-   width: auto;
-   color: purple;
-   padding: 0 0.2em;
-   font-size: 1.2em;
-}
-
-table.forum-topics tr.topic-sticky > *:first-child:before
-{
-   color: black;
-}
-
-table.forum-topics tr > *:nth-child(2),
-table.forum-topics tr > *:nth-child(3),
-table.forum-topics tr > *:nth-child(4)
-{
-   display: none;
-}
-/* END FORUM TOPIC LIST PAGE */
 
 /* BEGIN ACTIVITY LIST PAGE */
 section.activities a.activity_before, section.activities a.activity_now, section.activities a.activity_future
