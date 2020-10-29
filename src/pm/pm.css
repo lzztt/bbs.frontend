@@ -1,0 +1,48 @@
+.pm_list > div,
+.pm_list > div > * {
+  display: flex;
+  align-items: center;
+}
+
+.pm_list span,
+.pm_list a {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pm_list > div > * {
+  padding: 0.125rem;
+}
+
+.pm_list > div > :first-child svg:first-child {
+  margin-right: 0.125rem;
+}
+
+@media (max-width: 767px) {
+  .pm_list > div {
+    flex-wrap: wrap;
+  }
+
+  .pm_list > div > :first-child {
+    width: 100%;
+  }
+
+  .pm_list > div > :nth-child(2) {
+    margin-left: calc(24px + 0.125rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .pm_list > div {
+    flex-wrap: nowrap;
+  }
+
+  .pm_list > div > :first-child {
+    flex-grow: 1;
+  }
+
+  .pm_list > div > * {
+    min-width: 135px;
+  }
+}

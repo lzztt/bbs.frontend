@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import IndeterminateCheckBoxIcon from "@material-ui/icons/IndeterminateCheckBox";
-import DeleteIcon from "@material-ui/icons/Delete";
-import Pagination from "@material-ui/lab/Pagination";
+import Selector from "../pm/Selector";
+import { cache, rest, toAutoTime, validateResponse } from "../lib/common";
 
-import { cache, rest, validateResponse } from "../lib/common";
+import "../pm/pm.css";
 
 const set = new Set();
 
@@ -73,58 +73,44 @@ function Bookmark() {
     return "收藏夹里还是空空的。 看到感兴趣的帖子，可以点右上角按钮收藏。";
   }
 
+  const Action = () => (
+    <Selector
+      {...{
+        count: selected.size,
+        total: nodes.length,
+        page,
+        addAll,
+        removeAll,
+        handleDelete,
+        handlePageChange,
+      }}
+    />
+  );
+
   return (
-    <ul className="bookmarks even_odd_parent">
-      <li>
-        {selected.size === 0 ? (
-          <CheckBoxOutlineBlankIcon onClick={addAll} color="disabled" />
-        ) : selected.size === nodes.length ? (
-          <CheckBoxIcon onClick={removeAll} />
-        ) : (
-          <IndeterminateCheckBoxIcon onClick={removeAll} />
-        )}
-        {selected.size > 0 && <DeleteIcon onClick={handleDelete} />}
-        {page.pageCount > 1 && (
-          <Pagination
-            page={page.pageNo}
-            count={page.pageCount}
-            onChange={handlePageChange}
-            size="small"
-          />
-        )}
-      </li>
-      {nodes.map((node) => (
-        <li>
-          {selected.has(node.id) ? (
-            <CheckBoxIcon onClick={() => remove(node.id)} />
-          ) : (
-            <CheckBoxOutlineBlankIcon
-              onClick={() => add(node.id)}
-              color="disabled"
-            />
-          )}
-          <a href={"/node/" + node.id}>{node.title}</a>
-        </li>
-      ))}
-      <li>
-        {selected.size === 0 ? (
-          <CheckBoxOutlineBlankIcon onClick={addAll} color="disabled" />
-        ) : selected.size === nodes.length ? (
-          <CheckBoxIcon onClick={removeAll} />
-        ) : (
-          <IndeterminateCheckBoxIcon onClick={removeAll} />
-        )}
-        {selected.size > 0 && <DeleteIcon onClick={handleDelete} />}
-        {page.pageCount > 1 && (
-          <Pagination
-            page={page.pageNo}
-            count={page.pageCount}
-            onChange={handlePageChange}
-            size="small"
-          />
-        )}
-      </li>
-    </ul>
+    <>
+      <Action />
+      <div className="pm_list even_odd_parent">
+        {nodes.map((node) => (
+          <div key={node.id}>
+            <span>
+              {selected.has(node.id) ? (
+                <CheckBoxIcon onClick={() => remove(node.id)} />
+              ) : (
+                <CheckBoxOutlineBlankIcon
+                  onClick={() => add(node.id)}
+                  color="disabled"
+                />
+              )}
+              <a href={"/node/" + node.id}>{node.title}</a>
+            </span>
+            <Link to={"/user/" + node.uid}>{node.username}</Link>
+            <span>{toAutoTime(node.last_comment_time)}</span>
+          </div>
+        ))}
+      </div>
+      <Action />
+    </>
   );
 }
 

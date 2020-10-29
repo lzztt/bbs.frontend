@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import IndeterminateCheckBoxIcon from "@material-ui/icons/IndeterminateCheckBox";
-import DeleteIcon from "@material-ui/icons/Delete";
-import Pagination from "@material-ui/lab/Pagination";
 
 import { rest, session, toAutoTime, validateResponse } from "../lib/common";
 import NavTab from "./NavTab";
+import Selector from "./Selector";
+import "./pm.css";
 
 const set = new Set();
 
@@ -78,35 +77,27 @@ function Mailbox() {
     return "还没有短信可以显示，开始发送站内短信吧。";
   }
 
+  const Action = () => (
+    <Selector
+      {...{
+        count: selected.size,
+        total: messages.length,
+        page,
+        addAll,
+        removeAll,
+        handleDelete,
+        handlePageChange,
+      }}
+    />
+  );
+
   return (
     <>
       <NavTab mailbox={mailbox} />
-      <ul className="pm_list even_odd_parent">
-        <li>
-          {selected.size === 0 ? (
-            <CheckBoxOutlineBlankIcon onClick={addAll} color="disabled" />
-          ) : selected.size === messages.length ? (
-            <CheckBoxIcon onClick={removeAll} />
-          ) : (
-            <IndeterminateCheckBoxIcon onClick={removeAll} />
-          )}
-          {selected.size > 0 && <DeleteIcon onClick={handleDelete} />}
-          {page.pageCount > 1 && (
-            <Pagination
-              page={page.pageNo}
-              count={page.pageCount}
-              onChange={handlePageChange}
-              size="small"
-            />
-          )}
-        </li>
-        <li>
-          <span>短信</span>
-          <span>联系人</span>
-          <span>时间</span>
-        </li>
+      <Action />
+      <div className="pm_list even_odd_parent">
         {messages.map((msg) => (
-          <li key={msg.mid}>
+          <div key={msg.mid}>
             <span>
               {selected.has(msg.mid) ? (
                 <CheckBoxIcon onClick={() => remove(msg.mid)} />
@@ -120,31 +111,12 @@ function Mailbox() {
                 {msg.isNew > 0 ? <b>{msg.body}</b> : msg.body}
               </Link>
             </span>
-            <span>
-              <Link to={"/user/" + msg.uid}>{msg.user}</Link>
-            </span>
+            <Link to={"/user/" + msg.uid}>{msg.user}</Link>
             <span>{toAutoTime(msg.time)}</span>
-          </li>
+          </div>
         ))}
-        <li>
-          {selected.size === 0 ? (
-            <CheckBoxOutlineBlankIcon onClick={addAll} color="disabled" />
-          ) : selected.size === messages.length ? (
-            <CheckBoxIcon onClick={removeAll} />
-          ) : (
-            <IndeterminateCheckBoxIcon onClick={removeAll} />
-          )}
-          {selected.size > 0 && <DeleteIcon onClick={handleDelete} />}
-          {page.pageCount > 1 && (
-            <Pagination
-              page={page.pageNo}
-              count={page.pageCount}
-              onChange={handlePageChange}
-              size="small"
-            />
-          )}
-        </li>
-      </ul>
+      </div>
+      <Action />
     </>
   );
 }
