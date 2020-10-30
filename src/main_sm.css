@@ -50,15 +50,6 @@
    }
    /* END HOME PAGE */
 
-   /* BEGIN YP BCARD */
-   .bcard
-   {
-      display: inline-block;
-      width: 49%;
-      vertical-align: top;
-   }
-   /* END YP BCARD */
-
    /* BEGIN FORUM TOPIC NODE */
    div.forum_post
    {

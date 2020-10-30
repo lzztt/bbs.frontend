@@ -1,11 +1,4 @@
 /* BEGIN ALL PAGES */
-ul.clean
-{
-   list-style: none;
-   margin: 0;
-   padding: 0;
-}
-
 span.time
 {
    color: #666666;
@@ -323,46 +316,6 @@ section.activities a.activity_future:before
 }
 /* END ACTIVITY LIST PAGE */
 
-/* BEGIN YP BCARD */
-.bcard
-{
-   margin-top: 0.5em;
-   border: 1px solid #006666;
-}
-.bcard header
-{
-   background-color: gold;
-   text-align: center;
-   padding: 0.2em;
-}
-
-.bcard li
-{
-   position: relative;
-   padding: 0.1em;
-   padding-left: 5em;
-}
-
-.bcard li:before
-{
-   content: attr(data-before);
-   display: inline-block;
-   position: absolute;
-   left: 0;
-   width: 4.5em;
-   text-align: right;
-   padding-right: 0.5em;
-   color: #006666;
-}
-
-.bcard footer
-{
-   text-align: right;
-   font-size: 0.929em;
-   color: gray;
-}
-/* END YP BCARD */
-
 /* BEGIN FORUM TOPIC NODE */
 .author_panel
 {
@@ -418,7 +371,6 @@ article footer
 }
 article footer .actions
 {
-   display: inline-block;
    float: right;
 }
 /* END FORUM TOPIC NODE */
