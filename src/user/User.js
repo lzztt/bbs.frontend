@@ -4,6 +4,7 @@ import { rest, cache, validateResponse, toAutoTimeOrDate } from "../lib/common";
 import MsgEditor from "../pm/MsgEditor";
 import Avatar from "./Avatar";
 import AvatarEditor from "./AvatarEditor";
+import Button from "@material-ui/core/Button";
 
 function User() {
   const [user, setUser] = useState({});
@@ -118,11 +119,17 @@ function User() {
               <figcaption>{user.username}</figcaption>
             </figure>
             {isSelf ? (
-              <button onClick={() => history.replace("/user/logout")}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => history.replace("/user/logout")}
+              >
                 登出
-              </button>
+              </Button>
             ) : (
-              <button
+              <Button
+                variant="contained"
+                color="primary"
                 onClick={() =>
                   window.app.openMsgEditor({
                     toUser: user,
@@ -130,51 +137,65 @@ function User() {
                 }
               >
                 发短信
-              </button>
+              </Button>
             )}
             {isAdmin && !isSelf && (
-              <button onClick={deleteUser}>删除用户</button>
+              <Button variant="contained" color="primary" onClick={deleteUser}>
+                删除用户
+              </Button>
             )}
           </div>
-          <ul>
-            {/* <li>
-            <label>社区活力</label>
+          <div>
+            {/* <div>
+            <span>社区活力</span>
             {
               100
               // past 7 days, number link to chart
             }
-          </li>
-          <li>
-            <label>贡献点数</label>
+          </div>
+          <div>
+            <span>贡献点数</span>
             {user.points}
-          </li> */}
-            <li>
-              <label>注册时间</label>
-              {toAutoTimeOrDate(user.createTime)}
-            </li>
-            <li>
-              <label>最近访问</label>
-              {toAutoTimeOrDate(user.lastAccessTime)}
-            </li>
-            <li>
-              <label>最近城市</label>
-              {user.lastAccessCity}
-            </li>
-          </ul>
+          </div> */}
+            <span>注册时间</span>
+            <span>{toAutoTimeOrDate(user.createTime)}</span>
+            <span>最近访问</span>
+            <span>{toAutoTimeOrDate(user.lastAccessTime)}</span>
+            <span>最近城市</span>
+            <span>{user.lastAccessCity}</span>
+          </div>
           <article
             style={{
               width: "100%",
             }}
           >
-            <label>自我介绍</label>
+            <span>自我介绍</span>
             {isSelf &&
               (aboutMeEditor ? (
                 <>
-                  <button onClick={saveAboutMe}>保存</button>
-                  <button onClick={() => setAboutMeEditor(false)}>取消</button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={saveAboutMe}
+                  >
+                    保存
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => setAboutMeEditor(false)}
+                  >
+                    取消
+                  </Button>
                 </>
               ) : (
-                <button onClick={() => setAboutMeEditor(true)}>编辑</button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => setAboutMeEditor(true)}
+                >
+                  编辑
+                </Button>
               ))}
             {aboutMeEditor ? (
               <textarea rows="5" cols="50" ref={textInputRef}>
@@ -190,28 +211,28 @@ function User() {
             )}
           </article>
         </div>
-        <ul className="user_topics even_odd_parent">
-          <li>
-            <span>最近发布的话题</span>
-          </li>
-          {user.topics.map((node) => (
-            <li key={node.nid}>
-              <a href={"/node/" + node.nid}>{node.title}</a>
-              {toAutoTimeOrDate(node.createTime)}
-            </li>
-          ))}
-        </ul>
-        <ul className="user_topics even_odd_parent">
-          <li>
-            <span>最近回复的话题</span>
-          </li>
-          {user.topics.map((node) => (
-            <li key={node.nid}>
-              <a href={"/node/" + node.nid}>{node.title}</a>
-              {toAutoTimeOrDate(node.createTime)}
-            </li>
-          ))}
-        </ul>
+        <div className="home_items">
+          <header>最近发布的话题</header>
+          <div className="even_odd_parent">
+            {user.topics.map((node) => (
+              <div key={node.nid}>
+                <a href={"/node/" + node.nid}>{node.title}</a>
+                <time>{toAutoTimeOrDate(node.createTime)}</time>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="home_items">
+          <header>最近回复的话题</header>
+          <div className="even_odd_parent">
+            {user.topics.map((node) => (
+              <div key={node.nid}>
+                <a href={"/node/" + node.nid}>{node.title}</a>
+                <time>{toAutoTimeOrDate(node.createTime)}</time>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
       <MsgEditor />
     </>

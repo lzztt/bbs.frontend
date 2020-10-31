@@ -84,6 +84,9 @@ button:disabled {
 
 /* This button was generated using CSSButtonGenerator.com */
 /* END BUTTON */
+button:not(:first-child) {
+  margin-left: 8px;
+}
 
 main {
   overflow: hidden;
@@ -227,16 +230,14 @@ nav.navbar a:hover {
   margin: 0.5rem;
 }
 
-.user_info ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.user_info > div:nth-child(2) {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-content: start;
+  grid-gap: 0 0.25rem;
 }
-.user_info label {
-  display: inline-block;
-  width: 80px;
-  padding: 1px 0.5rem;
-  clear: left;
+
+.user_info > div:nth-child(2) > :nth-child(odd) {
   text-align: right;
   color: #29447e;
 }
