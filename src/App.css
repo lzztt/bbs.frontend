@@ -105,21 +105,6 @@ main {
   width: 100%;
 }
 
-.avatar_circle {
-  width: 128px;
-  height: 128px;
-  line-height: 128px;
-  border-radius: 50%;
-  white-space: nowrap;
-  overflow: hidden;
-  background: white;
-  color: black;
-  border: 1px solid gray;
-  text-align: center;
-  font-size: 50px;
-  font-family: "Courier New", Courier, monospace;
-}
-
 /* NAVBAR */
 #menu_icon {
   z-index: 999;
@@ -253,34 +238,6 @@ nav.navbar a:hover {
   border-radius: 50%;
 }
 /* END CROPPER */
-/* USER TOPICS */
-ul.user_topics {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  max-width: 600px;
-}
-ul.user_topics > li {
-  display: grid;
-  padding: 0.3rem;
-}
-
-@media (min-width: 768px) {
-  ul.user_topics {
-    margin: 0.5rem;
-  }
-  ul.user_topics > li {
-    grid-template-columns: 70fr 30fr;
-  }
-}
-
-ul.user_topics > li > a {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-/* END USER TOPICS */
 
 /* IMAGE SLIDER */
 @keyframes fade_in {
