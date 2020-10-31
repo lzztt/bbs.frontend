@@ -132,6 +132,7 @@ blockquote
    color: #454545;
    border-left: 1px solid #c76c0c;
    box-shadow: 2px 2px 15px #ccc;
+   border-radius: 0.5rem;
 }
 
 blockquote:before
@@ -319,20 +320,11 @@ section.activities a.activity_future:before
 /* END ACTIVITY LIST PAGE */
 
 /* BEGIN FORUM TOPIC NODE */
-.author_panel
-{
-   display: none;
-}
 
 article > *
 {
    padding: 0.25rem;
    overflow: hidden;
-}
-
-article header
-{
-   background-color: #FFEBCD;
 }
 
 article header > :not(:last-child)

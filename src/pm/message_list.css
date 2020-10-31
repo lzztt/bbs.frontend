@@ -15,10 +15,6 @@
   padding: 0.5rem;
 }
 
-.message_list header {
-  background-color: unset;
-}
-
 .message_list header > :not(:last-child) {
   margin-right: 0.5rem;
 }
