@@ -4,14 +4,15 @@
   padding: 0.25rem 0;
 }
 
-.message_list section > * {
-  padding: 0.5rem;
+.message_list section > div:first-child {
+  margin: 0 0.25rem;
 }
 
 .message_list section > div:nth-child(2) {
-  max-width: 70%;
+  max-width: 72%;
   border: 1px gray solid;
   border-radius: 0.5rem;
+  padding: 0.5rem;
 }
 
 .message_list header {
@@ -20,6 +21,10 @@
 
 .message_list header > :not(:last-child) {
   margin-right: 0.5rem;
+}
+
+.message_list p {
+    margin: 0.25rem 0 0;
 }
 
 .message_list .flex_right {
