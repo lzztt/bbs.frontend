@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { rest, cache, validateResponse, toAutoTimeOrDate } from "../lib/common";
 import MsgEditor from "../pm/MsgEditor";
+import Avatar from "./Avatar";
 import AvatarEditor from "./AvatarEditor";
 
 function User() {
@@ -108,29 +109,11 @@ function User() {
           <div>
             <figure>
               <div ref={avatarRef}>
-                {user.avatar ? (
-                  <img
-                    alt={user.username + "的头像"}
-                    src={user.avatar}
-                    onClick={changeAvatar}
-                    style={isSelf ? { cursor: "pointer" } : {}}
-                  />
-                ) : (
-                  <div
-                    className="avatar_circle"
-                    onClick={changeAvatar}
-                    style={isSelf ? { cursor: "pointer" } : {}}
-                  >
-                    {user.username
-                      .toString()
-                      .substr(
-                        0,
-                        user.username.toString().match(/^[A-Za-z0-9]{3}/)
-                          ? 3
-                          : 2
-                      )}
-                  </div>
-                )}
+                <Avatar
+                  avatar={user.avatar}
+                  username={user.username}
+                  onClick={isSelf ? changeAvatar : null}
+                />
               </div>
               <figcaption>{user.username}</figcaption>
             </figure>

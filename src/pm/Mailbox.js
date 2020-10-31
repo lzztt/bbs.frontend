@@ -6,7 +6,7 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import { rest, session, toAutoTime, validateResponse } from "../lib/common";
 import NavTab from "./NavTab";
 import Selector from "./Selector";
-import "./pm.css";
+import "./topic_list.css";
 
 const set = new Set();
 
@@ -95,7 +95,7 @@ function Mailbox() {
     <>
       <NavTab mailbox={mailbox} />
       <Action />
-      <div className="pm_list even_odd_parent">
+      <div className="topic_list even_odd_parent">
         {messages.map((msg) => (
           <div key={msg.mid}>
             <span>

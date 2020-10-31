@@ -5,7 +5,7 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import Selector from "../pm/Selector";
 import { cache, rest, toAutoTime, validateResponse } from "../lib/common";
 
-import "../pm/pm.css";
+import "../pm/topic_list.css";
 
 const set = new Set();
 
@@ -90,7 +90,7 @@ function Bookmark() {
   return (
     <>
       <Action />
-      <div className="pm_list even_odd_parent">
+      <div className="topic_list even_odd_parent">
         {nodes.map((node) => (
           <div key={node.id}>
             <span>

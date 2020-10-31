@@ -84,23 +84,6 @@ button:disabled {
 
 /* This button was generated using CSSButtonGenerator.com */
 /* END BUTTON */
-/* TOPIC */
-article.topic section > * {
-  margin: 0;
-  padding: 0.2rem 0.4rem;
-  white-space: pre-wrap;
-  display: flex;
-  align-items: center;
-}
-article.topic header {
-  background-color: #ffebcd;
-}
-article.topic button {
-  display: flex;
-  align-items: center;
-}
-
-/* END TOPIC */
 
 main {
   overflow: hidden;

@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams, useHistory } from "react-router-dom";
-import { rest, session, validateResponse, toAutoTime } from "../lib/common";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import { Link, useParams } from "react-router-dom";
+import { rest, session, toAutoTime, cache } from "../lib/common";
+import Button from "@material-ui/core/Button";
 import EditIcon from "@material-ui/icons/Edit";
 import NavTab from "./NavTab";
 import MsgEditor from "./MsgEditor";
+import Avatar from "../user/Avatar";
+
+import "./message_list.css";
 
 function Message() {
   const [messages, setMessages] = useState(null);
   const [replyTo, setReplyTo] = useState({});
   const { messageId } = useParams();
-  const history = useHistory();
+
+  const userId = cache.get("uid");
 
   useEffect(() => {
     rest.get("/api/message/" + messageId).then((data) => {
@@ -20,25 +24,6 @@ function Message() {
   }, [messageId]);
 
   const mailbox = session.get("mailbox") || "inbox";
-
-  const handleDelete = (index) => {
-    var answer = window.confirm(
-      index === 0 ? "整个对话的所有消息将被删除？" : "此条消息将被删除？"
-    );
-    if (answer) {
-      rest.delete("/api/message/" + messages[index].id).then((data) => {
-        if (validateResponse(data)) {
-          if (index === 0) {
-            history.replace("/mailbox/" + mailbox);
-          } else {
-            const tmp = [...messages];
-            tmp.splice(index, 1);
-            setMessages(tmp);
-          }
-        }
-      });
-    }
-  };
 
   const handleReply = () => {
     window.app.openMsgEditor({
@@ -65,24 +50,33 @@ function Message() {
   return (
     <>
       <NavTab mailbox={mailbox} />
-      <article className="topic">
+      <article className="message_list">
         {messages.map((msg, index) => (
-          <section key={msg.id}>
-            <header>
-              <Link to={"/user/" + msg.uid}>{msg.username}</Link>
-              {toAutoTime(msg.time)}
-            </header>
-            <p>
-              {msg.body}{" "}
-              <DeleteForeverIcon onClick={() => handleDelete(index)} />
-            </p>
+          <section
+            key={msg.id}
+            className={msg.uid === userId ? "flex_right" : ""}
+          >
+            <div>
+              <Avatar
+                avatar={msg.avatar}
+                username={msg.username}
+                size="min(64px, 10vw)"
+              />
+            </div>
+            <div>
+              <header>
+                <Link to={"/user/" + msg.uid}>{msg.username}</Link>
+                {toAutoTime(msg.time)}
+              </header>
+              <p>{msg.body}</p>
+            </div>
           </section>
         ))}
         <div>
-          <button onClick={handleReply}>
+          <Button variant="contained" onClick={handleReply} color="primary">
             <EditIcon />
             回复
-          </button>
+          </Button>
         </div>
       </article>
       <MsgEditor />
