@@ -1,21 +1,15 @@
 import React from "react";
 
-function Avatar({ username, avatar, onClick, size }) {
+function Avatar({ username, avatar, onClick, responsive }) {
   const props = {
-    className: "avatar_circle",
+    className: responsive ? "avatar_circle_responsive" : "avatar_circle",
   };
 
-  let style = size
+  let style = avatar
     ? {
-        width: size,
-        height: size,
-        lineHeight: size,
+        border: 0,
       }
     : {};
-
-  if (avatar) {
-    style.border = 0;
-  }
 
   if (onClick) {
     props.onClick = onClick;

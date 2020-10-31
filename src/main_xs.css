@@ -1,7 +1,9 @@
 /* BEGIN ALL PAGES */
-span.time
+span.time,
+time
 {
    color: #666666;
+   font-size: 0.875rem;
 }
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default */

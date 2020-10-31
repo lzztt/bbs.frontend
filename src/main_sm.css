@@ -1,6 +1,12 @@
 /* Small devices (tablets, 768px) and up */
 @media (min-width: 768px)
 {
+   span.time,
+   time
+   {
+      font-size: 0.8125rem;
+   }
+
    /* BEGIN IFRAME */
    iframe.youtube
    {

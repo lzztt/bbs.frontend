@@ -60,13 +60,13 @@ function Message() {
               <Avatar
                 avatar={msg.avatar}
                 username={msg.username}
-                size="min(64px, 10vw)"
+                responsive={true}
               />
             </div>
             <div>
               <header>
                 <Link to={"/user/" + msg.uid}>{msg.username}</Link>
-                {toAutoTime(msg.time)}
+                <time>{toAutoTime(msg.time)}</time>
               </header>
               <p>{msg.body}</p>
             </div>

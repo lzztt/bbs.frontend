@@ -191,10 +191,8 @@ nav.navbar a:hover {
 }
 /* END NAVBAR */
 /* AVATAR TEXT */
-.avatar_circle {
-  width: 128px;
-  height: 128px;
-  line-height: 128px;
+.avatar_circle,
+.avatar_circle_responsive {
   border-radius: 50%;
   white-space: nowrap;
   overflow: hidden;
@@ -202,9 +200,23 @@ nav.navbar a:hover {
   color: black;
   border: 1px solid gray;
   text-align: center;
-  font-size: 50px;
   font-family: "Courier New", Courier, monospace;
 }
+
+.avatar_circle {
+  width: 128px;
+  height: 128px;
+  line-height: 128px;
+  font-size: 56px;
+}
+
+.avatar_circle_responsive {
+  width: min(64px, 10vw);
+  height: min(64px, 10vw);
+  line-height: min(64px, 10vw);
+  font-size: min(28px, 4.375vw);
+}
+
 /* AVATAR TEXT */
 /* USER DT DD */
 .user_info {
