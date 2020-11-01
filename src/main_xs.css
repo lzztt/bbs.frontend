@@ -1,4 +1,5 @@
 /* BEGIN ALL PAGES */
+small,
 span.time,
 time
 {
@@ -247,31 +248,6 @@ div.image_slider > a span
 .home_items_sm,
 .home_items_md {
    display: none;
-}
-
-.home_hot_nodes > div > div:nth-child(1) > span
-{
-   background-color: #e65100;
-}
-
-.home_hot_nodes > div > div:nth-child(2) > span
-{
-   background-color: #f57c00;
-}
-
-.home_hot_nodes > div > div:nth-child(3) > span
-{
-   background-color: #ff9800;
-}
-
-.home_hot_nodes > div > div:nth-child(4) > span
-{
-   background-color: #ffb74d;
-}
-
-.home_hot_nodes > div > div:nth-child(5) > span
-{
-   background-color: #ffe0b2;
 }
 
 #site_stat
