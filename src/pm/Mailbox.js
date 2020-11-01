@@ -112,7 +112,7 @@ function Mailbox() {
               </Link>
             </span>
             <Link to={"/user/" + msg.uid}>{msg.user}</Link>
-            <span>{toAutoTime(msg.time)}</span>
+            <time>{toAutoTime(msg.time)}</time>
           </div>
         ))}
       </div>
