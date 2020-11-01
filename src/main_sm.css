@@ -57,20 +57,6 @@
    }
    /* END HOME PAGE */
 
-   /* BEGIN FORUM TOPIC NODE */
-   article .article_content .attach_images figure
-   {
-      display: inline-block;
-      vertical-align: top;
-   }
-
-   article .article_content .attach_images figure img,
-   article .article_content img.bb_image
-   {
-      width: auto;
-   }
-   /* END FORUM TOPIC NODE */
-
    /* BEGIN PAGE HEADER AD */
    #page_header
    {

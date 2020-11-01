@@ -32,23 +32,37 @@ h3 {
   width: 100%;
 }
 
+.attach_images {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.attach_images figure {
+  margin: 0;
+  padding: 0;
+}
+.attach_images figure > * {
+  display: block;
+  max-width: 100%;
+}
+
+.attach_images figcaption {
+  text-align: center;
+  background: gold;
+  padding: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.attach_images figure {
+  max-width: 100%;
+}
+
 @media (min-width: 768px) {
-  .attach_images {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-  }
-
-  .attach_images img {
+  .attach_images figure {
     max-width: 300px;
-  }
-
-  .attach_images figcaption {
-    max-width: 300px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    box-sizing: border-box;
   }
 }
 /* BEGIN BUTTON */
@@ -61,7 +75,6 @@ button,
   outline: 0;
   padding: 0 16px;
   font-size: 0.875rem;
-  box-sizing: border-box;
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
   font-weight: 500;

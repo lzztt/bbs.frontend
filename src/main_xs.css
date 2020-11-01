@@ -180,7 +180,6 @@ div.image_slider > a
 {
    display: block;
    position: relative;
-   box-sizing: border-box;
    width: 100%;
    height: 0;
    padding-bottom: 30%;
@@ -190,7 +189,6 @@ div.image_slider > a
 div.image_slider > a span
 {
    display: block;
-   box-sizing: border-box;
    width: 100%;
    position: absolute;
    bottom: 0;
@@ -313,26 +311,11 @@ article header .city
    color: purple;
 }
 
-article .article_content .attach_images figure
-{
-   margin: 0;
-   padding: 0;
-}
-
-article .article_content .attach_images figure img,
 article .article_content img.bb_image
 {
    display: inline-block;
    vertical-align: top;
-   width: 100%;
-}
-
-article .article_content .attach_images figure figcaption
-{
-   display: block;
-   text-align: center;
-   background: gold;
-   padding: 0.2em;
+   max-width: 100%;
 }
 
 article footer
