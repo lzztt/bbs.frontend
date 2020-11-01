@@ -40,7 +40,7 @@ const theme = createMuiTheme({
     MuiButton: {
       // Name of the rule
       root: {
-        padding: "0 16px", // for macOS and iOS
+        padding: "0 8px", // for macOS and iOS
       },
     },
   },
