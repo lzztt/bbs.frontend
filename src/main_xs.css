@@ -132,8 +132,6 @@ blockquote
    position: relative;
    color: #454545;
    border-left: 1px solid #c76c0c;
-   box-shadow: 2px 2px 15px #ccc;
-   border-radius: 0.5rem;
 }
 
 blockquote:before

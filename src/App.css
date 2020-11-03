@@ -126,41 +126,61 @@ main {
 }
 
 /* NAVBAR */
-#menu_icon {
+#icon_menu {
   z-index: 999;
   position: fixed;
   right: 1rem;
-  bottom: 25vh;
+  height: 110px;
+  bottom: calc(30vh - 110px);
+  display: flex;
+  flex-direction: column;
   color: #2962ff;
-  background-color: gold;
-  border: 1px solid #ccac00;
-  border-radius: 6px;
-  padding: 1px;
+}
+
+#icon_menu svg {
+  width: 2rem;
+  height: 2rem;
+  padding: 0.25rem;
   cursor: pointer;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 0 1px 1px antiquewhite;
+  margin: 1px;
 }
 
-#menu_icon:hover {
-  background-color: #ccac00;
+#icon_menu > *:not(:first-child) {
+  margin-top: 0.25rem;
 }
 
-nav#menu {
+#icon_menu svg:hover {
+  background-color: antiquewhite;
+}
+
+#menu {
   z-index: 999;
   position: fixed;
   right: 1rem;
-  bottom: calc(2rem + 25vh);
+  bottom: calc(30vh + 0.25rem);
   display: flex;
   flex-flow: row wrap;
   align-items: flex-end;
   margin: 0;
 }
 
-nav#menu.hidden {
+#menu.hidden {
   display: none;
 }
 
-nav#menu div {
+#menu div {
   display: flex;
   flex-flow: column wrap;
+}
+
+@media (max-width: 767px) {
+  #menu div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 nav.navbar a {
@@ -176,12 +196,11 @@ nav.navbar a:hover {
 }
 
 @media (min-width: 768px) {
-  #menu_icon {
+  #icon_menu {
     display: none;
   }
 
-  nav#menu {
-    display: flex;
+  #menu {
     position: relative;
     right: 0;
     bottom: 0;
@@ -189,11 +208,11 @@ nav.navbar a:hover {
     background-color: #eee;
   }
 
-  nav#menu.hidden {
+  #menu.hidden {
     display: flex;
   }
 
-  nav#menu div {
+  #menu div {
     flex-flow: row wrap;
   }
 }

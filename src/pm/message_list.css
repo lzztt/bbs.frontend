@@ -10,9 +10,7 @@
 
 .message_list section > div:nth-child(2) {
   max-width: 72%;
-  border: 1px gray solid;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
+  padding: 0 0.5rem;
 }
 
 .message_list header > :not(:last-child) {

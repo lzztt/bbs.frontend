@@ -1,10 +1,17 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
+import Badge from "@material-ui/core/Badge";
+import MailIcon from "@material-ui/icons/Mail";
+import { useHistory } from "react-router-dom";
+import { cache } from "./lib/common";
+import GoToTop from "./GoToTop";
 
 function Navbar({ loggedIn }) {
+  const [notifications, setNotifications] = useState(0);
   const navRef = useRef(null);
   const togglerRef = useRef(null);
+  const history = useHistory();
 
   const navHidden = "navbar hidden";
   const navVisible = "navbar";
@@ -33,9 +40,28 @@ function Navbar({ loggedIn }) {
     }
   };
 
+  const nNewMessages = cache.get("nNewMessages");
+  if (Number.isInteger(nNewMessages) && notifications !== nNewMessages) {
+    setNotifications(nNewMessages);
+  }
+
   return (
     <>
-      <MenuIcon ref={togglerRef} id="menu_icon" onClick={toggle} />
+      <nav id="icon_menu">
+        <MenuIcon ref={togglerRef} onClick={toggle} />
+        {loggedIn && (
+          <Badge
+            badgeContent={notifications}
+            color="primary"
+            overlap="circle"
+            max="9"
+            onClick={() => history.push("/user/mailbox/inbox")}
+          >
+            <MailIcon />
+          </Badge>
+        )}
+        <GoToTop />
+      </nav>
       <nav ref={navRef} id="menu" className={navHidden}>
         <div>
           <a href="/">首页</a>
@@ -56,6 +82,18 @@ function Navbar({ loggedIn }) {
                 }}
               >
                 短信
+                {notifications > 0 && (
+                  <span
+                    className="MuiBadge-badge MuiBadge-colorPrimary"
+                    style={{
+                      display: "inline-flex",
+                      position: "unset",
+                      marginLeft: "3px",
+                    }}
+                  >
+                    {notifications < 10 ? notifications : "9+"}
+                  </span>
+                )}
               </NavLink>
               <NavLink to="/user/bookmark">收藏夹</NavLink>
             </>
