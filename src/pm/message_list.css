@@ -13,8 +13,14 @@
   padding: 0 0.5rem;
 }
 
+.message_list section header {
+  background-color: wheat;
+  padding: 1px 1px 0 4px;
+  margin-bottom: 1px;
+}
+
 .message_list header > :not(:last-child) {
-  margin-right: 0.5rem;
+  margin-right: 0.25rem;
 }
 
 .message_list p {
