@@ -225,7 +225,7 @@ function User() {
         <div className="home_items">
           <header>最近回复的话题</header>
           <div className="even_odd_parent">
-            {user.topics.map((node) => (
+            {user.comments.map((node) => (
               <div key={node.nid}>
                 <a href={"/node/" + node.nid}>{node.title}</a>
                 <time>{toAutoTimeOrDate(node.createTime)}</time>
