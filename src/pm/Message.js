@@ -23,6 +23,8 @@ function Message() {
     });
   }, [messageId]);
 
+  window.app.setNotificationCount(0);
+
   const mailbox = session.get("mailbox") || "inbox";
 
   const handleReply = () => {

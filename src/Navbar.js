@@ -1,10 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import Badge from "@material-ui/core/Badge";
 import MailIcon from "@material-ui/icons/Mail";
 import { useHistory } from "react-router-dom";
-import { cache } from "./lib/common";
 import GoToTop from "./GoToTop";
 
 function Navbar({ loggedIn }) {
@@ -12,6 +11,37 @@ function Navbar({ loggedIn }) {
   const navRef = useRef(null);
   const togglerRef = useRef(null);
   const history = useHistory();
+
+  useEffect(() => {
+    if (!loggedIn) {
+      return;
+    }
+
+    const fetchNew = () =>
+      fetch("/api/message/new")
+        .then((response) => response.json())
+        .then((data) => {
+          if ("count" in data && data.count !== notifications) {
+            setNotifications(data.count);
+          }
+        });
+
+    fetchNew();
+
+    const interval = setInterval(() => {
+      if (notifications === 0) {
+        fetchNew();
+      }
+    }, 180000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  window.app.setNotificationCount = (n) => {
+    if (n !== notifications) {
+      setNotifications(n);
+    }
+  };
 
   const navHidden = "navbar hidden";
   const navVisible = "navbar";
@@ -40,16 +70,11 @@ function Navbar({ loggedIn }) {
     }
   };
 
-  const nNewMessages = cache.get("nNewMessages");
-  if (Number.isInteger(nNewMessages) && notifications !== nNewMessages) {
-    setNotifications(nNewMessages);
-  }
-
   return (
     <>
       <nav id="icon_menu">
         <MenuIcon ref={togglerRef} onClick={toggle} />
-        {loggedIn && (
+        {loggedIn && notifications > 0 && (
           <Badge
             badgeContent={notifications}
             color="primary"
