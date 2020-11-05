@@ -5,6 +5,7 @@ import Badge from "@material-ui/core/Badge";
 import MailIcon from "@material-ui/icons/Mail";
 import { useHistory } from "react-router-dom";
 import GoToTop from "./GoToTop";
+import { validateLoginSession } from "./lib/common";
 
 function Navbar({ loggedIn }) {
   const [notifications, setNotifications] = useState(0);
@@ -29,7 +30,11 @@ function Navbar({ loggedIn }) {
     fetchNew();
 
     const interval = setInterval(() => {
-      if (notifications === 0) {
+      if (
+        notifications === 0 &&
+        document.visibilityState === "visible" &&
+        validateLoginSession()
+      ) {
         fetchNew();
       }
     }, 180000);
