@@ -29,7 +29,6 @@ function NotFound() {
     const template = document.querySelector("#content");
     if (template) {
       nodeRef.current.appendChild(template.content.cloneNode(true));
-      document.querySelector("#page_footer").style.display = "block";
 
       const $ = nodeRef.current.querySelectorAll.bind(nodeRef.current);
       const $hide = (selector) => {
@@ -196,7 +195,7 @@ function NotFound() {
       }, 0);
     }
     // }
-  });
+  }, []);
 
   if (
     window.location.pathname.startsWith("/node/") ||

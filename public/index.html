@@ -51,12 +51,19 @@ const SFBAY = 4;
       <main id='page_body'></main>
       <?php if (!$debug && $city !== SFBAY) : ?>
         <ins
+          id="mobile_bottom_ad"
           class="adsbygoogle ad_xs"
           data-ad-client="ca-pub-8257334386742604"
           data-ad-slot="3930226326"
         ></ins>
         <script>
           (adsbygoogle = window.adsbygoogle || []).push({});
+          if (window.location.pathname === "/user/login" && window.innerWidth < 768) {
+            const element = document.querySelector("#mobile_bottom_ad");
+            if (element) {
+              element.style.display = "none";
+            }
+          }
         </script>
       <?php endif ?>
       <footer id='page_footer' style="display: none">
@@ -72,6 +79,11 @@ const SFBAY = 4;
 
     <template id="content">
       <?= $content ?>
+    </template>
+    <template id="support">
+      <h3>请您关闭Ad Blocker来支持我们</h3>
+      <p>为了用户体验，<br>每页最多一个广告，首页最多有两个。</p>
+      <p>感谢您的支持！</p>
     </template>
     <?php
     if ($city === HOUSTON) :
