@@ -1,6 +1,16 @@
 /* Small devices (tablets, 768px) and up */
 @media (min-width: 768px)
 {
+   #app_main {
+      min-height: 70vh;
+   }
+
+   .ad_xs {
+      display: none;
+      width: 0;
+      height: 0;
+   }
+
    small,
    span.time,
    time

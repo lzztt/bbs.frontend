@@ -108,23 +108,6 @@ button:not(:first-child) {
 }
 /* END BUTTON */
 
-main {
-  overflow: hidden;
-  background-color: #fff;
-}
-
-#app_main {
-  min-height: 80vh;
-  display: flex;
-  flex-direction: column;
-  /* align-items: center; */
-  justify-content: center;
-}
-
-#app_main > * {
-  width: 100%;
-}
-
 /* NAVBAR */
 #icon_menu {
   z-index: 999;
