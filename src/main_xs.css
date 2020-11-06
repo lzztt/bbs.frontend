@@ -39,9 +39,20 @@ time
 
 .ad_xs {
    display: block;
+}
+
+.support,
+.adsbygoogle {
    width: 100%;
    min-height: 250px;
    max-height: 600px;
+}
+
+.support {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
 }
 
 div#ad

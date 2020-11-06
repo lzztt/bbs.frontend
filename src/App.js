@@ -56,27 +56,34 @@ function App() {
 
   useEffect(() => {
     document.querySelector("#page_footer").style.display = "block";
-    setTimeout(() => {
-      const template = document.querySelector("#support");
-      if (template) {
-        document.querySelectorAll("ins.adsbygoogle").forEach((element) => {
-          const style = window.getComputedStyle(element);
+
+    const adsbygoogle = document.querySelector("#app_ads");
+    if (adsbygoogle) {
+      const container = document.querySelector(
+        window.innerWidth < 768 ? "#support_xs" : "#support_sm"
+      );
+      if (container) {
+        container.appendChild(adsbygoogle);
+
+        setTimeout(() => {
+          const style = window.getComputedStyle(adsbygoogle);
           if (
-            style.display !== "none" &&
-            style.width !== "0px" &&
-            style.height !== "0px" &&
-            element.innerHTML === ""
+            style.display === "none" ||
+            adsbygoogle.innerHTML === "" ||
+            style.width === "0px" ||
+            style.height === "0px"
           ) {
-            element.style.textDecoration = "none";
-            element.style.display = "flex";
-            element.style.flexDirection = "column";
-            element.style.justifyContent = "center";
-            element.style.alignItems = "center";
-            element.appendChild(template.content.cloneNode(true));
+            const template = document.querySelector("#support");
+            if (template) {
+              adsbygoogle.style.display = "none";
+              container.appendChild(template.content.cloneNode(true));
+            }
           }
-        });
+        }, 2000);
+      } else {
+        // adsbygoogle.style.display = "none";
       }
-    }, 2000);
+    }
   }, []);
 
   return (

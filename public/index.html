@@ -40,24 +40,7 @@ const SFBAY = 4;
         </div>
       </header>
       <main id='page_body'></main>
-      <?php if (!$debug && $city !== SFBAY) : ?>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <ins
-          id="mobile_bottom_ad"
-          class="adsbygoogle ad_xs"
-          data-ad-client="ca-pub-8257334386742604"
-          data-ad-slot="3930226326"
-        ></ins>
-        <script>
-          (adsbygoogle = window.adsbygoogle || []).push({});
-          if (window.location.pathname === "/user/login" && window.innerWidth < 768) {
-            const element = document.querySelector("#mobile_bottom_ad");
-            if (element) {
-              element.style.display = "none";
-            }
-          }
-        </script>
-      <?php endif ?>
+      <div id="support_xs"></div>
       <footer id='page_footer' style="display: none">
         <?php if ($city === HOUSTON) : ?>
           <div id='copyright'>© 2009-2020 缤纷休斯顿 版权所有 | <a href='/term'>服务条款</a> | <a href='/privacy'>隐私政策</a> | <a href="mailto:support@houstonbbs.com">联系我们</a> | <a href="mailto:ad@houstonbbs.com?subject=想在HoustonBBS上做个广告">广告洽谈</a></div>
@@ -73,10 +56,26 @@ const SFBAY = 4;
       <?= $content ?>
     </template>
     <template id="support">
-      <h3>请您关闭Ad Blocker来支持我们</h3>
-      <p>为了用户体验，<br>每页最多一个广告，首页最多有两个。</p>
-      <p>感谢您的支持！</p>
+      <div class="support">
+        <h3>请您关闭Ad Blocker来支持我们</h3>
+        <p>为了用户体验，<br>每页最多一个广告，首页最多有两个。</p>
+        <p>感谢您的支持！</p>
+      </div>
     </template>
+    <?php if (!$debug && $city !== SFBAY) : ?>
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- responsive_ad -->
+      <ins id="app_ads"
+          class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-8257334386742604"
+          data-ad-slot="1050744881"
+          data-ad-format="rectangle"
+          data-full-width-responsive="true"></ins>
+      <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    <?php endif ?>
     <?php
     if ($city === HOUSTON) :
       $track_id = 'UA-36671672-1';
