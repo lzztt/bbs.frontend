@@ -64,25 +64,25 @@ function App() {
       );
       if (container) {
         container.appendChild(adsbygoogle);
-
-        setTimeout(() => {
-          const style = window.getComputedStyle(adsbygoogle);
-          if (
-            style.display === "none" ||
-            adsbygoogle.innerHTML === "" ||
-            style.width === "0px" ||
-            style.height === "0px"
-          ) {
-            const template = document.querySelector("#support");
-            if (template) {
-              adsbygoogle.style.display = "none";
-              container.appendChild(template.content.cloneNode(true));
-            }
-          }
-        }, 2000);
       } else {
-        // adsbygoogle.style.display = "none";
+        adsbygoogle.style.margin = "auto";
       }
+
+      setTimeout(() => {
+        if (
+          adsbygoogle.offsetWidth === 0 ||
+          adsbygoogle.offsetHeight === 0 ||
+          adsbygoogle.innerHTML === ""
+        ) {
+          const template = document.querySelector("#support");
+          if (template) {
+            document.querySelectorAll("ins.adsbygoogle").forEach((ad) => {
+              ad.style.display = "none";
+              ad.after(template.content.cloneNode(true));
+            });
+          }
+        }
+      }, 2000);
     }
   }, []);
 
