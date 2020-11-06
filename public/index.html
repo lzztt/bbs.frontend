@@ -28,15 +28,6 @@ const SFBAY = 4;
     -->
     <title><?= $head_title ?></title>
     <meta name='description' content='<?= $head_description ?>'>
-    <?php if (!$debug && $city !== SFBAY) : ?>
-      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-8257334386742604",
-          enable_page_level_ads: true
-        });
-      </script>
-    <?php endif ?>
   </head>
   <body>
     <div id='page'>
@@ -50,6 +41,7 @@ const SFBAY = 4;
       </header>
       <main id='page_body'></main>
       <?php if (!$debug && $city !== SFBAY) : ?>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <ins
           id="mobile_bottom_ad"
           class="adsbygoogle ad_xs"
