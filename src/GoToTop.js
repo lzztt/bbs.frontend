@@ -4,30 +4,30 @@ import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 function GoToTop() {
+  const hiddenRef = useRef(true);
   const ref = useRef(null);
   const theme = useTheme();
   const skip = useMediaQuery(theme.breakpoints.up("md"));
 
-  let hidden = true;
   useEffect(() => {
     if (skip) {
       return;
     }
 
     window.addEventListener("scroll", function (e) {
-      if (hidden) {
+      if (hiddenRef.current) {
         if (window.scrollY > 300 && ref.current) {
-          hidden = false;
+          hiddenRef.current = false;
           ref.current.style.display = "block";
         }
       } else {
         if (window.scrollY <= 300 && ref.current) {
-          hidden = true;
+          hiddenRef.current = true;
           ref.current.style.display = "none";
         }
       }
     });
-  }, []);
+  }, [skip]);
 
   if (skip) {
     return "";
@@ -39,7 +39,7 @@ function GoToTop() {
       left: 0,
       behavior: "smooth",
     });
-    hidden = true;
+    hiddenRef.current = true;
     ref.current.style.display = "none";
   }
 
@@ -47,7 +47,7 @@ function GoToTop() {
     <PublishIcon
       ref={ref}
       onClick={scrollToTop}
-      style={{ display: hidden ? "none" : "block" }}
+      style={{ display: hiddenRef.current ? "none" : "block" }}
     />
   );
 }

@@ -22,11 +22,11 @@ function Image({ name, src, code, index, updateImageName, deleteImage }) {
         URL.revokeObjectURL(src);
       };
     }
-  }, []);
+  }, [code, src]);
 
   return (
     <figure className={classes.figure}>
-      <img ref={imgRef} src={src} width="200" />
+      <img ref={imgRef} src={src} width="200" alt="附件图片" />
       <figcaption>
         <TextField
           required

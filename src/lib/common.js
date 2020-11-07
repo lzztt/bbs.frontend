@@ -1,5 +1,4 @@
 // import mock_rest from './mock/rest'
-window.app = window.app || {};
 
 export const session = {
   set: (key, value) => {
@@ -178,32 +177,6 @@ export const validateResponse = (data) => {
     }
   }
   return true;
-};
-
-window.app.report = function (nodeId) {
-  const reason = window.prompt(
-    "请管理员审查本贴，原因如下 (目前只支持举报QQ骗子和办假学位证)：",
-    "本贴疑似骗子贴/办证贴"
-  );
-  if (reason) {
-    rest
-      .post("/api/report", {
-        nodeId,
-        reason: reason,
-      })
-      .then((data) => {
-        if (validateResponse(data)) {
-          window.alert("举报成功，谢谢您为维护良好信息交流环境做出的努力！");
-        }
-      });
-  }
-};
-
-window.app.delete = function (type, nodeId) {
-  const answer = window.confirm("此操作不可恢复，您确认要删除该内容吗？");
-  if (answer) {
-    window.location = `/${type}/${nodeId}/delete`;
-  }
 };
 
 const date = new Intl.DateTimeFormat("en-US", {

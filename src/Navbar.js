@@ -22,7 +22,7 @@ function Navbar({ loggedIn }) {
       fetch("/api/message/new")
         .then((response) => response.json())
         .then((data) => {
-          if ("count" in data && data.count !== notifications) {
+          if ("count" in data && Number.isInteger(data.count)) {
             setNotifications(data.count);
           }
         });
@@ -30,20 +30,16 @@ function Navbar({ loggedIn }) {
     fetchNew();
 
     const interval = setInterval(() => {
-      if (
-        notifications === 0 &&
-        document.visibilityState === "visible" &&
-        validateLoginSession()
-      ) {
+      if (document.visibilityState === "visible" && validateLoginSession()) {
         fetchNew();
       }
     }, 180000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [loggedIn]);
 
   window.app.setNotificationCount = (n) => {
-    if (n !== notifications) {
+    if (Number.isInteger(n)) {
       setNotifications(n);
     }
   };

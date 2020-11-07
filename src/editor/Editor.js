@@ -10,9 +10,31 @@ import Image from "./Image";
 
 import ImageBlobReduce from "image-blob-reduce";
 
-// import delete and report actions
-let _ = window.app.delete;
-_ = window.app.report;
+window.app.report = function (nodeId) {
+  const reason = window.prompt(
+    "请管理员审查本贴，原因如下 (目前只支持举报QQ骗子和办假学位证)：",
+    "本贴疑似骗子贴/办证贴"
+  );
+  if (reason) {
+    rest
+      .post("/api/report", {
+        nodeId,
+        reason: reason,
+      })
+      .then((data) => {
+        if (validateResponse(data)) {
+          window.alert("举报成功，谢谢您为维护良好信息交流环境做出的努力！");
+        }
+      });
+  }
+};
+
+window.app.delete = function (type, nodeId) {
+  const answer = window.confirm("此操作不可恢复，您确认要删除该内容吗？");
+  if (answer) {
+    window.location = `/${type}/${nodeId}/delete`;
+  }
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -208,7 +230,7 @@ function Editor() {
     }
     formData.append("body", data.body);
     formData.append("update_file", 1);
-    data.images.map((image) => {
+    data.images.forEach((image) => {
       if ("blob" in image) {
         const id = Math.random().toString(36).substring(2, 5);
         formData.append(id, image.blob, id);
