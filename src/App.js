@@ -65,9 +65,7 @@ function App() {
       if (container) {
         container.appendChild(adsbygoogle);
       } else {
-        const div = document.createElement("div");
-        adsbygoogle.after(div);
-        div.appendChild(adsbygoogle);
+        const div = adsbygoogle.parentElement;
 
         const page = document.querySelector("#page");
         const right = page

@@ -40,7 +40,21 @@ const SFBAY = 4;
         </div>
       </header>
       <main id='page_body'></main>
-      <div id="support_xs"></div>
+      <?php if (!$debug && $city !== SFBAY) : ?>
+        <div>
+          <!-- responsive_ad -->
+          <ins id="app_ads"
+              class="adsbygoogle"
+              style="display:block"
+              data-ad-client="ca-pub-8257334386742604"
+              data-ad-slot="1050744881"
+              data-ad-format="rectangle"
+              data-full-width-responsive="true"></ins>
+          <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+      <?php endif ?>
       <footer id='page_footer' style="display: none">
         <?php if ($city === HOUSTON) : ?>
           <div id='copyright'>© 2009-2020 缤纷休斯顿 版权所有 | <a href='/term'>服务条款</a> | <a href='/privacy'>隐私政策</a> | <a href="mailto:support@houstonbbs.com">联系我们</a> | <a href="mailto:ad@houstonbbs.com?subject=想在HoustonBBS上做个广告">广告洽谈</a></div>
@@ -64,17 +78,6 @@ const SFBAY = 4;
     </template>
     <?php if (!$debug && $city !== SFBAY) : ?>
       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-      <!-- responsive_ad -->
-      <ins id="app_ads"
-          class="adsbygoogle"
-          style="display:block"
-          data-ad-client="ca-pub-8257334386742604"
-          data-ad-slot="1050744881"
-          data-ad-format="rectangle"
-          data-full-width-responsive="true"></ins>
-      <script>
-          (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
     <?php endif ?>
     <?php
     if ($city === HOUSTON) :

@@ -4,6 +4,7 @@
     min-height: 70vh;
   }
 
+  #support_xs,
   .ad_xs {
     display: none;
   }
