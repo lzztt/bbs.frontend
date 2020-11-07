@@ -65,7 +65,22 @@ function App() {
       if (container) {
         container.appendChild(adsbygoogle);
       } else {
-        adsbygoogle.style.margin = "auto";
+        const div = document.createElement("div");
+        adsbygoogle.after(div);
+        div.appendChild(adsbygoogle);
+
+        const page = document.querySelector("#page");
+        const right = page
+          ? (document.body.offsetWidth - page.offsetWidth) / 2 - 300
+          : -1;
+        if (right > -1) {
+          div.style.position = "absolute";
+          div.style.right = `${right}px`;
+          div.style.top = "30vh";
+        } else {
+          div.style.display = "flex";
+          div.style.justifyContent = "center";
+        }
       }
 
       setTimeout(() => {

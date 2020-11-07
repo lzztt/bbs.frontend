@@ -3,19 +3,17 @@
  * width: (1280 - 32) px, count scrollbar, 4-column layout
  */
 
-@media (min-width: 1248px)
-{
-   /* BEGIN ALL PAGES */
-   div#page {
-      width: 1248px;
-      margin: auto;
-   }
-   /* END ALL PAGES */
+@media (min-width: 1248px) {
+  /* BEGIN ALL PAGES */
+  div#page {
+    width: 1248px;
+    margin: auto;
+  }
+  /* END ALL PAGES */
 
-   /* BEGIN PAGE HEADER AD */
-   #page_header_ad
-   {
-      height: 60px;
-   }
-   /* END PAGE HEADER AD */
+  /* BEGIN PAGE HEADER AD */
+  #page_header_ad {
+    height: 60px;
+  }
+  /* END PAGE HEADER AD */
 }

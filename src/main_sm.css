@@ -1,100 +1,88 @@
 /* Small devices (tablets, 768px) and up */
-@media (min-width: 768px)
-{
-   #app_main {
-      min-height: 70vh;
-   }
+@media (min-width: 768px) {
+  #app_main {
+    min-height: 70vh;
+  }
 
-   .ad_xs {
-      display: none;
-   }
+  .ad_xs {
+    display: none;
+  }
 
-   .support,
-   .adsbygoogle {
-      width: 300px;
-      height: 250px;
-   }
+  .support,
+  .adsbygoogle {
+    width: 300px;
+    height: 250px;
+  }
 
-   small,
-   span.time,
-   time
-   {
-      font-size: 0.8125rem;
-   }
+  small,
+  span.time,
+  time {
+    font-size: 0.8125rem;
+  }
 
-   /* BEGIN IFRAME */
-   iframe.youtube
-   {
-      width: 560px;
-      height: 315px;
-   }
+  /* BEGIN IFRAME */
+  iframe.youtube {
+    width: 560px;
+    height: 315px;
+  }
 
-   iframe.googlemap
-   {
-      width: 500px;
-      height: 400px;
-   }
-   /* END IFRAME */
+  iframe.googlemap {
+    width: 500px;
+    height: 400px;
+  }
+  /* END IFRAME */
 
-   /* END ALL PAGES */
+  /* END ALL PAGES */
 
-   /* BEGIN HOME PAGE */
-   div.image_slider
-   {
-      height: 250px;
-      width: calc(100% - 300px);
-   }
+  /* BEGIN HOME PAGE */
+  div.image_slider {
+    height: 250px;
+    width: calc(100% - 300px);
+  }
 
-   div.image_slider > a
-   {
-      padding-bottom: 250px;
-   }
+  div.image_slider > a {
+    padding-bottom: 250px;
+  }
 
-   .home_items
-   {
-      display: inline-block;
-      vertical-align: top;
-      width: 50%;
-   }
+  .home_items {
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+  }
 
-   .home_items_sm {
-      display: inline-block;
-      width: 300px;
-      height: 250px;
-      overflow: hidden;
-   }
+  .home_items_sm {
+    display: inline-block;
+    width: 300px;
+    height: 250px;
+    overflow: hidden;
+  }
 
-   #site_stat section
-   {
-      display: inline-block;
-      width: 50%;
-   }
-   /* END HOME PAGE */
+  #site_stat section {
+    display: inline-block;
+    width: 50%;
+  }
+  /* END HOME PAGE */
 
-   /* BEGIN PAGE HEADER AD */
-   #page_header
-   {
-      position: relative;
-      overflow: hidden;
-   }
+  /* BEGIN PAGE HEADER AD */
+  #page_header {
+    position: relative;
+    overflow: hidden;
+  }
 
-   #page_header_ad
-   {
-      display: flex;
-      justify-content: flex-end;
-      min-height: 48px;
-   }
+  #page_header_ad {
+    display: flex;
+    justify-content: flex-end;
+    min-height: 48px;
+  }
 
-   #page_header_ad a
-   {
-      width: 50%;
-      max-width: 468px;
-   }
+  #page_header_ad a {
+    width: 50%;
+    max-width: 468px;
+  }
 
-   #page_header_ad a img
-   {
-      display: block;
-      width: 100%;
-   }
-   /* END PAGE HEADER AD */
+  #page_header_ad a img {
+    display: block;
+    width: 100%;
+  }
+  /* END PAGE HEADER AD */
 }
