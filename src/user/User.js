@@ -86,9 +86,9 @@ function User() {
   };
 
   const saveAboutMe = () => {
-    const favoriteQuotation = textInputRef.current.value;
-    setUser({ ...user, favoriteQuotation });
-    rest.put("/api/user/" + user.id, { favoriteQuotation }).then((data) => {
+    const about = textInputRef.current.value;
+    setUser({ ...user, about });
+    rest.put("/api/user/" + user.id, { about }).then((data) => {
       validateResponse(data);
     });
     setAboutMeEditor(false);
@@ -199,12 +199,12 @@ function User() {
               ))}
             {aboutMeEditor ? (
               <textarea rows="5" cols="50" ref={textInputRef}>
-                {user.favoriteQuotation}
+                {user.about}
               </textarea>
             ) : (
               <p>
-                {user.favoriteQuotation
-                  ? user.favoriteQuotation
+                {user.about
+                  ? user.about
                   : "还没有自我介绍呢！" +
                     (isSelf ? "（点击“编辑”按钮可添加）" : "")}
               </p>
