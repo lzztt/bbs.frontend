@@ -107,7 +107,7 @@ function ReportForm() {
               paddingLeft: "0",
             }}
           >
-            这条信息违反了<a href="/conduct" target="_blank">行为守则</a>
+            这条信息违反了以下站规
           </DialogTitle>
           <IconButton
             edge="end"
@@ -122,7 +122,7 @@ function ReportForm() {
           <header>语言表达</header>
           <div onClick={toggle("言语粗俗")} style={style("言语粗俗")}>
             言语粗俗
-            <small>嘲讽挖苦没礼貌、言语粗鲁讲脏话</small>
+            <small>嘲讽挖苦没礼貌，言语粗鲁讲脏话</small>
           </div>
           <div onClick={toggle("标签歧视")} style={style("标签歧视")}>
             标签歧视
@@ -130,7 +130,7 @@ function ReportForm() {
           </div>
           <div onClick={toggle("骚扰攻击")} style={style("骚扰攻击")}>
             骚扰攻击
-            <small>骚扰、诽谤、辱骂、恐吓、霸凌、人身攻击类语言</small>
+            <small>骚扰、诽谤、辱骂、恐吓、霸凌等</small>
           </div>
           <header>信息内容</header>
           <div onClick={toggle("一贴多发")} style={style("一贴多发")}>
@@ -139,9 +139,7 @@ function ReportForm() {
           </div>
           <div onClick={toggle("虚假误导")} style={style("虚假误导")}>
             虚假误导
-            <small>
-              内容虚假，误导性标题或内容，违背道义，但不损害个人隐私信息
-            </small>
+            <small>虚假或误导性的标题或内容，违背道义</small>
           </div>
           <div onClick={toggle("欺诈违法")} style={style("欺诈违法")}>
             欺诈违法
