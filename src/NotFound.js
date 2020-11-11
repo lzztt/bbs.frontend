@@ -12,6 +12,7 @@ import {
   toAutoTime,
 } from "./lib/common";
 import ImageViewer from "./ImageViewer";
+import ReportForm from "./editor/ReportForm";
 
 // const isExternal = () => {
 //   return (
@@ -207,6 +208,7 @@ function NotFound() {
         <Editor />
         <MsgEditor />
         <ImageViewer />
+        <ReportForm />
       </>
     );
   }
