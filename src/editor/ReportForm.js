@@ -36,7 +36,7 @@ const useStyles = (fullScreen) =>
 
 function ReportForm() {
   const [open, setOpen] = useState(false);
-  const [violation, setViolation] = useState({});
+  const [violation, setViolation] = useState(null);
   const [nodeId, setNodeId] = useState(null);
   const [notification, setNotification] = useState(null);
 
@@ -50,14 +50,11 @@ function ReportForm() {
   };
 
   const toggle = (reason) => () => {
-    setViolation({
-      ...violation,
-      [reason]: !violation[reason],
-    });
+    setViolation(violation !== reason ? reason : null);
   };
 
   const style = (reason) => {
-    return violation[reason]
+    return violation === reason
       ? {
           backgroundColor: "wheat",
         }
@@ -70,14 +67,11 @@ function ReportForm() {
   };
 
   const reportViolation = (event) => {
-    const reason = Object.keys(violation)
-      .filter((reason) => violation[reason])
-      .join(" ");
-    if (reason) {
+    if (violation) {
       rest
         .post("/api/report", {
           nodeId,
-          reason,
+          reason: violation,
         })
         .then(function (data) {
           if (validateResponse(data)) {
@@ -107,7 +101,7 @@ function ReportForm() {
               paddingLeft: "0",
             }}
           >
-            这条信息违反了以下站规
+            请选择主要的违规类别
           </DialogTitle>
           <IconButton
             edge="end"
@@ -139,11 +133,11 @@ function ReportForm() {
           </div>
           <div onClick={toggle("虚假误导")} style={style("虚假误导")}>
             虚假误导
-            <small>虚假或误导性的标题或内容，违背道义</small>
+            <small>虚假或误导性的标题或内容</small>
           </div>
           <div onClick={toggle("欺诈违法")} style={style("欺诈违法")}>
             欺诈违法
-            <small>欺诈钓鱼，盗取个人信息，损害他人隐私，或其他违法信息</small>
+            <small>盗取或泄露个人隐私，违法内容</small>
           </div>
         </DialogContent>
         <DialogActions>
@@ -154,10 +148,7 @@ function ReportForm() {
             variant="contained"
             onClick={reportViolation}
             color="primary"
-            disabled={
-              Object.keys(violation).filter((reason) => violation[reason])
-                .length === 0
-            }
+            disabled={violation === null}
           >
             举报
           </Button>
