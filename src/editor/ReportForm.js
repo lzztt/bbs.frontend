@@ -37,15 +37,15 @@ const useStyles = (fullScreen) =>
 function ReportForm() {
   const [open, setOpen] = useState(false);
   const [violation, setViolation] = useState(null);
-  const [nodeId, setNodeId] = useState(null);
+  const [commentId, setCommentId] = useState(null);
   const [notification, setNotification] = useState(null);
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const classes = useStyles(fullScreen)();
 
-  window.app.report = (nodeId) => {
-    setNodeId(nodeId);
+  window.app.report = (commentId) => {
+    setCommentId(commentId);
     setOpen(true);
   };
 
@@ -70,7 +70,7 @@ function ReportForm() {
     if (violation) {
       rest
         .post("/api/report", {
-          nodeId,
+          commentId,
           reason: violation,
         })
         .then(function (data) {
@@ -116,7 +116,7 @@ function ReportForm() {
           <header>语言表达</header>
           <div onClick={toggle("言语粗俗")} style={style("言语粗俗")}>
             言语粗俗
-            <small>嘲讽挖苦没礼貌，言语粗鲁讲脏话</small>
+            <small>嘲讽挖苦，言语粗鲁，讲脏话</small>
           </div>
           <div onClick={toggle("标签歧视")} style={style("标签歧视")}>
             标签歧视
@@ -129,7 +129,7 @@ function ReportForm() {
           <header>信息内容</header>
           <div onClick={toggle("一贴多发")} style={style("一贴多发")}>
             一贴多发
-            <small>一周内多次发布重复内容</small>
+            <small>重复内容一天内发布两次或更多</small>
           </div>
           <div onClick={toggle("虚假误导")} style={style("虚假误导")}>
             虚假误导
