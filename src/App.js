@@ -89,10 +89,14 @@ function App() {
         ) {
           const template = document.querySelector("#support");
           if (template) {
-            document.querySelectorAll("ins.adsbygoogle").forEach((ad) => {
-              ad.style.display = "none";
-              ad.after(template.content.cloneNode(true));
-            });
+            document
+              .querySelectorAll("ins.adsbygoogle:not(.adsbygoogle-noablate)")
+              .forEach((ad) => {
+                ad.style.display = "none";
+                if (ad.parentElement !== document.body) {
+                  ad.after(template.content.cloneNode(true));
+                }
+              });
           }
         }
       }, 2000);
