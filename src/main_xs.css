@@ -9,7 +9,7 @@ time {
 /* No media query since this is the default */
 
 /* hide view controlled elements */
-[class*="v_user"] {
+[class*="v_"] {
   display: none;
 }
 

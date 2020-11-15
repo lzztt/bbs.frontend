@@ -108,15 +108,14 @@ function NotFound() {
         const uid = cache.get("uid");
 
         const showGuestPage = function () {
-          $show(".v_guest");
           $remove('[class*="v_user"]');
+          $show(".v_guest");
         };
 
         const showUserPage = function () {
           $remove(".v_guest");
-          $show(".v_user");
-          $hide('[class*="v_user_"]');
-          $show(".v_user_" + uid);
+          $show(".v_user, .v_user_" + uid);
+          $show('[class*="v_user_not_"]:not(.v_user_not_' + uid + ")");
 
           const role = cache.get("role");
           if (role && role instanceof Array) {
