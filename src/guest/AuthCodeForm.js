@@ -2,13 +2,10 @@ import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Form from "./Form";
-import { rest, validateResponse } from "../lib/common";
-
-const randomId = () => Math.random().toString().slice(2);
-const initId = randomId();
+import { randomId, rest, validateResponse } from "../lib/common";
 
 function AuthCodeForm({ handler, submit, next, children }) {
-  const [id, setId] = useState(initId);
+  const [id, setId] = useState(randomId);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [captcha, setCaptcha] = useState("");

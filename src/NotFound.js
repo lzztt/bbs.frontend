@@ -32,11 +32,6 @@ function NotFound() {
       nodeRef.current.appendChild(template.content.cloneNode(true));
 
       const $ = nodeRef.current.querySelectorAll.bind(nodeRef.current);
-      const $hide = (selector) => {
-        $(selector).forEach((element) => {
-          element.style.display = "none";
-        });
-      };
       const $show = (selector) => {
         $(selector).forEach((element) => {
           element.style.display = "unset";

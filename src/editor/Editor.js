@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 // import ReactMarkdown from "react-markdown";
-import { rest, validateResponse } from "../lib/common";
+import { randomId, rest, validateResponse } from "../lib/common";
 import TextField from "@material-ui/core/TextField";
 import Image from "./Image";
 
@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Editor() {
+  const [formId, setFormId] = useState("");
   const [data, setData] = useState(null);
   const [url, setUrl] = useState("");
   const [submit, setSubmit] = useState("");
@@ -80,6 +81,7 @@ function Editor() {
         code: `[img]${image.path}[/img]`,
       })),
     });
+    setFormId(randomId());
 
     window.scrollTo({
       top: document.body.scrollHeight,
@@ -111,6 +113,7 @@ function Editor() {
         code: `[img]${image.path}[/img]`,
       })),
     });
+    setFormId(randomId());
 
     window.scrollTo({
       top: document.body.scrollHeight,
@@ -213,7 +216,7 @@ function Editor() {
     formData.append("update_file", 1);
     data.images.forEach((image) => {
       if ("blob" in image) {
-        const id = Math.random().toString(36).substring(2, 5);
+        const id = randomId().substring(0, 3);
         formData.append(id, image.blob, id);
         formData.append("file_id[]", id);
       } else {
@@ -221,6 +224,7 @@ function Editor() {
       }
       formData.append("file_name[]", image.name);
     });
+    formData.append("formId", formId);
 
     rest
       .post(url, formData)

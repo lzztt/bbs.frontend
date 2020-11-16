@@ -10,10 +10,11 @@ import Toolbar from "@material-ui/core/Toolbar";
 import TextField from "@material-ui/core/TextField";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
-import { rest, validateResponse } from "../lib/common";
+import { randomId, rest, validateResponse } from "../lib/common";
 import Notification from "./Notification";
 
 function MsgEditor() {
+  const [formId, setFormId] = useState("");
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [toUser, setToUser] = useState({});
@@ -29,6 +30,7 @@ function MsgEditor() {
     setTopicMid(topicMid);
     setOnClose(() => onClose);
     setOpen(true);
+    setFormId(randomId());
   };
 
   const handleClose = () => {
@@ -51,6 +53,7 @@ function MsgEditor() {
         toUid: toUser.id,
         body: message,
         topicMid,
+        formId,
       })
       .then(function (data) {
         if (validateResponse(data)) {
