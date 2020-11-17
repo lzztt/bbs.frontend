@@ -229,9 +229,7 @@ function Editor() {
     rest
       .post(url, formData)
       .then((data) => {
-        validateResponse(data);
-
-        if (data.redirect) {
+        if (validateResponse(data) && data.redirect) {
           var a = document.createElement("a");
           a.href = data.redirect;
 

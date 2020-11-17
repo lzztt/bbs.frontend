@@ -61,6 +61,9 @@ function MsgEditor() {
           if (onClose) onClose(data);
           setNotification("短信发送成功！");
         }
+      })
+      .catch((error) => {
+        alert(error);
       });
   };
 
