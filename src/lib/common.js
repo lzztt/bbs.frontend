@@ -1,27 +1,31 @@
 // import mock_rest from './mock/rest'
 
-export const session = {
+const store = (storage) => ({
   set: (key, value) => {
-    if (value == null) {
-      sessionStorage.removeItem(key);
+    if (value === null || value === undefined) {
+      storage.removeItem(key);
     } else {
-      sessionStorage.setItem(key, JSON.stringify(value));
+      storage.setItem(key, JSON.stringify(value));
     }
   },
   get: (key) => {
-    const value = sessionStorage.getItem(key);
-    if (value == null) {
+    const value = storage.getItem(key);
+    if (value === null) {
       return null;
     } else {
       return JSON.parse(value);
     }
   },
   remove: (key) => {
-    sessionStorage.removeItem(key);
+    storage.removeItem(key);
   },
   clear: () => {
-    sessionStorage.clear();
+    storage.clear();
   },
+});
+
+export const session = {
+  ...store(sessionStorage),
   getId: () => {
     const cookie = document.cookie
       ? document.cookie
@@ -32,29 +36,7 @@ export const session = {
   },
 };
 
-export const cache = {
-  set: (key, value) => {
-    if (value == null) {
-      localStorage.removeItem(key);
-    } else {
-      localStorage.setItem(key, JSON.stringify(value));
-    }
-  },
-  get: (key) => {
-    const value = localStorage.getItem(key);
-    if (value == null) {
-      return null;
-    } else {
-      return JSON.parse(value);
-    }
-  },
-  remove: (key) => {
-    localStorage.removeItem(key);
-  },
-  clear: () => {
-    localStorage.clear();
-  },
-};
+export const cache = store(localStorage);
 
 export const rest = {
   get: async (url) => {
@@ -145,9 +127,8 @@ export const validateLoginSession = () => {
 
   // outdated client session
   if (sessionId !== cache.get("sessionID")) {
-    // clear client cache and session
-    cache.clear();
-    session.clear();
+    // logout
+    cache.remove("uid");
 
     rest.get("/api/authentication/" + sessionId).then((data) => {
       if (validateResponse(data)) {

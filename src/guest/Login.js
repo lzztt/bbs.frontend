@@ -20,11 +20,14 @@ function Login({ setLoggedIn }) {
       })
       .then((data) => {
         if (validateResponse(data)) {
-          if (data.sessionID && data.uid) {
+          if (data.sessionID) {
             cache.set("sessionID", data.sessionID);
             cache.set("uid", data.uid);
             cache.set("username", data.username);
             cache.set("role", data.role);
+          }
+
+          if (data.uid) {
             setLoggedIn(true);
 
             if (location.state && location.state.from) {
