@@ -11,8 +11,6 @@ import "./main_md.css";
 import "./main_lg.css";
 import "./main_xl.css";
 
-const isLoggedIn = validateLoginSession();
-
 const theme = createMuiTheme({
   typography: {
     fontFamily: [
@@ -52,7 +50,8 @@ const theme = createMuiTheme({
 });
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(isLoggedIn);
+  const [loggedIn, setLoggedIn] = useState(validateLoginSession);
+  window.app.setLoggedIn = setLoggedIn;
 
   useEffect(() => {
     document.querySelector("#page_footer").style.display = "block";

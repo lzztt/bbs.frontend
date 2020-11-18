@@ -125,11 +125,8 @@ export const validateLoginSession = () => {
     return false;
   }
 
-  // outdated client session
+  // server rotated session id
   if (sessionId !== cache.get("sessionID")) {
-    // logout
-    cache.remove("uid");
-
     rest.get("/api/authentication/" + sessionId).then((data) => {
       if (validateResponse(data)) {
         if (data.sessionID) {
@@ -137,11 +134,12 @@ export const validateLoginSession = () => {
           cache.set("uid", data.uid);
           cache.set("username", data.username);
           cache.set("role", data.role);
+          if (typeof window.app.setLoggedIn === "function") {
+            window.app.setLoggedIn(Boolean(data.uid));
+          }
         }
       }
     });
-
-    return false;
   }
 
   return true;
