@@ -15,8 +15,9 @@
 
 .message_list section header {
   background-color: wheat;
-  padding: 1px 1px 0 4px;
-  margin-bottom: 1px;
+  padding: 1px 1px 1px 4px;
+  display: flex;
+  align-items: flex-end;
 }
 
 .message_list header > :not(:last-child) {

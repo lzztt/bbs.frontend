@@ -323,8 +323,14 @@ article .article_content img.bb_image {
 article footer {
   overflow: hidden;
 }
+
 article footer .actions {
   float: right;
+}
+
+.report_warn {
+  text-align: center;
+  color: darkred;
 }
 /* END FORUM TOPIC NODE */
 

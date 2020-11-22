@@ -46,6 +46,7 @@ function ReportForm() {
 
   window.app.report = (commentId) => {
     setCommentId(commentId);
+    setViolation(null);
     setOpen(true);
   };
 

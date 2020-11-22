@@ -10,6 +10,7 @@ import {
   toYearDate,
   toYearDateTime,
   toAutoTime,
+  validateLoginSession,
 } from "./lib/common";
 import ImageViewer from "./ImageViewer";
 import ReportForm from "./editor/ReportForm";
@@ -20,6 +21,30 @@ import ReportForm from "./editor/ReportForm";
 //     ["node", "tag"].includes(window.location.pathname.split("/")[1])
 //   );
 // };
+window.app.getReport = function (commentIds) {
+  if (commentIds.length === 0 || !validateLoginSession()) {
+    return;
+  }
+
+  fetch(`/api/report/${commentIds.join(",")}`)
+    .then((response) => response.json())
+    .then((data) => {
+      for (const cid in data) {
+        const comment = document.querySelector(`#comment${cid}`);
+        if (comment) {
+          const warn = document.createElement("div");
+          warn.className = "report_warn";
+          warn.textContent = "此帖被举报！";
+
+          comment.querySelector("header").after(warn);
+          comment.querySelectorAll("button.action").forEach((e) => e.remove());
+          Array.from(comment.children).forEach((e) => {
+            e.style.backgroundColor = "lightgray";
+          });
+        }
+      }
+    });
+};
 
 function NotFound() {
   const nodeRef = useRef(null);
