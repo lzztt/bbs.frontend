@@ -34,7 +34,7 @@ window.app.getReport = function (commentIds) {
         if (comment) {
           const warn = document.createElement("div");
           warn.className = "report_warn";
-          warn.textContent = "此帖被举报！";
+          warn.textContent = data[cid] !== 2 ? "此帖被举报。你觉得它违规的话，也请举报它！" : "此帖被举报，用户被封禁三天！";
 
           comment.querySelector("header").after(warn);
           comment.querySelectorAll("button.action").forEach((e) => e.remove());
