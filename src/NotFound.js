@@ -30,17 +30,39 @@ window.app.getReport = function (commentIds) {
     .then((response) => response.json())
     .then((data) => {
       for (const cid in data) {
-        const comment = document.querySelector(`#comment${cid}`);
-        if (comment) {
-          const warn = document.createElement("div");
-          warn.className = "report_warn";
-          warn.textContent = data[cid] !== 2 ? "此帖被举报。你觉得它违规的话，也请举报它！" : "此帖被举报，用户被封禁三天！";
+        const canReport =
+          data[cid].reportableUntil > Math.ceil(Date.now() / 1000);
+        if (data[cid].status > 0 || canReport) {
+          const comment = document.querySelector(`#comment${cid}`);
+          if (!comment) {
+            continue;
+          }
 
-          comment.querySelector("header").after(warn);
-          comment.querySelectorAll("button.action").forEach((e) => e.remove());
-          Array.from(comment.children).forEach((e) => {
-            e.style.backgroundColor = "lightgray";
-          });
+          if (data[cid].status > 0) {
+            const warn = document.createElement("div");
+            warn.className = "report_warn";
+            warn.textContent =
+              data[cid].status !== 2
+                ? canReport
+                  ? "此帖被举报。你觉得它违规的话，也请举报它！"
+                  : "此帖被举报。"
+                : "此帖被举报，用户被封禁三天！";
+
+            comment.querySelector("header").after(warn);
+            comment
+              .querySelectorAll("button.action")
+              .forEach((e) => e.remove());
+            Array.from(comment.children).forEach((e) => {
+              e.style.backgroundColor = "lightgray";
+            });
+          }
+
+          if (canReport) {
+            const button = document.createElement("button");
+            button.onclick = () => window.app.report(cid);
+            button.textContent = "举报";
+            comment.querySelector("button").before(button);
+          }
         }
       }
     });
@@ -135,7 +157,6 @@ function NotFound() {
         const showUserPage = function () {
           $remove(".v_guest");
           $show(".v_user, .v_user_" + uid);
-          $show('[class*="v_user_not_"]:not(.v_user_not_' + uid + ")");
 
           const role = cache.get("role");
           if (role && role instanceof Array) {
