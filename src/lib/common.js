@@ -142,7 +142,7 @@ export const validateLoginSession = () => {
     });
   }
 
-  return true;
+  return cache.get("uid") > 0;
 };
 
 export const validateResponse = (data) => {
@@ -238,10 +238,3 @@ export const toAutoTimeOrDate = (ts_seconds) => {
 };
 
 export const randomId = () => Math.random().toString(36).substring(2);
-
-export const submitBug = (msg) => {
-  fetch("/api/bug", {
-    method: "POST",
-    data: msg,
-  });
-};

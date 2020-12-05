@@ -45,6 +45,10 @@ window.app.getReport = function (commentIds) {
               data[cid].status !== 2
                 ? canReport
                   ? "此帖被举报。你觉得它违规的话，也请举报它！"
+                  : data[cid].myReportTime
+                  ? `感谢：您在 ${toAutoTimeOrDate(
+                      data[cid].myReportTime
+                    )} 举报过此帖。`
                   : "此帖被举报。"
                 : "此帖被举报，用户被封禁三天！";
 
