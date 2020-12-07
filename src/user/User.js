@@ -146,17 +146,10 @@ function User() {
             )}
           </div>
           <div>
-            {/* <div>
-            <span>社区活力</span>
-            {
-              100
-              // past 7 days, number link to chart
-            }
-          </div>
-          <div>
+            <span>社区声望</span>
+            <span>{user.reputation}</span>
             <span>贡献点数</span>
-            {user.points}
-          </div> */}
+            <span>{user.contribution}</span>
             <span>注册时间</span>
             <span>{toAutoTimeOrDate(user.createTime)}</span>
             <span>最近访问</span>
