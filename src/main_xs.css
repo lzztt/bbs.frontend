@@ -320,8 +320,13 @@ article .article_content img.bb_image {
   max-width: 100%;
 }
 
+article .pm_icon {
+  visibility: hidden;
+}
+
 article footer {
   overflow: hidden;
+  visibility: hidden;
 }
 
 article footer .actions {

@@ -231,12 +231,34 @@ function NotFound() {
         }
       };
 
+      const toggleActions = () => {
+        if (!validateLoginSession()) {
+          return;
+        }
+
+        $("article.message_list section").forEach((element) => {
+          let timeout;
+          element.addEventListener("mouseenter", function (event) {
+            timeout = setTimeout(() => {
+              element.querySelector("footer").style.visibility = "visible";
+              element.querySelector(".pm_icon").style.visibility = "visible";
+            }, 300);
+          });
+          element.addEventListener("mouseleave", function (event) {
+            clearTimeout(timeout);
+            element.querySelector("footer").style.visibility = "hidden";
+            element.querySelector(".pm_icon").style.visibility = "hidden";
+          });
+        });
+      };
+
       setTimeout(() => {
         setImageSlider();
         ajaxLoad();
         imageClick();
         showPage();
         showTime();
+        toggleActions();
       }, 0);
     }
     // }
