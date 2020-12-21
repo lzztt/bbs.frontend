@@ -102,16 +102,16 @@ function PageRoute({ loggedIn, setLoggedIn }) {
       <PrivateRoute path="/user/:userId" isAuthenticated={loggedIn}>
         <User />
       </PrivateRoute>
-      <PrivateRoute path="/ad/add" isAuthenticated={loggedIn && userId === 1}>
+      <PrivateRoute path="/adadmin/add" isAuthenticated={loggedIn && userId === 1}>
         <AdAdd />
       </PrivateRoute>
       <PrivateRoute
-        path="/ad/payment"
+        path="/adadmin/payment"
         isAuthenticated={loggedIn && userId === 1}
       >
         <AdPayment />
       </PrivateRoute>
-      <PrivateRoute path="/ad" exact isAuthenticated={loggedIn && userId === 1}>
+      <PrivateRoute path="/adadmin" exact isAuthenticated={loggedIn && userId === 1}>
         <AdHome />
       </PrivateRoute>
       <Route path="*">
