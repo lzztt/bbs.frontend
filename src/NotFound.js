@@ -175,6 +175,16 @@ function NotFound() {
         } else {
           showGuestPage();
         }
+
+        if (window.location.hash === "#bottom") {
+          setTimeout(() => {
+            window.scrollTo({
+              top: document.body.scrollHeight,
+              left: 0,
+              behavior: "smooth",
+            });
+          }, 300);
+        }
       };
 
       const setImageSlider = () => {
