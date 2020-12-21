@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import PublishIcon from "@material-ui/icons/Publish";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { scrollTo } from "./lib/common";
 
 function GoToTop() {
   const hiddenRef = useRef(true);
@@ -34,11 +35,7 @@ function GoToTop() {
   }
 
   function scrollToTop() {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
+    scrollTo(0);
     hiddenRef.current = true;
     ref.current.style.display = "none";
   }

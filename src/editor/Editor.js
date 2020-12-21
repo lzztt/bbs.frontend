@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 // import ReactMarkdown from "react-markdown";
-import { randomId, rest, validateResponse } from "../lib/common";
+import { randomId, rest, scrollTo, validateResponse } from "../lib/common";
 import TextField from "@material-ui/core/TextField";
 import Image from "./Image";
 
@@ -83,11 +83,7 @@ function Editor() {
     });
     setFormId(randomId());
 
-    window.scrollTo({
-      top: document.body.scrollHeight,
-      left: 0,
-      behavior: "smooth",
-    });
+    scrollTo(document.body.scrollHeight);
   };
 
   window.app.openCommentEditor = ({
@@ -115,11 +111,7 @@ function Editor() {
     });
     setFormId(randomId());
 
-    window.scrollTo({
-      top: document.body.scrollHeight,
-      left: 0,
-      behavior: "smooth",
-    });
+    scrollTo(document.body.scrollHeight);
   };
 
   if (!data) {

@@ -11,6 +11,7 @@ import {
   toYearDateTime,
   toAutoTime,
   validateLoginSession,
+  scrollTo,
 } from "./lib/common";
 import ImageViewer from "./ImageViewer";
 import ReportForm from "./editor/ReportForm";
@@ -177,13 +178,7 @@ function NotFound() {
         }
 
         if (window.location.hash === "#bottom") {
-          setTimeout(() => {
-            window.scrollTo({
-              top: document.body.scrollHeight,
-              left: 0,
-              behavior: "smooth",
-            });
-          }, 300);
+          setTimeout(() => scrollTo(document.body.scrollHeight), 300);
         }
       };
 

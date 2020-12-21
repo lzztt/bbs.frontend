@@ -237,4 +237,12 @@ export const toAutoTimeOrDate = (ts_seconds) => {
   }
 };
 
+export const scrollTo = (top) => {
+  window.scrollTo({
+    top,
+    left: 0,
+    behavior: "smooth",
+  });
+};
+
 export const randomId = () => Math.random().toString(36).substring(2);
