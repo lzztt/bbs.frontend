@@ -126,8 +126,6 @@ function Navbar({ loggedIn }) {
           ) : (
             <>
               <NavLink to="/user/login">登录</NavLink>
-              <NavLink to="/user/password">忘记密码</NavLink>
-              <NavLink to="/user/register">注册帐号</NavLink>
             </>
           )}
           <a href="/search">搜索</a>

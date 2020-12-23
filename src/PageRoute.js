@@ -8,9 +8,8 @@ import {
 } from "react-router-dom";
 import { cache, session } from "./lib/common";
 import "./App.css";
-import Login from "./guest/Login";
-import Password from "./guest/Password";
-import Register from "./guest/Register";
+import PasswordLogin from "./guest/Login";
+import Login from "./guest/LoginPasswordless";
 import User from "./user/User";
 import Bookmark from "./user/Bookmark";
 import Logout from "./user/Logout";
@@ -57,7 +56,7 @@ function PageRoute({ loggedIn, setLoggedIn }) {
 
   window.app.register = () => {
     session.set("redirect", window.location.pathname);
-    history.push("/user/register");
+    history.push("/user/login");
   };
 
   window.app.user = (userId = null) => {
@@ -74,11 +73,8 @@ function PageRoute({ loggedIn, setLoggedIn }) {
       <Route path="/user/login">
         {loggedIn ? <NotFound /> : <Login setLoggedIn={setLoggedIn} />}
       </Route>
-      <Route path="/user/register">
-        {loggedIn ? <NotFound /> : <Register />}
-      </Route>
-      <Route path="/user/password">
-        {loggedIn ? <NotFound /> : <Password />}
+      <Route path="/user/passwordlogin">
+        {loggedIn ? <NotFound /> : <PasswordLogin setLoggedIn={setLoggedIn} />}
       </Route>
       <Route path="/user/mailbox" exact>
         <Redirect to="/user/mailbox/inbox" />
@@ -102,7 +98,10 @@ function PageRoute({ loggedIn, setLoggedIn }) {
       <PrivateRoute path="/user/:userId" isAuthenticated={loggedIn}>
         <User />
       </PrivateRoute>
-      <PrivateRoute path="/adadmin/add" isAuthenticated={loggedIn && userId === 1}>
+      <PrivateRoute
+        path="/adadmin/add"
+        isAuthenticated={loggedIn && userId === 1}
+      >
         <AdAdd />
       </PrivateRoute>
       <PrivateRoute
@@ -111,7 +110,11 @@ function PageRoute({ loggedIn, setLoggedIn }) {
       >
         <AdPayment />
       </PrivateRoute>
-      <PrivateRoute path="/adadmin" exact isAuthenticated={loggedIn && userId === 1}>
+      <PrivateRoute
+        path="/adadmin"
+        exact
+        isAuthenticated={loggedIn && userId === 1}
+      >
         <AdHome />
       </PrivateRoute>
       <Route path="*">

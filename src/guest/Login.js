@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Form from "./Form";
@@ -53,6 +53,7 @@ function Login({ setLoggedIn }) {
 
   return (
     <Form onSubmit={handleSubmit}>
+      您也可以<Link to="/user/login">无密码登录</Link>。
       <TextField
         required
         fullWidth
