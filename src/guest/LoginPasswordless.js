@@ -95,7 +95,7 @@ function Login({ setLoggedIn }) {
     case 0:
       return (
         <Form onSubmit={submitEmail}>
-          无密码登录：无需注册，直接登陆。
+          无密码登录：无需注册，直接登录。
           <br />
           您也可以<Link to="/user/passwordlogin">使用密码登录</Link>。
           <TextField
