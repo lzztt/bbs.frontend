@@ -13,10 +13,7 @@ function Login({ setLoggedIn }) {
   const [user, setUser] = useState(null);
   const history = useHistory();
   const location = useLocation();
-  // /login
-  // /code
-  // /term_privacy (save accept status in session)
-  // /username (finally add record to users table)
+
   const submitEmail = (event) => {
     event.preventDefault();
     rest

@@ -148,8 +148,12 @@ function User() {
           <div>
             <span>社区声望</span>
             <span>{user.reputation}</span>
-            <span>社区贡献</span>
-            <span>{user.contribution}</span>
+            {isSelf && "contribution" in user && (
+              <>
+                <span>社区贡献</span>
+                <span>{user.contribution}</span>
+              </>
+            )}
             <span>注册时间</span>
             <span>{toAutoTimeOrDate(user.createTime)}</span>
             <span>最近访问</span>
