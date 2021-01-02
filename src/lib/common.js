@@ -246,3 +246,16 @@ export const scrollTo = (top) => {
 };
 
 export const randomId = () => Math.random().toString(36).substring(2);
+
+const entities = {
+  "&lt;": "<",
+  "&gt;": ">",
+  "&quot;": '"',
+  "&apos;": "'",
+  "&amp;": "&",
+};
+const re = /&(?:lt|gt|quot|apos|amp);/g;
+
+// PHP htmlspecialchars_decode()
+export const decodeHtmlSpecialChars = (text) =>
+  text.replace(re, (m) => entities[m]);

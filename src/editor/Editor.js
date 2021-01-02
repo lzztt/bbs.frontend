@@ -4,7 +4,13 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 // import ReactMarkdown from "react-markdown";
-import { randomId, rest, scrollTo, validateResponse } from "../lib/common";
+import {
+  decodeHtmlSpecialChars,
+  randomId,
+  rest,
+  scrollTo,
+  validateResponse,
+} from "../lib/common";
 import TextField from "@material-ui/core/TextField";
 import Image from "./Image";
 
@@ -64,6 +70,13 @@ function Editor() {
     body = "",
     images = [],
   } = {}) => {
+    if (title) {
+      title = decodeHtmlSpecialChars(title);
+    }
+    if (body) {
+      body = decodeHtmlSpecialChars(body);
+    }
+
     if (nodeId) {
       setUrl(`/node/${nodeId}/edit`);
       setSubmit("更新话题");
@@ -92,6 +105,10 @@ function Editor() {
     body = "",
     images = [],
   } = {}) => {
+    if (body) {
+      body = decodeHtmlSpecialChars(body);
+    }
+
     if (commentId) {
       setUrl(`/comment/${commentId}/edit`);
       setSubmit("更新评论");
