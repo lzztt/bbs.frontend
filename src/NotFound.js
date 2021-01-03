@@ -12,10 +12,10 @@ import {
   toAutoTime,
   validateLoginSession,
   scrollTo,
-  linkify,
 } from "./lib/common";
 import ImageViewer from "./ImageViewer";
 import ReportForm from "./editor/ReportForm";
+import marked from "marked";
 
 // const isExternal = () => {
 //   return (
@@ -178,8 +178,11 @@ function NotFound() {
           showGuestPage();
         }
 
+        marked.setOptions({
+          mangle: false,
+        });
         $(".linkify").forEach((element) => {
-          element.innerHTML = linkify(element.innerHTML);
+          element.innerHTML = marked(element.innerHTML);
         });
 
         if (window.location.hash === "#bottom") {

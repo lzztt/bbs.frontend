@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { rest, session, toAutoTime, cache, linkify } from "../lib/common";
+import { rest, session, toAutoTime, cache } from "../lib/common";
 import Button from "@material-ui/core/Button";
 import EditIcon from "@material-ui/icons/Edit";
 import NavTab from "./NavTab";
 import MsgEditor from "./MsgEditor";
 import Avatar from "../user/Avatar";
+import marked from "marked";
 
 import "./message_list.css";
 
@@ -18,10 +19,13 @@ function Message() {
 
   useEffect(() => {
     rest.get("/api/message/" + messageId).then((data) => {
+      marked.setOptions({
+        mangle: false,
+      });
       setMessages(
         data.msgs.map((msg) => ({
           ...msg,
-          body: linkify(msg.body),
+          body: marked(msg.body),
         }))
       );
       setReplyTo(data.replyTo);
