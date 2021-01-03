@@ -178,10 +178,7 @@ function NotFound() {
           showGuestPage();
         }
 
-        marked.setOptions({
-          mangle: false,
-        });
-        $(".linkify").forEach((element) => {
+        $(".markdown").forEach((element) => {
           element.innerHTML = marked(element.innerHTML);
         });
 

@@ -19,9 +19,6 @@ function Message() {
 
   useEffect(() => {
     rest.get("/api/message/" + messageId).then((data) => {
-      marked.setOptions({
-        mangle: false,
-      });
       setMessages(
         data.msgs.map((msg) => ({
           ...msg,

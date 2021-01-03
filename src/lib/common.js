@@ -259,13 +259,3 @@ const re = /&(?:lt|gt|quot|apos|amp);/g;
 // PHP htmlspecialchars_decode()
 export const decodeHtmlSpecialChars = (text) =>
   text.replace(re, (m) => entities[m]);
-
-// Safari doesn't support lookbehind regex yet
-// const reUrl = /(?<=^|[^"'>;\w])https?:\/\/([\w-]+\.)+\w+(:\d+)?[\w-/?=&#%,.]*(?<![,.])/gi;
-const reUrl = /(^|[^"'>;\w])(https?:\/\/(?:[\w-]+\.)+\w+(?::\d+)?[\w-/%]*(?:\.[\w-]+)*(?:\?[\w-=&%,.]*[\w]+)*[#\w-]*)([,.]*)/gi;
-export const linkify = (text) =>
-  text.replace(
-    reUrl,
-    (_, g1, g2, g3) =>
-      `${g1}<a rel="nofollow" target="_blank" href="${g2}">${g2}</a>${g3}`
-  );
