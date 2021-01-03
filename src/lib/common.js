@@ -1,4 +1,5 @@
 // import mock_rest from './mock/rest'
+import marked from "marked";
 
 const store = (storage) => ({
   set: (key, value) => {
@@ -259,3 +260,20 @@ const re = /&(?:lt|gt|quot|apos|amp);/g;
 // PHP htmlspecialchars_decode()
 export const decodeHtmlSpecialChars = (text) =>
   text.replace(re, (m) => entities[m]);
+
+export const markedOptions = {
+  renderer: {
+    code(code, infostring, escaped) {
+      return marked.Renderer.prototype.code.apply(this, [
+        decodeHtmlSpecialChars(code),
+        infostring,
+        escaped,
+      ]);
+    },
+    link(href, title, text) {
+      return marked.Renderer.prototype.link
+        .apply(this, [href, title, text])
+        .replace(/^<a /, '<a rel="nofollow" target="_blank" ');
+    },
+  },
+};

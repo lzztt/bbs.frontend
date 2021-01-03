@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { rest, session, toAutoTime, cache } from "../lib/common";
+import { rest, session, toAutoTime, cache, markedOptions } from "../lib/common";
 import Button from "@material-ui/core/Button";
 import EditIcon from "@material-ui/icons/Edit";
 import NavTab from "./NavTab";
@@ -19,6 +19,7 @@ function Message() {
 
   useEffect(() => {
     rest.get("/api/message/" + messageId).then((data) => {
+      marked.use(markedOptions);
       setMessages(
         data.msgs.map((msg) => ({
           ...msg,

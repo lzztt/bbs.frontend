@@ -12,6 +12,7 @@ import {
   toAutoTime,
   validateLoginSession,
   scrollTo,
+  markedOptions,
 } from "./lib/common";
 import ImageViewer from "./ImageViewer";
 import ReportForm from "./editor/ReportForm";
@@ -178,6 +179,7 @@ function NotFound() {
           showGuestPage();
         }
 
+        marked.use(markedOptions);
         $(".markdown").forEach((element) => {
           element.innerHTML = marked(element.innerHTML);
         });

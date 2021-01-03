@@ -293,7 +293,7 @@ function Editor() {
         value={data.body}
         onChange={handleBodyChange}
         label="正文"
-        placeholder="支持纯文本格式和BBCode格式"
+        placeholder="支持纯文本和Markdown格式"
       />
       {/* <ReactMarkdown className="preview" source={body} /> */}
       <div style={{ margin: "0.5rem 0" }}>
