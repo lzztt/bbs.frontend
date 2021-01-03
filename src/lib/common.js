@@ -259,3 +259,7 @@ const re = /&(?:lt|gt|quot|apos|amp);/g;
 // PHP htmlspecialchars_decode()
 export const decodeHtmlSpecialChars = (text) =>
   text.replace(re, (m) => entities[m]);
+
+const reUrl = /(?<=^|[^"'>;\w])https?:\/\/([\w-]+\.)+\w+(:\d+)?[\w-/?=&#%,.]*(?<![,.])/gi;
+export const linkify = (text) =>
+  text.replace(reUrl, (m) => `<a rel="nofollow" target="_blank" href="${m}">${m}</a>`);

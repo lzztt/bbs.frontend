@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { rest, session, toAutoTime, cache } from "../lib/common";
+import { rest, session, toAutoTime, cache, linkify } from "../lib/common";
 import Button from "@material-ui/core/Button";
 import EditIcon from "@material-ui/icons/Edit";
 import NavTab from "./NavTab";
@@ -18,7 +18,12 @@ function Message() {
 
   useEffect(() => {
     rest.get("/api/message/" + messageId).then((data) => {
-      setMessages(data.msgs);
+      setMessages(
+        data.msgs.map((msg) => ({
+          ...msg,
+          body: linkify(msg.body),
+        }))
+      );
       setReplyTo(data.replyTo);
     });
   }, [messageId]);
@@ -70,7 +75,7 @@ function Message() {
                 <Link to={"/user/" + msg.uid}>{msg.username}</Link>
                 <time>{toAutoTime(msg.time)}</time>
               </header>
-              <p>{msg.body}</p>
+              <p dangerouslySetInnerHTML={{ __html: msg.body }} />
             </div>
           </section>
         ))}

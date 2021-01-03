@@ -12,6 +12,7 @@ import {
   toAutoTime,
   validateLoginSession,
   scrollTo,
+  linkify,
 } from "./lib/common";
 import ImageViewer from "./ImageViewer";
 import ReportForm from "./editor/ReportForm";
@@ -176,6 +177,10 @@ function NotFound() {
         } else {
           showGuestPage();
         }
+
+        $(".linkify").forEach((element) => {
+          element.innerHTML = linkify(element.innerHTML);
+        });
 
         if (window.location.hash === "#bottom") {
           setTimeout(() => scrollTo(document.body.scrollHeight), 300);
