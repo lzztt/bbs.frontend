@@ -62,6 +62,11 @@ div#ad {
   display: none;
 }
 
+/* markdown text body */
+article p {
+  white-space: pre-line;
+}
+
 /* BEGIN NAV */
 nav.breadcrumb {
   margin: 0.5em 0;
@@ -148,21 +153,10 @@ ul.tabs li.active a {
 /* BEGIN QUOTE BLOCK */
 blockquote {
   margin: 0.5em;
-  padding: 2rem 0.2rem 0.2rem 0.5rem;
+  padding: 0.2rem 0.2rem 0.2rem 0.5rem;
   position: relative;
   color: #454545;
   border-left: 1px solid #c76c0c;
-}
-
-blockquote:before {
-  content: attr(data-author);
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0.5em;
-  line-height: 2em;
-  color: #454545;
-  font-weight: bold;
 }
 /* END QUOTE BLOCK */
 
