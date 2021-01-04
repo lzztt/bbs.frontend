@@ -270,6 +270,11 @@ export const markedOptions = {
         escaped,
       ]);
     },
+    codespan(text) {
+      return marked.Renderer.prototype.codespan.apply(this, [
+        decodeHtmlSpecialChars(text),
+      ]);
+    },
     link(href, title, text) {
       return marked.Renderer.prototype.link
         .apply(this, [href, title, text])
