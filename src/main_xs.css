@@ -170,7 +170,7 @@ iframe.youtube,
 iframe.googlemap {
   width: 100%;
   height: 60%;
-  min-height: 300px;
+  min-height: 150px;
 }
 /* END IFRAME */
 

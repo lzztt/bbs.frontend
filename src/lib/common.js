@@ -255,11 +255,17 @@ const entities = {
   "&apos;": "'",
   "&amp;": "&",
 };
-const re = /&(?:lt|gt|quot|apos|amp);/g;
+const reEntity = /&(?:lt|gt|quot|apos|amp);/g;
 
 // PHP htmlspecialchars_decode()
 export const decodeHtmlSpecialChars = (text) =>
-  text.replace(re, (m) => entities[m]);
+  text.replace(reEntity, (m) => entities[m]);
+
+const reYouTube = /.*(?:youtu\.be\/|youtube\.com\/watch\?v=)([^#&?]*).*/;
+const getYouTubeId = (url) => {
+  const match = url.match(reYouTube);
+  return match && match[1].length === 11 ? match[1] : null;
+};
 
 export const markedOptions = {
   renderer: {
@@ -276,6 +282,10 @@ export const markedOptions = {
       ]);
     },
     link(href, title, text) {
+      const id = getYouTubeId(href);
+      if (id) {
+        return `<iframe class="youtube" src="https://www.youtube.com/embed/${id}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+      }
       return marked.Renderer.prototype.link
         .apply(this, [href, title, text])
         .replace(/^<a /, '<a rel="nofollow" target="_blank" ');
