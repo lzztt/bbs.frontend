@@ -181,7 +181,7 @@ function NotFound() {
 
         marked.use(markedOptions);
         $(".markdown").forEach((element) => {
-          element.innerHTML = marked(element.innerHTML.replace(/&gt;/g, '>'));
+          element.innerHTML = marked(element.textContent.replace(/&gt;/g, ">"));
         });
 
         if (window.location.hash === "#bottom") {
