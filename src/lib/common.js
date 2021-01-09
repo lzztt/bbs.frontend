@@ -262,6 +262,7 @@ export const decodeHtmlSpecialChars = (text) =>
   text.replace(reEntity, (m) => entities[m]);
 
 const reYouTube = /.*(?:youtu\.be\/|youtube\.com\/watch\?v=)([^#&?]*).*/;
+
 const getYouTubeId = (url) => {
   const match = url.match(reYouTube);
   return match && match[1].length === 11 ? match[1] : null;

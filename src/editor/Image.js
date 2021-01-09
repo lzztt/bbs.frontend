@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,14 +15,6 @@ const useStyles = makeStyles((theme) => ({
 function Image({ name, src, code, index, updateImageName, deleteImage }) {
   const imgRef = useRef(null);
   const classes = useStyles();
-
-  useEffect(() => {
-    if (!code) {
-      imgRef.current.onload = () => {
-        URL.revokeObjectURL(src);
-      };
-    }
-  }, [code, src]);
 
   return (
     <figure className={classes.figure}>
