@@ -27,17 +27,9 @@
     width: calc(100% - 600px);
   }
 
-  section.home_activities header {
+  section.home_hot_nodes.home_items_md header {
     padding: 0 4px;
     text-align: center;
-  }
-
-  section.home_activities .activity_now span {
-    background-color: greenyellow;
-  }
-
-  section.home_activities .activity_future span {
-    background-color: gold;
   }
   /* END HOME PAGE */
 }
