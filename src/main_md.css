@@ -16,7 +16,8 @@
     width: calc(100% / 3);
   }
 
-  .home_items_md {
+  .home_items_md,
+  .home_items_sm_down_bottom {
     display: inline-block;
     width: 300px;
     height: 250px;
@@ -27,9 +28,15 @@
     width: calc(100% - 600px);
   }
 
-  section.home_hot_nodes.home_items_md header {
+  .home_items_sm_down_bottom header {
     padding: 0 4px;
     text-align: center;
   }
   /* END HOME PAGE */
+}
+
+@media (max-width: 995px) {
+  .home_items_sm_down_bottom {
+    order: 99;
+  }
 }
