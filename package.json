@@ -11,7 +11,7 @@
     "@testing-library/user-event": "^7.1.2",
     "image-blob-reduce": "^1.0.7",
     "lint-staged": "^10.4.0",
-    "marked": "^2.0.0",
+    "marked": "^4.0.12",
     "prettier": "^2.1.2",
     "react": "^16.13.1",
     "react-cropper": "^2.1.4",

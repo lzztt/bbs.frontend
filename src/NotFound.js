@@ -16,7 +16,7 @@ import {
 } from "./lib/common";
 import ImageViewer from "./ImageViewer";
 import ReportForm from "./editor/ReportForm";
-import marked from "marked";
+import { marked } from "marked";
 
 // const isExternal = () => {
 //   return (

@@ -6,7 +6,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import NavTab from "./NavTab";
 import MsgEditor from "./MsgEditor";
 import Avatar from "../user/Avatar";
-import marked from "marked";
+import { marked } from "marked";
 
 import "./message_list.css";
 

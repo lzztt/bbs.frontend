@@ -1,5 +1,5 @@
 // import mock_rest from './mock/rest'
-import marked from "marked";
+import { marked } from "marked";
 
 const store = (storage) => ({
   set: (key, value) => {
