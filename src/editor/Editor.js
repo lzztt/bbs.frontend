@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 
-import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
-import MenuItem from "@material-ui/core/MenuItem";
+import Button from "@mui/material/Button";
+import makeStyles from '@mui/styles/makeStyles';
+import MenuItem from "@mui/material/MenuItem";
 // import ReactMarkdown from "react-markdown";
 import {
   decodeHtmlSpecialChars,
@@ -11,7 +11,7 @@ import {
   scrollTo,
   validateResponse,
 } from "../lib/common";
-import TextField from "@material-ui/core/TextField";
+import TextField from "@mui/material/TextField";
 import Image from "./Image";
 
 import ImageBlobReduce from "image-blob-reduce";

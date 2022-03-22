@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import { validateLoginSession } from "./lib/common";
 import Navbar from "./Navbar";
 import PageRoute from "./PageRoute";
@@ -11,7 +11,7 @@ import "./main_md.css";
 import "./main_lg.css";
 import "./main_xl.css";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     fontFamily: [
       "-apple-system",
@@ -38,12 +38,22 @@ const theme = createMuiTheme({
       "sans-serif",
     ].join(","),
   },
-  overrides: {
-    // Style sheet name
+  components: {
+    MuiTextField: {
+      defaultProps: {
+        variant: 'standard',
+      },
+    },
+    MuiSelect: {
+      defaultProps: {
+        variant: 'standard',
+      },
+    },
     MuiButton: {
-      // Name of the rule
-      root: {
-        padding: "0 8px", // for macOS and iOS
+      styleOverrides: {
+        root: {
+          padding: "0 8px", // for macOS and iOS
+        },
       },
     },
   },
@@ -104,12 +114,14 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <Navbar {...{ loggedIn }} />
-        <div id="app_main">
-          <PageRoute {...{ loggedIn, setLoggedIn }} />
-        </div>
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <Navbar {...{ loggedIn }} />
+          <div id="app_main">
+            <PageRoute {...{ loggedIn, setLoggedIn }} />
+          </div>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </BrowserRouter>
   );
 }

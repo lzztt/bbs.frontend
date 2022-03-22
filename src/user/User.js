@@ -4,7 +4,7 @@ import { rest, cache, validateResponse, toAutoTimeOrDate } from "../lib/common";
 import MsgEditor from "../pm/MsgEditor";
 import Avatar from "./Avatar";
 import AvatarEditor from "./AvatarEditor";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 
 function User() {
   const [user, setUser] = useState({});

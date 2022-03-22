@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 

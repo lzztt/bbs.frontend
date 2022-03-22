@@ -1,9 +1,9 @@
 import React from "react";
-import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import IndeterminateCheckBoxIcon from "@material-ui/icons/IndeterminateCheckBox";
-import DeleteIcon from "@material-ui/icons/Delete";
-import Pagination from "@material-ui/lab/Pagination";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Pagination from '@mui/material/Pagination';
 
 import "./selector.css";
 

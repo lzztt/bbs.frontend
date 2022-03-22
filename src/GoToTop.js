@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import PublishIcon from "@material-ui/icons/Publish";
-import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import PublishIcon from "@mui/icons-material/Publish";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { scrollTo } from "./lib/common";
 
 function GoToTop() {

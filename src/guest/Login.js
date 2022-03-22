@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 import Form from "./Form";
 import { cache, rest, session, validateResponse } from "../lib/common";
 
