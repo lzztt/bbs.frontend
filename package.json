@@ -8,7 +8,6 @@
     "@mui/icons-material": "^5.5.1",
     "@mui/lab": "^5.0.0-alpha.74",
     "@mui/material": "^5.5.2",
-    "@mui/styles": "^5.5.1",
     "image-blob-reduce": "^1.0.7",
     "marked": "^4.0.12",
     "react": "^17.0.2",

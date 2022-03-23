@@ -62,7 +62,7 @@ div#ad {
   display: none;
 }
 
-.MuiSvgIcon-root {
+.svg_icon {
   user-select: none;
   width: 1em;
   height: 1em;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import makeStyles from '@mui/styles/makeStyles';
+import { styled } from '@mui/material/styles';
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import CloseIcon from "@mui/icons-material/Close";
@@ -8,28 +8,30 @@ import Toolbar from "@mui/material/Toolbar";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
-const useStyles = makeStyles((theme) => ({
-  title: {
-    paddingLeft: "0",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    maxWidth: "504px",
-    whiteSpace: "nowrap",
-  },
-  button: {
-    position: "absolute",
-    top: "50%",
-    backgroundColor: "black",
-    color: "white",
-    opacity: "50%",
-  },
-}));
+const Title = styled(DialogTitle)({
+  paddingLeft: "0",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  maxWidth: "504px",
+  whiteSpace: "nowrap",
+});
+
+const iconStyle = {
+  position: "absolute",
+  top: "50%",
+  backgroundColor: "black",
+  color: "white",
+  opacity: "50%",
+};
+
+const NavigateBefore = styled(NavigateBeforeIcon)(iconStyle);
+const NavigateNext = styled(NavigateNextIcon)({ ...iconStyle, right: "0" });
+
 
 function ImageViewer() {
   const [open, setOpen] = useState(false);
   const [images, setImages] = useState([]);
   const [current, setCurrent] = useState(-1);
-  const classes = useStyles();
 
   window.app.openImageViewer = (figure) => {
     if (window.innerWidth < 768) {
@@ -75,32 +77,24 @@ function ImageViewer() {
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="image-title">
       <Toolbar style={{ justifyContent: "space-between" }}>
-        <DialogTitle id="image-title" className={classes.title}>
+        <Title id="image-title">
           {`${current + 1}. ${image.title}`}
-        </DialogTitle>
+        </Title>
         <IconButton
           edge="end"
           color="inherit"
           onClick={handleClose}
           aria-label="close"
-          size="large">
+          size="large"
+        >
           <CloseIcon />
         </IconButton>
       </Toolbar>
       <img src={image.src} alt={image.title} />
       {images.length > 1 && (
         <>
-          <NavigateBeforeIcon
-            fontSize="large"
-            onClick={goPrev}
-            className={classes.button}
-          />
-          <NavigateNextIcon
-            fontSize="large"
-            onClick={goNext}
-            className={classes.button}
-            style={{ right: 0 }}
-          />
+          <NavigateBefore fontSize="large" onClick={goPrev} />
+          <NavigateNext fontSize="large" onClick={goNext} />
         </>
       )}
     </Dialog>

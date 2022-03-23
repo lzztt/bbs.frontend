@@ -1,23 +1,20 @@
 import React, { useRef } from "react";
+import { styled } from '@mui/material/styles';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import makeStyles from '@mui/styles/makeStyles';
 
-const useStyles = makeStyles((theme) => ({
-  figure: {
+const Root = styled('figure')({
     margin: "0.5rem",
     display: "flex",
     flexFlow: "column nowrap",
     width: "200px",
-  },
-}));
+});
 
 function Image({ name, src, code, index, updateImageName, deleteImage }) {
   const imgRef = useRef(null);
-  const classes = useStyles();
 
   return (
-    <figure className={classes.figure}>
+    <Root>
       <img ref={imgRef} src={src} width="200" alt="附件图片" />
       <figcaption>
         <TextField
@@ -44,7 +41,7 @@ function Image({ name, src, code, index, updateImageName, deleteImage }) {
           删除
         </Button>
       </figcaption>
-    </figure>
+    </Root>
   );
 }
 

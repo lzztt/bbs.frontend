@@ -1,23 +1,20 @@
 import React from "react";
-import makeStyles from '@mui/styles/makeStyles';
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: "500px",
-    margin: "1rem auto",
-    padding: "1rem",
-    "& > *": {
-      marginBottom: "0.5rem",
-    },
+const FormRoot = styled("form")({
+  maxWidth: "500px",
+  margin: "1rem auto",
+  padding: "1rem",
+
+  "& > *": {
+    marginBottom: "0.5rem",
   },
-}));
+});
+
 
 function Form({ onSubmit, children }) {
-  const classes = useStyles();
   return (
-    <form className={classes.root} onSubmit={onSubmit}>
-      {children}
-    </form>
+    <FormRoot onSubmit={onSubmit}>{children}</FormRoot>
   );
 }
 

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 
+import { styled } from '@mui/material/styles';
 import Button from "@mui/material/Button";
-import makeStyles from '@mui/styles/makeStyles';
 import MenuItem from "@mui/material/MenuItem";
 // import ReactMarkdown from "react-markdown";
 import {
@@ -23,36 +23,40 @@ window.app.delete = function (type, nodeId) {
   }
 };
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: "900px",
-    margin: "1rem auto",
-    padding: "1rem",
-    border: "1px solid gray",
-    borderRadius: "0.5rem",
-  },
-  titleDiv: {
-    display: "flex",
-    flexDirection: "column",
-    [theme.breakpoints.up("sm")]: {
-      flexDirection: "row-reverse",
-    },
-  },
-  halfWidth: {
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "50%",
-    },
-  },
-  imgDiv: {
-    display: "flex",
-    flexFlow: "row wrap",
-    alignItems: "flex-end",
-  },
-  submitDiv: {
-    marginTop: "0.5rem",
+const Root = styled("div")({
+  maxWidth: "900px",
+  margin: "1rem auto",
+  padding: "1rem",
+  border: "1px solid gray",
+  borderRadius: "0.5rem",
+});
+
+const TitleDiv = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+
+  [theme.breakpoints.up("sm")]: {
+    flexDirection: "row-reverse",
   },
 }));
+
+const HalfWidthTextField = styled(TextField)(({ theme }) => ({
+  width: "100%",
+
+  [theme.breakpoints.up("sm")]: {
+    width: "50%",
+  },
+}));
+
+const ImgDiv = styled("div")({
+  display: "flex",
+  flexFlow: "row wrap",
+  alignItems: "flex-end",
+});
+
+const SubmitDiv = styled("div")({
+  marginTop: "0.5rem",
+});
 
 function Editor() {
   const [formId, setFormId] = useState("");
@@ -61,7 +65,6 @@ function Editor() {
   const [submit, setSubmit] = useState("");
 
   const fileInputRef = useRef(null);
-  const classes = useStyles();
 
   window.app.openNodeEditor = ({
     nodeId = null,
@@ -258,11 +261,10 @@ function Editor() {
   };
 
   return (
-    <div className={classes.root}>
+    <Root>
       {"title" in data && (
-        <div className={classes.titleDiv}>
-          <TextField
-            className={classes.halfWidth}
+        <TitleDiv>
+          <HalfWidthTextField
             required
             select
             value={data.tagId}
@@ -275,16 +277,15 @@ function Editor() {
                 {tagId.name}
               </MenuItem>
             ))}
-          </TextField>
-          <TextField
-            className={classes.halfWidth}
+          </HalfWidthTextField>
+          <HalfWidthTextField
             required
             value={data.title}
             onChange={handleTitleChange}
             label="标题"
             placeholder="话题的标题"
           />
-        </div>
+        </TitleDiv>
       )}
       <TextField
         required
@@ -297,7 +298,7 @@ function Editor() {
       />
       {/* <ReactMarkdown className="preview" source={body} /> */}
       <div style={{ margin: "0.5rem 0" }}>
-        <div className={classes.imgDiv}>
+        <ImgDiv>
           {data.images &&
             data.images.map((image, index) => (
               <Image
@@ -306,7 +307,7 @@ function Editor() {
                 {...{ index, updateImageName, deleteImage }}
               />
             ))}
-        </div>
+        </ImgDiv>
         <input
           ref={fileInputRef}
           style={{ display: "none" }}
@@ -322,12 +323,12 @@ function Editor() {
           上传图片
         </Button>
       </div>
-      <div className={classes.submitDiv}>
+      <SubmitDiv>
         <Button variant="contained" color="primary" onClick={postMessage}>
           {submit}
         </Button>
-      </div>
-    </div>
+      </SubmitDiv>
+    </Root>
   );
 }
 
