@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { session, cache, rest } from "../lib/common";
 
 function Logout({ setLoggedIn }) {
@@ -10,7 +10,7 @@ function Logout({ setLoggedIn }) {
 
   cache.remove("uid");
   setLoggedIn(false);
-  return <Redirect to="/user/login" />;
+  return <Navigate replace to="/user/login" />;
 }
 
 export default Logout;

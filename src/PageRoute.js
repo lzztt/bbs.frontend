@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import {
-  Switch,
+  Routes,
   Route,
-  Redirect,
-  useHistory,
+  Navigate,
+  useNavigate,
   useLocation,
 } from "react-router-dom";
 import { cache, session } from "./lib/common";
@@ -22,91 +22,58 @@ import NotFound from "./NotFound";
 
 function PageRoute({ loggedIn, setLoggedIn }) {
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   useEffect(() => {
     window.app.gtagPageView();
   }, [location]);
 
   window.app.login = () => {
     session.set("redirect", window.location.pathname);
-    history.push("/user/login");
+    navigate("/user/login");
   };
 
   window.app.register = () => {
     session.set("redirect", window.location.pathname);
-    history.push("/user/login");
+    navigate("/user/login");
   };
 
   window.app.user = (userId = null) => {
-    history.push(`/user/${userId}`);
+    navigate(`/user/${userId}`);
   };
 
   const userId = cache.get("uid") || 0;
 
   return loggedIn ? (
-    <Switch>
-      <Route path="/user" exact>
-        <User />
-      </Route>
-      <Route path="/user/login">
-        <NotFound />
-      </Route>
-      <Route path="/user/passwordlogin">
-        <NotFound />
-      </Route>
-      <Route path="/user/mailbox" exact>
-        <Redirect to="/user/mailbox/inbox" />
-      </Route>
-      <Route path="/user/mailbox/:mailbox">
-        <Mailbox />
-      </Route>
-      <Route path="/user/pm/:messageId">
-        <Message />
-      </Route>
-      <Route path="/user/bookmark">
-        <Bookmark />
-      </Route>
-      <Route path="/user/logout">
-        <Logout setLoggedIn={setLoggedIn} />
-      </Route>
-      <Route path="/user/:userId">
-        <User />
-      </Route>
-      <Route path="/adadmin/add">
-        {userId === 1 ? <AdAdd /> : <NotFound />}
-      </Route>
-      <Route path="/adadmin/payment">
-        {userId === 1 ? <AdPayment /> : <NotFound />}
-      </Route>
-      <Route path="/adadmin" exact>
-        {userId === 1 ? <AdHome /> : <NotFound />}
-      </Route>
-      <Route path="*">
-        <NotFound />
-      </Route>
-    </Switch>
+    <Routes>
+      <Route path="/user" element={<User />} />
+      <Route path="/user/login" element={<NotFound />} />
+      <Route path="/user/passwordlogin" element={<NotFound />} />
+      <Route path="/user/mailbox" element={<Navigate replace to="/user/mailbox/inbox" />} />
+      <Route path="/user/mailbox/:mailbox" element={<Mailbox />} />
+      <Route path="/user/pm/:messageId" element={<Message />} />
+      <Route path="/user/bookmark" element={<Bookmark />} />
+      <Route path="/user/logout" element={<Logout setLoggedIn={setLoggedIn} />} />
+      <Route path="/user/:userId" element={<User />} />
+      <Route path="/adadmin/add" element={userId === 1 ? <AdAdd /> : <NotFound />} />
+      <Route path="/adadmin/payment" element={userId === 1 ? <AdPayment /> : <NotFound />} />
+      <Route path="/adadmin" element={userId === 1 ? <AdHome /> : <NotFound />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   ) : (
-    <Switch>
-      <Route path="/user/login">
-        <Login setLoggedIn={setLoggedIn} />
-      </Route>
-      <Route path="/user/passwordlogin">
-        <PasswordLogin setLoggedIn={setLoggedIn} />
-      </Route>
-      <Route path="/user/logout">
-        <Logout setLoggedIn={setLoggedIn} />
-      </Route>
-      <Route path={["/user", "/adadmin"]}>
-        <Redirect to={{
-          pathname: "/user/login",
-          state: { from: location },
-        }}
-        />
-      </Route>
-      <Route path="*">
-        <NotFound />
-      </Route>
-    </Switch>
+    <Routes>
+      <Route path="/user/login" element={<Login setLoggedIn={setLoggedIn} />} />
+      <Route path="/user/passwordlogin" element={<PasswordLogin setLoggedIn={setLoggedIn} />} />
+      <Route path="/user/logout" element={<Logout setLoggedIn={setLoggedIn} />} />
+      {["/user", "/user/*", "/adadmin", "/adadmin/*"].map(p => (
+        <Route path={p} element={
+          <Navigate replace to={{
+            pathname: "/user/login",
+            state: { from: location },
+          }} />
+        } />
+      ))}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 

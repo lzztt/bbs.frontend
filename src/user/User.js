@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { rest, cache, validateResponse, toAutoTimeOrDate } from "../lib/common";
 import MsgEditor from "../pm/MsgEditor";
 import Avatar from "./Avatar";
@@ -13,7 +13,7 @@ function User() {
   const avatarRef = useRef(null);
   const textInputRef = useRef(null);
   const params = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const userId = params.userId ? parseInt(params.userId, 10) : cache.get("uid");
   const isSelf = userId === cache.get("uid");
@@ -122,7 +122,7 @@ function User() {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => history.replace("/user/logout")}
+                onClick={() => navigate("/user/logout", { replace: true })}
               >
                 登出
               </Button>

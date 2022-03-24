@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import Badge from "@mui/material/Badge";
 import MailIcon from "@mui/icons-material/Mail";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import GoToTop from "./GoToTop";
 import { validateLoginSession } from "./lib/common";
 
@@ -11,7 +11,7 @@ function Navbar({ loggedIn }) {
   const [notifications, setNotifications] = useState(0);
   const navRef = useRef(null);
   const togglerRef = useRef(null);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!loggedIn) {
@@ -80,7 +80,7 @@ function Navbar({ loggedIn }) {
           color="primary"
           overlap="circular"
           max="9"
-          onClick={() => history.push("/user/mailbox/inbox")}
+          onClick={() => navigate("/user/mailbox/inbox")}
         >
           <MailIcon />
         </Badge>
@@ -92,7 +92,7 @@ function Navbar({ loggedIn }) {
         <a href="/">首页</a>
         {loggedIn ? (
           <>
-            <NavLink to="/user" exact>
+            <NavLink to="/user" end>
               我的账户
             </NavLink>
             <NavLink

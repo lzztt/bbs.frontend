@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Form from "./Form";
@@ -11,7 +11,7 @@ function Login({ setLoggedIn }) {
   const [code, setCode] = useState("");
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   const submitEmail = (event) => {
@@ -60,7 +60,7 @@ function Login({ setLoggedIn }) {
     setLoggedIn(true);
 
     if (location.state && location.state.from) {
-      history.replace(location.state.from);
+      navigate(location.state.from, { replace: true });
       return;
     }
 
@@ -70,7 +70,7 @@ function Login({ setLoggedIn }) {
       session.remove("redirect");
       window.location.replace(redirect);
     } else {
-      history.replace("/user");
+      navigate("/user", { replace: true });
     }
   };
 
