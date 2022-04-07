@@ -10,9 +10,9 @@
     "@mui/material": "^5.5.2",
     "image-blob-reduce": "^1.0.7",
     "marked": "^4.0.12",
-    "react": "^17.0.2",
+    "react": "^18.0.0",
     "react-cropper": "^2.1.4",
-    "react-dom": "^17.0.2",
+    "react-dom": "^18.0.0",
     "react-router-dom": "^6.2.2",
     "react-scripts": "^5.0.0"
   },
