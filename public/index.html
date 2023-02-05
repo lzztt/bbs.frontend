@@ -81,14 +81,15 @@ const SFBAY = 4;
     <?php endif ?>
     <?php
     if ($city === HOUSTON) :
-      $track_id = 'UA-36671672-1';
+      $track_id = 'G-ZVHK7P1GCC';
     elseif ($city === DALLAS) :
-      $track_id = 'UA-36671672-2';
+      $track_id = 'G-KL627FRHBS';
     elseif ($city === SFBAY) :
-      $track_id = 'UA-36671672-5';
+      $track_id = 'G-6XM2R7CDYV';
     endif
     ?>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $track_id ?>"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
