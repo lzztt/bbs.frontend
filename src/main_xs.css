@@ -275,7 +275,7 @@ div.image_slider > a span {
   background-color: #eeeeee;
 }
 
-#site_stat span:not(.ajax_alexa) {
+#site_stat span {
   color: #105289;
 }
 /* END HOME PAGE */
