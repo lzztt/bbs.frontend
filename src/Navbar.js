@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 import MenuIcon from "@mui/icons-material/Menu";
 import Badge from "@mui/material/Badge";
 import MailIcon from "@mui/icons-material/Mail";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import GoToTop from "./GoToTop";
 import { validateLoginSession } from "./lib/common";
 
@@ -97,13 +97,12 @@ function Navbar({ loggedIn }) {
             </NavLink>
             <NavLink
               to="/user/mailbox/inbox"
-              isActive={(match, location) => {
-                const parts = location.pathname.split("/");
-                return (
-                  parts.length > 2 &&
+              className={({ isActive }) => {
+                const parts = window.location.pathname.split("/");
+                const isMailbox = parts.length > 2 &&
                   parts[1] === "user" &&
-                  ["mailbox", "pm"].includes(parts[2])
-                );
+                  ["mailbox", "pm"].includes(parts[2]);
+                return isActive || isMailbox ? "active" : "";
               }}
             >
               短信

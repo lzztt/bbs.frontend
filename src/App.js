@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { createTheme, ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import { validateLoginSession } from "./lib/common";
 import Navbar from "./Navbar";

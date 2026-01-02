@@ -12,7 +12,7 @@
     "react": "^19.2.3",
     "react-cropper": "^2.1.4",
     "react-dom": "^19.2.3",
-    "react-router-dom": "^6.2.2",
+    "react-router": "^7.11.0",
     "react-scripts": "^5.0.0"
   },
   "scripts": {

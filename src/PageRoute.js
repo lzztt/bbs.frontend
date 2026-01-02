@@ -5,7 +5,7 @@ import {
   Navigate,
   useNavigate,
   useLocation,
-} from "react-router-dom";
+} from "react-router";
 import { cache, session } from "./lib/common";
 import "./App.css";
 import PasswordLogin from "./guest/Login";
@@ -64,12 +64,9 @@ function PageRoute({ loggedIn, setLoggedIn }) {
       <Route path="/user/login" element={<Login setLoggedIn={setLoggedIn} />} />
       <Route path="/user/passwordlogin" element={<PasswordLogin setLoggedIn={setLoggedIn} />} />
       <Route path="/user/logout" element={<Logout setLoggedIn={setLoggedIn} />} />
-      {["/user", "/user/*", "/adadmin", "/adadmin/*"].map(p => (
-        <Route path={p} element={
-          <Navigate replace to={{
-            pathname: "/user/login",
-            state: { from: location },
-          }} />
+      {["/user", "/user/*", "/adadmin", "/adadmin/*"].map((p) => (
+        <Route key={p} path={p} element={
+          <Navigate replace to="/user/login" state={{ from: location }} />
         } />
       ))}
       <Route path="*" element={<NotFound />} />

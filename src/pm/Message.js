@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router";
 import { rest, session, toAutoTime, cache, markedOptions } from "../lib/common";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";

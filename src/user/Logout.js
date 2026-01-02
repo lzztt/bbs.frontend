@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router";
 import { session, cache, rest } from "../lib/common";
 
 function Logout({ setLoggedIn }) {

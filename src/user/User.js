@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { rest, cache, validateResponse, toAutoTimeOrDate } from "../lib/common";
 import MsgEditor from "../pm/MsgEditor";
 import Avatar from "./Avatar";
