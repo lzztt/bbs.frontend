@@ -1,5 +1,4 @@
 // import mock_rest from './mock/rest'
-import { marked } from "marked";
 
 const store = (storage) => ({
   set: (key, value) => {
@@ -270,26 +269,27 @@ const getYouTubeId = (url) => {
 
 export const markedOptions = {
   renderer: {
-    code(code, infostring, escaped) {
-      return marked.Renderer.prototype.code.apply(this, [
-        decodeHtmlSpecialChars(code),
-        infostring,
-        escaped,
-      ]);
+    code(token) {
+      // Decode HTML entities in code blocks, then let marked escape for HTML output
+      const decodedText = decodeHtmlSpecialChars(token.text);
+      // Return false to use default renderer with modified token
+      token.text = decodedText;
+      return false;
     },
-    codespan(text) {
-      return marked.Renderer.prototype.codespan.apply(this, [
-        decodeHtmlSpecialChars(text),
-      ]);
+    codespan(token) {
+      // Decode HTML entities in inline code, then let marked escape for HTML output
+      const decodedText = decodeHtmlSpecialChars(token.text);
+      token.text = decodedText;
+      return false;
     },
-    link(href, title, text) {
-      const id = getYouTubeId(href);
+    link(token) {
+      const id = getYouTubeId(token.href);
       if (id) {
         return `<iframe class="youtube" src="https://www.youtube.com/embed/${id}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
       }
-      return marked.Renderer.prototype.link
-        .apply(this, [href, title, text])
-        .replace(/^<a /, '<a rel="nofollow" target="_blank" ');
+      const text = this.parser.parseInline(token.tokens);
+      const titleAttr = token.title ? ` title="${token.title}"` : "";
+      return `<a rel="nofollow" target="_blank" href="${token.href}"${titleAttr}>${text}</a>`;
     },
   },
 };
